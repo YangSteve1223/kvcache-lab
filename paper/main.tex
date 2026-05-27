@@ -1,24 +1,29 @@
-\documentclass{article}
+\documentclass[11pt,a4paper]{article}
 
-\usepackage{arxiv}
-
+% ---- Standard formatting (no arxiv.sty dependency) ----
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{hyperref}
+\usepackage{times}
+\usepackage[margin=1in]{geometry}
 \usepackage{url}
 \usepackage{booktabs}
 \usepackage{amsfonts}
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{nicefrac}
 \usepackage{microtype}
-\usepackage{cleveref}
 \usepackage{graphicx}
 \usepackage{natbib}
-\usepackage{doi}
 \usepackage{xcolor}
 \usepackage{subcaption}
 \usepackage{algorithm}
 \usepackage{algorithmic}
+% Load hyperref and cleveref last (order matters)
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage{cleveref}
+
+% Define \keywords command (normally from arxiv.sty)
+\providecommand{\keywords}[1]{\par\medskip\noindent\textbf{Keywords:} #1}
 
 \title{Runtime KV Memory Management for\\PD-Disaggregated LLM Serving}
 
