@@ -59,7 +59,7 @@
 | **TAA** | Enabling Mechanism | Low-overhead (0.04%) locality-aware attention bias |
 | **Predictive Eviction** | Implementation Policy | LRU/TAA-guided eviction for constrained memory |
 
-## Key Results (Qwen2.5-7B, A100 80GB)
+## Key Results (Qwen2.5-7B, RTX PRO 6000 Blackwell, bfloat16)
 
 ### Locality Characterization
 
@@ -98,6 +98,34 @@
 ### Concurrency
 
 SWS supports **8× more concurrent requests** at 32K context length under the same GPU memory budget.
+
+### HF Serving Benchmark (Qwen2.5-7B, bfloat16, RTX PRO 6000 Blackwell)
+
+> vLLM在Blackwell GPU上不兼容（FlashInfer不支持SM 12.x），改用HuggingFace-based serving benchmark。
+
+| Context | Concurrency 1 | Concurrency 4 | Concurrency 8 | Concurrency 16 |
+|---------|--------------|--------------|--------------|----------------|
+| 1K | 66 TPS | 192 TPS | 327 TPS | 603 TPS |
+| 4K | 59 TPS | 141 TPS | 203 TPS | 243 TPS |
+| 8K | 50 TPS | 84 TPS | 108 TPS | 128 TPS |
+| 16K | 36 TPS | 48 TPS | 55 TPS | 62 TPS |
+| 32K | 21 TPS | 24 TPS | 26 TPS | 27 TPS |
+
+> ⚠️ 注意：32K×16 OOM
+
+### Short-Context Behavior (seq=1024)
+
+> 短上下文(1024)下locality弱，这是**seq-length效应**而非系统缺陷，正是我们聚焦长上下文的motivation。
+
+| Workload | Base PPL | 50% Budget ΔPPL |
+|----------|----------|-----------------|
+| Narrative | 4.72 | +31.1% |
+| Narrative (offset=50) | 4.84 | +22.6% |
+| Narrative (offset=200) | 4.88 | +35.9% |
+| Code | 1.48 | +11.1% |
+| QA | 3.78 | +111.6% |
+
+**结论**：短序列locality弱是motivation（长上下文才需要我们的系统），不是系统缺陷。
 
 ## Project Structure
 
@@ -172,11 +200,16 @@ kvcache-lab/
 ### To Do
 | Experiment | Priority | Status |
 |---|---|---|
-| vLLM Serving Benchmark (TPS/TTFT/P95) | P0 | ⏳ |
+| ~~vLLM Serving Benchmark~~ | P0 | ✅ HF Serving Benchmark (vLLM不兼容Blackwell，已用HF替代) |
 | Multi-model (Llama3-8B/Mistral-7B) | P1 | — |
 | LongBench Task Evaluation | P1 | — |
 
 ## Technical Notes
+
+### Blackwell GPU Compatibility
+- **FlashInfer不支持SM 12.x (Blackwell)**：vLLM无法在RTX PRO 6000 Blackwell上运行
+- **SDPA dtype要求**：attn_mask dtype必须与query dtype一致（bfloat16），不能用float16 mask
+- vLLM Serving Benchmark已改用HuggingFace-based serving benchmark
 
 ### Qwen2.5-7B + SDPA
 - `attention_mask` is `None` by default — inject custom 4D causal mask + TAA bias via **forward hooks**
@@ -185,7 +218,7 @@ kvcache-lab/
 
 ### Model Specs
 - 28 layers, 4 KV heads (GQA), head_dim=128
-- KV bytes per token: 57,344 bytes (fp16)
+- KV bytes per token: 57,344 bytes (bfloat16)
 - SDPA attention, hook injection verified on all 28 layers
 
 ## Related Work
@@ -195,7 +228,13 @@ kvcache-lab/
 | Splitwise (ISCA'24) | PD disaggregation architecture |
 | DistServe (OSDI'24) | PD disaggregation scheduling |
 | vLLM | Serving system baseline |
-| Mooncake | KV-centric disaggregated serving |
+| **Mooncake** (Moonshot AI, 2024) | KV-centric disaggregated架构，3-tier KV cache (HBM/DRAM/SSD) |
+| **KV Cache in the Wild** (上交+阿里, ATC 2025) | 生产环境KV cache workload刻画 |
+| **NVIDIA Dynamo** (GTC 2025) | KV router + KV manager |
+| **SGLang RadixAttention** (2024) | Radix tree管理跨请求prefix复用 |
+| **StreamingLLM/Attention Sinks** (MIT, ICLR 2024) | 保留初始token实现无限长流式推理 |
+| **H2O** (2023) | 动态KV cache eviction (deletion-based, 与tiering不同) |
+| **The Sparse Frontier** (2025) | 150+篇sparse attention实证分析 |
 | CapKV | KV compression via information bottleneck |
 | CacheGen | KV cache compression for transmission |
 | Sliding Window Attention | Architecture-level local attention (≠ SWS) |
