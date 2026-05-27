@@ -37,7 +37,7 @@ warnings.filterwarnings("ignore")
 # 全局配置
 # =============================================================================
 
-DEFAULT_MODEL = "Qwen/Qwen2.5-7B-Instruct"
+DEFAULT_MODEL = "/root/autodl-tmp/Qwen2.5-7B-Instruct"  # ModelScope本地路径
 CONTEXT_LENGTHS = [1024, 4096, 8192, 16384, 32768]
 PD_CONTEXT_LENGTHS = [4096, 8192, 16384, 32768]
 ALPHA_VALUES = [0.0, 0.01, 0.03, 0.05, 0.1, 0.15, 0.2]
