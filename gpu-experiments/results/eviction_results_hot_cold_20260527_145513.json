@@ -1,0 +1,72 @@
+{
+  "config": {
+    "strategies": [
+      "lru",
+      "lfu",
+      "predictive"
+    ],
+    "cache_size_gb": 40.0,
+    "cache_size_tokens": 41943040,
+    "workload_size": 100,
+    "workload_type": "hot_cold",
+    "num_tokens": 1000,
+    "token_size_bytes": 1024,
+    "bandwidth_gbps": 10.0
+  },
+  "results": [
+    {
+      "strategy": "lru",
+      "hit_rate": 0.14655172413793102,
+      "miss_count": 99,
+      "hit_count": 17,
+      "eviction_count": 0,
+      "premature_evictions": 0,
+      "avg_access_time_ms": 0.8535948275862071,
+      "avg_eviction_overhead_ms": 0,
+      "tier_access_counts": {
+        "gpu_hbm": 17
+      },
+      "simulation_time_ms": 0.4397659999995085
+    },
+    {
+      "strategy": "lfu",
+      "hit_rate": 0.14655172413793102,
+      "miss_count": 99,
+      "hit_count": 17,
+      "eviction_count": 0,
+      "premature_evictions": 0,
+      "avg_access_time_ms": 0.8535948275862071,
+      "avg_eviction_overhead_ms": 0,
+      "tier_access_counts": {
+        "gpu_hbm": 17
+      },
+      "simulation_time_ms": 0.43486599997777375
+    },
+    {
+      "strategy": "predictive",
+      "hit_rate": 0.14655172413793102,
+      "miss_count": 99,
+      "hit_count": 17,
+      "eviction_count": 0,
+      "premature_evictions": 0,
+      "avg_access_time_ms": 0.8535948275862071,
+      "avg_eviction_overhead_ms": 0,
+      "tier_access_counts": {
+        "gpu_hbm": 17
+      },
+      "simulation_time_ms": 0.4882309999629797
+    }
+  ],
+  "ranking": {
+    "by_hit_rate": [
+      "lru",
+      "lfu",
+      "predictive"
+    ],
+    "by_access_time": [
+      "lru",
+      "lfu",
+      "predictive"
+    ]
+  }
+}

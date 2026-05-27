@@ -154,8 +154,8 @@ class ExperimentResult:
     quality_impact: float = 0.0
     
     # 时间线
-    timestamp: str
-    duration_ms: float
+    timestamp: str = ""
+    duration_ms: float = 0.0
 
 
 @dataclass

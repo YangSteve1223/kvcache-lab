@@ -149,6 +149,9 @@ class TransferStats:
     # 拥塞指标
     congestion_level: str = "low"
     queue_length: int = 0
+    
+    # 加载时间（D节点从存储加载KV的时间）
+    kv_load_time_ms: float = 0.0
 
 
 @dataclass
