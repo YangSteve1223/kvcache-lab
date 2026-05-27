@@ -19,6 +19,9 @@ import torch, torch.nn.functional as F, numpy as np
 
 warnings.filterwarnings("ignore")
 
+# ========================= Tsinghua Mirror Support =========================
+os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
+
 # ========================= 配置 =========================
 MODEL_CONFIGS = {
     "Llama-3.1-8B-Instruct": {
@@ -271,6 +274,156 @@ def get_model_info(model):
         "num_attention_heads": config.num_attention_heads,
     }
 
+# ========================= Locality Characterization Functions =========================
+def compute_gini(values):
+    """计算Gini系数，values是非负数组"""
+    values = np.sort(np.array(values, dtype=np.float64))
+    n = len(values)
+    if n == 0 or np.sum(values) == 0:
+        return 0.0
+    index = np.arange(1, n + 1)
+    return (2 * np.sum(index * values) - (n + 1) * np.sum(values)) / (n * np.sum(values))
+
+def compute_active_set(attention_dist, threshold=0.8):
+    """计算覆盖threshold比例attention所需的最小token子集占比"""
+    sorted_attn = np.sort(attention_dist)[::-1]  # 降序
+    cumsum = np.cumsum(sorted_attn)
+    total = cumsum[-1]
+    if total == 0:
+        return 0.0
+    k = np.searchsorted(cumsum, threshold * total) + 1
+    return k / len(attention_dist)
+
+def compute_remote_attention(attention_weights, remote_ratio=0.7):
+    """
+    计算remote attention占比
+    attention_weights: shape [seq_len, seq_len] 的注意力矩阵
+    remote_ratio: 前70%作为remote tier
+    """
+    seq_len = attention_weights.shape[-1]
+    remote_start = int(seq_len * (1 - remote_ratio))
+    # 对每个query position，计算remote tokens的attention总和
+    if remote_start <= 0:
+        return 0.0
+    remote_attn = attention_weights[:, remote_start:].sum()
+    total_attn = attention_weights.sum()
+    if total_attn == 0:
+        return 0.0
+    return remote_attn / total_attn
+
+def compute_top_k_coverage(attention_weights, k_percentiles=[1, 5, 10, 20]):
+    """
+    计算Top-k% tokens覆盖的attention比例
+    attention_weights: shape [seq_len, seq_len] 的注意力矩阵
+    """
+    seq_len = attention_weights.shape[-1]
+    # 沿key维度求平均，得到每个key position的attention权重
+    avg_attn_per_key = attention_weights.mean(dim=0).cpu().numpy()
+    
+    sorted_attn = np.sort(avg_attn_per_key)[::-1]  # 降序
+    cumsum = np.cumsum(sorted_attn)
+    total = cumsum[-1]
+    
+    coverage = {}
+    for k_pct in k_percentiles:
+        k = max(1, int(seq_len * k_pct / 100))
+        coverage[f"top_{k_pct}pct_coverage"] = cumsum[k-1] / total if total > 0 else 0.0
+    
+    return coverage
+
+def is_long_tail(remote_attention_pct, threshold=0.10):
+    """判断是否为long-tail attention pattern"""
+    return remote_attention_pct < threshold
+
+def extract_attention_and_compute_locality(model, input_ids, last_n_layers=None):
+    """
+    提取attention weights并计算locality指标
+    
+    Args:
+        model: 语言模型
+        input_ids: 输入token IDs
+        last_n_layers: 只取最后n层，如果为None则取所有层
+    
+    Returns:
+        locality_metrics: 包含所有locality指标的字典
+    """
+    seq_len = input_ids.shape[1]
+    all_attentions = []
+    
+    def capture_attention(module, input, output):
+        # output[1] 是 attention weights
+        if len(output) > 1 and output[1] is not None:
+            all_attentions.append(output[1].detach())
+    
+    # 注册hook捕获attention
+    hooks = []
+    for layer in model.model.layers:
+        hooks.append(layer.self_attn.register_forward_hook(capture_attention))
+    
+    try:
+        with torch.no_grad():
+            _ = model(input_ids=input_ids, output_attentions=True)
+    except Exception as e:
+        # fallback: 尝试不使用eager attention
+        log(f"  Warning: output_attentions=True failed ({e}), trying without...")
+        with torch.no_grad():
+            _ = model(input_ids=input_ids)
+        return None
+    finally:
+        for h in hooks:
+            h.remove()
+    
+    if not all_attentions:
+        log(f"  Warning: No attention weights captured")
+        return None
+    
+    # 选择层（默认取后4层）
+    if last_n_layers is None:
+        last_n_layers = min(4, len(all_attentions))
+    
+    selected_attentions = all_attentions[-last_n_layers:]
+    
+    # 平均所有层和所有head的attention
+    # attention shape: [batch, heads, seq_len, seq_len]
+    avg_attention = torch.stack(selected_attentions).mean(dim=0).mean(dim=0)  # [seq_len, seq_len]
+    
+    # 归一化
+    row_sums = avg_attention.sum(dim=-1, keepdim=True)
+    row_sums = torch.where(row_sums > 0, row_sums, torch.ones_like(row_sums))
+    avg_attention = avg_attention / row_sums
+    
+    # 计算各项指标
+    # 1. 每个key position的平均attention
+    key_attention = avg_attention.mean(dim=0).cpu().numpy()  # [seq_len]
+    
+    # 2. Gini系数
+    gini = compute_gini(key_attention)
+    
+    # 3. Active set (覆盖80% attention)
+    active_set_pct = compute_active_set(key_attention, threshold=0.8)
+    
+    # 4. Remote attention (前70% tokens)
+    remote_attention_pct = float(compute_remote_attention(avg_attention.cpu().numpy(), remote_ratio=0.7))
+    
+    # 5. Top-k coverage
+    top_k_coverage = compute_top_k_coverage(avg_attention, k_percentiles=[1, 5, 10, 20])
+    
+    # 6. Long-tail判断
+    long_tail = is_long_tail(remote_attention_pct, threshold=0.10)
+    
+    locality_metrics = {
+        "gini": round(gini, 3),
+        "active_set_pct": round(active_set_pct, 4),
+        "remote_attention_pct": round(remote_attention_pct, 4),
+        "top_1pct_coverage": round(top_k_coverage["top_1pct_coverage"], 4),
+        "top_5pct_coverage": round(top_k_coverage["top_5pct_coverage"], 4),
+        "top_10pct_coverage": round(top_k_coverage["top_10pct_coverage"], 4),
+        "top_20pct_coverage": round(top_k_coverage["top_20pct_coverage"], 4),
+        "long_tail": long_tail,
+    }
+    
+    return locality_metrics
+
 # ========================= 主实验 =========================
 def run_model_experiments(model_name, model_config, output_dir):
     from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -316,6 +469,54 @@ def run_model_experiments(model_name, model_config, output_dir):
         "mask_dtype": str(mask_dtype),
         "vram_gb": round(vram_gb, 1),
     }
+
+    # =========================================================
+    # Exp0: Locality Characterization (narrative, 4K & 8K only)
+    # =========================================================
+    log(f"\n--- Exp0: Locality Characterization ---")
+    
+    locality_chars = {}
+    for seq_target in [4096, 8192]:
+        log(f"  seq={seq_target}")
+        try:
+            ids = make_input(tokenizer, TEXT, seq_target, model.device)
+            sl = ids.shape[1]
+            log(f"  Actual seq_len={sl}, extracting attention weights...")
+            
+            locality_metrics = extract_attention_and_compute_locality(model, ids, last_n_layers=4)
+            
+            if locality_metrics is not None:
+                locality_chars[f"seq_{seq_target}"] = locality_metrics
+                log(f"  Gini={locality_metrics['gini']:.3f}, ActiveSet={locality_metrics['active_set_pct']:.2%}, "
+                    f"RemoteAttn={locality_metrics['remote_attention_pct']:.2%}, Long-tail={locality_metrics['long_tail']}")
+            else:
+                log(f"  Failed to extract attention weights")
+                locality_chars[f"seq_{seq_target}"] = None
+            
+            del ids; torch.cuda.empty_cache()
+            
+        except torch.cuda.OutOfMemoryError:
+            log(f"  OOM at seq={seq_target}")
+            torch.cuda.empty_cache()
+        except Exception as e:
+            log(f"  ERROR at seq={seq_target}: {e}")
+            torch.cuda.empty_cache()
+    
+    all_results["locality_characterization"] = locality_chars
+    
+    # PASS condition check
+    if locality_chars.get(f"seq_4096"):
+        m = locality_chars["seq_4096"]
+        gini_pass = m["gini"] > 0.85
+        active_pass = m["active_set_pct"] < 0.15
+        remote_pass = m["remote_attention_pct"] < 0.10
+        longtail_pass = m["long_tail"]
+        
+        log(f"\n  PASS Condition Check (4K narrative):")
+        log(f"    Gini > 0.85:        {m['gini']:.3f} -> {'✓ PASS' if gini_pass else '✗ FAIL'}")
+        log(f"    Active set < 15%:   {m['active_set_pct']:.2%} -> {'✓ PASS' if active_pass else '✗ FAIL'}")
+        log(f"    Remote attn < 10%:  {m['remote_attention_pct']:.2%} -> {'✓ PASS' if remote_pass else '✗ FAIL'}")
+        log(f"    Long-tail observable: {m['long_tail']} -> {'✓ PASS' if longtail_pass else '✗ FAIL'}")
 
     # =========================================================
     # Exp1: Locality vs Context Length (narrative, 50% budget)
@@ -524,6 +725,29 @@ def main():
     log(f"\n{'='*70}")
     log(f"CROSS-MODEL COMPARISON")
     log(f"{'='*70}")
+    
+    # Table 1: Locality Characterization
+    log(f"\n--- Locality Characterization (narrative, 4K) ---")
+    log(f"{'Model':<30s} {'Gini':>8s} {'Active%':>8s} {'Remote%':>9s} {'Long-tail':>12s} {'4K SWS Δ%':>10s}")
+    log("-" * 80)
+    for name, res in all_model_results.items():
+        loc = res.get("locality_characterization", {}).get("seq_4096")
+        loc_4k = next((d for d in res.get("locality_vs_length", []) if d["seq_len"] >= 4096), None)
+        
+        if loc:
+            gini = f"{loc['gini']:.3f}"
+            active = f"{loc['active_set_pct']:.0%}"
+            remote = f"{loc['remote_attention_pct']:.0%}"
+            longtail = "YES" if loc['long_tail'] else "NO"
+        else:
+            gini = active = remote = longtail = "???"
+        
+        sws_4k = f"{loc_4k['budget_50_sws_delta_pct']:+.2f}%" if loc_4k else "N/A"
+        
+        log(f"{name:<30s} {gini:>8s} {active:>8s} {remote:>9s} {longtail:>12s} {sws_4k:>10s}")
+    
+    # Table 2: Original locality vs length comparison
+    log(f"\n--- Locality vs Context Length (50% budget) ---")
     log(f"{'Model':<30s} {'4K 50%SWS':>12s} {'4K 50%SWS+TAA':>15s} {'8K 50%SWS':>12s}")
     log("-" * 70)
     for name, res in all_model_results.items():
@@ -533,6 +757,23 @@ def main():
         t4k = f"{loc_4k['budget_50_sws_taa_delta_pct']:+.2f}%" if loc_4k else "N/A"
         s8k = f"{loc_8k['budget_50_sws_delta_pct']:+.2f}%" if loc_8k else "N/A"
         log(f"{name:<30s} {s4k:>12s} {t4k:>15s} {s8k:>12s}")
+    
+    # PASS Summary
+    log(f"\n{'='*70}")
+    log(f"PASS CONDITION SUMMARY")
+    log(f"{'='*70}")
+    log(f"| {'Model':<28s} | {'Gini>0.85':>10s} | {'Active<15%':>10s} | {'Remote<10%':>11s} | {'Long-tail':>10s} |")
+    log("-" * 80)
+    for name, res in all_model_results.items():
+        loc = res.get("locality_characterization", {}).get("seq_4096")
+        if loc:
+            gini_pass = "✓" if loc['gini'] > 0.85 else "✗"
+            active_pass = "✓" if loc['active_set_pct'] < 0.15 else "✗"
+            remote_pass = "✓" if loc['remote_attention_pct'] < 0.10 else "✗"
+            longtail_pass = "✓" if loc['long_tail'] else "✗"
+        else:
+            gini_pass = active_pass = remote_pass = longtail_pass = "?"
+        log(f"| {name:<28s} | {gini_pass:>10s} | {active_pass:>10s} | {remote_pass:>11s} | {longtail_pass:>10s} |")
 
 
 if __name__ == "__main__":
