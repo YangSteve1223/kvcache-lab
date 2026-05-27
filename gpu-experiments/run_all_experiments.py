@@ -352,6 +352,7 @@ class G2PDSeparation(Experiment):
                         t.numel() * t.element_size() 
                         for layer_kv in kv_cache 
                         for t in layer_kv
+                        if t is not None
                     )
                     kv_size_mb = kv_size_bytes / (1024 * 1024)
                     
