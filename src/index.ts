@@ -60,3 +60,112 @@ export {
   QA_TASK_FEATURES,
   ATTENTION_PATTERN,
 } from './task/profiles/qa.js';
+
+// ============================================
+// Agents模块 - KV Memory OS
+// ============================================
+
+export {
+  CommunicationAgent,
+  communicationAgent,
+  computeTransmissionAwareScores,
+  computeCongestionAwareLatency,
+  getBetaCoefficient,
+} from './agents/CommunicationAgent.js';
+
+export type {
+  CommunicationAgentInput,
+  CommunicationState,
+  TokenLocation,
+  CongestionLevel,
+} from './agents/CommunicationAgent.js';
+
+export {
+  PlacementAgent,
+  placementAgent,
+} from './agents/PlacementAgent.js';
+
+export type {
+  PlacementAgentInput,
+  PlacementState,
+  ReusePrediction,
+  MemoryUtilizationInfo,
+  MemoryCapacityInfo,
+  MigrationItem,
+  LayerMemoryUtilization,
+} from './agents/PlacementAgent.js';
+
+export {
+  SemanticAgent,
+} from './agents/SemanticAgent.js';
+
+export type {
+  SemanticAgentInput,
+  SemanticRegion,
+  SemanticRegionType,
+  SemanticState,
+  RegionTemperature,
+} from './agents/SemanticAgent.js';
+
+export {
+  ReuseAgent,
+} from './agents/ReuseAgent.js';
+
+export type {
+  ReuseAgentInput,
+  TokenReusePrediction,
+  LayerReusePrediction,
+  ReuseState,
+} from './agents/ReuseAgent.js';
+
+export {
+  InMemoryGlobalStateStore,
+} from './agents/index.js';
+
+export type {
+  GlobalStateStore,
+} from './agents/index.js';
+
+// ============================================
+// Runtime模块 - KV Memory OS核心
+// ============================================
+
+export * from './runtime/index.js';
+
+// ============================================
+// IB模块 - Information Bottleneck
+// ============================================
+
+export * from './ib/index.js';
+
+// ============================================
+// RD模块 - Rate-Distortion
+// ============================================
+
+export * from './rd/index.js';
+
+// ============================================
+// Unified模块 - IB+RD统一框架
+// ============================================
+
+export * from './unified/index.js';
+
+// ============================================
+// Scheduling模块 - SLO感知路由
+// ============================================
+
+export {
+  SLOAwareRouter,
+} from './scheduling/SLOAwareRouter.js';
+
+// ============================================
+// Baselines模块 - 对标基线
+// ============================================
+
+export {
+  KVServeBaseline,
+} from './baselines/KVServeBaseline.js';
+
+export {
+  PDTrimBaseline,
+} from './baselines/PDTrimBaseline.js';
