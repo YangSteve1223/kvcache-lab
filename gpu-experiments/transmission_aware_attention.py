@@ -251,15 +251,14 @@ class TransmissionAwareAttention(nn.Module):
                 batch_size, self.num_heads, seq_len, seq_len
             )
             
-            # 归一化成本 - z-score normalization避免scale mismatch
+            # 归一化成本 - tanh(z-score) 归一化，自动bounded避免attention collapse
             mean_cost = access_costs.mean()
             std_cost = access_costs.std()
             
             if std_cost > 0:
-                # z-score: (cost - μ) / σ
-                z_scores = (cost_matrix - mean_cost) / std_cost
-                # 应用运行时偏置: score = relevance - α × z_score
-                # z-score归一化避免relevance和cost的scale mismatch
+                # tanh(z-score): bounded在[-1,1]，比纯z-score更安全
+                z_scores = torch.tanh((cost_matrix - mean_cost) / std_cost)
+                # 应用运行时偏置: b_i = -α × tanh((cost_i - μ) / σ)
                 scores = scores - self.beta * z_scores
             # else: σ=0, 所有cost相同, 退化为普通attention
         

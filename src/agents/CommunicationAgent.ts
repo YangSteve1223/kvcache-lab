@@ -387,17 +387,16 @@ export function computeTransmissionAwareScores(
 ): number[] {
   const alpha = BETA_COEFFICIENTS[congestionLevel]; // 复用β系数作为α
   
-  // 归一化成本 - z-score normalization避免scale mismatch
-  const maxCost = Math.max(...costs);
-  const minCost = Math.min(...costs);
+  // 归一化成本 - tanh(z-score) 归一化，自动bounded避免attention collapse
   const meanCost = costs.reduce((a, b) => a + b, 0) / costs.length;
   const stdCost = Math.sqrt(costs.reduce((sum, c) => sum + (c - meanCost) ** 2, 0) / costs.length);
   
-  // 应用运行时偏置: score = relevance - α × (cost - μ) / σ (z-score normalized)
-  // z-score归一化避免relevance和cost的scale mismatch
+  // 应用运行时偏置: b_i = -α × tanh((cost_i - μ) / σ)
+  // tanh确保bounded在[-1,1]，避免极端cost值导致attention collapse
+  // 这比纯z-score更安全：z-score理论上无界，tanh(z-score)有界
   // σ=0时退化为普通attention（无偏置）
   const modifiedScores = stdCost > 0
-    ? relevance.map((r, i) => r + alpha * (-(costs[i] - meanCost) / stdCost))
+    ? relevance.map((r, i) => r + alpha * (-Math.tanh((costs[i] - meanCost) / stdCost)))
     : Array.from(relevance);
   
   // 重新归一化确保和为1

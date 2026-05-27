@@ -12,8 +12,9 @@
 |------|------|
 | GPU | 1× RTX PRO 6000 (96GB VRAM) |
 | 运行方式 | 单机双进程（P进程 + D进程，通过localhost TCP通信） |
-| 带宽模拟 | Linux tc限速（100 Gbps / 25 Gbps / 无限速 三档） |
-| 模型 | Qwen1.5-7B-Chat（优先）/ Llama-2-7B-Chat |
+| 带宽模拟 | Linux tc限速（100 Gbps / 25 Gbps / 12.5 Gbps / 无限速 四档） |
+| 主实验模型 | Qwen2.5-7B-Instruct |
+| Scaling模型 | Qwen2.5-14B-Instruct（G1/G2/G3核心实验） |
 | 推理框架 | vLLM + transformers（底层API实现PD分离） |
 | Python | 3.10+ |
 | CUDA | 12.x |
@@ -52,7 +53,7 @@
 | 模型 | Qwen1.5-7B-Chat |
 | 上下文长度 | 1K / 4K / 8K / 16K / 32K |
 | 生成长度 | 128 tokens |
-| 重复次数 | 3次取平均 |
+| 重复次数 | 5次取平均（latency指标需≥10次） |
 
 **指标**: TTFT, TPOT, Throughput(tokens/s), GPU Memory Peak, Perplexity
 
@@ -69,7 +70,7 @@
 | 带宽 | 12.5 GB/s / 3.125 GB/s / 无限速 |
 | KV传输方式 | 全量传输（100% KV） |
 | 生成长度 | 128 tokens |
-| 重复次数 | 3次 |
+| 重复次数 | 5次（latency 10次） |
 
 **指标**: TTFT(含传输), KV传输时间, KV数据量, TPOT, Perplexity
 
@@ -90,9 +91,10 @@
 | 带宽 | 3.125 GB/s（拥塞场景，TAA价值最大） |
 | 生成长度 | 128 tokens |
 
-**核心公式**: `score_i = relevance_i - α × (cost_i - μ_cost) / σ_cost` (z-score normalized bias)
+**核心公式**: `b_i = -α × tanh((cost_i - μ) / σ)`, `score_i = relevance_i + b_i`
 
-当σ=0时退化: `score_i = relevance_i`（无偏置）
+tanh确保bounded在[-1,1]，比纯z-score更安全，避免极端cost导致attention collapse。
+σ=0时退化为普通attention（无偏置）。
 
 #### G3b: 带宽×TAA矩阵
 
@@ -132,7 +134,7 @@
 | 带宽 | 12.5 GB/s |
 | Working Set选择方式 | 基于attention density（最近Δ=32步内attention频率>θ） |
 | 生成长度 | 128 tokens |
-| 重复次数 | 3次 |
+| 重复次数 | 5次（latency 10次） |
 
 **指标**: KV传输量(MB), TTFT, Perplexity, 质量损失率
 
@@ -156,7 +158,7 @@
 | 预测horizon | 8 / 16 / 32 / 64 steps（sensitivity analysis） |
 | 上下文长度 | 8K / 32K |
 | 生成长度 | 512 tokens（长生成，eviction效果更明显） |
-| 重复次数 | 3次 |
+| 重复次数 | 5次（latency 10次） |
 
 **指标**: Cache命中率, 驱逐次数, 重加载延迟, Perplexity
 
@@ -179,7 +181,7 @@
 | 上下文长度 | 8K / 32K |
 | 带宽 | 3.125 GB/s / 12.5 GB/s |
 | 生成长度 | 128 / 512 tokens |
-| 重复次数 | 3次 |
+| 重复次数 | 5次（latency 10次） |
 
 **指标**: TTFT, TPOT, 总传输量, Perplexity, 综合评分
 
@@ -201,7 +203,9 @@
 | 请求长度分布 | 混合(ShareGPT-style): 短(1K)/中(4K)/长(16K) |
 | 带宽 | 3.125 GB/s / 12.5 GB/s |
 | 配置 | baseline / TAA / Full OS |
-| 每配置运行时间 | 60s steady state |
+| 总请求数 | ≥500 per config |
+| warmup | 50 requests |
+| measurement | 后450 requests |
 
 **指标**: TTFT P50/P95/P99, TPOT P50/P95, Throughput(tokens/s), SLO violation rate(TTFT>1s), Queue waiting time
 
@@ -225,6 +229,30 @@
 | 样本量 | 每任务50-100条 |
 
 **指标**: MT-Bench score, LongBench子任务accuracy, Needle accuracy, ROUGE-L
+
+---
+
+### Experiment G3d: TAA Layer Sensitivity
+
+**目的**: 确定TAA应该在哪几层开启——全层开启可能导致semantic drift
+
+| 配置 | 说明 |
+|------|------|
+| all layers | 所有32层都加TAA bias |
+| last 1/3 | 后1/3层(layers 21-31)加TAA |
+| last 1/2 | 后1/2层(layers 16-31)加TAA |
+| decode-only | 只在decode阶段的attention加TAA |
+
+| 固定参数 | 值 |
+|---------|-----|
+| α | 0.1 |
+| 带宽 | 3.125 GB/s |
+| 上下文 | 32K |
+| 生成长度 | 512 tokens |
+
+**指标**: TTFT, Perplexity, 生成质量(与baseline对比)
+
+**预期**: last 1/3效果最好——early layers偏lexical不适合加bias，后层偏semantic更适合cost-aware reranking
 
 ---
 
@@ -256,7 +284,31 @@
 | G6 Full OS集成 | 45 min | 8配置 × 2长度 × 2带宽 × 3次 |
 | G7 多请求并发 | 60 min | 3并发 × 2带宽 × 3配置 × 60s |
 | G8 生成质量评估 | 60 min | 3任务 × 4 α值 × 50-100条 |
-| **总计** | **~6小时** | 含环境配置约7小时 |
+| **总计** | **~7小时** | 含环境配置约8小时 |
+
+---
+
+## 五、GPU Profiling要求
+
+TAA自身有计算开销，reviewer一定会问"overhead多少"。必须测量：
+
+| 工具 | 测量内容 |
+|------|---------|
+| nvidia-smi dmon | GPU利用率/显存/拷贝带宽 |
+| torch.profiler | TAA bias计算的额外时间 |
+| 时间戳插桩 | z-score + tanh + bias injection各自的μs |
+
+**TAA overhead预期**: <1% of attention time（只是一次tanh+加法）
+
+---
+
+## 六、实验环境声明
+
+论文中必须明确写：
+
+> "We use a single 96GB GPU with two processes connected via TCP over localhost, with Linux tc bandwidth throttling to emulate realistic network conditions. This is a single-node emulation of PD-disaggregated serving."
+
+**不要写**: "real distributed cluster" 或 "multi-node deployment"
 
 ---
 
