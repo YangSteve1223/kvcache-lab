@@ -102,9 +102,9 @@ const CONGESTION_MULTIPLIERS: Record<CongestionLevel, number> = {
  * 根据拥塞级别自适应调整（作为α系数使用）
  */
 const BETA_COEFFICIENTS: Record<CongestionLevel, number> = {
-  low: 0.1,    // 轻微偏好本地KV
-  medium: 0.3, // 适度考虑通信成本
-  high: 0.5,   // 强烈偏好低成本KV
+  low: 0.03,    // 轻微偏好本地KV
+  medium: 0.08, // 适度考虑通信成本
+  high: 0.15,   // 强烈偏好低成本KV
 };
 
 // ============================================
@@ -372,9 +372,9 @@ export class CommunicationAgent {
  * - 不需要retrain，inference-only即可部署
  * 
  * α根据拥塞级别自适应：
- * - low congestion: α=0.1 (轻微偏好本地)
- * - medium: α=0.3 (适度考虑cost)
- * - high: α=0.5 (强烈考虑cost)
+ * - low congestion: α=0.03 (轻微偏好本地)
+ * - medium: α=0.08 (适度考虑cost)
+ * - high: α=0.15 (强烈考虑cost)
  * 
  * @param relevance - 原始注意力分数
  * @param costs - 访问成本数组
@@ -387,15 +387,18 @@ export function computeTransmissionAwareScores(
 ): number[] {
   const alpha = BETA_COEFFICIENTS[congestionLevel]; // 复用β系数作为α
   
-  // 归一化成本到[0,1]范围
+  // 归一化成本 - z-score normalization避免scale mismatch
   const maxCost = Math.max(...costs);
-  const normalizedCosts = costs.map(c => c / maxCost);
+  const minCost = Math.min(...costs);
+  const meanCost = costs.reduce((a, b) => a + b, 0) / costs.length;
+  const stdCost = Math.sqrt(costs.reduce((sum, c) => sum + (c - meanCost) ** 2, 0) / costs.length);
   
-  // 应用运行时偏置: score = relevance + α × (-cost_normalized)
-  // 加法bias而非乘法，不破坏attention语义
-  const modifiedScores = relevance.map((r, i) => 
-    r + alpha * (-normalizedCosts[i])
-  );
+  // 应用运行时偏置: score = relevance - α × (cost - μ) / σ (z-score normalized)
+  // z-score归一化避免relevance和cost的scale mismatch
+  // σ=0时退化为普通attention（无偏置）
+  const modifiedScores = stdCost > 0
+    ? relevance.map((r, i) => r + alpha * (-(costs[i] - meanCost) / stdCost))
+    : Array.from(relevance);
   
   // 重新归一化确保和为1
   const sum = modifiedScores.reduce((a, b) => a + b, 0);

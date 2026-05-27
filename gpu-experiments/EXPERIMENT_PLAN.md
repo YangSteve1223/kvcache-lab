@@ -34,8 +34,9 @@
 
 | 档位 | 带宽 | 对应真实场景 | tc命令 |
 |------|------|------------|--------|
-| **标准** | 12.5 GB/s (100 Gbps) | RDMA/RoCE跨节点（最常见） | `sudo tc qdisc add dev lo root netem rate 12.5gbit` |
-| **拥塞** | 3.125 GB/s (25 Gbps) | 网络拥塞/低配集群 | `sudo tc qdisc add dev lo root netem rate 3.125gbit` |
+| **标准** | 12.5 GB/s (100 Gbps) | RDMA/RoCE跨节点（最常见） | `sudo tc qdisc add dev lo root netem rate 100gbit` |
+| **拥塞** | 3.125 GB/s (25 Gbps) | 网络拥塞/低配集群 | `sudo tc qdisc add dev lo root netem rate 25gbit` |
+| **低配** | 1.56 GB/s (12.5 Gbps) | 低配以太网 | `sudo tc qdisc add dev lo root netem rate 12.5gbit` |
 | **理想** | localhost不限速 | 同机NVLink上界参考 | 无需tc |
 
 ---
@@ -84,12 +85,14 @@
 
 | 参数 | 值 |
 |------|-----|
-| α值 | 0 / 0.05 / 0.1 / 0.2 / 0.3 / 0.5 |
+| α值 | 0 / 0.01 / 0.03 / 0.05 / 0.1 / 0.15 / 0.2 |
 | 上下文长度 | 8K / 32K |
 | 带宽 | 3.125 GB/s（拥塞场景，TAA价值最大） |
 | 生成长度 | 128 tokens |
 
-**核心公式**: `score_i = relevance_i + α × (-cost_normalized_i)`
+**核心公式**: `score_i = relevance_i - α × (cost_i - μ_cost) / σ_cost` (z-score normalized bias)
+
+当σ=0时退化: `score_i = relevance_i`（无偏置）
 
 #### G3b: 带宽×TAA矩阵
 
@@ -103,7 +106,7 @@
 
 | 参数 | 值 |
 |------|-----|
-| α值 | 0 / 0.05 / 0.1 / 0.2 / 0.3 / 0.5 |
+| α值 | 0 / 0.01 / 0.03 / 0.05 / 0.1 / 0.15 / 0.2 |
 | 生成长度 | 512 tokens（更长生成，质量差异更明显） |
 | 评估 | Perplexity + 人工抽样检查生成质量 |
 
@@ -149,7 +152,8 @@
 | 参数 | 值 |
 |------|-----|
 | GPU KV Cache限制 | 正常容量的 50% / 70% / 90% |
-| 驱逐策略 | LRU / LFU / Predictive (Belady-inspired, 32-step horizon) |
+| 驱逐策略 | LRU / LFU / Predictive (Belady-inspired) |
+| 预测horizon | 8 / 16 / 32 / 64 steps（sensitivity analysis） |
 | 上下文长度 | 8K / 32K |
 | 生成长度 | 512 tokens（长生成，eviction效果更明显） |
 | 重复次数 | 3次 |
@@ -171,7 +175,7 @@
 
 | 参数 | 值 |
 |------|-----|
-| 配置 | Full OS / TAA-only / SWS-only / 无优化(基线) |
+| 配置 | baseline / TAA-only / SWS-only / Eviction-only / TAA+SWS / TAA+Eviction / SWS+Eviction / Full OS |
 | 上下文长度 | 8K / 32K |
 | 带宽 | 3.125 GB/s / 12.5 GB/s |
 | 生成长度 | 128 / 512 tokens |
@@ -183,6 +187,44 @@
 - Full OS vs 基线: TTFT改善15-25%, 传输量减少40-60%
 - 单独策略: TAA改善延迟，SWS改善传输量，Eviction改善内存效率
 - 联合效果 > 任意单独策略
+
+---
+
+### Experiment G7: Multi-Request Concurrent Serving
+
+**目的**: 验证TAA在真实serving场景（多请求竞争+拥塞）下的效果——这是TAA最大价值的场景
+
+| 参数 | 值 |
+|------|-----|
+| 并发请求数 | 8 / 16 / 32 |
+| 请求到达模式 | Poisson (λ按并发数调整) |
+| 请求长度分布 | 混合(ShareGPT-style): 短(1K)/中(4K)/长(16K) |
+| 带宽 | 3.125 GB/s / 12.5 GB/s |
+| 配置 | baseline / TAA / Full OS |
+| 每配置运行时间 | 60s steady state |
+
+**指标**: TTFT P50/P95/P99, TPOT P50/P95, Throughput(tokens/s), SLO violation rate(TTFT>1s), Queue waiting time
+
+**预期结果**:
+- TAA在8+并发时TTFT P95改善15-30%
+- 拥塞(3.125GB/s)下TAA SLO violation率显著降低
+- 无限速时TAA与baseline差异小（证明TAA只在拥塞时有价值）
+
+**失败判据**: TAA在32并发下SLO violation无改善 → TAA对real serving无效
+
+---
+
+### Experiment G8: Generation Quality Beyond Perplexity
+
+**目的**: 补充任务级质量评估，不只看PPL
+
+| 参数 | 值 |
+|------|-----|
+| 评估任务 | MT-Bench(chat) / LongBench(long-context) / Needle-in-Haystack(retrieval) |
+| α值 | 0(baseline) / 0.05 / 0.1 / 0.2 |
+| 样本量 | 每任务50-100条 |
+
+**指标**: MT-Bench score, LongBench子任务accuracy, Needle accuracy, ROUGE-L
 
 ---
 
@@ -211,8 +253,10 @@
 | G3 TAA验证 | 60 min | 参数扫描 + 带宽矩阵 + 质量评估 |
 | G4 SWS验证 | 45 min | 4比例 × 4长度 × 3次 |
 | G5 Eviction验证 | 45 min | 3容量 × 3策略 × 3次 |
-| G6 Full OS集成 | 30 min | 4配置 × 2长度 × 2带宽 × 3次 |
-| **总计** | **~4小时** | 含环境配置约5小时 |
+| G6 Full OS集成 | 45 min | 8配置 × 2长度 × 2带宽 × 3次 |
+| G7 多请求并发 | 60 min | 3并发 × 2带宽 × 3配置 × 60s |
+| G8 生成质量评估 | 60 min | 3任务 × 4 α值 × 50-100条 |
+| **总计** | **~6小时** | 含环境配置约7小时 |
 
 ---
 
@@ -221,8 +265,8 @@
 | 项目 | 费用 |
 |------|------|
 | RTX PRO 6000 96GB × 1台 | ~15-25元/小时 |
-| 实验时间 5小时 | 75-125元 |
-| **总计** | **约100元** |
+| 实验时间 7小时 | 105-175元 |
+| **总计** | **约140元** |
 
 ---
 

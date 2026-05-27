@@ -19,9 +19,9 @@ kvcache-lab Transmission-Aware Attention (TAA) 验证脚本
 
 原理（来自kvcache-lab/src/agents/CommunicationAgent.ts，修正版）:
     α系数根据拥塞级别自适应：
-    - low congestion: α=0.1 (轻微偏好本地)
-    - medium: α=0.3 (适度考虑cost)
-    - high: α=0.5 (强烈考虑cost)
+    - low congestion: α=0.03 (轻微偏好本地)
+    - medium: α=0.08 (适度考虑cost)
+    - high: α=0.15 (强烈考虑cost)
     
     拥塞级别判断：
     - low: 带宽利用率 < 30%
@@ -251,14 +251,17 @@ class TransmissionAwareAttention(nn.Module):
                 batch_size, self.num_heads, seq_len, seq_len
             )
             
-            # 归一化成本到[0,1]
-            max_cost = access_costs.max() if access_costs.max() > 0 else 1.0
-            normalized_costs = cost_matrix / max_cost
+            # 归一化成本 - z-score normalization避免scale mismatch
+            mean_cost = access_costs.mean()
+            std_cost = access_costs.std()
             
-            # 应用运行时偏置: score = score + α × (-cost_normalized)
-            # 加法bias而非乘法，不破坏attention语义
-            runtime_bias = -normalized_costs  # 成本越高，偏置越负
-            scores = scores + self.beta * runtime_bias
+            if std_cost > 0:
+                # z-score: (cost - μ) / σ
+                z_scores = (cost_matrix - mean_cost) / std_cost
+                # 应用运行时偏置: score = relevance - α × z_score
+                # z-score归一化避免relevance和cost的scale mismatch
+                scores = scores - self.beta * z_scores
+            # else: σ=0, 所有cost相同, 退化为普通attention
         
         # 保存attention weights用于分析
         self.last_attention_weights = F.softmax(scores, dim=-1)
