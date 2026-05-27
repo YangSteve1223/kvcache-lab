@@ -206,7 +206,7 @@ class Experiment:
         )
         self.model = AutoModelForCausalLM.from_pretrained(
             self.model_name,
-            torch_dtype=torch.float16,
+            dtype=torch.float16,
             device_map="auto",
             trust_remote_code=True,
             attn_implementation=attn_implementation,
@@ -237,15 +237,30 @@ class Experiment:
         text += "\n\nBased on the above text, summarize the key points about the history of artificial intelligence:"
         return text
 
+    def _compute_ppl_from_logits(self, input_ids: torch.Tensor) -> Optional[float]:
+        """手动计算PPL: F.cross_entropy on shifted logits"""
+        try:
+            with torch.no_grad():
+                outputs = self.model(input_ids)
+                logits = outputs.logits
+                # Shift for next-token prediction
+                shift_logits = logits[:, :-1, :].contiguous()
+                shift_labels = input_ids[:, 1:].contiguous()
+                loss = torch.nn.functional.cross_entropy(
+                    shift_logits.view(-1, shift_logits.size(-1)),
+                    shift_labels.view(-1)
+                )
+            return torch.exp(loss).item()
+        except Exception as e:
+            log(f"PPL计算失败: {e}", "WARN")
+            return None
+
     def compute_perplexity(self, text: str, max_length: int = 2048) -> Optional[float]:
         """计算perplexity (不带TAA)"""
         try:
             encodings = self.tokenizer(text, return_tensors="pt", truncation=True, max_length=max_length)
             input_ids = encodings.input_ids.to(self.model.device)
-            with torch.no_grad():
-                outputs = self.model(input_ids, labels=input_ids)
-                neg_log_likelihood = outputs.loss
-            return torch.exp(neg_log_likelihood).item()
+            return self._compute_ppl_from_logits(input_ids)
         except Exception as e:
             log(f"PPL计算失败: {e}", "WARN")
             return None
@@ -259,13 +274,11 @@ class Experiment:
             
             # 安装TAA hooks
             taa_injector.install()
-            with torch.no_grad():
-                outputs = self.model(input_ids, labels=input_ids)
-                neg_log_likelihood = outputs.loss
+            result = self._compute_ppl_from_logits(input_ids)
             # 移除hooks
             taa_injector.remove()
             
-            return torch.exp(neg_log_likelihood).item()
+            return result
         except Exception as e:
             taa_injector.remove()  # 确保清理
             log(f"TAA PPL计算失败: {e}", "WARN")
@@ -529,31 +542,28 @@ class G3TAA(Experiment):
         )
         
         # ===== Prefill with TAA =====
-        # 先测量baseline prefill (不带TAA)
-        torch.cuda.synchronize()
-        t_prefill_baseline_start = time.perf_counter()
-        with torch.no_grad():
-            baseline_out = self.model(**inputs, use_cache=True)
-        torch.cuda.synchronize()
-        t_prefill_baseline = (time.perf_counter() - t_prefill_baseline_start) * 1000
-        
-        # 清理
-        del baseline_out
-        torch.cuda.empty_cache()
-        
-        # 带TAA的prefill
+        # 安装TAA hooks
         taa_injector.install()
         modified_layers = taa_injector.modified_layers
         
+        # 测量TAA hook开销: 只测bias计算时间(不含forward)
+        torch.cuda.synchronize()
+        t_hook_start = time.perf_counter()
+        if taa_injector.bias_1d is not None:
+            dummy_mask = torch.zeros(1, 1, 1, seq_len, dtype=torch.float16, device=self.model.device)
+            for _ in range(modified_layers):
+                bias = taa_injector.bias_1d.view(1, 1, 1, -1)
+                _ = dummy_mask + bias.to(dummy_mask.dtype)
+        torch.cuda.synchronize()
+        taa_overhead_us = (time.perf_counter() - t_hook_start) * 1e6  # seconds → μs
+        
+        # 带TAA的prefill
         torch.cuda.synchronize()
         t_taa_start = time.perf_counter()
         with torch.no_grad():
             prefill_out = self.model(**inputs, use_cache=True)
         torch.cuda.synchronize()
         t_prefill_taa = (time.perf_counter() - t_taa_start) * 1000
-        
-        taa_overhead_us = max(0, (t_prefill_taa - t_prefill_baseline)) * 1000  # ms → us would be *1000, but overhead in ms
-        taa_overhead_us = max(0, (t_prefill_taa - t_prefill_baseline)) * 1e6  # s → us
         
         # ===== Decode (不带TAA, 因为TAA优化的是prefill阶段的KV传输) =====
         taa_injector.remove()
@@ -596,7 +606,6 @@ class G3TAA(Experiment):
         
         result = {
             "alpha": alpha,
-            "prefill_baseline_ms": round(t_prefill_baseline, 2),
             "prefill_taa_ms": round(t_prefill_taa, 2),
             "taa_overhead_us": round(taa_overhead_us, 1),
             "modified_layers": modified_layers,

@@ -1,0 +1,308 @@
+{
+  "part1_ppl_vs_alpha": {
+    "baseline_ppl": 6.9296875,
+    "seq_len": 64,
+    "results": [
+      {
+        "alpha": 0.0,
+        "ppl": 6.9297,
+        "ppl_delta_pct": 0.0
+      },
+      {
+        "alpha": 0.01,
+        "ppl": 6.9297,
+        "ppl_delta_pct": 0.0
+      },
+      {
+        "alpha": 0.03,
+        "ppl": 6.9141,
+        "ppl_delta_pct": -0.23
+      },
+      {
+        "alpha": 0.05,
+        "ppl": 6.9062,
+        "ppl_delta_pct": -0.34
+      },
+      {
+        "alpha": 0.1,
+        "ppl": 6.8867,
+        "ppl_delta_pct": -0.62
+      },
+      {
+        "alpha": 0.15,
+        "ppl": 6.8672,
+        "ppl_delta_pct": -0.9
+      },
+      {
+        "alpha": 0.2,
+        "ppl": 6.8477,
+        "ppl_delta_pct": -1.18
+      },
+      {
+        "alpha": 0.5,
+        "ppl": 6.8281,
+        "ppl_delta_pct": -1.47
+      },
+      {
+        "alpha": 1.0,
+        "ppl": 6.8398,
+        "ppl_delta_pct": -1.3
+      },
+      {
+        "alpha": 2.0,
+        "ppl": 7.168,
+        "ppl_delta_pct": 3.44
+      },
+      {
+        "alpha": 5.0,
+        "ppl": 9.4844,
+        "ppl_delta_pct": 36.87
+      }
+    ]
+  },
+  "part2_layer_sensitivity": {
+    "0.1": [
+      {
+        "config": "last_1_4",
+        "start_layer": 21,
+        "end_layer": 27,
+        "num_layers": 7,
+        "ppl": 6.9219,
+        "ppl_delta_pct": -0.11
+      },
+      {
+        "config": "last_1_3",
+        "start_layer": 18,
+        "end_layer": 27,
+        "num_layers": 10,
+        "ppl": 6.9062,
+        "ppl_delta_pct": -0.34
+      },
+      {
+        "config": "last_1_2",
+        "start_layer": 14,
+        "end_layer": 27,
+        "num_layers": 14,
+        "ppl": 6.9023,
+        "ppl_delta_pct": -0.39
+      },
+      {
+        "config": "all_layers",
+        "start_layer": 0,
+        "end_layer": 27,
+        "num_layers": 28,
+        "ppl": 6.8867,
+        "ppl_delta_pct": -0.62
+      }
+    ],
+    "0.2": [
+      {
+        "config": "last_1_4",
+        "start_layer": 21,
+        "end_layer": 27,
+        "num_layers": 7,
+        "ppl": 6.9297,
+        "ppl_delta_pct": 0.0
+      },
+      {
+        "config": "last_1_3",
+        "start_layer": 18,
+        "end_layer": 27,
+        "num_layers": 10,
+        "ppl": 6.8867,
+        "ppl_delta_pct": -0.62
+      },
+      {
+        "config": "last_1_2",
+        "start_layer": 14,
+        "end_layer": 27,
+        "num_layers": 14,
+        "ppl": 6.8789,
+        "ppl_delta_pct": -0.73
+      },
+      {
+        "config": "all_layers",
+        "start_layer": 0,
+        "end_layer": 27,
+        "num_layers": 28,
+        "ppl": 6.8477,
+        "ppl_delta_pct": -1.18
+      }
+    ],
+    "0.5": [
+      {
+        "config": "last_1_4",
+        "start_layer": 21,
+        "end_layer": 27,
+        "num_layers": 7,
+        "ppl": 6.9062,
+        "ppl_delta_pct": -0.34
+      },
+      {
+        "config": "last_1_3",
+        "start_layer": 18,
+        "end_layer": 27,
+        "num_layers": 10,
+        "ppl": 6.8281,
+        "ppl_delta_pct": -1.47
+      },
+      {
+        "config": "last_1_2",
+        "start_layer": 14,
+        "end_layer": 27,
+        "num_layers": 14,
+        "ppl": 6.8203,
+        "ppl_delta_pct": -1.58
+      },
+      {
+        "config": "all_layers",
+        "start_layer": 0,
+        "end_layer": 27,
+        "num_layers": 28,
+        "ppl": 6.8281,
+        "ppl_delta_pct": -1.47
+      }
+    ]
+  },
+  "part3_long_sequence_quality": [
+    {
+      "seq_len": 511,
+      "baseline_ppl": 4.9688,
+      "alpha_tests": [
+        {
+          "alpha": 0.05,
+          "ppl": 4.9688,
+          "ppl_delta_pct": 0.0
+        },
+        {
+          "alpha": 0.1,
+          "ppl": 4.9688,
+          "ppl_delta_pct": 0.0
+        },
+        {
+          "alpha": 0.2,
+          "ppl": 4.9766,
+          "ppl_delta_pct": 0.16
+        },
+        {
+          "alpha": 0.5,
+          "ppl": 4.9883,
+          "ppl_delta_pct": 0.39
+        },
+        {
+          "alpha": 1.0,
+          "ppl": 5.0469,
+          "ppl_delta_pct": 1.57
+        }
+      ]
+    },
+    {
+      "seq_len": 1022,
+      "baseline_ppl": 2.2598,
+      "alpha_tests": [
+        {
+          "alpha": 0.05,
+          "ppl": 2.2598,
+          "ppl_delta_pct": 0.0
+        },
+        {
+          "alpha": 0.1,
+          "ppl": 2.2598,
+          "ppl_delta_pct": 0.0
+        },
+        {
+          "alpha": 0.2,
+          "ppl": 2.2637,
+          "ppl_delta_pct": 0.17
+        },
+        {
+          "alpha": 0.5,
+          "ppl": 2.2656,
+          "ppl_delta_pct": 0.26
+        },
+        {
+          "alpha": 1.0,
+          "ppl": 2.2656,
+          "ppl_delta_pct": 0.26
+        }
+      ]
+    },
+    {
+      "seq_len": 2044,
+      "baseline_ppl": 1.5127,
+      "alpha_tests": [
+        {
+          "alpha": 0.05,
+          "ppl": 1.5127,
+          "ppl_delta_pct": 0.0
+        },
+        {
+          "alpha": 0.1,
+          "ppl": 1.5127,
+          "ppl_delta_pct": 0.0
+        },
+        {
+          "alpha": 0.2,
+          "ppl": 1.5127,
+          "ppl_delta_pct": 0.0
+        },
+        {
+          "alpha": 0.5,
+          "ppl": 1.5137,
+          "ppl_delta_pct": 0.06
+        },
+        {
+          "alpha": 1.0,
+          "ppl": 1.5146,
+          "ppl_delta_pct": 0.13
+        }
+      ]
+    }
+  ],
+  "part4_latency_overhead": [
+    {
+      "seq_len": 2044,
+      "baseline_ttft_ms": 98.5,
+      "taa_ttft_ms": 110.9,
+      "overhead_ms": 12.43,
+      "overhead_pct": 12.63,
+      "alpha": 0.1
+    },
+    {
+      "seq_len": 4087,
+      "baseline_ttft_ms": 196.5,
+      "taa_ttft_ms": 251.1,
+      "overhead_ms": 54.59,
+      "overhead_pct": 27.779,
+      "alpha": 0.1
+    },
+    {
+      "seq_len": 8173,
+      "baseline_ttft_ms": 411.5,
+      "taa_ttft_ms": 637.3,
+      "overhead_ms": 225.79,
+      "overhead_pct": 54.864,
+      "alpha": 0.1
+    },
+    {
+      "seq_len": 16345,
+      "baseline_ttft_ms": 918.1,
+      "taa_ttft_ms": 1804.8,
+      "overhead_ms": 886.72,
+      "overhead_pct": 96.585,
+      "alpha": 0.1
+    },
+    {
+      "seq_len": 32689,
+      "baseline_ttft_ms": 2169.8,
+      "taa_ttft_ms": 5774.7,
+      "overhead_ms": 3604.86,
+      "overhead_pct": 166.134,
+      "alpha": 0.1
+    }
+  ],
+  "part5_bias_analysis": {
+    "note": "TAA bias shifts attention toward local (cheap) tokens, away from remote (expensive) tokens",
+    "formula": "b_i = -\u03b1 \u00d7 tanh((cost_i - \u03bc) / \u03c3), where cost=1.0 for remote, 0.0 for local"
+  }
+}

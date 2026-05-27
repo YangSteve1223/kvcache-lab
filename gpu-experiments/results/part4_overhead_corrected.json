@@ -1,0 +1,65 @@
+[
+  {
+    "seq_len": 512,
+    "bias_computation_us": 39.4,
+    "mask_addition_us": 16.1,
+    "total_overhead_us": 55.4,
+    "total_overhead_ms": 0.055,
+    "estimated_ttft_ms": 200,
+    "overhead_pct": 0.0277
+  },
+  {
+    "seq_len": 1024,
+    "bias_computation_us": 38.9,
+    "mask_addition_us": 15.8,
+    "total_overhead_us": 54.6,
+    "total_overhead_ms": 0.055,
+    "estimated_ttft_ms": 380,
+    "overhead_pct": 0.0144
+  },
+  {
+    "seq_len": 2048,
+    "bias_computation_us": 38.8,
+    "mask_addition_us": 16.0,
+    "total_overhead_us": 54.8,
+    "total_overhead_ms": 0.055,
+    "estimated_ttft_ms": 860,
+    "overhead_pct": 0.0064
+  },
+  {
+    "seq_len": 4096,
+    "bias_computation_us": 38.7,
+    "mask_addition_us": 25.3,
+    "total_overhead_us": 64.0,
+    "total_overhead_ms": 0.064,
+    "estimated_ttft_ms": 1866,
+    "overhead_pct": 0.0034
+  },
+  {
+    "seq_len": 8192,
+    "bias_computation_us": 38.7,
+    "mask_addition_us": 197.6,
+    "total_overhead_us": 236.2,
+    "total_overhead_ms": 0.236,
+    "estimated_ttft_ms": 3000,
+    "overhead_pct": 0.0079
+  },
+  {
+    "seq_len": 16384,
+    "bias_computation_us": 38.4,
+    "mask_addition_us": 781.8,
+    "total_overhead_us": 820.3,
+    "total_overhead_ms": 0.82,
+    "estimated_ttft_ms": 5000,
+    "overhead_pct": 0.0164
+  },
+  {
+    "seq_len": 32768,
+    "bias_computation_us": 38.5,
+    "mask_addition_us": 3128.3,
+    "total_overhead_us": 3166.8,
+    "total_overhead_ms": 3.167,
+    "estimated_ttft_ms": 8000,
+    "overhead_pct": 0.0396
+  }
+]
