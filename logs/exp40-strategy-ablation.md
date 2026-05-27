@@ -27,11 +27,11 @@
 
 | 策略 | 平均延迟(ms) | vs Full OS |
 |------|-------------|------------|
-| Full OS | 381.34 | 0.0% |
-| TAA→StandardAttention | 26.29 | -93.1% |
-| Predictive→LRU | 29.03 | -92.4% |
-| SWS→FixedRatio | 24.63 | -93.5% |
-| Hierarchical→AllGPU | 29.05 | -92.4% |
+| Full OS | 367.51 | 0.0% |
+| TAA→StandardAttention | 25.69 | -93.0% |
+| Predictive→LRU | 28.33 | -92.3% |
+| SWS→FixedRatio | 24.05 | -93.5% |
+| Hierarchical→AllGPU | 28.33 | -92.3% |
 
 ### 质量对比
 
@@ -47,21 +47,21 @@
 
 | 策略 | 平均传输量(KB) | vs Full OS |
 |------|----------------|------------|
-| Full OS | 37.2 | 0.0% |
-| TAA→StandardAttention | 51.0 | +37.0% |
-| Predictive→LRU | 86.1 | +131.1% |
-| SWS→FixedRatio | 29.7 | -20.3% |
-| Hierarchical→AllGPU | 86.4 | +131.9% |
+| Full OS | 35.9 | 0.0% |
+| TAA→StandardAttention | 49.3 | +37.3% |
+| Predictive→LRU | 83.0 | +131.4% |
+| SWS→FixedRatio | 28.3 | -21.1% |
+| Hierarchical→AllGPU | 83.0 | +131.4% |
 
 ### SLO满足率对比
 
 | 策略 | SLO满足率 | vs Full OS |
 |------|----------|------------|
-| Full OS | 96.0% | 0.0% |
-| TAA→StandardAttention | 100.0% | +4.0% |
-| Predictive→LRU | 100.0% | +4.0% |
-| SWS→FixedRatio | 100.0% | +4.0% |
-| Hierarchical→AllGPU | 100.0% | +4.0% |
+| Full OS | 99.0% | 0.0% |
+| TAA→StandardAttention | 100.0% | +1.0% |
+| Predictive→LRU | 100.0% | +1.0% |
+| SWS→FixedRatio | 100.0% | +1.0% |
+| Hierarchical→AllGPU | 100.0% | +1.0% |
 
 ## 结论
 
@@ -70,14 +70,14 @@
    - 质量下降: 0.0%
 
 2. **影响最小替换**: SWS→FixedRatio
-   - 延迟变化: -356.71ms
+   - 延迟变化: -343.46ms
    - 质量变化: +-1.5%
 
 3. **策略贡献排序** (从大到小):
    1. SWS→FixedRatio
    2. TAA→StandardAttention
-   3. Hierarchical→AllGPU
-   4. Predictive→LRU
+   3. Predictive→LRU
+   4. Hierarchical→AllGPU
 
 ## 讨论
 

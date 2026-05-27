@@ -1,497 +1,559 @@
 /**
- * 生成论文级可视化图表
+ * 生成论文可视化图表
  * 
- * 使用纯TypeScript生成SVG图表（不依赖外部图表库）
- * 
- * 6个图表：
- * 1. 图1：带宽敏感性曲线
- * 2. 图2：Pareto前沿图
- * 3. 图3：消融实验柱状图
- * 4. 图4：任务类型×策略热力图
- * 5. 图5：模型规模缩放
- * 6. 图6：端到端质量雷达图
+ * 生成的图表：
+ * 1. runtime-os-architecture.svg: 4-Agent + GlobalState + Scheduler架构图
+ * 2. ablation-comparison.svg: 策略替换ablation对比图
+ * 3. bandwidth-strategy-heatmap.svg: 带宽×策略热力图
+ * 4. long-context-scaling.svg: 长上下文缩放曲线
  */
 
-import { writeFileSync, mkdirSync, existsSync } from 'fs';
-import { join } from 'path';
+import { writeFileSync, mkdirSync } from 'fs';
 
-// 图表输出目录
-const CHARTS_DIR = './charts';
+// ============================================
+// SVG生成器
+// ============================================
 
-// 确保目录存在
-if (!existsSync(CHARTS_DIR)) {
-  mkdirSync(CHARTS_DIR, { recursive: true });
-}
-
-// ============ 图表配置 ============
-
-interface ChartConfig {
-  width: number;
-  height: number;
-  margin: { top: number; right: number; bottom: number; left: number };
-  title: string;
-  fontSize: number;
-}
-
-const DEFAULT_CONFIG: ChartConfig = {
-  width: 800,
-  height: 500,
-  margin: { top: 60, right: 40, bottom: 60, left: 70 },
-  title: '',
-  fontSize: 14
-};
-
-// ============ SVG工具函数 ============
-
-function createSVG(
-  config: ChartConfig,
-  content: string
-): string {
-  return `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${config.width} ${config.height}" style="font-family: 'Times New Roman', serif; font-size: ${config.fontSize}px;">
-  <style>
-    .title { font-size: 18px; font-weight: bold; text-anchor: middle; }
-    .subtitle { font-size: 14px; fill: #666; text-anchor: middle; }
-    .axis-label { font-size: 12px; }
-    .legend-text { font-size: 12px; }
-    .grid-line { stroke: #e0e0e0; stroke-width: 0.5; }
-    .axis-line { stroke: #333; stroke-width: 1; }
-    .tick-text { font-size: 11px; fill: #333; }
-  </style>
-  <rect width="100%" height="100%" fill="white"/>
-  ${content}
-</svg>`;
-}
-
-function createTitle(
-  config: ChartConfig,
-  title: string,
-  subtitle?: string
-): string {
-  let svg = `<text x="${config.width / 2}" y="30" class="title">${title}</text>`;
-  if (subtitle) {
-    svg += `<text x="${config.width / 2}" y="50" class="subtitle">${subtitle}</text>`;
-  }
-  return svg;
-}
-
-function createAxis(
-  config: ChartConfig,
-  xLabel: string,
-  yLabel: string,
-  xTicks: number[],
-  yTicks: number[],
-  xTickLabels?: string[],
-  yTickLabels?: string[]
-): string {
-  const { width, height, margin } = config;
-  const chartWidth = width - margin.left - margin.right;
-  const chartHeight = height - margin.top - margin.bottom;
+class SVGChartGenerator {
+  private chartsDir = './charts';
   
-  let svg = '';
-  
-  // X轴
-  svg += `<line x1="${margin.left}" y1="${height - margin.bottom}" x2="${width - margin.right}" y2="${height - margin.bottom}" class="axis-line"/>`;
-  
-  // Y轴
-  svg += `<line x1="${margin.left}" y1="${margin.top}" x2="${margin.left}" y2="${height - margin.bottom}" class="axis-line"/>`;
-  
-  // X轴刻度和标签
-  for (let i = 0; i < xTicks.length; i++) {
-    const x = margin.left + (xTicks[i] / (xTicks[xTicks.length - 1] - xTicks[0])) * chartWidth;
-    svg += `<line x1="${x}" y1="${height - margin.bottom}" x2="${x}" y2="${height - margin.bottom + 5}" stroke="#333" stroke-width="1"/>`;
-    svg += `<text x="${x}" y="${height - margin.bottom + 20}" class="tick-text" text-anchor="middle">${xTickLabels ? xTickLabels[i] : xTicks[i]}</text>`;
-  }
-  
-  // Y轴刻度和标签
-  for (let i = 0; i < yTicks.length; i++) {
-    const y = height - margin.bottom - (yTicks[i] / (yTicks[yTicks.length - 1] - yTicks[0])) * chartHeight;
-    svg += `<line x1="${margin.left}" y1="${y}" x2="${margin.left - 5}" y2="${y}" stroke="#333" stroke-width="1"/>`;
-    svg += `<text x="${margin.left - 10}" y="${y + 4}" class="tick-text" text-anchor="end">${yTickLabels ? yTickLabels[i] : yTicks[i]}</text>`;
-    // 网格线
-    svg += `<line x1="${margin.left}" y1="${y}" x2="${width - margin.right}" y2="${y}" class="grid-line"/>`;
-  }
-  
-  // X轴标签
-  svg += `<text x="${width / 2}" y="${height - 10}" class="axis-label" text-anchor="middle">${xLabel}</text>`;
-  
-  // Y轴标签
-  svg += `<text x="${15}" y="${height / 2}" class="axis-label" text-anchor="middle" transform="rotate(-90, 15, ${height / 2})">${yLabel}</text>`;
-  
-  return svg;
-}
-
-// ============ 图1：带宽敏感性曲线 ============
-
-function generateChart1(): string {
-  const config = { ...DEFAULT_CONFIG, title: '图1：带宽敏感性曲线 - TTFT vs 网络带宽' };
-  const { margin } = config;
-  const chartWidth = config.width - margin.left - margin.right;
-  const chartHeight = config.height - margin.top - margin.bottom;
-  
-  // 数据 (带宽 GB/s, TTFT ms)
-  const bandwidths = [0.5, 1, 2, 5, 10, 20, 50, 100];
-  const data = {
-    'None': [27040, 13520, 6760, 2704, 1352, 676, 270, 135],
-    'PD-Aware': [21632, 10816, 5408, 2163, 1081, 540, 216, 108],
-    'Task-Aware': [27040, 13520, 6760, 2704, 1352, 676, 270, 135],
-    'PD-Task-Aware': [18928, 9464, 4732, 1893, 946, 473, 189, 95]
-  };
-  
-  const colors = {
-    'None': '#666666',
-    'PD-Aware': '#e74c3c',
-    'Task-Aware': '#3498db',
-    'PD-Task-Aware': '#27ae60'
-  };
-  
-  let svg = createTitle(config, '图1：带宽敏感性曲线 - TTFT vs 网络带宽', '4种压缩策略在不同带宽下的表现');
-  svg += createAxis(config, '带宽 (GB/s)', 'TTFT (ms)', [0, 0.25, 0.5, 0.75, 1], [0, 10000, 20000, 30000], ['0', '25', '50', '75', '100']);
-  
-  // 绘制曲线
-  for (const [strategy, values] of Object.entries(data)) {
-    let path = '';
-    for (let i = 0; i < bandwidths.length; i++) {
-      const x = margin.left + (bandwidths[i] / 100) * chartWidth;
-      const y = config.height - margin.bottom - (values[i] / 30000) * chartHeight;
-      path += (i === 0 ? 'M' : 'L') + `${x},${y}`;
-    }
-    svg += `<path d="${path}" fill="none" stroke="${colors[strategy as keyof typeof colors]}" stroke-width="2.5"/>`;
-    
-    // 添加数据点
-    for (let i = 0; i < bandwidths.length; i++) {
-      const x = margin.left + (bandwidths[i] / 100) * chartWidth;
-      const y = config.height - margin.bottom - (values[i] / 30000) * chartHeight;
-      svg += `<circle cx="${x}" cy="${y}" r="4" fill="${colors[strategy as keyof typeof colors]}"/>`;
+  constructor() {
+    try {
+      mkdirSync(this.chartsDir, { recursive: true });
+    } catch (e) {
+      // 目录已存在
     }
   }
   
-  // 图例
-  const legendX = margin.left + 50;
-  const legendY = margin.top + 10;
-  let i = 0;
-  for (const [strategy, color] of Object.entries(colors)) {
-    const x = legendX + (i % 2) * 150;
-    const y = legendY + Math.floor(i / 2) * 20;
-    svg += `<rect x="${x}" y="${y - 8}" width="12" height="12" fill="${color}"/>`;
-    svg += `<text x="${x + 16}" y="${y + 2}" class="legend-text">${strategy}</text>`;
-    i++;
-  }
-  
-  return createSVG(config, svg);
-}
-
-// ============ 图2：Pareto前沿图 ============
-
-function generateChart2(): string {
-  const config = { ...DEFAULT_CONFIG, title: '图2：Pareto前沿 - 压缩比 vs 质量评分' };
-  const { margin } = config;
-  
-  // 数据 (compressionRatio, qualityScore, strategy)
-  const data = [
-    { strategy: 'None', ratio: 1.0, quality: 1.0, color: '#666666' },
-    { strategy: 'Uniform', ratio: 0.6, quality: 0.85, color: '#9b59b6' },
-    { strategy: 'PD-Aware', ratio: 0.55, quality: 0.93, color: '#e74c3c' },
-    { strategy: 'Task-Aware', ratio: 0.65, quality: 0.88, color: '#3498db' },
-    { strategy: 'PD-Task-Aware', ratio: 0.45, quality: 0.90, color: '#27ae60' }
-  ];
-  
-  let svg = createTitle(config, '图2：Pareto前沿 - 压缩比 vs 质量评分', '越靠近右上角越优');
-  svg += createAxis(config, '压缩比 (越小越好)', '质量评分 (越高越好)', [0, 0.25, 0.5, 0.75, 1], [0, 0.25, 0.5, 0.75, 1]);
-  
-  // Pareto前沿线
-  svg += `<path d="M0.45,0.9 L0.55,0.93 L1.0,1.0" fill="none" stroke="#f39c12" stroke-width="2" stroke-dasharray="5,3"/>`;
-  svg += `<text x="0.65" y="0.95" font-size="10" fill="#f39c12">Pareto前沿</text>`;
-  
-  // 绘制数据点
-  for (const d of data) {
-    const x = margin.left + d.ratio * (config.width - margin.left - margin.right);
-    const y = config.height - margin.bottom - d.quality * (config.height - margin.top - margin.bottom);
-    svg += `<circle cx="${x}" cy="${y}" r="8" fill="${d.color}"/>`;
-    svg += `<text x="${x + 12}" y="${y + 4}" class="legend-text" font-weight="bold">${d.strategy}</text>`;
-  }
-  
-  // 标注最优
-  svg += `<text x="${config.width - margin.right - 10}" y="${margin.top + 30}" class="legend-text" fill="#27ae60" text-anchor="end">★ PD-Task-Aware: 最佳平衡点</text>`;
-  
-  return createSVG(config, svg);
-}
-
-// ============ 图3：消融实验柱状图 ============
-
-function generateChart3(): string {
-  const config = { ...DEFAULT_CONFIG, title: '图3：消融实验 - 各组件对TTFT的贡献' };
-  const { margin } = config;
-  const chartWidth = config.width - margin.left - margin.right;
-  const chartHeight = config.height - margin.top - margin.bottom;
-  
-  // 数据 (TTFT ms)
-  const categories = ['Baseline', '-PD感知', '-任务感知', '-联合优化', '完整策略'];
-  const values = [2704, 3245, 2704, 2434, 1893];
-  const baseLine = 2704;
-  
-  let svg = createTitle(config, '图3：消融实验 - 各组件对TTFT的贡献', '相对于Baseline的TTFT变化 (ms)');
-  
-  // Y轴
-  const yMin = 1500;
-  const yMax = 3500;
-  svg += createAxis(config, '', 'TTFT (ms)', [], [1500, 2000, 2500, 3000, 3500], [], ['1500', '2000', '2500', '3000', '3500']);
-  
-  // 基准线
-  const baselineY = config.height - margin.bottom - (baseLine - yMin) / (yMax - yMin) * chartHeight;
-  svg += `<line x1="${margin.left}" y1="${baselineY}" x2="${config.width - margin.right}" y2="${baselineY}" stroke="#e74c3c" stroke-width="1" stroke-dasharray="5,3"/>`;
-  svg += `<text x="${config.width - margin.right}" y="${baselineY - 5}" fill="#e74c3c" font-size="10" text-anchor="end">Baseline</text>`;
-  
-  // 柱状图
-  const barWidth = chartWidth / (categories.length * 2);
-  const barColors = ['#666666', '#e74c3c', '#3498db', '#9b59b6', '#27ae60'];
-  
-  for (let i = 0; i < categories.length; i++) {
-    const x = margin.left + (i + 0.5) * (chartWidth / categories.length);
-    const barHeight = ((values[i] - yMin) / (yMax - yMin)) * chartHeight;
-    const y = config.height - margin.bottom - barHeight;
-    
-    svg += `<rect x="${x - barWidth / 2}" y="${y}" width="${barWidth}" height="${barHeight}" fill="${barColors[i]}"/>`;
-    svg += `<text x="${x}" y="${y - 8}" class="tick-text" text-anchor="middle">${values[i]}</text>`;
-    svg += `<text x="${x}" y="${config.height - margin.bottom + 25}" class="tick-text" text-anchor="middle" transform="rotate(-20, ${x}, ${config.height - margin.bottom + 25})">${categories[i]}</text>`;
-  }
-  
-  // 图例说明
-  svg += `<text x="${margin.left}" y="${margin.top + 10}" class="legend-text" fill="#27ae60">绿色区域表示TTFT改善</text>`;
-  svg += `<text x="${margin.left + 150}" y="${margin.top + 10}" class="legend-text" fill="#e74c3c">红色区域表示TTFT增加</text>`;
-  
-  return createSVG(config, svg);
-}
-
-// ============ 图4：任务类型×策略热力图 ============
-
-function generateChart4(): string {
-  const config = { ...DEFAULT_CONFIG, title: '图4：任务类型×策略热力图 - TTFT (ms)' };
-  const { margin } = config;
-  
-  // 数据
-  const taskTypes = ['Math', 'Code', 'QA', 'Conversation'];
-  const strategies = ['None', 'PD-Aware', 'Task-Aware', 'PD-Task-Aware'];
-  const data = [
-    [2704, 1893, 2704, 1893],  // Math
-    [2704, 2163, 2434, 1893],  // Code
-    [2704, 1893, 2434, 1626],  // QA
-    [2704, 2030, 2434, 1626]   // Conversation
-  ];
-  
-  let svg = createTitle(config, '图4：任务类型×策略热力图 - TTFT (ms)', '颜色越深表示TTFT越低（越优）');
-  
-  // 绘制热力图格子
-  const cellWidth = (config.width - margin.left - margin.right) / strategies.length;
-  const cellHeight = (config.height - margin.top - margin.bottom - 40) / taskTypes.length;
-  
-  // 颜色比例尺（反向：低值=深色）
-  const minVal = 1500;
-  const maxVal = 2704;
-  
-  function getColor(value: number): string {
-    const ratio = (value - minVal) / (maxVal - minVal);
-    const r = Math.round(46 + (102 - 46) * (1 - ratio));
-    const g = Math.round(204 + (219 - 204) * (1 - ratio));
-    const b = Math.round(96 + (62 - 96) * (1 - ratio));
-    return `rgb(${r},${g},${b})`;
-  }
-  
-  for (let i = 0; i < taskTypes.length; i++) {
-    for (let j = 0; j < strategies.length; j++) {
-      const x = margin.left + j * cellWidth;
-      const y = margin.top + 30 + i * cellHeight;
-      const value = data[i][j];
-      
-      svg += `<rect x="${x}" y="${y}" width="${cellWidth}" height="${cellHeight}" fill="${getColor(value)}" stroke="white"/>`;
-      svg += `<text x="${x + cellWidth / 2}" y="${y + cellHeight / 2}" text-anchor="middle" dominant-baseline="middle" fill="white" font-weight="bold">${value}</text>`;
-    }
-  }
-  
-  // X轴标签
-  for (let j = 0; j < strategies.length; j++) {
-    const x = margin.left + j * cellWidth + cellWidth / 2;
-    svg += `<text x="${x}" y="${config.height - 15}" class="tick-text" text-anchor="middle">${strategies[j]}</text>`;
-  }
-  
-  // Y轴标签
-  for (let i = 0; i < taskTypes.length; i++) {
-    const y = margin.top + 30 + i * cellHeight + cellHeight / 2;
-    svg += `<text x="${margin.left - 10}" y="${y}" class="tick-text" text-anchor="end" dominant-baseline="middle">${taskTypes[i]}</text>`;
-  }
-  
-  // 颜色条
-  const legendX = margin.left + (strategies.length + 0.5) * cellWidth;
-  const legendY = margin.top + 30;
-  const legendHeight = taskTypes.length * cellHeight;
-  
-  const gradientId = 'heatmapGradient';
-  svg += `<defs>
-    <linearGradient id="${gradientId}" x1="0%" y1="100%" x2="0%" y2="0%">
-      <stop offset="0%" style="stop-color:rgb(46,204,96)"/>
-      <stop offset="100%" style="stop-color:rgb(102,219,62)"/>
+  /**
+   * 生成架构图
+   */
+  generateArchitectureSVG(): string {
+    const svg = `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <linearGradient id="agentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4F46E5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7C3AED;stop-opacity:1" />
     </linearGradient>
-  </defs>`;
-  svg += `<rect x="${legendX}" y="${legendY}" width="15" height="${legendHeight}" fill="url(#${gradientId})" stroke="#333"/>`;
-  svg += `<text x="${legendX + 20}" y="${legendY + 5}" class="tick-text" font-size="10">低(优)</text>`;
-  svg += `<text x="${legendX + 20}" y="${legendY + legendHeight}" class="tick-text" font-size="10">高(劣)</text>`;
+    <linearGradient id="storeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#059669;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#10B981;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="schedulerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#DC2626;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#EF4444;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+    </filter>
+  </defs>
   
-  return createSVG(config, svg);
-}
-
-// ============ 图5：模型规模缩放 ============
-
-function generateChart5(): string {
-  const config = { ...DEFAULT_CONFIG, title: '图5：模型规模缩放 - TTFT改善率 vs 参数量' };
-  const { margin } = config;
-  const chartWidth = config.width - margin.left - margin.right;
-  const chartHeight = config.height - margin.top - margin.bottom;
+  <!-- 背景 -->
+  <rect width="800" height="600" fill="#F8FAFC"/>
   
-  // 数据
-  const models = ['7B', '13B', '70B'];
-  const params = [7, 13, 70]; // 参数量(十亿)
-  const improvements = [29.6, 29.8, 30.2]; // PD-Aware vs None 的TTFT改善率%
+  <!-- 标题 -->
+  <text x="400" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#1E293B">
+    Runtime KV Memory OS 架构
+  </text>
   
-  let svg = createTitle(config, '图5：模型规模缩放 - TTFT改善率 vs 参数量', 'PD-Aware策略相对于None的TTFT改善率');
+  <!-- Global State Store (中心) -->
+  <rect x="300" y="250" width="200" height="100" rx="10" fill="url(#storeGrad)" filter="url(#shadow)"/>
+  <text x="400" y="290" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+    Global State Store
+  </text>
+  <text x="400" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#D1FAE5">
+    (唯一数据源)
+  </text>
+  <text x="400" y="330" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#A7F3D0">
+    Semantic | Reuse | Comm | Placement
+  </text>
   
-  // Y轴
-  svg += createAxis(config, '参数量 (B)', 'TTFT改善率 (%)', [0, 20, 40, 60, 80, 100], [0, 10, 20, 30, 40], ['0', '20B', '40B', '60B', '80B', '100B']);
+  <!-- Agent 1: Semantic Agent -->
+  <rect x="50" y="80" width="160" height="80" rx="8" fill="url(#agentGrad)" filter="url(#shadow)"/>
+  <text x="130" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">
+    Semantic Agent
+  </text>
+  <text x="130" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#E0E7FF">
+    识别语义区域
+  </text>
+  <text x="130" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#C7D2FE">
+    attention sink, working set
+  </text>
   
-  // 绘制柱状图
-  const barWidth = 60;
-  const colors = ['#3498db', '#e74c3c', '#27ae60'];
+  <!-- Agent 2: Reuse Agent -->
+  <rect x="50" y="180" width="160" height="80" rx="8" fill="url(#agentGrad)" filter="url(#shadow)"/>
+  <text x="130" y="210" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">
+    Reuse Agent
+  </text>
+  <text x="130" y="230" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#E0E7FF">
+    预测reuse距离
+  </text>
+  <text x="130" y="245" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#C7D2FE">
+    temporal / spatial pattern
+  </text>
   
-  for (let i = 0; i < models.length; i++) {
-    const x = margin.left + (i + 0.5) * (chartWidth / models.length);
-    const barHeight = (improvements[i] / 40) * chartHeight;
-    const y = config.height - margin.bottom - barHeight;
+  <!-- Agent 3: Communication Agent -->
+  <rect x="590" y="80" width="160" height="80" rx="8" fill="url(#agentGrad)" filter="url(#shadow)"/>
+  <text x="670" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">
+    Communication Agent
+  </text>
+  <text x="670" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#E0E7FF">
+    评估通信成本
+  </text>
+  <text x="670" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#C7D2FE">
+    TAA, bandwidth utilization
+  </text>
+  
+  <!-- Agent 4: Placement Agent -->
+  <rect x="590" y="180" width="160" height="80" rx="8" fill="url(#agentGrad)" filter="url(#shadow)"/>
+  <text x="670" y="210" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">
+    Placement Agent
+  </text>
+  <text x="670" y="230" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#E0E7FF">
+    管理KV放置
+  </text>
+  <text x="670" y="245" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#C7D2FE">
+    GPU/CPU/Remote分层
+  </text>
+  
+  <!-- Runtime Scheduler -->
+  <rect x="300" y="420" width="200" height="80" rx="10" fill="url(#schedulerGrad)" filter="url(#shadow)"/>
+  <text x="400" y="450" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+    Runtime Scheduler
+  </text>
+  <text x="400" y="470" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#FECACA">
+    统一目标函数优化
+  </text>
+  <text x="400" y="485" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#FEE2E2">
+    score = α·sem + β·reuse - γ·cost + δ·place
+  </text>
+  
+  <!-- 连接线: Agents → Store -->
+  <path d="M210 120 Q255 120 255 250 T300 250" stroke="#6366F1" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M210 220 Q255 220 255 300 T300 300" stroke="#6366F1" stroke-width="2" fill="none"/>
+  <path d="M590 120 Q545 120 545 250 T500 250" stroke="#6366F1" stroke-width="2" fill="none"/>
+  <path d="M590 220 Q545 220 545 300 T500 300" stroke="#6366F1" stroke-width="2" fill="none"/>
+  
+  <!-- Store → Scheduler -->
+  <path d="M400 350 L400 420" stroke="#10B981" stroke-width="3" fill="none"/>
+  
+  <!-- Scheduler → Decision -->
+  <rect x="300" y="520" width="200" height="50" rx="8" fill="#1E293B"/>
+  <text x="400" y="545" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    Scheduling Decision
+  </text>
+  <text x="400" y="560" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#94A3B8">
+    retain / evict / transmit / compress
+  </text>
+  <path d="M400 500 L400 520" stroke="#EF4444" stroke-width="2" fill="none"/>
+  
+  <!-- 标签 -->
+  <text x="400" y="235" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#64748B">
+    写入状态
+  </text>
+  <text x="400" y="395" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#64748B">
+    读取状态
+  </text>
+  <text x="400" y="510" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#64748B">
+    执行决策
+  </text>
+  
+  <!-- 图例 -->
+  <rect x="50" y="530" width="15" height="15" rx="2" fill="url(#agentGrad)"/>
+  <text x="70" y="542" font-family="Arial, sans-serif" font-size="11" fill="#475569">Agent</text>
+  
+  <rect x="150" y="530" width="15" height="15" rx="2" fill="url(#storeGrad)"/>
+  <text x="170" y="542" font-family="Arial, sans-serif" font-size="11" fill="#475569">Global State</text>
+  
+  <rect x="280" y="530" width="15" height="15" rx="2" fill="url(#schedulerGrad)"/>
+  <text x="300" y="542" font-family="Arial, sans-serif" font-size="11" fill="#475569">Scheduler</text>
+  
+  <rect x="400" y="530" width="15" height="15" rx="2" fill="#1E293B"/>
+  <text x="420" y="542" font-family="Arial, sans-serif" font-size="11" fill="#475569">Decision</text>
+</svg>`;
     
-    svg += `<rect x="${x - barWidth / 2}" y="${y}" width="${barWidth}" height="${barHeight}" fill="${colors[i]}"/>`;
-    svg += `<text x="${x}" y="${y - 8}" class="tick-text" text-anchor="middle">${improvements[i].toFixed(1)}%</text>`;
-    svg += `<text x="${x}" y="${config.height - margin.bottom + 20}" class="tick-text" text-anchor="middle">${models[i]}</text>`;
+    return svg;
   }
   
-  // 趋势线
-  svg += `<path d="M${margin.left + 0.5 * (chartWidth / 3)},${config.height - margin.bottom - (29.6 / 40) * chartHeight} L${margin.left + 1.5 * (chartWidth / 3)},${config.height - margin.bottom - (29.8 / 40) * chartHeight} L${margin.left + 2.5 * (chartWidth / 3)},${config.height - margin.bottom - (30.2 / 40) * chartHeight}" fill="none" stroke="#9b59b6" stroke-width="2" stroke-dasharray="5,3"/>`;
+  /**
+   * 生成Ablation对比图
+   */
+  generateAblationSVG(): string {
+    const svg = `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <defs>
+    <style>
+      .title { font-family: Arial, sans-serif; font-size: 20px; font-weight: bold; fill: #1E293B; }
+      .axis-label { font-family: Arial, sans-serif; font-size: 12px; fill: #475569; }
+      .bar-label { font-family: Arial, sans-serif; font-size: 10px; fill: #1E293B; }
+      .legend { font-family: Arial, sans-serif; font-size: 11px; fill: #475569; }
+    </style>
+  </defs>
   
-  // 标注
-  svg += `<text x="${config.width - margin.right - 10}" y="${margin.top + 30}" class="legend-text" fill="#9b59b6" text-anchor="end">↗ 改善率随规模略增</text>`;
-  svg += `<text x="${config.width - margin.right - 10}" y="${margin.top + 50}" class="legend-text" fill="#27ae60" text-anchor="end">结论: PD-Aware在各规模下均有效</text>`;
+  <rect width="800" height="500" fill="white"/>
   
-  return createSVG(config, svg);
-}
-
-// ============ 图6：端到端质量雷达图 ============
-
-function generateChart6(): string {
-  const config = { ...DEFAULT_CONFIG, title: '图6：端到端质量对比 - 准确性/完整性/相关性雷达图' };
+  <!-- 标题 -->
+  <text x="400" y="35" text-anchor="middle" class="title">策略替换Ablation对比</text>
   
-  // 数据 (准确性, 完整性, 相关性)
-  const strategies = [
-    { name: 'Full', values: [10, 10, 10], color: '#666666' },
-    { name: 'PD-Aware', values: [9.3, 9.1, 9.2], color: '#e74c3c' },
-    { name: 'Task-Aware', values: [9.5, 8.8, 9.0], color: '#3498db' },
-    { name: 'PD-Task-Aware', values: [9.2, 9.4, 9.3], color: '#27ae60' }
-  ];
+  <!-- Y轴标签 -->
+  <text x="50" y="250" text-anchor="middle" transform="rotate(-90, 50, 250)" class="axis-label">相对Full OS的变化 (%)</text>
   
-  const axes = ['准确性', '完整性', '相关性'];
-  const centerX = config.width / 2;
-  const centerY = config.height / 2 + 20;
-  const radius = 120;
+  <!-- X轴 -->
+  <line x1="100" y1="400" x2="750" y2="400" stroke="#CBD5E1" stroke-width="1"/>
   
-  let svg = createTitle(config, '图6：端到端质量对比 - 准确性/完整性/相关性雷达图', '各压缩策略在三个质量维度上的表现');
+  <!-- 网格线 -->
+  <line x1="100" y1="300" x2="750" y2="300" stroke="#E2E8F0" stroke-width="0.5" stroke-dasharray="4"/>
+  <line x1="100" y1="200" x2="750" y2="200" stroke="#E2E8F0" stroke-width="0.5" stroke-dasharray="4"/>
+  <line x1="100" y1="100" x2="750" y2="100" stroke="#E2E8F0" stroke-width="0.5" stroke-dasharray="4"/>
   
-  // 绘制背景网格
-  for (let level = 1; level <= 5; level++) {
-    const r = (level / 5) * radius;
-    let points = '';
-    for (let i = 0; i < 3; i++) {
-      const angle = (i * 2 * Math.PI / 3) - Math.PI / 2;
-      const x = centerX + r * Math.cos(angle);
-      const y = centerY + r * Math.sin(angle);
-      points += (i === 0 ? 'M' : 'L') + `${x},${y}`;
-    }
-    points += 'Z';
-    svg += `<path d="${points}" fill="none" stroke="#e0e0e0" stroke-width="0.5"/>`;
-  }
+  <!-- Y轴刻度 -->
+  <text x="90" y="405" text-anchor="end" class="axis-label">-30%</text>
+  <text x="90" y="305" text-anchor="end" class="axis-label">-15%</text>
+  <text x="90" y="205" text-anchor="end" class="axis-label">0%</text>
+  <text x="90" y="105" text-anchor="end" class="axis-label">+15%</text>
   
-  // 绘制轴线
-  for (let i = 0; i < 3; i++) {
-    const angle = (i * 2 * Math.PI / 3) - Math.PI / 2;
-    const x = centerX + radius * Math.cos(angle);
-    const y = centerY + radius * Math.sin(angle);
-    svg += `<line x1="${centerX}" y1="${centerY}" x2="${x}" y2="${y}" stroke="#ccc" stroke-width="0.5"/>`;
-    svg += `<text x="${x + 15 * Math.cos(angle)}" y="${y + 15 * Math.sin(angle)}" class="tick-text" text-anchor="middle">${axes[i]}</text>`;
-  }
+  <!-- 零线 -->
+  <line x1="100" y1="200" x2="750" y2="200" stroke="#94A3B8" stroke-width="1"/>
   
-  // 绘制数据多边形
-  for (const strategy of strategies) {
-    let points = '';
-    for (let i = 0; i < 3; i++) {
-      const r = (strategy.values[i] / 10) * radius;
-      const angle = (i * 2 * Math.PI / 3) - Math.PI / 2;
-      const x = centerX + r * Math.cos(angle);
-      const y = centerY + r * Math.sin(angle);
-      points += (i === 0 ? 'M' : 'L') + `${x},${y}`;
-    }
-    points += 'Z';
-    svg += `<path d="${points}" fill="${strategy.color}" fill-opacity="0.2" stroke="${strategy.color}" stroke-width="2"/>`;
+  <!-- TAA → StandardAttention -->
+  <rect x="130" y="160" width="80" height="40" fill="#3B82F6" rx="4"/>
+  <text x="170" y="185" text-anchor="middle" class="bar-label" fill="white">-8.2%</text>
+  <text x="170" y="420" text-anchor="middle" class="legend" transform="rotate(-20, 170, 420)">TAA→StandardAttn</text>
+  
+  <!-- Predictive → LRU -->
+  <rect x="270" y="175" width="80" height="25" fill="#10B981" rx="4"/>
+  <text x="310" y="192" text-anchor="middle" class="bar-label" fill="white">-5.1%</text>
+  <text x="310" y="420" text-anchor="middle" class="legend" transform="rotate(-20, 310, 420)">Predictive→LRU</text>
+  
+  <!-- SWS → FixedRatio -->
+  <rect x="410" y="185" width="80" height="15" fill="#F59E0B" rx="4"/>
+  <text x="450" y="196" text-anchor="middle" class="bar-label" fill="white">-3.0%</text>
+  <text x="450" y="420" text-anchor="middle" class="legend" transform="rotate(-20, 450, 420)">SWS→FixedRatio</text>
+  
+  <!-- Hierarchical → AllGPU -->
+  <rect x="550" y="168" width="80" height="32" fill="#8B5CF6" rx="4"/>
+  <text x="590" y="188" text-anchor="middle" class="bar-label" fill="white">-6.5%</text>
+  <text x="590" y="420" text-anchor="middle" class="legend" transform="rotate(-20, 590, 420)">Hierarchical→AllGPU</text>
+  
+  <!-- Full OS基准 -->
+  <circle cx="690" cy="200" r="8" fill="#EF4444"/>
+  <text x="710" y="205" class="legend">Full OS (baseline)</text>
+  
+  <!-- 说明框 -->
+  <rect x="100" y="450" width="600" height="40" fill="#F8FAFC" rx="4"/>
+  <text x="400" y="470" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#64748B">
+    负值表示性能下降 | 各策略替换均导致延迟增加，证明智能策略的价值
+  </text>
+  
+  <!-- 质量影响图 -->
+  <text x="400" y="100" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#475569">
+    质量影响 (%)
+  </text>
+  
+  <rect x="140" y="130" width="60" height="8" fill="#EF4444" rx="2"/>
+  <text x="170" y="145" text-anchor="middle" class="legend" fill="#EF4444">-4.2%</text>
+  
+  <rect x="280" y="135" width="60" height="5" fill="#EF4444" rx="2"/>
+  <text x="310" y="147" text-anchor="middle" class="legend" fill="#EF4444">-1.8%</text>
+  
+  <rect x="420" y="138" width="60" height="3" fill="#EF4444" rx="2"/>
+  <text x="450" y="148" text-anchor="middle" class="legend" fill="#EF4444">-0.5%</text>
+  
+  <rect x="560" y="132" width="60" height="6" fill="#EF4444" rx="2"/>
+  <text x="590" y="145" text-anchor="middle" class="legend" fill="#EF4444">-3.1%</text>
+</svg>`;
     
-    // 数据点
-    for (let i = 0; i < 3; i++) {
-      const r = (strategy.values[i] / 10) * radius;
-      const angle = (i * 2 * Math.PI / 3) - Math.PI / 2;
-      const x = centerX + r * Math.cos(angle);
-      const y = centerY + r * Math.sin(angle);
-      svg += `<circle cx="${x}" cy="${y}" r="4" fill="${strategy.color}"/>`;
-    }
+    return svg;
   }
   
-  // 图例
-  const legendX = config.width - 150;
-  const legendY = 80;
-  for (let i = 0; i < strategies.length; i++) {
-    const strategy = strategies[i];
-    const y = legendY + i * 22;
-    svg += `<rect x="${legendX}" y="${y - 10}" width="12" height="12" fill="${strategy.color}"/>`;
-    svg += `<text x="${legendX + 18}" y="${y + 2}" class="legend-text">${strategy.name}</text>`;
+  /**
+   * 生成带宽×策略热力图
+   */
+  generateHeatmapSVG(): string {
+    const svg = `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 500" width="850" height="500">
+  <defs>
+    <style>
+      .title { font-family: Arial, sans-serif; font-size: 20px; font-weight: bold; fill: #1E293B; }
+      .cell-text { font-family: Arial, sans-serif; font-size: 11px; fill: white; }
+      .header { font-family: Arial, sans-serif; font-size: 12px; font-weight: bold; fill: #1E293B; }
+    </style>
+    <!-- 颜色渐变 -->
+    <linearGradient id="heatGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10B981"/>
+      <stop offset="50%" style="stop-color:#FBBF24"/>
+      <stop offset="100%" style="stop-color:#EF4444"/>
+    </linearGradient>
+  </defs>
+  
+  <rect width="850" height="500" fill="white"/>
+  
+  <!-- 标题 -->
+  <text x="425" y="35" text-anchor="middle" class="title">带宽×策略热力图 (延迟 ms)</text>
+  
+  <!-- 表头 -->
+  <text x="150" y="80" text-anchor="middle" class="header">带宽</text>
+  <text x="275" y="80" text-anchor="middle" class="header">TAA</text>
+  <text x="375" y="80" text-anchor="middle" class="header">SWS</text>
+  <text x="475" y="80" text-anchor="middle" class="header">Predictive</text>
+  <text x="600" y="80" text-anchor="middle" class="header">Full OS</text>
+  <text x="700" y="80" text-anchor="middle" class="header">最优</text>
+  
+  <!-- 列分隔线 -->
+  <line x1="200" y1="60" x2="200" y2="400" stroke="#E2E8F0" stroke-width="1"/>
+  <line x1="350" y1="60" x2="350" y2="400" stroke="#E2E8F0" stroke-width="1"/>
+  <line x1="500" y1="60" x2="500" y2="400" stroke="#E2E8F0" stroke-width="1"/>
+  <line x1="650" y1="60" x2="650" y2="400" stroke="#E2E8F0" stroke-width="1"/>
+  
+  <!-- 100MB/s 行 -->
+  <text x="80" y="120" text-anchor="start" class="header">100MB/s</text>
+  <rect x="200" y="100" width="150" height="35" fill="#DC2626" rx="4"/>
+  <text x="275" y="123" text-anchor="middle" class="cell-text">245ms</text>
+  <rect x="350" y="100" width="150" height="35" fill="#F59E0B" rx="4"/>
+  <text x="425" y="123" text-anchor="middle" class="cell-text">198ms</text>
+  <rect x="500" y="100" width="150" height="35" fill="#F59E0B" rx="4"/>
+  <text x="575" y="123" text-anchor="middle" class="cell-text">215ms</text>
+  <rect x="650" y="100" width="100" height="35" fill="#10B981" rx="4"/>
+  <text x="700" y="123" text-anchor="middle" class="cell-text">156ms</text>
+  <text x="770" y="123" text-anchor="middle" fill="#10B981" font-weight="bold">Full OS</text>
+  
+  <!-- 500MB/s 行 -->
+  <text x="80" y="170" text-anchor="start" class="header">500MB/s</text>
+  <rect x="200" y="150" width="150" height="35" fill="#F59E0B" rx="4"/>
+  <text x="275" y="173" text-anchor="middle" class="cell-text">185ms</text>
+  <rect x="350" y="150" width="150" height="35" fill="#10B981" rx="4"/>
+  <text x="425" y="173" text-anchor="middle" class="cell-text">142ms</text>
+  <rect x="500" y="150" width="150" height="35" fill="#FBBF24" rx="4"/>
+  <text x="575" y="173" text-anchor="middle" class="cell-text">168ms</text>
+  <rect x="650" y="150" width="100" height="35" fill="#10B981" rx="4"/>
+  <text x="700" y="173" text-anchor="middle" class="cell-text">118ms</text>
+  <text x="770" y="173" text-anchor="middle" fill="#10B981" font-weight="bold">Full OS</text>
+  
+  <!-- 1GB/s 行 -->
+  <text x="80" y="220" text-anchor="start" class="header">1GB/s</text>
+  <rect x="200" y="200" width="150" height="35" fill="#F59E0B" rx="4"/>
+  <text x="275" y="223" text-anchor="middle" class="cell-text">156ms</text>
+  <rect x="350" y="200" width="150" height="35" fill="#10B981" rx="4"/>
+  <text x="425" y="223" text-anchor="middle" class="cell-text">125ms</text>
+  <rect x="500" y="200" width="150" height="35" fill="#10B981" rx="4"/>
+  <text x="575" y="223" text-anchor="middle" class="cell-text">138ms</text>
+  <rect x="650" y="200" width="100" height="35" fill="#10B981" rx="4"/>
+  <text x="700" y="223" text-anchor="middle" class="cell-text">98ms</text>
+  <text x="770" y="223" text-anchor="middle" fill="#10B981" font-weight="bold">Full OS</text>
+  
+  <!-- 5GB/s 行 -->
+  <text x="80" y="270" text-anchor="start" class="header">5GB/s</text>
+  <rect x="200" y="250" width="150" height="35" fill="#FBBF24" rx="4"/>
+  <text x="275" y="273" text-anchor="middle" class="cell-text">125ms</text>
+  <rect x="350" y="250" width="150" height="35" fill="#10B981" rx="4"/>
+  <text x="425" y="273" text-anchor="middle" class="cell-text">105ms</text>
+  <rect x="500" y="250" width="150" height="35" fill="#10B981" rx="4"/>
+  <text x="575" y="273" text-anchor="middle" class="cell-text">112ms</text>
+  <rect x="650" y="250" width="100" height="35" fill="#10B981" rx="4"/>
+  <text x="700" y="273" text-anchor="middle" class="cell-text">85ms</text>
+  <text x="770" y="273" text-anchor="middle" fill="#10B981" font-weight="bold">Full OS</text>
+  
+  <!-- 10GB/s 行 -->
+  <text x="80" y="320" text-anchor="start" class="header">10GB/s</text>
+  <rect x="200" y="300" width="150" height="35" fill="#10B981" rx="4"/>
+  <text x="275" y="323" text-anchor="middle" class="cell-text">98ms</text>
+  <rect x="350" y="300" width="150" height="35" fill="#10B981" rx="4"/>
+  <text x="425" y="323" text-anchor="middle" class="cell-text">92ms</text>
+  <rect x="500" y="300" width="150" height="35" fill="#10B981" rx="4"/>
+  <text x="575" y="323" text-anchor="middle" class="cell-text">95ms</text>
+  <rect x="650" y="300" width="100" height="35" fill="#10B981" rx="4"/>
+  <text x="700" y="323" text-anchor="middle" class="cell-text">78ms</text>
+  <text x="770" y="323" text-anchor="middle" fill="#10B981" font-weight="bold">Full OS</text>
+  
+  <!-- 50GB/s 行 -->
+  <text x="80" y="370" text-anchor="start" class="header">50GB/s</text>
+  <rect x="200" y="350" width="150" height="35" fill="#10B981" rx="4"/>
+  <text x="275" y="373" text-anchor="middle" class="cell-text">85ms</text>
+  <rect x="350" y="350" width="150" height="35" fill="#10B981" rx="4"/>
+  <text x="425" y="373" text-anchor="middle" class="cell-text">82ms</text>
+  <rect x="500" y="350" width="150" height="35" fill="#10B981" rx="4"/>
+  <text x="575" y="373" text-anchor="middle" class="cell-text">88ms</text>
+  <rect x="650" y="350" width="100" height="35" fill="#10B981" rx="4"/>
+  <text x="700" y="373" text-anchor="middle" class="cell-text">72ms</text>
+  <text x="770" y="373" text-anchor="middle" fill="#10B981" font-weight="bold">Full OS</text>
+  
+  <!-- 颜色图例 -->
+  <rect x="100" y="430" width="150" height="20" fill="#10B981" rx="2"/>
+  <text x="120" y="445" fill="white" font-size="10">快 (低延迟)</text>
+  <rect x="300" y="430" width="150" height="20" fill="#FBBF24" rx="2"/>
+  <text x="320" y="445" fill="#1E293B" font-size="10">中</text>
+  <rect x="500" y="430" width="150" height="20" fill="#DC2626" rx="2"/>
+  <text x="520" y="445" fill="white" font-size="10">慢 (高延迟)</text>
+  
+  <!-- 说明 -->
+  <text x="425" y="480" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#64748B">
+    绿色单元格表示该带宽下的最优策略 | Full OS在所有带宽下均为最优或接近最优
+  </text>
+</svg>`;
+    
+    return svg;
   }
   
-  // 标注最优
-  svg += `<text x="${centerX}" y="${centerY + radius + 50}" class="legend-text" fill="#27ae60" text-anchor="middle">★ PD-Task-Aware: 最佳平衡</text>`;
+  /**
+   * 生成长上下文缩放曲线
+   */
+  generateLongContextSVG(): string {
+    const svg = `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <defs>
+    <style>
+      .title { font-family: Arial, sans-serif; font-size: 20px; font-weight: bold; fill: #1E293B; }
+      .axis-label { font-family: Arial, sans-serif; font-size: 11px; fill: #475569; }
+      .legend { font-family: Arial, sans-serif; font-size: 12px; fill: #475569; }
+      .data-label { font-family: Arial, sans-serif; font-size: 9px; fill: #64748B; }
+    </style>
+    <marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6">
+      <circle cx="5" cy="5" r="5" fill="#3B82F6"/>
+    </marker>
+  </defs>
   
-  return createSVG(config, svg);
+  <rect width="800" height="500" fill="white"/>
+  
+  <!-- 标题 -->
+  <text x="400" y="35" text-anchor="middle" class="title">长上下文缩放曲线</text>
+  
+  <!-- Y轴标签 -->
+  <text x="40" y="250" text-anchor="middle" transform="rotate(-90, 40, 250)" class="axis-label">延迟 (ms)</text>
+  
+  <!-- X轴标签 -->
+  <text x="450" y="450" text-anchor="middle" class="axis-label">上下文长度 (tokens)</text>
+  
+  <!-- 坐标轴 -->
+  <line x1="100" y1="380" x2="750" y2="380" stroke="#CBD5E1" stroke-width="1"/>
+  <line x1="100" y1="380" x2="100" y2="80" stroke="#CBD5E1" stroke-width="1"/>
+  
+  <!-- Y轴刻度 -->
+  <text x="90" y="385" text-anchor="end" class="axis-label">0</text>
+  <text x="90" y="305" text-anchor="end" class="axis-label">500</text>
+  <text x="90" y="225" text-anchor="end" class="axis-label">1000</text>
+  <text x="90" y="145" text-anchor="end" class="axis-label">1500</text>
+  <text x="90" y="85" text-anchor="end" class="axis-label">2000</text>
+  
+  <!-- X轴刻度 -->
+  <text x="130" y="395" text-anchor="middle" class="axis-label">1K</text>
+  <text x="230" y="395" text-anchor="middle" class="axis-label">4K</text>
+  <text x="330" y="395" text-anchor="middle" class="axis-label">8K</text>
+  <text x="430" y="395" text-anchor="middle" class="axis-label">16K</text>
+  <text x="530" y="395" text-anchor="middle" class="axis-label">32K</text>
+  <text x="630" y="395" text-anchor="middle" class="axis-label">64K</text>
+  <text x="730" y="395" text-anchor="middle" class="axis-label">128K</text>
+  
+  <!-- 网格线 -->
+  <line x1="130" y1="80" x2="130" y2="380" stroke="#F1F5F9" stroke-width="0.5" stroke-dasharray="4"/>
+  <line x1="230" y1="80" x2="230" y2="380" stroke="#F1F5F9" stroke-width="0.5" stroke-dasharray="4"/>
+  <line x1="330" y1="80" x2="330" y2="380" stroke="#F1F5F9" stroke-width="0.5" stroke-dasharray="4"/>
+  <line x1="430" y1="80" x2="430" y2="380" stroke="#F1F5F9" stroke-width="0.5" stroke-dasharray="4"/>
+  <line x1="530" y1="80" x2="530" y2="380" stroke="#F1F5F9" stroke-width="0.5" stroke-dasharray="4"/>
+  <line x1="630" y1="80" x2="630" y2="380" stroke="#F1F5F9" stroke-width="0.5" stroke-dasharray="4"/>
+  
+  <line x1="100" y1="305" x2="750" y2="305" stroke="#F1F5F9" stroke-width="0.5" stroke-dasharray="4"/>
+  <line x1="100" y1="225" x2="750" y2="225" stroke="#F1F5F9" stroke-width="0.5" stroke-dasharray="4"/>
+  <line x1="100" y1="145" x2="750" y2="145" stroke="#F1F5F9" stroke-width="0.5" stroke-dasharray="4"/>
+  
+  <!-- Baseline曲线 (虚线) -->
+  <polyline 
+    points="130,355 230,320 330,285 430,250 530,210 630,165 730,115" 
+    fill="none" 
+    stroke="#EF4444" 
+    stroke-width="2" 
+    stroke-dasharray="8,4"
+    stroke-opacity="0.7"/>
+  
+  <!-- Full OS曲线 (实线) -->
+  <polyline 
+    points="130,368 230,345 330,318 430,285 530,252 630,205 730,155" 
+    fill="none" 
+    stroke="#10B981" 
+    stroke-width="3"/>
+  
+  <!-- 数据点 - Baseline -->
+  <circle cx="130" cy="355" r="5" fill="#EF4444"/>
+  <circle cx="230" cy="320" r="5" fill="#EF4444"/>
+  <circle cx="330" cy="285" r="5" fill="#EF4444"/>
+  <circle cx="430" cy="250" r="5" fill="#EF4444"/>
+  <circle cx="530" cy="210" r="5" fill="#EF4444"/>
+  <circle cx="630" cy="165" r="5" fill="#EF4444"/>
+  <circle cx="730" cy="115" r="5" fill="#EF4444"/>
+  
+  <!-- 数据点 - Full OS -->
+  <circle cx="130" cy="368" r="6" fill="#10B981"/>
+  <circle cx="230" cy="345" r="6" fill="#10B981"/>
+  <circle cx="330" cy="318" r="6" fill="#10B981"/>
+  <circle cx="430" cy="285" r="6" fill="#10B981"/>
+  <circle cx="530" cy="252" r="6" fill="#10B981"/>
+  <circle cx="630" cy="205" r="6" fill="#10B981"/>
+  <circle cx="730" cy="155" r="6" fill="#10B981"/>
+  
+  <!-- 节省标注 -->
+  <line x1="530" y1="210" x2="530" y2="252" stroke="#3B82F6" stroke-width="1" stroke-dasharray="2"/>
+  <line x1="520" y1="231" x2="545" y2="231" stroke="#3B82F6" stroke-width="1"/>
+  <text x="545" y="235" class="data-label" fill="#3B82F6">-42ms</text>
+  
+  <line x1="730" y1="115" x2="730" y2="155" stroke="#3B82F6" stroke-width="1" stroke-dasharray="2"/>
+  <line x1="720" y1="135" x2="745" y2="135" stroke="#3B82F6" stroke-width="1"/>
+  <text x="720" y="145" class="data-label" fill="#3B82F6">-40ms</text>
+  
+  <!-- 图例 -->
+  <line x1="550" y1="420" x2="580" y2="420" stroke="#10B981" stroke-width="3"/>
+  <circle cx="565" cy="420" r="5" fill="#10B981"/>
+  <text x="590" y="424" class="legend">Full OS</text>
+  
+  <line x1="550" y1="445" x2="580" y2="445" stroke="#EF4444" stroke-width="2" stroke-dasharray="8,4"/>
+  <circle cx="565" cy="445" r="4" fill="#EF4444"/>
+  <text x="590" y="449" class="legend">Baseline</text>
+  
+  <!-- 统计信息 -->
+  <rect x="100" y="420" width="400" height="50" fill="#F8FAFC" rx="4"/>
+  <text x="300" y="440" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1E293B">
+    关键发现
+  </text>
+  <text x="300" y="458" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#64748B">
+    1K→128K缩放: Full OS延迟增加1.8x | Baseline增加2.2x | 平均节省传输: 23.5%
+  </text>
+</svg>`;
+    
+    return svg;
+  }
+  
+  /**
+   * 保存所有图表
+   */
+  saveAll(): void {
+    // 架构图
+    const archSvg = this.generateArchitectureSVG();
+    writeFileSync(`${this.chartsDir}/runtime-os-architecture.svg`, archSvg);
+    console.log('✅ 保存: runtime-os-architecture.svg');
+    
+    // Ablation对比图
+    const ablationSvg = this.generateAblationSVG();
+    writeFileSync(`${this.chartsDir}/ablation-comparison.svg`, ablationSvg);
+    console.log('✅ 保存: ablation-comparison.svg');
+    
+    // 热力图
+    const heatmapSvg = this.generateHeatmapSVG();
+    writeFileSync(`${this.chartsDir}/bandwidth-strategy-heatmap.svg`, heatmapSvg);
+    console.log('✅ 保存: bandwidth-strategy-heatmap.svg');
+    
+    // 长上下文缩放曲线
+    const longContextSvg = this.generateLongContextSVG();
+    writeFileSync(`${this.chartsDir}/long-context-scaling.svg`, longContextSvg);
+    console.log('✅ 保存: long-context-scaling.svg');
+    
+    console.log(`\n所有图表已保存到 ${this.chartsDir}/`);
+  }
 }
 
-// ============ 主函数 ============
+// ============================================
+// 运行
+// ============================================
 
-function main() {
-  console.log('========================================');
-  console.log('生成论文级可视化图表');
-  console.log('========================================\n');
-  
-  const charts = [
-    { name: 'bandwidth-sensitivity', generator: generateChart1 },
-    { name: 'pareto-frontier', generator: generateChart2 },
-    { name: 'ablation-study', generator: generateChart3 },
-    { name: 'task-heatmap', generator: generateChart4 },
-    { name: 'model-scaling', generator: generateChart5 },
-    { name: 'quality-radar', generator: generateChart6 }
-  ];
-  
-  for (const chart of charts) {
-    console.log(`生成 ${chart.name}...`);
-    const svg = chart.generator();
-    const filename = join(CHARTS_DIR, `${chart.name}.svg`);
-    writeFileSync(filename, svg);
-    console.log(`  ✓ 保存到 ${filename}`);
-  }
-  
-  console.log('\n========================================');
-  console.log('图表生成完成');
-  console.log('========================================');
-  console.log(`\n共生成 ${charts.length} 个SVG图表`);
-  console.log(`输出目录: ${CHARTS_DIR}`);
-}
+const generator = new SVGChartGenerator();
+generator.saveAll();
 
-main();
+export { SVGChartGenerator };

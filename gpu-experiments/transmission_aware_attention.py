@@ -4,16 +4,24 @@
 kvcache-lab Transmission-Aware Attention (TAA) 验证脚本
 
 核心创新验证：
-    修改attention score: score = relevance × exp(-β × cost)
+    TAA作为auxiliary runtime bias（不替换attention，只加偏置）:
+    score_i = relevance_i + α × runtime_bias_i
+    其中 runtime_bias_i = -cost_normalized_i
+    
+    设计理由：
+    - 乘法(relevance × exp(-β×cost))会破坏attention语义，reviewer会问"要不要retrain?"
+    - 加法bias更稳定：α=0退化为普通attention，α>0偏好低成本KV
+    - 不需要retrain，inference-only即可部署
+    
     - cost根据KV位置计算（本地=0, 远端=带宽延迟）
-    - β参数扫描: 0(无TAA) / 0.1 / 0.3 / 0.5 / 1.0
+    - α参数扫描: 0(无TAA) / 0.1 / 0.3 / 0.5 / 1.0
     - 对比TAA vs 普通attention的延迟+质量
 
-原理（来自kvcache-lab/src/agents/CommunicationAgent.ts）:
-    β系数根据拥塞级别自适应：
-    - low congestion: β=0.5 (几乎只看relevance)
-    - medium: β=1.0 (适度考虑cost)
-    - high: β=2.0 (强烈考虑cost)
+原理（来自kvcache-lab/src/agents/CommunicationAgent.ts，修正版）:
+    α系数根据拥塞级别自适应：
+    - low congestion: α=0.1 (轻微偏好本地)
+    - medium: α=0.3 (适度考虑cost)
+    - high: α=0.5 (强烈考虑cost)
     
     拥塞级别判断：
     - low: 带宽利用率 < 30%
@@ -247,9 +255,10 @@ class TransmissionAwareAttention(nn.Module):
             max_cost = access_costs.max() if access_costs.max() > 0 else 1.0
             normalized_costs = cost_matrix / max_cost
             
-            # 应用成本衰减: score = score * exp(-β * cost)
-            cost_decay = torch.exp(-self.beta * normalized_costs)
-            scores = scores * cost_decay
+            # 应用运行时偏置: score = score + α × (-cost_normalized)
+            # 加法bias而非乘法，不破坏attention语义
+            runtime_bias = -normalized_costs  # 成本越高，偏置越负
+            scores = scores + self.beta * runtime_bias
         
         # 保存attention weights用于分析
         self.last_attention_weights = F.softmax(scores, dim=-1)

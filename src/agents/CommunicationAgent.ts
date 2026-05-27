@@ -99,12 +99,12 @@ const CONGESTION_MULTIPLIERS: Record<CongestionLevel, number> = {
 
 /**
  * β系数 - Transmission-Aware Attention中的成本衰减系数
- * 根据拥塞级别自适应调整
+ * 根据拥塞级别自适应调整（作为α系数使用）
  */
 const BETA_COEFFICIENTS: Record<CongestionLevel, number> = {
-  low: 0.5,
-  medium: 1.0,
-  high: 2.0,
+  low: 0.1,    // 轻微偏好本地KV
+  medium: 0.3, // 适度考虑通信成本
+  high: 0.5,   // 强烈偏好低成本KV
 };
 
 // ============================================
@@ -362,12 +362,19 @@ export class CommunicationAgent {
 /**
  * 计算Transmission-Aware Attention Scores
  * 
- * 核心公式: modified_score[i] = relevance[i] × exp(-β × cost[i])
+ * TAA作为auxiliary runtime bias（不替换attention，只加偏置）:
+ * score_i = relevance_i + α × runtime_bias_i
+ * 其中 runtime_bias_i = -cost_normalized_i
  * 
- * β根据拥塞级别自适应：
- * - low congestion: β=0.5 (几乎只看relevance)
- * - medium: β=1.0 (适度考虑cost)
- * - high: β=2.0 (强烈考虑cost)
+ * 设计理由：
+ * - 乘法(relevance × exp(-β×cost))会破坏attention语义，reviewer会问"要不要retrain?"
+ * - 加法bias更稳定：α=0退化为普通attention，α>0偏好低成本KV
+ * - 不需要retrain，inference-only即可部署
+ * 
+ * α根据拥塞级别自适应：
+ * - low congestion: α=0.1 (轻微偏好本地)
+ * - medium: α=0.3 (适度考虑cost)
+ * - high: α=0.5 (强烈考虑cost)
  * 
  * @param relevance - 原始注意力分数
  * @param costs - 访问成本数组
@@ -378,15 +385,16 @@ export function computeTransmissionAwareScores(
   costs: Float64Array | number[],
   congestionLevel: CongestionLevel
 ): number[] {
-  const beta = BETA_COEFFICIENTS[congestionLevel];
+  const alpha = BETA_COEFFICIENTS[congestionLevel]; // 复用β系数作为α
   
   // 归一化成本到[0,1]范围
   const maxCost = Math.max(...costs);
   const normalizedCosts = costs.map(c => c / maxCost);
   
-  // 应用成本衰减
+  // 应用运行时偏置: score = relevance + α × (-cost_normalized)
+  // 加法bias而非乘法，不破坏attention语义
   const modifiedScores = relevance.map((r, i) => 
-    r * Math.exp(-beta * normalizedCosts[i])
+    r + alpha * (-normalizedCosts[i])
   );
   
   // 重新归一化确保和为1

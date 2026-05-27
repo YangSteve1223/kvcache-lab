@@ -57,21 +57,56 @@ interface MatrixResult {
 
 class BandwidthStrategyMatrixSimulator {
   /**
-   * 生成语义状态
+   * 运行策略实验
+   * 
+   * 策略含义：
+   * - TAA: 只启用CommunicationAgent（传输感知注意力）
+   * - SWS: 只启用SemanticAgent（语义工作集）
+   * - Predictive: 只启用ReuseAgent（重用预测）
+   * - FullOS: 所有Agent都启用
    */
-  private generateSemanticState(tokenCount: number, useSWS: boolean): {
-    activeRegions: SemanticRegion[];
-    workingSetTokens: number[];
-  } {
-    const regions: SemanticRegion[] = [];
+  private runStrategy(
+    strategy: StrategyType,
+    bandwidthGBps: number
+  ): { latencyMs: number; qualityScore: number; transmissionBytes: number } {
+    const bandwidthBytesPerMs = bandwidthGBps * 1024 * 1024 / 8;
     
-    if (useSWS) {
-      // SWS: 识别重要区域
-      const workingSetSize = Math.floor(tokenCount * 0.2);
-      regions.push({
+    // 创建store
+    const store = new GlobalStateStore({
+      maxMemoryBytes: MEMORY_CAPACITY.gpuHBM,
+      bandwidthBytesPerMs,
+      sloLatencyMs: 2000,
+    });
+    
+    // 创建scheduler
+    const scheduler = createRuntimeScheduler(store);
+    scheduler.enableAllAgents();
+    
+    // 根据策略禁用特定Agent
+    if (strategy === 'TAA') {
+      scheduler.disableAgent('semantic');
+      scheduler.disableAgent('reuse');
+      scheduler.disableAgent('placement');
+    } else if (strategy === 'SWS') {
+      scheduler.disableAgent('communication');
+      scheduler.disableAgent('reuse');
+      scheduler.disableAgent('placement');
+    } else if (strategy === 'Predictive') {
+      scheduler.disableAgent('semantic');
+      scheduler.disableAgent('communication');
+      scheduler.disableAgent('placement');
+    }
+    // FullOS: 所有Agent都启用
+    
+    // 生成基础状态
+    const semanticRegions: SemanticRegion[] = [];
+    // SWS和FullOS都启用语义Agent
+    if (strategy === 'SWS' || strategy === 'FullOS') {
+      const workingSetSize = Math.floor(NUM_TOKENS * 0.2);
+      semanticRegions.push({
         id: 0,
         name: 'WorkingSet',
-        tokenIndices: Array.from({ length: workingSetSize }, (_, i) => tokenCount - workingSetSize + i),
+        tokenIndices: Array.from({ length: workingSetSize }, (_, i) => NUM_TOKENS - workingSetSize + i),
         importance: 0.9,
         coherence: 0.8,
         queryRelevance: 0.95,
@@ -79,120 +114,119 @@ class BandwidthStrategyMatrixSimulator {
       });
     }
     
-    return {
-      activeRegions: regions,
-      workingSetTokens: Array.from({ length: tokenCount }, (_, i) => i),
-    };
-  }
-  
-  /**
-   * 生成reuse预测
-   */
-  private generateReuseState(tokenCount: number, usePredictive: boolean): Map<number, TokenReusePrediction> {
-    const predictions = new Map<number, TokenReusePrediction>();
-    
-    for (let i = 0; i < tokenCount; i++) {
-      let reuseProb: number;
-      
-      if (usePredictive) {
-        // Predictive: 预测高reuse的token
-        const distance = Math.abs(i - (tokenCount - 1));
-        reuseProb = Math.exp(-distance / 100) * (0.7 + Math.random() * 0.3);
-      } else {
-        // 无预测: 随机
-        reuseProb = 0.3 + Math.random() * 0.3;
+    // 生成reuse预测
+    const reusePredictions = new Map<number, TokenReusePrediction>();
+    // Predictive和FullOS都启用reuse Agent
+    if (strategy === 'Predictive' || strategy === 'FullOS') {
+      for (let i = 0; i < NUM_TOKENS; i++) {
+        const distance = Math.abs(i - (NUM_TOKENS - 1));
+        const reuseProb = Math.exp(-distance / 100) * (0.7 + Math.random() * 0.3);
+        reusePredictions.set(i, {
+          tokenIndex: i,
+          reuseDistance: distance,
+          reuseProbability: reuseProb,
+          confidence: 0.7,
+          temporalPattern: 'spatial',
+        });
       }
-      
-      predictions.set(i, {
-        tokenIndex: i,
-        reuseDistance: Math.abs(i - (tokenCount - 1)),
-        reuseProbability: reuseProb,
-        confidence: usePredictive ? 0.7 : 0.3,
-        temporalPattern: 'spatial',
-      });
+    } else {
+      // 无reuse预测：随机reuse
+      for (let i = 0; i < NUM_TOKENS; i++) {
+        reusePredictions.set(i, {
+          tokenIndex: i,
+          reuseDistance: 1000,
+          reuseProbability: 0.3,
+          confidence: 0.3,
+          temporalPattern: 'random',
+        });
+      }
     }
     
-    return predictions;
-  }
-  
-  /**
-   * 生成通信状态（考虑TAA）
-   */
-  private generateCommunicationState(
-    tokenCount: number,
-    useTAA: boolean,
-    bandwidthGBps: number
-  ): {
-    tokenAccessCosts: Map<number, number>;
-    bandwidthUtilization: number;
-    congestionLevel: 'low' | 'medium' | 'high';
-  } {
+    // 生成token访问成本
     const tokenAccessCosts = new Map<number, number>();
-    const bandwidthBytesPerMs = bandwidthGBps * 1024 * 1024 / 8;
+    const tokenLocations = new Map<number, KVLocation>();
     
     // 带宽越低，拥塞越严重
     let baseCongestion: 'low' | 'medium' | 'high' = 'low';
     if (bandwidthGBps < 1) baseCongestion = 'high';
     else if (bandwidthGBps < 5) baseCongestion = 'medium';
     
-    for (let i = 0; i < tokenCount; i++) {
+    const congestionMultiplier = baseCongestion === 'high' ? 3 : baseCongestion === 'medium' ? 2 : 1;
+    
+    for (let i = 0; i < NUM_TOKENS; i++) {
       const rand = Math.random();
       const location = rand < 0.4 ? 'gpu' : rand < 0.7 ? 'cpu' : 'remote';
       
-      let cost: number;
-      if (useTAA && location !== 'gpu') {
-        // TAA: 根据拥塞级别调整成本
-        const congestionMultiplier = baseCongestion === 'high' ? 3 : baseCongestion === 'medium' ? 2 : 1;
-        cost = location === 'cpu' ? 10 * congestionMultiplier : 50 * congestionMultiplier;
-      } else {
-        // 无TAA: 固定成本
-        cost = location === 'gpu' ? 0.1 : location === 'cpu' ? 10 : 50;
-      }
-      
-      tokenAccessCosts.set(i, cost);
-    }
-    
-    // 高带宽=低拥塞，反之亦然
-    let bandwidthUtilization = 0.3;
-    if (bandwidthGBps < 1) bandwidthUtilization = 0.9;
-    else if (bandwidthGBps < 5) bandwidthUtilization = 0.6;
-    
-    return {
-      tokenAccessCosts,
-      bandwidthUtilization,
-      congestionLevel: baseCongestion,
-    };
-  }
-  
-  /**
-   * 生成放置状态
-   */
-  private generatePlacementState(tokenCount: number, useHierarchical: boolean): Map<number, KVLocation> {
-    const tokenLocations = new Map<number, KVLocation>();
-    
-    for (let i = 0; i < tokenCount; i++) {
-      let location: KVLocation;
-      
-      if (useHierarchical) {
-        // Hierarchical: 根据重要性分层
-        const isRecent = i >= tokenCount - 500;
-        const isAttentionSink = i < 5;
-        
-        if (isAttentionSink || isRecent) {
-          location = 'gpu_hbm';
+      // TAA和FullOS启用通信Agent
+      if (strategy === 'TAA' || strategy === 'FullOS') {
+        if (location !== 'gpu') {
+          tokenAccessCosts.set(i, location === 'cpu' ? 10 * congestionMultiplier : 50 * congestionMultiplier);
         } else {
-          const rand = Math.random();
-          location = rand < 0.5 ? 'cpu_ram' : rand < 0.8 ? 'remote_gpu' : 'compressed';
+          tokenAccessCosts.set(i, 0.1);
         }
       } else {
-        // 无分层: 假设全放GPU
-        location = 'gpu_hbm';
+        // 无TAA：固定成本
+        tokenAccessCosts.set(i, location === 'gpu' ? 0.1 : location === 'cpu' ? 10 : 50);
       }
       
-      tokenLocations.set(i, location);
+      // FullOS启用分层放置
+      if (strategy === 'FullOS') {
+        const isRecent = i >= NUM_TOKENS - 500;
+        const isAttentionSink = i < 5;
+        if (isAttentionSink || isRecent) {
+          tokenLocations.set(i, 'gpu_hbm');
+        } else {
+          const r = Math.random();
+          tokenLocations.set(i, r < 0.5 ? 'cpu_ram' : r < 0.8 ? 'remote_gpu' : 'compressed');
+        }
+      } else {
+        // 其他策略：全部放GPU
+        tokenLocations.set(i, 'gpu_hbm');
+      }
     }
     
-    return tokenLocations;
+    store.setTaskType('qa');
+    store.updateSemantic({
+      activeRegions: semanticRegions,
+      workingSetTokens: Array.from({ length: NUM_TOKENS }, (_, i) => i),
+      reasoningFocus: 'retrieval',
+      generationProgress: 0,
+      taskPhase: 'prefill',
+      attentionSinkTokens: [0, 1, 2],
+    });
+    store.updateReuse({
+      tokenPredictions: reusePredictions,
+      layerPredictions: new Map(),
+      lastAccessTime: new Map(),
+      accessCount: new Map(),
+      reuseDistanceDistribution: [],
+    });
+    store.updateCommunication({
+      tokenAccessCosts,
+      layerAccessCosts: new Map(Array.from({ length: NUM_LAYERS }, (_, i) => [i, 0.1 + i * 0.02])),
+      bandwidthUtilization: bandwidthGBps < 1 ? 0.9 : bandwidthGBps < 5 ? 0.6 : 0.3,
+      congestionLevel: baseCongestion,
+    });
+    store.updatePlacement({
+      tokenLocations,
+      memoryUtilization: { gpuHBM: 0.6, cpuRAM: 0.3, remote: 0.2, compressed: 0.1 },
+      kvSizes: new Map(Array.from({ length: NUM_TOKENS }, (_, i) => [i, KV_BYTES_PER_TOKEN])),
+    });
+    
+    // 执行调度
+    const decision = scheduler.schedule();
+    
+    // 计算传输量
+    let transmissionBytes = 0;
+    for (const task of decision.transmitKV) {
+      transmissionBytes += task.tokens.length * KV_BYTES_PER_TOKEN;
+    }
+    
+    return {
+      latencyMs: decision.latencyEstimate,
+      qualityScore: decision.qualityEstimate,
+      transmissionBytes,
+    };
   }
   
   /**
@@ -202,71 +236,17 @@ class BandwidthStrategyMatrixSimulator {
     bandwidthGBps: number,
     strategy: StrategyType
   ): MatrixResult {
-    const bandwidthBytesPerMs = bandwidthGBps * 1024 * 1024 / 8;
+    const result = this.runStrategy(strategy, bandwidthGBps);
     
-    // 策略解析
-    const useTAA = strategy === 'TAA' || strategy === 'FullOS';
-    const useSWS = strategy === 'SWS' || strategy === 'FullOS';
-    const usePredictive = strategy === 'Predictive' || strategy === 'FullOS';
-    const useHierarchical = strategy === 'FullOS';
-    
-    // 生成状态
-    const semanticState = this.generateSemanticState(NUM_TOKENS, useSWS);
-    const reuseState = this.generateReuseState(NUM_TOKENS, usePredictive);
-    const commState = this.generateCommunicationState(NUM_TOKENS, useTAA, bandwidthGBps);
-    const placementState = this.generatePlacementState(NUM_TOKENS, useHierarchical);
-    
-    // 创建store
-    const store = new GlobalStateStore({
-      maxMemoryBytes: MEMORY_CAPACITY.gpuHBM,
-      bandwidthBytesPerMs,
-      sloLatencyMs: 2000,
-    });
-    
-    store.setTaskType('qa');
-    store.updateSemantic(semanticState);
-    store.updateReuse({
-      tokenPredictions: reuseState,
-      layerPredictions: new Map(),
-      lastAccessTime: new Map(),
-      accessCount: new Map(),
-      reuseDistanceDistribution: [],
-    });
-    store.updateCommunication({
-      tokenAccessCosts: commState.tokenAccessCosts,
-      layerAccessCosts: new Map(Array.from({ length: NUM_LAYERS }, (_, i) => [i, 0.1 + i * 0.02])),
-      bandwidthUtilization: commState.bandwidthUtilization,
-      congestionLevel: commState.congestionLevel,
-    });
-    store.updatePlacement({
-      tokenLocations: placementState,
-      memoryUtilization: { gpuHBM: 0.6, cpuRAM: 0.3, remote: 0.2, compressed: 0.1 },
-      kvSizes: new Map(Array.from({ length: NUM_TOKENS }, (_, i) => [i, KV_BYTES_PER_TOKEN])),
-    });
-    
-    // 执行调度
-    const scheduler = createRuntimeScheduler(store);
-    scheduler.enableAllAgents();
-    const decision = scheduler.schedule();
-    
-    // 计算传输量
-    let transmissionBytes = 0;
-    for (const task of decision.transmitKV) {
-      transmissionBytes += task.tokens.length * KV_BYTES_PER_TOKEN;
-    }
-    
-    // 计算吞吐量
-    const throughput = NUM_TOKENS / (decision.latencyEstimate / 1000);
-    
-    // 计算SLO满足率（假设SLO=2000ms）
-    const sloSatisfactionRate = decision.latencyEstimate <= 2000 ? 1 : 0.5;
+    const throughput = NUM_TOKENS / (result.latencyMs / 1000);
+    const sloSatisfactionRate = result.latencyMs <= 2000 ? 1 : 0.5;
     
     return {
       bandwidth: bandwidthGBps,
       strategy,
-      latencyMs: decision.latencyEstimate,
-      qualityScore: decision.qualityEstimate,
-      transmissionBytes,
+      latencyMs: result.latencyMs,
+      qualityScore: result.qualityScore,
+      transmissionBytes: result.transmissionBytes,
       throughput,
       sloSatisfactionRate,
     };

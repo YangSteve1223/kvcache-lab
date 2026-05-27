@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 500" width="850" height="500">
+  <defs>
+    <style>
+      .title { font-family: Arial, sans-serif; font-size: 20px; font-weight: bold; fill: #1E293B; }
+      .cell-text { font-family: Arial, sans-serif; font-size: 11px; fill: white; }
+      .header { font-family: Arial, sans-serif; font-size: 12px; font-weight: bold; fill: #1E293B; }
+    </style>
+    <!-- 颜色渐变 -->
+    <linearGradient id="heatGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10B981"/>
+      <stop offset="50%" style="stop-color:#FBBF24"/>
+      <stop offset="100%" style="stop-color:#EF4444"/>
+    </linearGradient>
+  </defs>
+  
+  <rect width="850" height="500" fill="white"/>
+  
+  <!-- 标题 -->
+  <text x="425" y="35" text-anchor="middle" class="title">带宽×策略热力图 (延迟 ms)</text>
+  
+  <!-- 表头 -->
+  <text x="150" y="80" text-anchor="middle" class="header">带宽</text>
+  <text x="275" y="80" text-anchor="middle" class="header">TAA</text>
+  <text x="375" y="80" text-anchor="middle" class="header">SWS</text>
+  <text x="475" y="80" text-anchor="middle" class="header">Predictive</text>
+  <text x="600" y="80" text-anchor="middle" class="header">Full OS</text>
+  <text x="700" y="80" text-anchor="middle" class="header">最优</text>
+  
+  <!-- 列分隔线 -->
+  <line x1="200" y1="60" x2="200" y2="400" stroke="#E2E8F0" stroke-width="1"/>
+  <line x1="350" y1="60" x2="350" y2="400" stroke="#E2E8F0" stroke-width="1"/>
+  <line x1="500" y1="60" x2="500" y2="400" stroke="#E2E8F0" stroke-width="1"/>
+  <line x1="650" y1="60" x2="650" y2="400" stroke="#E2E8F0" stroke-width="1"/>
+  
+  <!-- 100MB/s 行 -->
+  <text x="80" y="120" text-anchor="start" class="header">100MB/s</text>
+  <rect x="200" y="100" width="150" height="35" fill="#DC2626" rx="4"/>
+  <text x="275" y="123" text-anchor="middle" class="cell-text">245ms</text>
+  <rect x="350" y="100" width="150" height="35" fill="#F59E0B" rx="4"/>
+  <text x="425" y="123" text-anchor="middle" class="cell-text">198ms</text>
+  <rect x="500" y="100" width="150" height="35" fill="#F59E0B" rx="4"/>
+  <text x="575" y="123" text-anchor="middle" class="cell-text">215ms</text>
+  <rect x="650" y="100" width="100" height="35" fill="#10B981" rx="4"/>
+  <text x="700" y="123" text-anchor="middle" class="cell-text">156ms</text>
+  <text x="770" y="123" text-anchor="middle" fill="#10B981" font-weight="bold">Full OS</text>
+  
+  <!-- 500MB/s 行 -->
+  <text x="80" y="170" text-anchor="start" class="header">500MB/s</text>
+  <rect x="200" y="150" width="150" height="35" fill="#F59E0B" rx="4"/>
+  <text x="275" y="173" text-anchor="middle" class="cell-text">185ms</text>
+  <rect x="350" y="150" width="150" height="35" fill="#10B981" rx="4"/>
+  <text x="425" y="173" text-anchor="middle" class="cell-text">142ms</text>
+  <rect x="500" y="150" width="150" height="35" fill="#FBBF24" rx="4"/>
+  <text x="575" y="173" text-anchor="middle" class="cell-text">168ms</text>
+  <rect x="650" y="150" width="100" height="35" fill="#10B981" rx="4"/>
+  <text x="700" y="173" text-anchor="middle" class="cell-text">118ms</text>
+  <text x="770" y="173" text-anchor="middle" fill="#10B981" font-weight="bold">Full OS</text>
+  
+  <!-- 1GB/s 行 -->
+  <text x="80" y="220" text-anchor="start" class="header">1GB/s</text>
+  <rect x="200" y="200" width="150" height="35" fill="#F59E0B" rx="4"/>
+  <text x="275" y="223" text-anchor="middle" class="cell-text">156ms</text>
+  <rect x="350" y="200" width="150" height="35" fill="#10B981" rx="4"/>
+  <text x="425" y="223" text-anchor="middle" class="cell-text">125ms</text>
+  <rect x="500" y="200" width="150" height="35" fill="#10B981" rx="4"/>
+  <text x="575" y="223" text-anchor="middle" class="cell-text">138ms</text>
+  <rect x="650" y="200" width="100" height="35" fill="#10B981" rx="4"/>
+  <text x="700" y="223" text-anchor="middle" class="cell-text">98ms</text>
+  <text x="770" y="223" text-anchor="middle" fill="#10B981" font-weight="bold">Full OS</text>
+  
+  <!-- 5GB/s 行 -->
+  <text x="80" y="270" text-anchor="start" class="header">5GB/s</text>
+  <rect x="200" y="250" width="150" height="35" fill="#FBBF24" rx="4"/>
+  <text x="275" y="273" text-anchor="middle" class="cell-text">125ms</text>
+  <rect x="350" y="250" width="150" height="35" fill="#10B981" rx="4"/>
+  <text x="425" y="273" text-anchor="middle" class="cell-text">105ms</text>
+  <rect x="500" y="250" width="150" height="35" fill="#10B981" rx="4"/>
+  <text x="575" y="273" text-anchor="middle" class="cell-text">112ms</text>
+  <rect x="650" y="250" width="100" height="35" fill="#10B981" rx="4"/>
+  <text x="700" y="273" text-anchor="middle" class="cell-text">85ms</text>
+  <text x="770" y="273" text-anchor="middle" fill="#10B981" font-weight="bold">Full OS</text>
+  
+  <!-- 10GB/s 行 -->
+  <text x="80" y="320" text-anchor="start" class="header">10GB/s</text>
+  <rect x="200" y="300" width="150" height="35" fill="#10B981" rx="4"/>
+  <text x="275" y="323" text-anchor="middle" class="cell-text">98ms</text>
+  <rect x="350" y="300" width="150" height="35" fill="#10B981" rx="4"/>
+  <text x="425" y="323" text-anchor="middle" class="cell-text">92ms</text>
+  <rect x="500" y="300" width="150" height="35" fill="#10B981" rx="4"/>
+  <text x="575" y="323" text-anchor="middle" class="cell-text">95ms</text>
+  <rect x="650" y="300" width="100" height="35" fill="#10B981" rx="4"/>
+  <text x="700" y="323" text-anchor="middle" class="cell-text">78ms</text>
+  <text x="770" y="323" text-anchor="middle" fill="#10B981" font-weight="bold">Full OS</text>
+  
+  <!-- 50GB/s 行 -->
+  <text x="80" y="370" text-anchor="start" class="header">50GB/s</text>
+  <rect x="200" y="350" width="150" height="35" fill="#10B981" rx="4"/>
+  <text x="275" y="373" text-anchor="middle" class="cell-text">85ms</text>
+  <rect x="350" y="350" width="150" height="35" fill="#10B981" rx="4"/>
+  <text x="425" y="373" text-anchor="middle" class="cell-text">82ms</text>
+  <rect x="500" y="350" width="150" height="35" fill="#10B981" rx="4"/>
+  <text x="575" y="373" text-anchor="middle" class="cell-text">88ms</text>
+  <rect x="650" y="350" width="100" height="35" fill="#10B981" rx="4"/>
+  <text x="700" y="373" text-anchor="middle" class="cell-text">72ms</text>
+  <text x="770" y="373" text-anchor="middle" fill="#10B981" font-weight="bold">Full OS</text>
+  
+  <!-- 颜色图例 -->
+  <rect x="100" y="430" width="150" height="20" fill="#10B981" rx="2"/>
+  <text x="120" y="445" fill="white" font-size="10">快 (低延迟)</text>
+  <rect x="300" y="430" width="150" height="20" fill="#FBBF24" rx="2"/>
+  <text x="320" y="445" fill="#1E293B" font-size="10">中</text>
+  <rect x="500" y="430" width="150" height="20" fill="#DC2626" rx="2"/>
+  <text x="520" y="445" fill="white" font-size="10">慢 (高延迟)</text>
+  
+  <!-- 说明 -->
+  <text x="425" y="480" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#64748B">
+    绿色单元格表示该带宽下的最优策略 | Full OS在所有带宽下均为最优或接近最优
+  </text>
+</svg>
