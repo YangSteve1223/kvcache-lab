@@ -99,13 +99,13 @@ def check_gpu() -> Dict:
 
 
 def check_vllm() -> bool:
-    """检查vLLM是否安装"""
+    """检查vLLM是否安装(可选，不影响实验)"""
     try:
         import vllm
         log(f"vLLM版本: {vllm.__version__}")
         return True
     except ImportError:
-        log("vLLM未安装!", "ERROR")
+        log("vLLM未安装(可选，实验使用transformers底层API)")
         return False
 
 
