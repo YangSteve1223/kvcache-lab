@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-05-27T21:14:12.471030",
+  "model_name": "Qwen2.5-7B-Instruct",
+  "num_layers": 28,
+  "num_heads": 28,
+  "head_dim": 128,
+  "workloads_tested": [
+    "narrative",
+    "code_python",
+    "qa_format",
+    "summarization",
+    "repetitive"
+  ],
+  "context_lengths_tested": [
+    512,
+    1024,
+    2048
+  ],
+  "summary": {
+    "avg_gini_coefficient": 0.9114355734278736,
+    "avg_top20_pct_mass": 0.951740026473999,
+    "avg_active_set_ratio_80": 0.09000651041666667,
+    "avg_remote_attention_70": 0.019848423078656197
+  }
+}
