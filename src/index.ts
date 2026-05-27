@@ -1,0 +1,62 @@
+/**
+ * kvcache-lab 统一入口
+ * 
+ * 导出所有模块的公共接口
+ */
+
+// 核心模块
+export * from './core/index.js';
+
+// 压缩模块
+export * from './compression/index.js';
+
+// 任务感知模块
+// 注意：TASK_PROFILES已在compression模块导出，这里不再重复导出
+export {
+  TaskClassifier,
+  classifyTask,
+  classifyTaskBatch,
+} from './task/TaskClassifier.js';
+
+export type {
+  ClassificationResult,
+  TaskClassifierOptions,
+} from './core/types.js';
+
+export {
+  LayerBudgetAllocator,
+  allocateLayerBudget,
+  generatePyramid,
+  getPrecisionForLayer,
+} from './task/LayerBudgetAllocator.js';
+
+export type {
+  PrecisionType,
+  LayerBudget,
+  BudgetConstraints,
+  ProfileType,
+} from './core/types.js';
+
+// Profile 导出（从task模块）
+export {
+  MATH_LAYER_WEIGHTS,
+  MATH_TOKEN_SENSITIVITY,
+  MATH_COMPRESSION_PREFERENCE,
+  MATH_TASK_FEATURES,
+} from './task/profiles/math.js';
+
+export {
+  CODE_LAYER_WEIGHTS,
+  CODE_TOKEN_SENSITIVITY,
+  CODE_COMPRESSION_PREFERENCE,
+  CODE_TASK_FEATURES,
+  SYNTAX_PRIORITY,
+} from './task/profiles/code.js';
+
+export {
+  QA_LAYER_WEIGHTS,
+  QA_TOKEN_SENSITIVITY,
+  QA_COMPRESSION_PREFERENCE,
+  QA_TASK_FEATURES,
+  ATTENTION_PATTERN,
+} from './task/profiles/qa.js';
