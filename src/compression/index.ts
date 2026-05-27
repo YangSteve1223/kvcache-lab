@@ -27,3 +27,24 @@ export { UniformCompression } from './strategies/UniformCompression.js';
 export { PDAwareCompression } from './strategies/PDAwareCompression.js';
 export { TaskAwareCompression, TASK_PROFILES } from './strategies/TaskAwareCompression.js';
 export { PDTaskAwareCompression } from './strategies/PDTaskAwareCompression.js';
+
+// ============================================
+// 真实压缩算法模块
+// ============================================
+export {
+  KVQuantizer,
+  AttentionPruner,
+  CompressionPipeline
+} from './algorithms/index.js';
+
+export type {
+  QuantizationType,
+  QuantizationConfig,
+  QuantizationResult,
+  QuantizationMetadata,
+  PruningStrategy,
+  PruningConfig,
+  PruningResult,
+  HybridCompressionConfig,
+  PipelineResult
+} from './algorithms/index.js';

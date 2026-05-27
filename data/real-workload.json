@@ -1,0 +1,1402 @@
+[
+  {
+    "id": "math_001",
+    "taskType": "math",
+    "inputTokens": 802,
+    "outputTokens": 291,
+    "content": "证明：若数列{a_n}满足 a_1 = 1, a_{n+1} = 2a_n + 1，则通项公式为 a_n = 2^n - 1。\n\n数学归纳法证明：\n基例：当n=1时，a_1 = 1 = 2^1 - 1，成立。\n归纳假设：假设当n=k时，a_k = 2^k - 1成立。\n归纳步骤：当n=k+1时，\n  a_{k+1} = 2a_k + 1 = 2(2^k - 1) + 1 = 2^{k+1} - 2 + 1 = 2^{k+1} - 1\n故结论成立。"
+  },
+  {
+    "id": "math_002",
+    "taskType": "math",
+    "inputTokens": 1148,
+    "outputTokens": 284,
+    "content": "设矩阵 A = [[2,1],[1,2]]，求其特征值和特征向量。\n\n解：特征方程 |A - λE| = 0\n即 (2-λ)(2-λ) - 1 = λ^2 - 4λ + 3 = 0\n解得 λ_1 = 1, λ_2 = 3\n\n对应特征向量：\n当λ_1=1时，(A-E)v=0，解得v_1=[1,-1]^T\n当λ_2=3时，(A-3E)v=0，解得v_2=[1,1]^T"
+  },
+  {
+    "id": "math_003",
+    "taskType": "math",
+    "inputTokens": 1007,
+    "outputTokens": 204,
+    "content": "设函数 f(x) = x^3 - 3x^2 + 4x - 12，求其导数并分析单调性。\n\n已知条件：\n1. f'(x) = 3x^2 - 6x + 4\n2. 判别式 Δ = (-6)^2 - 4*3*4 = 36 - 48 = -12 < 0\n\n证明：由于导数恒正（因为二次项系数3>0且判别式<0），函数f(x)在R上单调递增。\n\n进一步分析极值点：令f'(x) = 0，解得..."
+  },
+  {
+    "id": "math_004",
+    "taskType": "math",
+    "inputTokens": 860,
+    "outputTokens": 431,
+    "content": "证明：若数列{a_n}满足 a_1 = 1, a_{n+1} = 2a_n + 1，则通项公式为 a_n = 2^n - 1。\n\n数学归纳法证明：\n基例：当n=1时，a_1 = 1 = 2^1 - 1，成立。\n归纳假设：假设当n=k时，a_k = 2^k - 1成立。\n归纳步骤：当n=k+1时，\n  a_{k+1} = 2a_k + 1 = 2(2^k - 1) + 1 = 2^{k+1} - 2 + 1 = 2^{k+1} - 1\n故结论成立。"
+  },
+  {
+    "id": "math_005",
+    "taskType": "math",
+    "inputTokens": 1106,
+    "outputTokens": 264,
+    "content": "设矩阵 A = [[2,1],[1,2]]，求其特征值和特征向量。\n\n解：特征方程 |A - λE| = 0\n即 (2-λ)(2-λ) - 1 = λ^2 - 4λ + 3 = 0\n解得 λ_1 = 1, λ_2 = 3\n\n对应特征向量：\n当λ_1=1时，(A-E)v=0，解得v_1=[1,-1]^T\n当λ_2=3时，(A-3E)v=0，解得v_2=[1,1]^T"
+  },
+  {
+    "id": "math_006",
+    "taskType": "math",
+    "inputTokens": 813,
+    "outputTokens": 276,
+    "content": "设函数 f(x) = x^3 - 3x^2 + 4x - 12，求其导数并分析单调性。\n\n已知条件：\n1. f'(x) = 3x^2 - 6x + 4\n2. 判别式 Δ = (-6)^2 - 4*3*4 = 36 - 48 = -12 < 0\n\n证明：由于导数恒正（因为二次项系数3>0且判别式<0），函数f(x)在R上单调递增。\n\n进一步分析极值点：令f'(x) = 0，解得..."
+  },
+  {
+    "id": "math_007",
+    "taskType": "math",
+    "inputTokens": 840,
+    "outputTokens": 296,
+    "content": "证明：若数列{a_n}满足 a_1 = 1, a_{n+1} = 2a_n + 1，则通项公式为 a_n = 2^n - 1。\n\n数学归纳法证明：\n基例：当n=1时，a_1 = 1 = 2^1 - 1，成立。\n归纳假设：假设当n=k时，a_k = 2^k - 1成立。\n归纳步骤：当n=k+1时，\n  a_{k+1} = 2a_k + 1 = 2(2^k - 1) + 1 = 2^{k+1} - 2 + 1 = 2^{k+1} - 1\n故结论成立。"
+  },
+  {
+    "id": "math_008",
+    "taskType": "math",
+    "inputTokens": 999,
+    "outputTokens": 413,
+    "content": "设矩阵 A = [[2,1],[1,2]]，求其特征值和特征向量。\n\n解：特征方程 |A - λE| = 0\n即 (2-λ)(2-λ) - 1 = λ^2 - 4λ + 3 = 0\n解得 λ_1 = 1, λ_2 = 3\n\n对应特征向量：\n当λ_1=1时，(A-E)v=0，解得v_1=[1,-1]^T\n当λ_2=3时，(A-3E)v=0，解得v_2=[1,1]^T"
+  },
+  {
+    "id": "math_009",
+    "taskType": "math",
+    "inputTokens": 894,
+    "outputTokens": 270,
+    "content": "设函数 f(x) = x^3 - 3x^2 + 4x - 12，求其导数并分析单调性。\n\n已知条件：\n1. f'(x) = 3x^2 - 6x + 4\n2. 判别式 Δ = (-6)^2 - 4*3*4 = 36 - 48 = -12 < 0\n\n证明：由于导数恒正（因为二次项系数3>0且判别式<0），函数f(x)在R上单调递增。\n\n进一步分析极值点：令f'(x) = 0，解得..."
+  },
+  {
+    "id": "math_010",
+    "taskType": "math",
+    "inputTokens": 976,
+    "outputTokens": 490,
+    "content": "证明：若数列{a_n}满足 a_1 = 1, a_{n+1} = 2a_n + 1，则通项公式为 a_n = 2^n - 1。\n\n数学归纳法证明：\n基例：当n=1时，a_1 = 1 = 2^1 - 1，成立。\n归纳假设：假设当n=k时，a_k = 2^k - 1成立。\n归纳步骤：当n=k+1时，\n  a_{k+1} = 2a_k + 1 = 2(2^k - 1) + 1 = 2^{k+1} - 2 + 1 = 2^{k+1} - 1\n故结论成立。"
+  },
+  {
+    "id": "math_011",
+    "taskType": "math",
+    "inputTokens": 1162,
+    "outputTokens": 269,
+    "content": "设矩阵 A = [[2,1],[1,2]]，求其特征值和特征向量。\n\n解：特征方程 |A - λE| = 0\n即 (2-λ)(2-λ) - 1 = λ^2 - 4λ + 3 = 0\n解得 λ_1 = 1, λ_2 = 3\n\n对应特征向量：\n当λ_1=1时，(A-E)v=0，解得v_1=[1,-1]^T\n当λ_2=3时，(A-3E)v=0，解得v_2=[1,1]^T"
+  },
+  {
+    "id": "math_012",
+    "taskType": "math",
+    "inputTokens": 934,
+    "outputTokens": 273,
+    "content": "设函数 f(x) = x^3 - 3x^2 + 4x - 12，求其导数并分析单调性。\n\n已知条件：\n1. f'(x) = 3x^2 - 6x + 4\n2. 判别式 Δ = (-6)^2 - 4*3*4 = 36 - 48 = -12 < 0\n\n证明：由于导数恒正（因为二次项系数3>0且判别式<0），函数f(x)在R上单调递增。\n\n进一步分析极值点：令f'(x) = 0，解得..."
+  },
+  {
+    "id": "math_013",
+    "taskType": "math",
+    "inputTokens": 1018,
+    "outputTokens": 472,
+    "content": "证明：若数列{a_n}满足 a_1 = 1, a_{n+1} = 2a_n + 1，则通项公式为 a_n = 2^n - 1。\n\n数学归纳法证明：\n基例：当n=1时，a_1 = 1 = 2^1 - 1，成立。\n归纳假设：假设当n=k时，a_k = 2^k - 1成立。\n归纳步骤：当n=k+1时，\n  a_{k+1} = 2a_k + 1 = 2(2^k - 1) + 1 = 2^{k+1} - 2 + 1 = 2^{k+1} - 1\n故结论成立。"
+  },
+  {
+    "id": "math_014",
+    "taskType": "math",
+    "inputTokens": 1110,
+    "outputTokens": 252,
+    "content": "设矩阵 A = [[2,1],[1,2]]，求其特征值和特征向量。\n\n解：特征方程 |A - λE| = 0\n即 (2-λ)(2-λ) - 1 = λ^2 - 4λ + 3 = 0\n解得 λ_1 = 1, λ_2 = 3\n\n对应特征向量：\n当λ_1=1时，(A-E)v=0，解得v_1=[1,-1]^T\n当λ_2=3时，(A-3E)v=0，解得v_2=[1,1]^T"
+  },
+  {
+    "id": "math_015",
+    "taskType": "math",
+    "inputTokens": 874,
+    "outputTokens": 370,
+    "content": "设函数 f(x) = x^3 - 3x^2 + 4x - 12，求其导数并分析单调性。\n\n已知条件：\n1. f'(x) = 3x^2 - 6x + 4\n2. 判别式 Δ = (-6)^2 - 4*3*4 = 36 - 48 = -12 < 0\n\n证明：由于导数恒正（因为二次项系数3>0且判别式<0），函数f(x)在R上单调递增。\n\n进一步分析极值点：令f'(x) = 0，解得..."
+  },
+  {
+    "id": "math_016",
+    "taskType": "math",
+    "inputTokens": 1132,
+    "outputTokens": 305,
+    "content": "证明：若数列{a_n}满足 a_1 = 1, a_{n+1} = 2a_n + 1，则通项公式为 a_n = 2^n - 1。\n\n数学归纳法证明：\n基例：当n=1时，a_1 = 1 = 2^1 - 1，成立。\n归纳假设：假设当n=k时，a_k = 2^k - 1成立。\n归纳步骤：当n=k+1时，\n  a_{k+1} = 2a_k + 1 = 2(2^k - 1) + 1 = 2^{k+1} - 2 + 1 = 2^{k+1} - 1\n故结论成立。"
+  },
+  {
+    "id": "math_017",
+    "taskType": "math",
+    "inputTokens": 1188,
+    "outputTokens": 262,
+    "content": "设矩阵 A = [[2,1],[1,2]]，求其特征值和特征向量。\n\n解：特征方程 |A - λE| = 0\n即 (2-λ)(2-λ) - 1 = λ^2 - 4λ + 3 = 0\n解得 λ_1 = 1, λ_2 = 3\n\n对应特征向量：\n当λ_1=1时，(A-E)v=0，解得v_1=[1,-1]^T\n当λ_2=3时，(A-3E)v=0，解得v_2=[1,1]^T"
+  },
+  {
+    "id": "math_018",
+    "taskType": "math",
+    "inputTokens": 887,
+    "outputTokens": 305,
+    "content": "设函数 f(x) = x^3 - 3x^2 + 4x - 12，求其导数并分析单调性。\n\n已知条件：\n1. f'(x) = 3x^2 - 6x + 4\n2. 判别式 Δ = (-6)^2 - 4*3*4 = 36 - 48 = -12 < 0\n\n证明：由于导数恒正（因为二次项系数3>0且判别式<0），函数f(x)在R上单调递增。\n\n进一步分析极值点：令f'(x) = 0，解得..."
+  },
+  {
+    "id": "math_019",
+    "taskType": "math",
+    "inputTokens": 897,
+    "outputTokens": 407,
+    "content": "证明：若数列{a_n}满足 a_1 = 1, a_{n+1} = 2a_n + 1，则通项公式为 a_n = 2^n - 1。\n\n数学归纳法证明：\n基例：当n=1时，a_1 = 1 = 2^1 - 1，成立。\n归纳假设：假设当n=k时，a_k = 2^k - 1成立。\n归纳步骤：当n=k+1时，\n  a_{k+1} = 2a_k + 1 = 2(2^k - 1) + 1 = 2^{k+1} - 2 + 1 = 2^{k+1} - 1\n故结论成立。"
+  },
+  {
+    "id": "math_020",
+    "taskType": "math",
+    "inputTokens": 927,
+    "outputTokens": 243,
+    "content": "设矩阵 A = [[2,1],[1,2]]，求其特征值和特征向量。\n\n解：特征方程 |A - λE| = 0\n即 (2-λ)(2-λ) - 1 = λ^2 - 4λ + 3 = 0\n解得 λ_1 = 1, λ_2 = 3\n\n对应特征向量：\n当λ_1=1时，(A-E)v=0，解得v_1=[1,-1]^T\n当λ_2=3时，(A-3E)v=0，解得v_2=[1,1]^T"
+  },
+  {
+    "id": "math_021",
+    "taskType": "math",
+    "inputTokens": 1052,
+    "outputTokens": 266,
+    "content": "设函数 f(x) = x^3 - 3x^2 + 4x - 12，求其导数并分析单调性。\n\n已知条件：\n1. f'(x) = 3x^2 - 6x + 4\n2. 判别式 Δ = (-6)^2 - 4*3*4 = 36 - 48 = -12 < 0\n\n证明：由于导数恒正（因为二次项系数3>0且判别式<0），函数f(x)在R上单调递增。\n\n进一步分析极值点：令f'(x) = 0，解得..."
+  },
+  {
+    "id": "math_022",
+    "taskType": "math",
+    "inputTokens": 1120,
+    "outputTokens": 305,
+    "content": "证明：若数列{a_n}满足 a_1 = 1, a_{n+1} = 2a_n + 1，则通项公式为 a_n = 2^n - 1。\n\n数学归纳法证明：\n基例：当n=1时，a_1 = 1 = 2^1 - 1，成立。\n归纳假设：假设当n=k时，a_k = 2^k - 1成立。\n归纳步骤：当n=k+1时，\n  a_{k+1} = 2a_k + 1 = 2(2^k - 1) + 1 = 2^{k+1} - 2 + 1 = 2^{k+1} - 1\n故结论成立。"
+  },
+  {
+    "id": "math_023",
+    "taskType": "math",
+    "inputTokens": 871,
+    "outputTokens": 482,
+    "content": "设矩阵 A = [[2,1],[1,2]]，求其特征值和特征向量。\n\n解：特征方程 |A - λE| = 0\n即 (2-λ)(2-λ) - 1 = λ^2 - 4λ + 3 = 0\n解得 λ_1 = 1, λ_2 = 3\n\n对应特征向量：\n当λ_1=1时，(A-E)v=0，解得v_1=[1,-1]^T\n当λ_2=3时，(A-3E)v=0，解得v_2=[1,1]^T"
+  },
+  {
+    "id": "math_024",
+    "taskType": "math",
+    "inputTokens": 1152,
+    "outputTokens": 461,
+    "content": "设函数 f(x) = x^3 - 3x^2 + 4x - 12，求其导数并分析单调性。\n\n已知条件：\n1. f'(x) = 3x^2 - 6x + 4\n2. 判别式 Δ = (-6)^2 - 4*3*4 = 36 - 48 = -12 < 0\n\n证明：由于导数恒正（因为二次项系数3>0且判别式<0），函数f(x)在R上单调递增。\n\n进一步分析极值点：令f'(x) = 0，解得..."
+  },
+  {
+    "id": "math_025",
+    "taskType": "math",
+    "inputTokens": 1026,
+    "outputTokens": 265,
+    "content": "证明：若数列{a_n}满足 a_1 = 1, a_{n+1} = 2a_n + 1，则通项公式为 a_n = 2^n - 1。\n\n数学归纳法证明：\n基例：当n=1时，a_1 = 1 = 2^1 - 1，成立。\n归纳假设：假设当n=k时，a_k = 2^k - 1成立。\n归纳步骤：当n=k+1时，\n  a_{k+1} = 2a_k + 1 = 2(2^k - 1) + 1 = 2^{k+1} - 2 + 1 = 2^{k+1} - 1\n故结论成立。"
+  },
+  {
+    "id": "math_026",
+    "taskType": "math",
+    "inputTokens": 830,
+    "outputTokens": 271,
+    "content": "设矩阵 A = [[2,1],[1,2]]，求其特征值和特征向量。\n\n解：特征方程 |A - λE| = 0\n即 (2-λ)(2-λ) - 1 = λ^2 - 4λ + 3 = 0\n解得 λ_1 = 1, λ_2 = 3\n\n对应特征向量：\n当λ_1=1时，(A-E)v=0，解得v_1=[1,-1]^T\n当λ_2=3时，(A-3E)v=0，解得v_2=[1,1]^T"
+  },
+  {
+    "id": "math_027",
+    "taskType": "math",
+    "inputTokens": 1133,
+    "outputTokens": 286,
+    "content": "设函数 f(x) = x^3 - 3x^2 + 4x - 12，求其导数并分析单调性。\n\n已知条件：\n1. f'(x) = 3x^2 - 6x + 4\n2. 判别式 Δ = (-6)^2 - 4*3*4 = 36 - 48 = -12 < 0\n\n证明：由于导数恒正（因为二次项系数3>0且判别式<0），函数f(x)在R上单调递增。\n\n进一步分析极值点：令f'(x) = 0，解得..."
+  },
+  {
+    "id": "math_028",
+    "taskType": "math",
+    "inputTokens": 1085,
+    "outputTokens": 328,
+    "content": "证明：若数列{a_n}满足 a_1 = 1, a_{n+1} = 2a_n + 1，则通项公式为 a_n = 2^n - 1。\n\n数学归纳法证明：\n基例：当n=1时，a_1 = 1 = 2^1 - 1，成立。\n归纳假设：假设当n=k时，a_k = 2^k - 1成立。\n归纳步骤：当n=k+1时，\n  a_{k+1} = 2a_k + 1 = 2(2^k - 1) + 1 = 2^{k+1} - 2 + 1 = 2^{k+1} - 1\n故结论成立。"
+  },
+  {
+    "id": "math_029",
+    "taskType": "math",
+    "inputTokens": 995,
+    "outputTokens": 404,
+    "content": "设矩阵 A = [[2,1],[1,2]]，求其特征值和特征向量。\n\n解：特征方程 |A - λE| = 0\n即 (2-λ)(2-λ) - 1 = λ^2 - 4λ + 3 = 0\n解得 λ_1 = 1, λ_2 = 3\n\n对应特征向量：\n当λ_1=1时，(A-E)v=0，解得v_1=[1,-1]^T\n当λ_2=3时，(A-3E)v=0，解得v_2=[1,1]^T"
+  },
+  {
+    "id": "math_030",
+    "taskType": "math",
+    "inputTokens": 863,
+    "outputTokens": 446,
+    "content": "设函数 f(x) = x^3 - 3x^2 + 4x - 12，求其导数并分析单调性。\n\n已知条件：\n1. f'(x) = 3x^2 - 6x + 4\n2. 判别式 Δ = (-6)^2 - 4*3*4 = 36 - 48 = -12 < 0\n\n证明：由于导数恒正（因为二次项系数3>0且判别式<0），函数f(x)在R上单调递增。\n\n进一步分析极值点：令f'(x) = 0，解得..."
+  },
+  {
+    "id": "math_031",
+    "taskType": "math",
+    "inputTokens": 962,
+    "outputTokens": 219,
+    "content": "证明：若数列{a_n}满足 a_1 = 1, a_{n+1} = 2a_n + 1，则通项公式为 a_n = 2^n - 1。\n\n数学归纳法证明：\n基例：当n=1时，a_1 = 1 = 2^1 - 1，成立。\n归纳假设：假设当n=k时，a_k = 2^k - 1成立。\n归纳步骤：当n=k+1时，\n  a_{k+1} = 2a_k + 1 = 2(2^k - 1) + 1 = 2^{k+1} - 2 + 1 = 2^{k+1} - 1\n故结论成立。"
+  },
+  {
+    "id": "math_032",
+    "taskType": "math",
+    "inputTokens": 1185,
+    "outputTokens": 395,
+    "content": "设矩阵 A = [[2,1],[1,2]]，求其特征值和特征向量。\n\n解：特征方程 |A - λE| = 0\n即 (2-λ)(2-λ) - 1 = λ^2 - 4λ + 3 = 0\n解得 λ_1 = 1, λ_2 = 3\n\n对应特征向量：\n当λ_1=1时，(A-E)v=0，解得v_1=[1,-1]^T\n当λ_2=3时，(A-3E)v=0，解得v_2=[1,1]^T"
+  },
+  {
+    "id": "math_033",
+    "taskType": "math",
+    "inputTokens": 889,
+    "outputTokens": 326,
+    "content": "设函数 f(x) = x^3 - 3x^2 + 4x - 12，求其导数并分析单调性。\n\n已知条件：\n1. f'(x) = 3x^2 - 6x + 4\n2. 判别式 Δ = (-6)^2 - 4*3*4 = 36 - 48 = -12 < 0\n\n证明：由于导数恒正（因为二次项系数3>0且判别式<0），函数f(x)在R上单调递增。\n\n进一步分析极值点：令f'(x) = 0，解得..."
+  },
+  {
+    "id": "math_034",
+    "taskType": "math",
+    "inputTokens": 921,
+    "outputTokens": 419,
+    "content": "证明：若数列{a_n}满足 a_1 = 1, a_{n+1} = 2a_n + 1，则通项公式为 a_n = 2^n - 1。\n\n数学归纳法证明：\n基例：当n=1时，a_1 = 1 = 2^1 - 1，成立。\n归纳假设：假设当n=k时，a_k = 2^k - 1成立。\n归纳步骤：当n=k+1时，\n  a_{k+1} = 2a_k + 1 = 2(2^k - 1) + 1 = 2^{k+1} - 2 + 1 = 2^{k+1} - 1\n故结论成立。"
+  },
+  {
+    "id": "math_035",
+    "taskType": "math",
+    "inputTokens": 1172,
+    "outputTokens": 201,
+    "content": "设矩阵 A = [[2,1],[1,2]]，求其特征值和特征向量。\n\n解：特征方程 |A - λE| = 0\n即 (2-λ)(2-λ) - 1 = λ^2 - 4λ + 3 = 0\n解得 λ_1 = 1, λ_2 = 3\n\n对应特征向量：\n当λ_1=1时，(A-E)v=0，解得v_1=[1,-1]^T\n当λ_2=3时，(A-3E)v=0，解得v_2=[1,1]^T"
+  },
+  {
+    "id": "math_036",
+    "taskType": "math",
+    "inputTokens": 852,
+    "outputTokens": 232,
+    "content": "设函数 f(x) = x^3 - 3x^2 + 4x - 12，求其导数并分析单调性。\n\n已知条件：\n1. f'(x) = 3x^2 - 6x + 4\n2. 判别式 Δ = (-6)^2 - 4*3*4 = 36 - 48 = -12 < 0\n\n证明：由于导数恒正（因为二次项系数3>0且判别式<0），函数f(x)在R上单调递增。\n\n进一步分析极值点：令f'(x) = 0，解得..."
+  },
+  {
+    "id": "math_037",
+    "taskType": "math",
+    "inputTokens": 836,
+    "outputTokens": 437,
+    "content": "证明：若数列{a_n}满足 a_1 = 1, a_{n+1} = 2a_n + 1，则通项公式为 a_n = 2^n - 1。\n\n数学归纳法证明：\n基例：当n=1时，a_1 = 1 = 2^1 - 1，成立。\n归纳假设：假设当n=k时，a_k = 2^k - 1成立。\n归纳步骤：当n=k+1时，\n  a_{k+1} = 2a_k + 1 = 2(2^k - 1) + 1 = 2^{k+1} - 2 + 1 = 2^{k+1} - 1\n故结论成立。"
+  },
+  {
+    "id": "math_038",
+    "taskType": "math",
+    "inputTokens": 1172,
+    "outputTokens": 308,
+    "content": "设矩阵 A = [[2,1],[1,2]]，求其特征值和特征向量。\n\n解：特征方程 |A - λE| = 0\n即 (2-λ)(2-λ) - 1 = λ^2 - 4λ + 3 = 0\n解得 λ_1 = 1, λ_2 = 3\n\n对应特征向量：\n当λ_1=1时，(A-E)v=0，解得v_1=[1,-1]^T\n当λ_2=3时，(A-3E)v=0，解得v_2=[1,1]^T"
+  },
+  {
+    "id": "math_039",
+    "taskType": "math",
+    "inputTokens": 913,
+    "outputTokens": 373,
+    "content": "设函数 f(x) = x^3 - 3x^2 + 4x - 12，求其导数并分析单调性。\n\n已知条件：\n1. f'(x) = 3x^2 - 6x + 4\n2. 判别式 Δ = (-6)^2 - 4*3*4 = 36 - 48 = -12 < 0\n\n证明：由于导数恒正（因为二次项系数3>0且判别式<0），函数f(x)在R上单调递增。\n\n进一步分析极值点：令f'(x) = 0，解得..."
+  },
+  {
+    "id": "math_040",
+    "taskType": "math",
+    "inputTokens": 1193,
+    "outputTokens": 482,
+    "content": "证明：若数列{a_n}满足 a_1 = 1, a_{n+1} = 2a_n + 1，则通项公式为 a_n = 2^n - 1。\n\n数学归纳法证明：\n基例：当n=1时，a_1 = 1 = 2^1 - 1，成立。\n归纳假设：假设当n=k时，a_k = 2^k - 1成立。\n归纳步骤：当n=k+1时，\n  a_{k+1} = 2a_k + 1 = 2(2^k - 1) + 1 = 2^{k+1} - 2 + 1 = 2^{k+1} - 1\n故结论成立。"
+  },
+  {
+    "id": "math_041",
+    "taskType": "math",
+    "inputTokens": 1121,
+    "outputTokens": 368,
+    "content": "设矩阵 A = [[2,1],[1,2]]，求其特征值和特征向量。\n\n解：特征方程 |A - λE| = 0\n即 (2-λ)(2-λ) - 1 = λ^2 - 4λ + 3 = 0\n解得 λ_1 = 1, λ_2 = 3\n\n对应特征向量：\n当λ_1=1时，(A-E)v=0，解得v_1=[1,-1]^T\n当λ_2=3时，(A-3E)v=0，解得v_2=[1,1]^T"
+  },
+  {
+    "id": "math_042",
+    "taskType": "math",
+    "inputTokens": 810,
+    "outputTokens": 349,
+    "content": "设函数 f(x) = x^3 - 3x^2 + 4x - 12，求其导数并分析单调性。\n\n已知条件：\n1. f'(x) = 3x^2 - 6x + 4\n2. 判别式 Δ = (-6)^2 - 4*3*4 = 36 - 48 = -12 < 0\n\n证明：由于导数恒正（因为二次项系数3>0且判别式<0），函数f(x)在R上单调递增。\n\n进一步分析极值点：令f'(x) = 0，解得..."
+  },
+  {
+    "id": "math_043",
+    "taskType": "math",
+    "inputTokens": 1197,
+    "outputTokens": 360,
+    "content": "证明：若数列{a_n}满足 a_1 = 1, a_{n+1} = 2a_n + 1，则通项公式为 a_n = 2^n - 1。\n\n数学归纳法证明：\n基例：当n=1时，a_1 = 1 = 2^1 - 1，成立。\n归纳假设：假设当n=k时，a_k = 2^k - 1成立。\n归纳步骤：当n=k+1时，\n  a_{k+1} = 2a_k + 1 = 2(2^k - 1) + 1 = 2^{k+1} - 2 + 1 = 2^{k+1} - 1\n故结论成立。"
+  },
+  {
+    "id": "math_044",
+    "taskType": "math",
+    "inputTokens": 1136,
+    "outputTokens": 214,
+    "content": "设矩阵 A = [[2,1],[1,2]]，求其特征值和特征向量。\n\n解：特征方程 |A - λE| = 0\n即 (2-λ)(2-λ) - 1 = λ^2 - 4λ + 3 = 0\n解得 λ_1 = 1, λ_2 = 3\n\n对应特征向量：\n当λ_1=1时，(A-E)v=0，解得v_1=[1,-1]^T\n当λ_2=3时，(A-3E)v=0，解得v_2=[1,1]^T"
+  },
+  {
+    "id": "math_045",
+    "taskType": "math",
+    "inputTokens": 974,
+    "outputTokens": 487,
+    "content": "设函数 f(x) = x^3 - 3x^2 + 4x - 12，求其导数并分析单调性。\n\n已知条件：\n1. f'(x) = 3x^2 - 6x + 4\n2. 判别式 Δ = (-6)^2 - 4*3*4 = 36 - 48 = -12 < 0\n\n证明：由于导数恒正（因为二次项系数3>0且判别式<0），函数f(x)在R上单调递增。\n\n进一步分析极值点：令f'(x) = 0，解得..."
+  },
+  {
+    "id": "math_046",
+    "taskType": "math",
+    "inputTokens": 881,
+    "outputTokens": 463,
+    "content": "证明：若数列{a_n}满足 a_1 = 1, a_{n+1} = 2a_n + 1，则通项公式为 a_n = 2^n - 1。\n\n数学归纳法证明：\n基例：当n=1时，a_1 = 1 = 2^1 - 1，成立。\n归纳假设：假设当n=k时，a_k = 2^k - 1成立。\n归纳步骤：当n=k+1时，\n  a_{k+1} = 2a_k + 1 = 2(2^k - 1) + 1 = 2^{k+1} - 2 + 1 = 2^{k+1} - 1\n故结论成立。"
+  },
+  {
+    "id": "math_047",
+    "taskType": "math",
+    "inputTokens": 993,
+    "outputTokens": 251,
+    "content": "设矩阵 A = [[2,1],[1,2]]，求其特征值和特征向量。\n\n解：特征方程 |A - λE| = 0\n即 (2-λ)(2-λ) - 1 = λ^2 - 4λ + 3 = 0\n解得 λ_1 = 1, λ_2 = 3\n\n对应特征向量：\n当λ_1=1时，(A-E)v=0，解得v_1=[1,-1]^T\n当λ_2=3时，(A-3E)v=0，解得v_2=[1,1]^T"
+  },
+  {
+    "id": "math_048",
+    "taskType": "math",
+    "inputTokens": 1038,
+    "outputTokens": 282,
+    "content": "设函数 f(x) = x^3 - 3x^2 + 4x - 12，求其导数并分析单调性。\n\n已知条件：\n1. f'(x) = 3x^2 - 6x + 4\n2. 判别式 Δ = (-6)^2 - 4*3*4 = 36 - 48 = -12 < 0\n\n证明：由于导数恒正（因为二次项系数3>0且判别式<0），函数f(x)在R上单调递增。\n\n进一步分析极值点：令f'(x) = 0，解得..."
+  },
+  {
+    "id": "math_049",
+    "taskType": "math",
+    "inputTokens": 1065,
+    "outputTokens": 351,
+    "content": "证明：若数列{a_n}满足 a_1 = 1, a_{n+1} = 2a_n + 1，则通项公式为 a_n = 2^n - 1。\n\n数学归纳法证明：\n基例：当n=1时，a_1 = 1 = 2^1 - 1，成立。\n归纳假设：假设当n=k时，a_k = 2^k - 1成立。\n归纳步骤：当n=k+1时，\n  a_{k+1} = 2a_k + 1 = 2(2^k - 1) + 1 = 2^{k+1} - 2 + 1 = 2^{k+1} - 1\n故结论成立。"
+  },
+  {
+    "id": "math_050",
+    "taskType": "math",
+    "inputTokens": 1156,
+    "outputTokens": 349,
+    "content": "设矩阵 A = [[2,1],[1,2]]，求其特征值和特征向量。\n\n解：特征方程 |A - λE| = 0\n即 (2-λ)(2-λ) - 1 = λ^2 - 4λ + 3 = 0\n解得 λ_1 = 1, λ_2 = 3\n\n对应特征向量：\n当λ_1=1时，(A-E)v=0，解得v_1=[1,-1]^T\n当λ_2=3时，(A-3E)v=0，解得v_2=[1,1]^T"
+  },
+  {
+    "id": "code_001",
+    "taskType": "code",
+    "inputTokens": 719,
+    "outputTokens": 289,
+    "content": "TypeScript 类型定义 - 数据模型\n\n```typescript\n// 用户模型\ninterface User {\n  id: string;\n  username: string;\n  email: string;\n  profile: UserProfile;\n  settings: UserSettings;\n  createdAt: Date;\n}\n\n// 用户资料\ninterface UserProfile {\n  avatar?: string;\n  bio?: string;\n  age?: number;\n  interests: string[];\n}\n\n// 用户设置\ninterface UserSettings {\n  theme: 'light' | 'dark';\n  language: string;\n  notifications: NotificationSettings;\n}\n\n// 通知设置\ninterface NotificationSettings {\n  email: boolean;\n  push: boolean;\n  sms: boolean;\n}\n\n// 工厂函数\nfunction createUser(data: Partial<User>): User {\n  return {\n    id: data.id || generateId(),\n    username: data.username || '',\n    email: data.email || '',\n    profile: { interests: [], ...data.profile },\n    settings: { theme: 'light', language: 'zh-CN', notifications: { email: true, push: true, sms: false }, ...data.settings },\n    createdAt: new Date()\n  };\n}\n```"
+  },
+  {
+    "id": "code_002",
+    "taskType": "code",
+    "inputTokens": 899,
+    "outputTokens": 161,
+    "content": "分布式缓存系统设计\n\n## 核心组件\n1. CacheNode: 单个缓存节点\n2. ConsistentHash: 一致性哈希环\n3. ReplicationManager: 副本管理器\n\n```python\nimport hashlib\nfrom typing import Dict, List, Optional\nimport threading\n\nclass ConsistentHash:\n    def __init__(self, nodes: List[str], virtual_nodes: int = 150):\n        self.ring: Dict[int, str] = {}\n        self.sorted_keys: List[int] = []\n        self._build_ring(nodes, virtual_nodes)\n    \n    def _hash(self, key: str) -> int:\n        return int(hashlib.md5(key.encode()).hexdigest(), 16)\n    \n    def _build_ring(self, nodes: List[str], vnodes: int):\n        for node in nodes:\n            for i in range(vnodes):\n                hash_key = self._hash(f\"{node}#vn{i}\")\n                self.ring[hash_key] = node\n        self.sorted_keys = sorted(self.ring.keys())\n```"
+  },
+  {
+    "id": "code_003",
+    "taskType": "code",
+    "inputTokens": 1013,
+    "outputTokens": 208,
+    "content": "# 用户认证服务 API 文档\n\n## 接口概述\n本服务提供用户注册、登录、认证等功能。\n\n## API 接口\n\n### POST /api/auth/register\n注册新用户\n\n**请求参数：**\n- username: string (必填, 3-20字符)\n- email: string (必填, 有效邮箱格式)\n- password: string (必填, 8位以上)\n- age?: number (可选)\n\n**响应示例：**\n```json\n{\n  \"code\": 200,\n  \"data\": {\n    \"userId\": \"u123456\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIs...\"\n  }\n}\n```\n\n**Python实现示例：**\n```python\nfrom pydantic import BaseModel, EmailStr\nfrom typing import Optional\n\nclass RegisterRequest(BaseModel):\n    username: str\n    email: EmailStr\n    password: str\n    age: Optional[int] = None\n    \n    def validate(self):\n        if len(self.username) < 3 or len(self.username) > 20:\n            raise ValueError(\"用户名长度必须在3-20字符之间\")\n        if len(self.password) < 8:\n            raise ValueError(\"密码至少8位\")\n```"
+  },
+  {
+    "id": "code_004",
+    "taskType": "code",
+    "inputTokens": 885,
+    "outputTokens": 162,
+    "content": "TypeScript 类型定义 - 数据模型\n\n```typescript\n// 用户模型\ninterface User {\n  id: string;\n  username: string;\n  email: string;\n  profile: UserProfile;\n  settings: UserSettings;\n  createdAt: Date;\n}\n\n// 用户资料\ninterface UserProfile {\n  avatar?: string;\n  bio?: string;\n  age?: number;\n  interests: string[];\n}\n\n// 用户设置\ninterface UserSettings {\n  theme: 'light' | 'dark';\n  language: string;\n  notifications: NotificationSettings;\n}\n\n// 通知设置\ninterface NotificationSettings {\n  email: boolean;\n  push: boolean;\n  sms: boolean;\n}\n\n// 工厂函数\nfunction createUser(data: Partial<User>): User {\n  return {\n    id: data.id || generateId(),\n    username: data.username || '',\n    email: data.email || '',\n    profile: { interests: [], ...data.profile },\n    settings: { theme: 'light', language: 'zh-CN', notifications: { email: true, push: true, sms: false }, ...data.settings },\n    createdAt: new Date()\n  };\n}\n```"
+  },
+  {
+    "id": "code_005",
+    "taskType": "code",
+    "inputTokens": 1039,
+    "outputTokens": 281,
+    "content": "分布式缓存系统设计\n\n## 核心组件\n1. CacheNode: 单个缓存节点\n2. ConsistentHash: 一致性哈希环\n3. ReplicationManager: 副本管理器\n\n```python\nimport hashlib\nfrom typing import Dict, List, Optional\nimport threading\n\nclass ConsistentHash:\n    def __init__(self, nodes: List[str], virtual_nodes: int = 150):\n        self.ring: Dict[int, str] = {}\n        self.sorted_keys: List[int] = []\n        self._build_ring(nodes, virtual_nodes)\n    \n    def _hash(self, key: str) -> int:\n        return int(hashlib.md5(key.encode()).hexdigest(), 16)\n    \n    def _build_ring(self, nodes: List[str], vnodes: int):\n        for node in nodes:\n            for i in range(vnodes):\n                hash_key = self._hash(f\"{node}#vn{i}\")\n                self.ring[hash_key] = node\n        self.sorted_keys = sorted(self.ring.keys())\n```"
+  },
+  {
+    "id": "code_006",
+    "taskType": "code",
+    "inputTokens": 704,
+    "outputTokens": 336,
+    "content": "# 用户认证服务 API 文档\n\n## 接口概述\n本服务提供用户注册、登录、认证等功能。\n\n## API 接口\n\n### POST /api/auth/register\n注册新用户\n\n**请求参数：**\n- username: string (必填, 3-20字符)\n- email: string (必填, 有效邮箱格式)\n- password: string (必填, 8位以上)\n- age?: number (可选)\n\n**响应示例：**\n```json\n{\n  \"code\": 200,\n  \"data\": {\n    \"userId\": \"u123456\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIs...\"\n  }\n}\n```\n\n**Python实现示例：**\n```python\nfrom pydantic import BaseModel, EmailStr\nfrom typing import Optional\n\nclass RegisterRequest(BaseModel):\n    username: str\n    email: EmailStr\n    password: str\n    age: Optional[int] = None\n    \n    def validate(self):\n        if len(self.username) < 3 or len(self.username) > 20:\n            raise ValueError(\"用户名长度必须在3-20字符之间\")\n        if len(self.password) < 8:\n            raise ValueError(\"密码至少8位\")\n```"
+  },
+  {
+    "id": "code_007",
+    "taskType": "code",
+    "inputTokens": 859,
+    "outputTokens": 159,
+    "content": "TypeScript 类型定义 - 数据模型\n\n```typescript\n// 用户模型\ninterface User {\n  id: string;\n  username: string;\n  email: string;\n  profile: UserProfile;\n  settings: UserSettings;\n  createdAt: Date;\n}\n\n// 用户资料\ninterface UserProfile {\n  avatar?: string;\n  bio?: string;\n  age?: number;\n  interests: string[];\n}\n\n// 用户设置\ninterface UserSettings {\n  theme: 'light' | 'dark';\n  language: string;\n  notifications: NotificationSettings;\n}\n\n// 通知设置\ninterface NotificationSettings {\n  email: boolean;\n  push: boolean;\n  sms: boolean;\n}\n\n// 工厂函数\nfunction createUser(data: Partial<User>): User {\n  return {\n    id: data.id || generateId(),\n    username: data.username || '',\n    email: data.email || '',\n    profile: { interests: [], ...data.profile },\n    settings: { theme: 'light', language: 'zh-CN', notifications: { email: true, push: true, sms: false }, ...data.settings },\n    createdAt: new Date()\n  };\n}\n```"
+  },
+  {
+    "id": "code_008",
+    "taskType": "code",
+    "inputTokens": 962,
+    "outputTokens": 361,
+    "content": "分布式缓存系统设计\n\n## 核心组件\n1. CacheNode: 单个缓存节点\n2. ConsistentHash: 一致性哈希环\n3. ReplicationManager: 副本管理器\n\n```python\nimport hashlib\nfrom typing import Dict, List, Optional\nimport threading\n\nclass ConsistentHash:\n    def __init__(self, nodes: List[str], virtual_nodes: int = 150):\n        self.ring: Dict[int, str] = {}\n        self.sorted_keys: List[int] = []\n        self._build_ring(nodes, virtual_nodes)\n    \n    def _hash(self, key: str) -> int:\n        return int(hashlib.md5(key.encode()).hexdigest(), 16)\n    \n    def _build_ring(self, nodes: List[str], vnodes: int):\n        for node in nodes:\n            for i in range(vnodes):\n                hash_key = self._hash(f\"{node}#vn{i}\")\n                self.ring[hash_key] = node\n        self.sorted_keys = sorted(self.ring.keys())\n```"
+  },
+  {
+    "id": "code_009",
+    "taskType": "code",
+    "inputTokens": 918,
+    "outputTokens": 166,
+    "content": "# 用户认证服务 API 文档\n\n## 接口概述\n本服务提供用户注册、登录、认证等功能。\n\n## API 接口\n\n### POST /api/auth/register\n注册新用户\n\n**请求参数：**\n- username: string (必填, 3-20字符)\n- email: string (必填, 有效邮箱格式)\n- password: string (必填, 8位以上)\n- age?: number (可选)\n\n**响应示例：**\n```json\n{\n  \"code\": 200,\n  \"data\": {\n    \"userId\": \"u123456\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIs...\"\n  }\n}\n```\n\n**Python实现示例：**\n```python\nfrom pydantic import BaseModel, EmailStr\nfrom typing import Optional\n\nclass RegisterRequest(BaseModel):\n    username: str\n    email: EmailStr\n    password: str\n    age: Optional[int] = None\n    \n    def validate(self):\n        if len(self.username) < 3 or len(self.username) > 20:\n            raise ValueError(\"用户名长度必须在3-20字符之间\")\n        if len(self.password) < 8:\n            raise ValueError(\"密码至少8位\")\n```"
+  },
+  {
+    "id": "code_010",
+    "taskType": "code",
+    "inputTokens": 1036,
+    "outputTokens": 220,
+    "content": "TypeScript 类型定义 - 数据模型\n\n```typescript\n// 用户模型\ninterface User {\n  id: string;\n  username: string;\n  email: string;\n  profile: UserProfile;\n  settings: UserSettings;\n  createdAt: Date;\n}\n\n// 用户资料\ninterface UserProfile {\n  avatar?: string;\n  bio?: string;\n  age?: number;\n  interests: string[];\n}\n\n// 用户设置\ninterface UserSettings {\n  theme: 'light' | 'dark';\n  language: string;\n  notifications: NotificationSettings;\n}\n\n// 通知设置\ninterface NotificationSettings {\n  email: boolean;\n  push: boolean;\n  sms: boolean;\n}\n\n// 工厂函数\nfunction createUser(data: Partial<User>): User {\n  return {\n    id: data.id || generateId(),\n    username: data.username || '',\n    email: data.email || '',\n    profile: { interests: [], ...data.profile },\n    settings: { theme: 'light', language: 'zh-CN', notifications: { email: true, push: true, sms: false }, ...data.settings },\n    createdAt: new Date()\n  };\n}\n```"
+  },
+  {
+    "id": "code_011",
+    "taskType": "code",
+    "inputTokens": 659,
+    "outputTokens": 211,
+    "content": "分布式缓存系统设计\n\n## 核心组件\n1. CacheNode: 单个缓存节点\n2. ConsistentHash: 一致性哈希环\n3. ReplicationManager: 副本管理器\n\n```python\nimport hashlib\nfrom typing import Dict, List, Optional\nimport threading\n\nclass ConsistentHash:\n    def __init__(self, nodes: List[str], virtual_nodes: int = 150):\n        self.ring: Dict[int, str] = {}\n        self.sorted_keys: List[int] = []\n        self._build_ring(nodes, virtual_nodes)\n    \n    def _hash(self, key: str) -> int:\n        return int(hashlib.md5(key.encode()).hexdigest(), 16)\n    \n    def _build_ring(self, nodes: List[str], vnodes: int):\n        for node in nodes:\n            for i in range(vnodes):\n                hash_key = self._hash(f\"{node}#vn{i}\")\n                self.ring[hash_key] = node\n        self.sorted_keys = sorted(self.ring.keys())\n```"
+  },
+  {
+    "id": "code_012",
+    "taskType": "code",
+    "inputTokens": 983,
+    "outputTokens": 283,
+    "content": "# 用户认证服务 API 文档\n\n## 接口概述\n本服务提供用户注册、登录、认证等功能。\n\n## API 接口\n\n### POST /api/auth/register\n注册新用户\n\n**请求参数：**\n- username: string (必填, 3-20字符)\n- email: string (必填, 有效邮箱格式)\n- password: string (必填, 8位以上)\n- age?: number (可选)\n\n**响应示例：**\n```json\n{\n  \"code\": 200,\n  \"data\": {\n    \"userId\": \"u123456\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIs...\"\n  }\n}\n```\n\n**Python实现示例：**\n```python\nfrom pydantic import BaseModel, EmailStr\nfrom typing import Optional\n\nclass RegisterRequest(BaseModel):\n    username: str\n    email: EmailStr\n    password: str\n    age: Optional[int] = None\n    \n    def validate(self):\n        if len(self.username) < 3 or len(self.username) > 20:\n            raise ValueError(\"用户名长度必须在3-20字符之间\")\n        if len(self.password) < 8:\n            raise ValueError(\"密码至少8位\")\n```"
+  },
+  {
+    "id": "code_013",
+    "taskType": "code",
+    "inputTokens": 894,
+    "outputTokens": 342,
+    "content": "TypeScript 类型定义 - 数据模型\n\n```typescript\n// 用户模型\ninterface User {\n  id: string;\n  username: string;\n  email: string;\n  profile: UserProfile;\n  settings: UserSettings;\n  createdAt: Date;\n}\n\n// 用户资料\ninterface UserProfile {\n  avatar?: string;\n  bio?: string;\n  age?: number;\n  interests: string[];\n}\n\n// 用户设置\ninterface UserSettings {\n  theme: 'light' | 'dark';\n  language: string;\n  notifications: NotificationSettings;\n}\n\n// 通知设置\ninterface NotificationSettings {\n  email: boolean;\n  push: boolean;\n  sms: boolean;\n}\n\n// 工厂函数\nfunction createUser(data: Partial<User>): User {\n  return {\n    id: data.id || generateId(),\n    username: data.username || '',\n    email: data.email || '',\n    profile: { interests: [], ...data.profile },\n    settings: { theme: 'light', language: 'zh-CN', notifications: { email: true, push: true, sms: false }, ...data.settings },\n    createdAt: new Date()\n  };\n}\n```"
+  },
+  {
+    "id": "code_014",
+    "taskType": "code",
+    "inputTokens": 981,
+    "outputTokens": 152,
+    "content": "分布式缓存系统设计\n\n## 核心组件\n1. CacheNode: 单个缓存节点\n2. ConsistentHash: 一致性哈希环\n3. ReplicationManager: 副本管理器\n\n```python\nimport hashlib\nfrom typing import Dict, List, Optional\nimport threading\n\nclass ConsistentHash:\n    def __init__(self, nodes: List[str], virtual_nodes: int = 150):\n        self.ring: Dict[int, str] = {}\n        self.sorted_keys: List[int] = []\n        self._build_ring(nodes, virtual_nodes)\n    \n    def _hash(self, key: str) -> int:\n        return int(hashlib.md5(key.encode()).hexdigest(), 16)\n    \n    def _build_ring(self, nodes: List[str], vnodes: int):\n        for node in nodes:\n            for i in range(vnodes):\n                hash_key = self._hash(f\"{node}#vn{i}\")\n                self.ring[hash_key] = node\n        self.sorted_keys = sorted(self.ring.keys())\n```"
+  },
+  {
+    "id": "code_015",
+    "taskType": "code",
+    "inputTokens": 1000,
+    "outputTokens": 316,
+    "content": "# 用户认证服务 API 文档\n\n## 接口概述\n本服务提供用户注册、登录、认证等功能。\n\n## API 接口\n\n### POST /api/auth/register\n注册新用户\n\n**请求参数：**\n- username: string (必填, 3-20字符)\n- email: string (必填, 有效邮箱格式)\n- password: string (必填, 8位以上)\n- age?: number (可选)\n\n**响应示例：**\n```json\n{\n  \"code\": 200,\n  \"data\": {\n    \"userId\": \"u123456\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIs...\"\n  }\n}\n```\n\n**Python实现示例：**\n```python\nfrom pydantic import BaseModel, EmailStr\nfrom typing import Optional\n\nclass RegisterRequest(BaseModel):\n    username: str\n    email: EmailStr\n    password: str\n    age: Optional[int] = None\n    \n    def validate(self):\n        if len(self.username) < 3 or len(self.username) > 20:\n            raise ValueError(\"用户名长度必须在3-20字符之间\")\n        if len(self.password) < 8:\n            raise ValueError(\"密码至少8位\")\n```"
+  },
+  {
+    "id": "code_016",
+    "taskType": "code",
+    "inputTokens": 957,
+    "outputTokens": 354,
+    "content": "TypeScript 类型定义 - 数据模型\n\n```typescript\n// 用户模型\ninterface User {\n  id: string;\n  username: string;\n  email: string;\n  profile: UserProfile;\n  settings: UserSettings;\n  createdAt: Date;\n}\n\n// 用户资料\ninterface UserProfile {\n  avatar?: string;\n  bio?: string;\n  age?: number;\n  interests: string[];\n}\n\n// 用户设置\ninterface UserSettings {\n  theme: 'light' | 'dark';\n  language: string;\n  notifications: NotificationSettings;\n}\n\n// 通知设置\ninterface NotificationSettings {\n  email: boolean;\n  push: boolean;\n  sms: boolean;\n}\n\n// 工厂函数\nfunction createUser(data: Partial<User>): User {\n  return {\n    id: data.id || generateId(),\n    username: data.username || '',\n    email: data.email || '',\n    profile: { interests: [], ...data.profile },\n    settings: { theme: 'light', language: 'zh-CN', notifications: { email: true, push: true, sms: false }, ...data.settings },\n    createdAt: new Date()\n  };\n}\n```"
+  },
+  {
+    "id": "code_017",
+    "taskType": "code",
+    "inputTokens": 1096,
+    "outputTokens": 248,
+    "content": "分布式缓存系统设计\n\n## 核心组件\n1. CacheNode: 单个缓存节点\n2. ConsistentHash: 一致性哈希环\n3. ReplicationManager: 副本管理器\n\n```python\nimport hashlib\nfrom typing import Dict, List, Optional\nimport threading\n\nclass ConsistentHash:\n    def __init__(self, nodes: List[str], virtual_nodes: int = 150):\n        self.ring: Dict[int, str] = {}\n        self.sorted_keys: List[int] = []\n        self._build_ring(nodes, virtual_nodes)\n    \n    def _hash(self, key: str) -> int:\n        return int(hashlib.md5(key.encode()).hexdigest(), 16)\n    \n    def _build_ring(self, nodes: List[str], vnodes: int):\n        for node in nodes:\n            for i in range(vnodes):\n                hash_key = self._hash(f\"{node}#vn{i}\")\n                self.ring[hash_key] = node\n        self.sorted_keys = sorted(self.ring.keys())\n```"
+  },
+  {
+    "id": "code_018",
+    "taskType": "code",
+    "inputTokens": 738,
+    "outputTokens": 164,
+    "content": "# 用户认证服务 API 文档\n\n## 接口概述\n本服务提供用户注册、登录、认证等功能。\n\n## API 接口\n\n### POST /api/auth/register\n注册新用户\n\n**请求参数：**\n- username: string (必填, 3-20字符)\n- email: string (必填, 有效邮箱格式)\n- password: string (必填, 8位以上)\n- age?: number (可选)\n\n**响应示例：**\n```json\n{\n  \"code\": 200,\n  \"data\": {\n    \"userId\": \"u123456\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIs...\"\n  }\n}\n```\n\n**Python实现示例：**\n```python\nfrom pydantic import BaseModel, EmailStr\nfrom typing import Optional\n\nclass RegisterRequest(BaseModel):\n    username: str\n    email: EmailStr\n    password: str\n    age: Optional[int] = None\n    \n    def validate(self):\n        if len(self.username) < 3 or len(self.username) > 20:\n            raise ValueError(\"用户名长度必须在3-20字符之间\")\n        if len(self.password) < 8:\n            raise ValueError(\"密码至少8位\")\n```"
+  },
+  {
+    "id": "code_019",
+    "taskType": "code",
+    "inputTokens": 623,
+    "outputTokens": 377,
+    "content": "TypeScript 类型定义 - 数据模型\n\n```typescript\n// 用户模型\ninterface User {\n  id: string;\n  username: string;\n  email: string;\n  profile: UserProfile;\n  settings: UserSettings;\n  createdAt: Date;\n}\n\n// 用户资料\ninterface UserProfile {\n  avatar?: string;\n  bio?: string;\n  age?: number;\n  interests: string[];\n}\n\n// 用户设置\ninterface UserSettings {\n  theme: 'light' | 'dark';\n  language: string;\n  notifications: NotificationSettings;\n}\n\n// 通知设置\ninterface NotificationSettings {\n  email: boolean;\n  push: boolean;\n  sms: boolean;\n}\n\n// 工厂函数\nfunction createUser(data: Partial<User>): User {\n  return {\n    id: data.id || generateId(),\n    username: data.username || '',\n    email: data.email || '',\n    profile: { interests: [], ...data.profile },\n    settings: { theme: 'light', language: 'zh-CN', notifications: { email: true, push: true, sms: false }, ...data.settings },\n    createdAt: new Date()\n  };\n}\n```"
+  },
+  {
+    "id": "code_020",
+    "taskType": "code",
+    "inputTokens": 741,
+    "outputTokens": 351,
+    "content": "分布式缓存系统设计\n\n## 核心组件\n1. CacheNode: 单个缓存节点\n2. ConsistentHash: 一致性哈希环\n3. ReplicationManager: 副本管理器\n\n```python\nimport hashlib\nfrom typing import Dict, List, Optional\nimport threading\n\nclass ConsistentHash:\n    def __init__(self, nodes: List[str], virtual_nodes: int = 150):\n        self.ring: Dict[int, str] = {}\n        self.sorted_keys: List[int] = []\n        self._build_ring(nodes, virtual_nodes)\n    \n    def _hash(self, key: str) -> int:\n        return int(hashlib.md5(key.encode()).hexdigest(), 16)\n    \n    def _build_ring(self, nodes: List[str], vnodes: int):\n        for node in nodes:\n            for i in range(vnodes):\n                hash_key = self._hash(f\"{node}#vn{i}\")\n                self.ring[hash_key] = node\n        self.sorted_keys = sorted(self.ring.keys())\n```"
+  },
+  {
+    "id": "code_021",
+    "taskType": "code",
+    "inputTokens": 907,
+    "outputTokens": 250,
+    "content": "# 用户认证服务 API 文档\n\n## 接口概述\n本服务提供用户注册、登录、认证等功能。\n\n## API 接口\n\n### POST /api/auth/register\n注册新用户\n\n**请求参数：**\n- username: string (必填, 3-20字符)\n- email: string (必填, 有效邮箱格式)\n- password: string (必填, 8位以上)\n- age?: number (可选)\n\n**响应示例：**\n```json\n{\n  \"code\": 200,\n  \"data\": {\n    \"userId\": \"u123456\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIs...\"\n  }\n}\n```\n\n**Python实现示例：**\n```python\nfrom pydantic import BaseModel, EmailStr\nfrom typing import Optional\n\nclass RegisterRequest(BaseModel):\n    username: str\n    email: EmailStr\n    password: str\n    age: Optional[int] = None\n    \n    def validate(self):\n        if len(self.username) < 3 or len(self.username) > 20:\n            raise ValueError(\"用户名长度必须在3-20字符之间\")\n        if len(self.password) < 8:\n            raise ValueError(\"密码至少8位\")\n```"
+  },
+  {
+    "id": "code_022",
+    "taskType": "code",
+    "inputTokens": 678,
+    "outputTokens": 385,
+    "content": "TypeScript 类型定义 - 数据模型\n\n```typescript\n// 用户模型\ninterface User {\n  id: string;\n  username: string;\n  email: string;\n  profile: UserProfile;\n  settings: UserSettings;\n  createdAt: Date;\n}\n\n// 用户资料\ninterface UserProfile {\n  avatar?: string;\n  bio?: string;\n  age?: number;\n  interests: string[];\n}\n\n// 用户设置\ninterface UserSettings {\n  theme: 'light' | 'dark';\n  language: string;\n  notifications: NotificationSettings;\n}\n\n// 通知设置\ninterface NotificationSettings {\n  email: boolean;\n  push: boolean;\n  sms: boolean;\n}\n\n// 工厂函数\nfunction createUser(data: Partial<User>): User {\n  return {\n    id: data.id || generateId(),\n    username: data.username || '',\n    email: data.email || '',\n    profile: { interests: [], ...data.profile },\n    settings: { theme: 'light', language: 'zh-CN', notifications: { email: true, push: true, sms: false }, ...data.settings },\n    createdAt: new Date()\n  };\n}\n```"
+  },
+  {
+    "id": "code_023",
+    "taskType": "code",
+    "inputTokens": 1004,
+    "outputTokens": 157,
+    "content": "分布式缓存系统设计\n\n## 核心组件\n1. CacheNode: 单个缓存节点\n2. ConsistentHash: 一致性哈希环\n3. ReplicationManager: 副本管理器\n\n```python\nimport hashlib\nfrom typing import Dict, List, Optional\nimport threading\n\nclass ConsistentHash:\n    def __init__(self, nodes: List[str], virtual_nodes: int = 150):\n        self.ring: Dict[int, str] = {}\n        self.sorted_keys: List[int] = []\n        self._build_ring(nodes, virtual_nodes)\n    \n    def _hash(self, key: str) -> int:\n        return int(hashlib.md5(key.encode()).hexdigest(), 16)\n    \n    def _build_ring(self, nodes: List[str], vnodes: int):\n        for node in nodes:\n            for i in range(vnodes):\n                hash_key = self._hash(f\"{node}#vn{i}\")\n                self.ring[hash_key] = node\n        self.sorted_keys = sorted(self.ring.keys())\n```"
+  },
+  {
+    "id": "code_024",
+    "taskType": "code",
+    "inputTokens": 742,
+    "outputTokens": 287,
+    "content": "# 用户认证服务 API 文档\n\n## 接口概述\n本服务提供用户注册、登录、认证等功能。\n\n## API 接口\n\n### POST /api/auth/register\n注册新用户\n\n**请求参数：**\n- username: string (必填, 3-20字符)\n- email: string (必填, 有效邮箱格式)\n- password: string (必填, 8位以上)\n- age?: number (可选)\n\n**响应示例：**\n```json\n{\n  \"code\": 200,\n  \"data\": {\n    \"userId\": \"u123456\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIs...\"\n  }\n}\n```\n\n**Python实现示例：**\n```python\nfrom pydantic import BaseModel, EmailStr\nfrom typing import Optional\n\nclass RegisterRequest(BaseModel):\n    username: str\n    email: EmailStr\n    password: str\n    age: Optional[int] = None\n    \n    def validate(self):\n        if len(self.username) < 3 or len(self.username) > 20:\n            raise ValueError(\"用户名长度必须在3-20字符之间\")\n        if len(self.password) < 8:\n            raise ValueError(\"密码至少8位\")\n```"
+  },
+  {
+    "id": "code_025",
+    "taskType": "code",
+    "inputTokens": 983,
+    "outputTokens": 284,
+    "content": "TypeScript 类型定义 - 数据模型\n\n```typescript\n// 用户模型\ninterface User {\n  id: string;\n  username: string;\n  email: string;\n  profile: UserProfile;\n  settings: UserSettings;\n  createdAt: Date;\n}\n\n// 用户资料\ninterface UserProfile {\n  avatar?: string;\n  bio?: string;\n  age?: number;\n  interests: string[];\n}\n\n// 用户设置\ninterface UserSettings {\n  theme: 'light' | 'dark';\n  language: string;\n  notifications: NotificationSettings;\n}\n\n// 通知设置\ninterface NotificationSettings {\n  email: boolean;\n  push: boolean;\n  sms: boolean;\n}\n\n// 工厂函数\nfunction createUser(data: Partial<User>): User {\n  return {\n    id: data.id || generateId(),\n    username: data.username || '',\n    email: data.email || '',\n    profile: { interests: [], ...data.profile },\n    settings: { theme: 'light', language: 'zh-CN', notifications: { email: true, push: true, sms: false }, ...data.settings },\n    createdAt: new Date()\n  };\n}\n```"
+  },
+  {
+    "id": "code_026",
+    "taskType": "code",
+    "inputTokens": 1090,
+    "outputTokens": 377,
+    "content": "分布式缓存系统设计\n\n## 核心组件\n1. CacheNode: 单个缓存节点\n2. ConsistentHash: 一致性哈希环\n3. ReplicationManager: 副本管理器\n\n```python\nimport hashlib\nfrom typing import Dict, List, Optional\nimport threading\n\nclass ConsistentHash:\n    def __init__(self, nodes: List[str], virtual_nodes: int = 150):\n        self.ring: Dict[int, str] = {}\n        self.sorted_keys: List[int] = []\n        self._build_ring(nodes, virtual_nodes)\n    \n    def _hash(self, key: str) -> int:\n        return int(hashlib.md5(key.encode()).hexdigest(), 16)\n    \n    def _build_ring(self, nodes: List[str], vnodes: int):\n        for node in nodes:\n            for i in range(vnodes):\n                hash_key = self._hash(f\"{node}#vn{i}\")\n                self.ring[hash_key] = node\n        self.sorted_keys = sorted(self.ring.keys())\n```"
+  },
+  {
+    "id": "code_027",
+    "taskType": "code",
+    "inputTokens": 1047,
+    "outputTokens": 376,
+    "content": "# 用户认证服务 API 文档\n\n## 接口概述\n本服务提供用户注册、登录、认证等功能。\n\n## API 接口\n\n### POST /api/auth/register\n注册新用户\n\n**请求参数：**\n- username: string (必填, 3-20字符)\n- email: string (必填, 有效邮箱格式)\n- password: string (必填, 8位以上)\n- age?: number (可选)\n\n**响应示例：**\n```json\n{\n  \"code\": 200,\n  \"data\": {\n    \"userId\": \"u123456\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIs...\"\n  }\n}\n```\n\n**Python实现示例：**\n```python\nfrom pydantic import BaseModel, EmailStr\nfrom typing import Optional\n\nclass RegisterRequest(BaseModel):\n    username: str\n    email: EmailStr\n    password: str\n    age: Optional[int] = None\n    \n    def validate(self):\n        if len(self.username) < 3 or len(self.username) > 20:\n            raise ValueError(\"用户名长度必须在3-20字符之间\")\n        if len(self.password) < 8:\n            raise ValueError(\"密码至少8位\")\n```"
+  },
+  {
+    "id": "code_028",
+    "taskType": "code",
+    "inputTokens": 1055,
+    "outputTokens": 384,
+    "content": "TypeScript 类型定义 - 数据模型\n\n```typescript\n// 用户模型\ninterface User {\n  id: string;\n  username: string;\n  email: string;\n  profile: UserProfile;\n  settings: UserSettings;\n  createdAt: Date;\n}\n\n// 用户资料\ninterface UserProfile {\n  avatar?: string;\n  bio?: string;\n  age?: number;\n  interests: string[];\n}\n\n// 用户设置\ninterface UserSettings {\n  theme: 'light' | 'dark';\n  language: string;\n  notifications: NotificationSettings;\n}\n\n// 通知设置\ninterface NotificationSettings {\n  email: boolean;\n  push: boolean;\n  sms: boolean;\n}\n\n// 工厂函数\nfunction createUser(data: Partial<User>): User {\n  return {\n    id: data.id || generateId(),\n    username: data.username || '',\n    email: data.email || '',\n    profile: { interests: [], ...data.profile },\n    settings: { theme: 'light', language: 'zh-CN', notifications: { email: true, push: true, sms: false }, ...data.settings },\n    createdAt: new Date()\n  };\n}\n```"
+  },
+  {
+    "id": "code_029",
+    "taskType": "code",
+    "inputTokens": 863,
+    "outputTokens": 317,
+    "content": "分布式缓存系统设计\n\n## 核心组件\n1. CacheNode: 单个缓存节点\n2. ConsistentHash: 一致性哈希环\n3. ReplicationManager: 副本管理器\n\n```python\nimport hashlib\nfrom typing import Dict, List, Optional\nimport threading\n\nclass ConsistentHash:\n    def __init__(self, nodes: List[str], virtual_nodes: int = 150):\n        self.ring: Dict[int, str] = {}\n        self.sorted_keys: List[int] = []\n        self._build_ring(nodes, virtual_nodes)\n    \n    def _hash(self, key: str) -> int:\n        return int(hashlib.md5(key.encode()).hexdigest(), 16)\n    \n    def _build_ring(self, nodes: List[str], vnodes: int):\n        for node in nodes:\n            for i in range(vnodes):\n                hash_key = self._hash(f\"{node}#vn{i}\")\n                self.ring[hash_key] = node\n        self.sorted_keys = sorted(self.ring.keys())\n```"
+  },
+  {
+    "id": "code_030",
+    "taskType": "code",
+    "inputTokens": 1013,
+    "outputTokens": 345,
+    "content": "# 用户认证服务 API 文档\n\n## 接口概述\n本服务提供用户注册、登录、认证等功能。\n\n## API 接口\n\n### POST /api/auth/register\n注册新用户\n\n**请求参数：**\n- username: string (必填, 3-20字符)\n- email: string (必填, 有效邮箱格式)\n- password: string (必填, 8位以上)\n- age?: number (可选)\n\n**响应示例：**\n```json\n{\n  \"code\": 200,\n  \"data\": {\n    \"userId\": \"u123456\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIs...\"\n  }\n}\n```\n\n**Python实现示例：**\n```python\nfrom pydantic import BaseModel, EmailStr\nfrom typing import Optional\n\nclass RegisterRequest(BaseModel):\n    username: str\n    email: EmailStr\n    password: str\n    age: Optional[int] = None\n    \n    def validate(self):\n        if len(self.username) < 3 or len(self.username) > 20:\n            raise ValueError(\"用户名长度必须在3-20字符之间\")\n        if len(self.password) < 8:\n            raise ValueError(\"密码至少8位\")\n```"
+  },
+  {
+    "id": "code_031",
+    "taskType": "code",
+    "inputTokens": 1030,
+    "outputTokens": 247,
+    "content": "TypeScript 类型定义 - 数据模型\n\n```typescript\n// 用户模型\ninterface User {\n  id: string;\n  username: string;\n  email: string;\n  profile: UserProfile;\n  settings: UserSettings;\n  createdAt: Date;\n}\n\n// 用户资料\ninterface UserProfile {\n  avatar?: string;\n  bio?: string;\n  age?: number;\n  interests: string[];\n}\n\n// 用户设置\ninterface UserSettings {\n  theme: 'light' | 'dark';\n  language: string;\n  notifications: NotificationSettings;\n}\n\n// 通知设置\ninterface NotificationSettings {\n  email: boolean;\n  push: boolean;\n  sms: boolean;\n}\n\n// 工厂函数\nfunction createUser(data: Partial<User>): User {\n  return {\n    id: data.id || generateId(),\n    username: data.username || '',\n    email: data.email || '',\n    profile: { interests: [], ...data.profile },\n    settings: { theme: 'light', language: 'zh-CN', notifications: { email: true, push: true, sms: false }, ...data.settings },\n    createdAt: new Date()\n  };\n}\n```"
+  },
+  {
+    "id": "code_032",
+    "taskType": "code",
+    "inputTokens": 902,
+    "outputTokens": 391,
+    "content": "分布式缓存系统设计\n\n## 核心组件\n1. CacheNode: 单个缓存节点\n2. ConsistentHash: 一致性哈希环\n3. ReplicationManager: 副本管理器\n\n```python\nimport hashlib\nfrom typing import Dict, List, Optional\nimport threading\n\nclass ConsistentHash:\n    def __init__(self, nodes: List[str], virtual_nodes: int = 150):\n        self.ring: Dict[int, str] = {}\n        self.sorted_keys: List[int] = []\n        self._build_ring(nodes, virtual_nodes)\n    \n    def _hash(self, key: str) -> int:\n        return int(hashlib.md5(key.encode()).hexdigest(), 16)\n    \n    def _build_ring(self, nodes: List[str], vnodes: int):\n        for node in nodes:\n            for i in range(vnodes):\n                hash_key = self._hash(f\"{node}#vn{i}\")\n                self.ring[hash_key] = node\n        self.sorted_keys = sorted(self.ring.keys())\n```"
+  },
+  {
+    "id": "code_033",
+    "taskType": "code",
+    "inputTokens": 743,
+    "outputTokens": 334,
+    "content": "# 用户认证服务 API 文档\n\n## 接口概述\n本服务提供用户注册、登录、认证等功能。\n\n## API 接口\n\n### POST /api/auth/register\n注册新用户\n\n**请求参数：**\n- username: string (必填, 3-20字符)\n- email: string (必填, 有效邮箱格式)\n- password: string (必填, 8位以上)\n- age?: number (可选)\n\n**响应示例：**\n```json\n{\n  \"code\": 200,\n  \"data\": {\n    \"userId\": \"u123456\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIs...\"\n  }\n}\n```\n\n**Python实现示例：**\n```python\nfrom pydantic import BaseModel, EmailStr\nfrom typing import Optional\n\nclass RegisterRequest(BaseModel):\n    username: str\n    email: EmailStr\n    password: str\n    age: Optional[int] = None\n    \n    def validate(self):\n        if len(self.username) < 3 or len(self.username) > 20:\n            raise ValueError(\"用户名长度必须在3-20字符之间\")\n        if len(self.password) < 8:\n            raise ValueError(\"密码至少8位\")\n```"
+  },
+  {
+    "id": "code_034",
+    "taskType": "code",
+    "inputTokens": 752,
+    "outputTokens": 202,
+    "content": "TypeScript 类型定义 - 数据模型\n\n```typescript\n// 用户模型\ninterface User {\n  id: string;\n  username: string;\n  email: string;\n  profile: UserProfile;\n  settings: UserSettings;\n  createdAt: Date;\n}\n\n// 用户资料\ninterface UserProfile {\n  avatar?: string;\n  bio?: string;\n  age?: number;\n  interests: string[];\n}\n\n// 用户设置\ninterface UserSettings {\n  theme: 'light' | 'dark';\n  language: string;\n  notifications: NotificationSettings;\n}\n\n// 通知设置\ninterface NotificationSettings {\n  email: boolean;\n  push: boolean;\n  sms: boolean;\n}\n\n// 工厂函数\nfunction createUser(data: Partial<User>): User {\n  return {\n    id: data.id || generateId(),\n    username: data.username || '',\n    email: data.email || '',\n    profile: { interests: [], ...data.profile },\n    settings: { theme: 'light', language: 'zh-CN', notifications: { email: true, push: true, sms: false }, ...data.settings },\n    createdAt: new Date()\n  };\n}\n```"
+  },
+  {
+    "id": "code_035",
+    "taskType": "code",
+    "inputTokens": 827,
+    "outputTokens": 396,
+    "content": "分布式缓存系统设计\n\n## 核心组件\n1. CacheNode: 单个缓存节点\n2. ConsistentHash: 一致性哈希环\n3. ReplicationManager: 副本管理器\n\n```python\nimport hashlib\nfrom typing import Dict, List, Optional\nimport threading\n\nclass ConsistentHash:\n    def __init__(self, nodes: List[str], virtual_nodes: int = 150):\n        self.ring: Dict[int, str] = {}\n        self.sorted_keys: List[int] = []\n        self._build_ring(nodes, virtual_nodes)\n    \n    def _hash(self, key: str) -> int:\n        return int(hashlib.md5(key.encode()).hexdigest(), 16)\n    \n    def _build_ring(self, nodes: List[str], vnodes: int):\n        for node in nodes:\n            for i in range(vnodes):\n                hash_key = self._hash(f\"{node}#vn{i}\")\n                self.ring[hash_key] = node\n        self.sorted_keys = sorted(self.ring.keys())\n```"
+  },
+  {
+    "id": "code_036",
+    "taskType": "code",
+    "inputTokens": 733,
+    "outputTokens": 304,
+    "content": "# 用户认证服务 API 文档\n\n## 接口概述\n本服务提供用户注册、登录、认证等功能。\n\n## API 接口\n\n### POST /api/auth/register\n注册新用户\n\n**请求参数：**\n- username: string (必填, 3-20字符)\n- email: string (必填, 有效邮箱格式)\n- password: string (必填, 8位以上)\n- age?: number (可选)\n\n**响应示例：**\n```json\n{\n  \"code\": 200,\n  \"data\": {\n    \"userId\": \"u123456\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIs...\"\n  }\n}\n```\n\n**Python实现示例：**\n```python\nfrom pydantic import BaseModel, EmailStr\nfrom typing import Optional\n\nclass RegisterRequest(BaseModel):\n    username: str\n    email: EmailStr\n    password: str\n    age: Optional[int] = None\n    \n    def validate(self):\n        if len(self.username) < 3 or len(self.username) > 20:\n            raise ValueError(\"用户名长度必须在3-20字符之间\")\n        if len(self.password) < 8:\n            raise ValueError(\"密码至少8位\")\n```"
+  },
+  {
+    "id": "code_037",
+    "taskType": "code",
+    "inputTokens": 649,
+    "outputTokens": 249,
+    "content": "TypeScript 类型定义 - 数据模型\n\n```typescript\n// 用户模型\ninterface User {\n  id: string;\n  username: string;\n  email: string;\n  profile: UserProfile;\n  settings: UserSettings;\n  createdAt: Date;\n}\n\n// 用户资料\ninterface UserProfile {\n  avatar?: string;\n  bio?: string;\n  age?: number;\n  interests: string[];\n}\n\n// 用户设置\ninterface UserSettings {\n  theme: 'light' | 'dark';\n  language: string;\n  notifications: NotificationSettings;\n}\n\n// 通知设置\ninterface NotificationSettings {\n  email: boolean;\n  push: boolean;\n  sms: boolean;\n}\n\n// 工厂函数\nfunction createUser(data: Partial<User>): User {\n  return {\n    id: data.id || generateId(),\n    username: data.username || '',\n    email: data.email || '',\n    profile: { interests: [], ...data.profile },\n    settings: { theme: 'light', language: 'zh-CN', notifications: { email: true, push: true, sms: false }, ...data.settings },\n    createdAt: new Date()\n  };\n}\n```"
+  },
+  {
+    "id": "code_038",
+    "taskType": "code",
+    "inputTokens": 916,
+    "outputTokens": 342,
+    "content": "分布式缓存系统设计\n\n## 核心组件\n1. CacheNode: 单个缓存节点\n2. ConsistentHash: 一致性哈希环\n3. ReplicationManager: 副本管理器\n\n```python\nimport hashlib\nfrom typing import Dict, List, Optional\nimport threading\n\nclass ConsistentHash:\n    def __init__(self, nodes: List[str], virtual_nodes: int = 150):\n        self.ring: Dict[int, str] = {}\n        self.sorted_keys: List[int] = []\n        self._build_ring(nodes, virtual_nodes)\n    \n    def _hash(self, key: str) -> int:\n        return int(hashlib.md5(key.encode()).hexdigest(), 16)\n    \n    def _build_ring(self, nodes: List[str], vnodes: int):\n        for node in nodes:\n            for i in range(vnodes):\n                hash_key = self._hash(f\"{node}#vn{i}\")\n                self.ring[hash_key] = node\n        self.sorted_keys = sorted(self.ring.keys())\n```"
+  },
+  {
+    "id": "code_039",
+    "taskType": "code",
+    "inputTokens": 738,
+    "outputTokens": 252,
+    "content": "# 用户认证服务 API 文档\n\n## 接口概述\n本服务提供用户注册、登录、认证等功能。\n\n## API 接口\n\n### POST /api/auth/register\n注册新用户\n\n**请求参数：**\n- username: string (必填, 3-20字符)\n- email: string (必填, 有效邮箱格式)\n- password: string (必填, 8位以上)\n- age?: number (可选)\n\n**响应示例：**\n```json\n{\n  \"code\": 200,\n  \"data\": {\n    \"userId\": \"u123456\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIs...\"\n  }\n}\n```\n\n**Python实现示例：**\n```python\nfrom pydantic import BaseModel, EmailStr\nfrom typing import Optional\n\nclass RegisterRequest(BaseModel):\n    username: str\n    email: EmailStr\n    password: str\n    age: Optional[int] = None\n    \n    def validate(self):\n        if len(self.username) < 3 or len(self.username) > 20:\n            raise ValueError(\"用户名长度必须在3-20字符之间\")\n        if len(self.password) < 8:\n            raise ValueError(\"密码至少8位\")\n```"
+  },
+  {
+    "id": "code_040",
+    "taskType": "code",
+    "inputTokens": 773,
+    "outputTokens": 252,
+    "content": "TypeScript 类型定义 - 数据模型\n\n```typescript\n// 用户模型\ninterface User {\n  id: string;\n  username: string;\n  email: string;\n  profile: UserProfile;\n  settings: UserSettings;\n  createdAt: Date;\n}\n\n// 用户资料\ninterface UserProfile {\n  avatar?: string;\n  bio?: string;\n  age?: number;\n  interests: string[];\n}\n\n// 用户设置\ninterface UserSettings {\n  theme: 'light' | 'dark';\n  language: string;\n  notifications: NotificationSettings;\n}\n\n// 通知设置\ninterface NotificationSettings {\n  email: boolean;\n  push: boolean;\n  sms: boolean;\n}\n\n// 工厂函数\nfunction createUser(data: Partial<User>): User {\n  return {\n    id: data.id || generateId(),\n    username: data.username || '',\n    email: data.email || '',\n    profile: { interests: [], ...data.profile },\n    settings: { theme: 'light', language: 'zh-CN', notifications: { email: true, push: true, sms: false }, ...data.settings },\n    createdAt: new Date()\n  };\n}\n```"
+  },
+  {
+    "id": "code_041",
+    "taskType": "code",
+    "inputTokens": 689,
+    "outputTokens": 333,
+    "content": "分布式缓存系统设计\n\n## 核心组件\n1. CacheNode: 单个缓存节点\n2. ConsistentHash: 一致性哈希环\n3. ReplicationManager: 副本管理器\n\n```python\nimport hashlib\nfrom typing import Dict, List, Optional\nimport threading\n\nclass ConsistentHash:\n    def __init__(self, nodes: List[str], virtual_nodes: int = 150):\n        self.ring: Dict[int, str] = {}\n        self.sorted_keys: List[int] = []\n        self._build_ring(nodes, virtual_nodes)\n    \n    def _hash(self, key: str) -> int:\n        return int(hashlib.md5(key.encode()).hexdigest(), 16)\n    \n    def _build_ring(self, nodes: List[str], vnodes: int):\n        for node in nodes:\n            for i in range(vnodes):\n                hash_key = self._hash(f\"{node}#vn{i}\")\n                self.ring[hash_key] = node\n        self.sorted_keys = sorted(self.ring.keys())\n```"
+  },
+  {
+    "id": "code_042",
+    "taskType": "code",
+    "inputTokens": 988,
+    "outputTokens": 332,
+    "content": "# 用户认证服务 API 文档\n\n## 接口概述\n本服务提供用户注册、登录、认证等功能。\n\n## API 接口\n\n### POST /api/auth/register\n注册新用户\n\n**请求参数：**\n- username: string (必填, 3-20字符)\n- email: string (必填, 有效邮箱格式)\n- password: string (必填, 8位以上)\n- age?: number (可选)\n\n**响应示例：**\n```json\n{\n  \"code\": 200,\n  \"data\": {\n    \"userId\": \"u123456\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIs...\"\n  }\n}\n```\n\n**Python实现示例：**\n```python\nfrom pydantic import BaseModel, EmailStr\nfrom typing import Optional\n\nclass RegisterRequest(BaseModel):\n    username: str\n    email: EmailStr\n    password: str\n    age: Optional[int] = None\n    \n    def validate(self):\n        if len(self.username) < 3 or len(self.username) > 20:\n            raise ValueError(\"用户名长度必须在3-20字符之间\")\n        if len(self.password) < 8:\n            raise ValueError(\"密码至少8位\")\n```"
+  },
+  {
+    "id": "code_043",
+    "taskType": "code",
+    "inputTokens": 866,
+    "outputTokens": 367,
+    "content": "TypeScript 类型定义 - 数据模型\n\n```typescript\n// 用户模型\ninterface User {\n  id: string;\n  username: string;\n  email: string;\n  profile: UserProfile;\n  settings: UserSettings;\n  createdAt: Date;\n}\n\n// 用户资料\ninterface UserProfile {\n  avatar?: string;\n  bio?: string;\n  age?: number;\n  interests: string[];\n}\n\n// 用户设置\ninterface UserSettings {\n  theme: 'light' | 'dark';\n  language: string;\n  notifications: NotificationSettings;\n}\n\n// 通知设置\ninterface NotificationSettings {\n  email: boolean;\n  push: boolean;\n  sms: boolean;\n}\n\n// 工厂函数\nfunction createUser(data: Partial<User>): User {\n  return {\n    id: data.id || generateId(),\n    username: data.username || '',\n    email: data.email || '',\n    profile: { interests: [], ...data.profile },\n    settings: { theme: 'light', language: 'zh-CN', notifications: { email: true, push: true, sms: false }, ...data.settings },\n    createdAt: new Date()\n  };\n}\n```"
+  },
+  {
+    "id": "code_044",
+    "taskType": "code",
+    "inputTokens": 952,
+    "outputTokens": 309,
+    "content": "分布式缓存系统设计\n\n## 核心组件\n1. CacheNode: 单个缓存节点\n2. ConsistentHash: 一致性哈希环\n3. ReplicationManager: 副本管理器\n\n```python\nimport hashlib\nfrom typing import Dict, List, Optional\nimport threading\n\nclass ConsistentHash:\n    def __init__(self, nodes: List[str], virtual_nodes: int = 150):\n        self.ring: Dict[int, str] = {}\n        self.sorted_keys: List[int] = []\n        self._build_ring(nodes, virtual_nodes)\n    \n    def _hash(self, key: str) -> int:\n        return int(hashlib.md5(key.encode()).hexdigest(), 16)\n    \n    def _build_ring(self, nodes: List[str], vnodes: int):\n        for node in nodes:\n            for i in range(vnodes):\n                hash_key = self._hash(f\"{node}#vn{i}\")\n                self.ring[hash_key] = node\n        self.sorted_keys = sorted(self.ring.keys())\n```"
+  },
+  {
+    "id": "code_045",
+    "taskType": "code",
+    "inputTokens": 703,
+    "outputTokens": 203,
+    "content": "# 用户认证服务 API 文档\n\n## 接口概述\n本服务提供用户注册、登录、认证等功能。\n\n## API 接口\n\n### POST /api/auth/register\n注册新用户\n\n**请求参数：**\n- username: string (必填, 3-20字符)\n- email: string (必填, 有效邮箱格式)\n- password: string (必填, 8位以上)\n- age?: number (可选)\n\n**响应示例：**\n```json\n{\n  \"code\": 200,\n  \"data\": {\n    \"userId\": \"u123456\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIs...\"\n  }\n}\n```\n\n**Python实现示例：**\n```python\nfrom pydantic import BaseModel, EmailStr\nfrom typing import Optional\n\nclass RegisterRequest(BaseModel):\n    username: str\n    email: EmailStr\n    password: str\n    age: Optional[int] = None\n    \n    def validate(self):\n        if len(self.username) < 3 or len(self.username) > 20:\n            raise ValueError(\"用户名长度必须在3-20字符之间\")\n        if len(self.password) < 8:\n            raise ValueError(\"密码至少8位\")\n```"
+  },
+  {
+    "id": "code_046",
+    "taskType": "code",
+    "inputTokens": 823,
+    "outputTokens": 150,
+    "content": "TypeScript 类型定义 - 数据模型\n\n```typescript\n// 用户模型\ninterface User {\n  id: string;\n  username: string;\n  email: string;\n  profile: UserProfile;\n  settings: UserSettings;\n  createdAt: Date;\n}\n\n// 用户资料\ninterface UserProfile {\n  avatar?: string;\n  bio?: string;\n  age?: number;\n  interests: string[];\n}\n\n// 用户设置\ninterface UserSettings {\n  theme: 'light' | 'dark';\n  language: string;\n  notifications: NotificationSettings;\n}\n\n// 通知设置\ninterface NotificationSettings {\n  email: boolean;\n  push: boolean;\n  sms: boolean;\n}\n\n// 工厂函数\nfunction createUser(data: Partial<User>): User {\n  return {\n    id: data.id || generateId(),\n    username: data.username || '',\n    email: data.email || '',\n    profile: { interests: [], ...data.profile },\n    settings: { theme: 'light', language: 'zh-CN', notifications: { email: true, push: true, sms: false }, ...data.settings },\n    createdAt: new Date()\n  };\n}\n```"
+  },
+  {
+    "id": "code_047",
+    "taskType": "code",
+    "inputTokens": 724,
+    "outputTokens": 312,
+    "content": "分布式缓存系统设计\n\n## 核心组件\n1. CacheNode: 单个缓存节点\n2. ConsistentHash: 一致性哈希环\n3. ReplicationManager: 副本管理器\n\n```python\nimport hashlib\nfrom typing import Dict, List, Optional\nimport threading\n\nclass ConsistentHash:\n    def __init__(self, nodes: List[str], virtual_nodes: int = 150):\n        self.ring: Dict[int, str] = {}\n        self.sorted_keys: List[int] = []\n        self._build_ring(nodes, virtual_nodes)\n    \n    def _hash(self, key: str) -> int:\n        return int(hashlib.md5(key.encode()).hexdigest(), 16)\n    \n    def _build_ring(self, nodes: List[str], vnodes: int):\n        for node in nodes:\n            for i in range(vnodes):\n                hash_key = self._hash(f\"{node}#vn{i}\")\n                self.ring[hash_key] = node\n        self.sorted_keys = sorted(self.ring.keys())\n```"
+  },
+  {
+    "id": "code_048",
+    "taskType": "code",
+    "inputTokens": 781,
+    "outputTokens": 293,
+    "content": "# 用户认证服务 API 文档\n\n## 接口概述\n本服务提供用户注册、登录、认证等功能。\n\n## API 接口\n\n### POST /api/auth/register\n注册新用户\n\n**请求参数：**\n- username: string (必填, 3-20字符)\n- email: string (必填, 有效邮箱格式)\n- password: string (必填, 8位以上)\n- age?: number (可选)\n\n**响应示例：**\n```json\n{\n  \"code\": 200,\n  \"data\": {\n    \"userId\": \"u123456\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIs...\"\n  }\n}\n```\n\n**Python实现示例：**\n```python\nfrom pydantic import BaseModel, EmailStr\nfrom typing import Optional\n\nclass RegisterRequest(BaseModel):\n    username: str\n    email: EmailStr\n    password: str\n    age: Optional[int] = None\n    \n    def validate(self):\n        if len(self.username) < 3 or len(self.username) > 20:\n            raise ValueError(\"用户名长度必须在3-20字符之间\")\n        if len(self.password) < 8:\n            raise ValueError(\"密码至少8位\")\n```"
+  },
+  {
+    "id": "code_049",
+    "taskType": "code",
+    "inputTokens": 1010,
+    "outputTokens": 322,
+    "content": "TypeScript 类型定义 - 数据模型\n\n```typescript\n// 用户模型\ninterface User {\n  id: string;\n  username: string;\n  email: string;\n  profile: UserProfile;\n  settings: UserSettings;\n  createdAt: Date;\n}\n\n// 用户资料\ninterface UserProfile {\n  avatar?: string;\n  bio?: string;\n  age?: number;\n  interests: string[];\n}\n\n// 用户设置\ninterface UserSettings {\n  theme: 'light' | 'dark';\n  language: string;\n  notifications: NotificationSettings;\n}\n\n// 通知设置\ninterface NotificationSettings {\n  email: boolean;\n  push: boolean;\n  sms: boolean;\n}\n\n// 工厂函数\nfunction createUser(data: Partial<User>): User {\n  return {\n    id: data.id || generateId(),\n    username: data.username || '',\n    email: data.email || '',\n    profile: { interests: [], ...data.profile },\n    settings: { theme: 'light', language: 'zh-CN', notifications: { email: true, push: true, sms: false }, ...data.settings },\n    createdAt: new Date()\n  };\n}\n```"
+  },
+  {
+    "id": "code_050",
+    "taskType": "code",
+    "inputTokens": 878,
+    "outputTokens": 352,
+    "content": "分布式缓存系统设计\n\n## 核心组件\n1. CacheNode: 单个缓存节点\n2. ConsistentHash: 一致性哈希环\n3. ReplicationManager: 副本管理器\n\n```python\nimport hashlib\nfrom typing import Dict, List, Optional\nimport threading\n\nclass ConsistentHash:\n    def __init__(self, nodes: List[str], virtual_nodes: int = 150):\n        self.ring: Dict[int, str] = {}\n        self.sorted_keys: List[int] = []\n        self._build_ring(nodes, virtual_nodes)\n    \n    def _hash(self, key: str) -> int:\n        return int(hashlib.md5(key.encode()).hexdigest(), 16)\n    \n    def _build_ring(self, nodes: List[str], vnodes: int):\n        for node in nodes:\n            for i in range(vnodes):\n                hash_key = self._hash(f\"{node}#vn{i}\")\n                self.ring[hash_key] = node\n        self.sorted_keys = sorted(self.ring.keys())\n```"
+  },
+  {
+    "id": "qa_001",
+    "taskType": "qa",
+    "inputTokens": 822,
+    "outputTokens": 209,
+    "content": "## Kubernetes容器编排系统\n\nKubernetes（简称K8s）是一个开源的容器编排平台，用于自动化容器化应用的部署、扩缩容和管理。\n\n### 核心概念\n\n**Pod**: Kubernetes的基本调度单元，一个Pod可以包含一个或多个容器。\n\n**Service**: 抽象的服务发现机制，为一组Pod提供稳定的访问入口。\n\n**Deployment**: 声明式的Pod管理，用于定义应用的部署状态。\n\n**ConfigMap和Secret**: 管理配置数据和敏感信息。\n\n### 自动扩缩容机制\nHPA (Horizontal Pod Autoscaler) 根据CPU利用率或自定义指标自动调整Pod副本数。\nVPA (Vertical Pod Autoscaler) 自动调整Pod的资源请求。\nCluster Autoscaler 在节点级别进行扩缩容。"
+  },
+  {
+    "id": "qa_002",
+    "taskType": "qa",
+    "inputTokens": 893,
+    "outputTokens": 260,
+    "content": "## 数据库索引原理与优化\n\n### B+树索引结构\nB+树是一种自平衡的多路搜索树，所有记录都存储在叶子节点，叶子节点之间用链表连接。\n\n**优势：**\n1. 高度平衡，查询效率稳定 O(log n)\n2. 叶子节点链表便于范围查询\n3. 磁盘IO次数少（高度通常为3-4层）\n\n### 索引优化策略\n1. 选择性高的列优先建立索引\n2. 联合索引遵循最左前缀原则\n3. 避免在索引列上使用函数\n4. 覆盖索引减少回表查询\n5. 考虑使用部分索引"
+  },
+  {
+    "id": "qa_003",
+    "taskType": "qa",
+    "inputTokens": 737,
+    "outputTokens": 315,
+    "content": "## Transformer架构详解\n\nTransformer是一种基于自注意力机制的神经网络架构，由Google在2017年提出。它彻底改变了自然语言处理领域的研究范式。\n\n### 核心组件\n\n**1. Self-Attention机制**\n自注意力机制的核心公式：\nAttention(Q, K, V) = softmax(QK^T / √d_k) × V\n\n其中：\n- Q (Query): 查询向量，表示当前位置想要关注的内容\n- K (Key): 键向量，用于匹配查询\n- V (Value): 值向量，包含实际的信息内容\n- d_k: 键向量的维度，用于缩放\n\n**2. 多头注意力 (Multi-Head Attention)**\n将注意力分成多个头，允许模型在不同的表示子空间学习信息。\n\n**3. 位置编码 (Positional Encoding)**\n由于Transformer没有循环结构，需要添加位置编码来注入序列位置信息。"
+  },
+  {
+    "id": "qa_004",
+    "taskType": "qa",
+    "inputTokens": 931,
+    "outputTokens": 376,
+    "content": "## Kubernetes容器编排系统\n\nKubernetes（简称K8s）是一个开源的容器编排平台，用于自动化容器化应用的部署、扩缩容和管理。\n\n### 核心概念\n\n**Pod**: Kubernetes的基本调度单元，一个Pod可以包含一个或多个容器。\n\n**Service**: 抽象的服务发现机制，为一组Pod提供稳定的访问入口。\n\n**Deployment**: 声明式的Pod管理，用于定义应用的部署状态。\n\n**ConfigMap和Secret**: 管理配置数据和敏感信息。\n\n### 自动扩缩容机制\nHPA (Horizontal Pod Autoscaler) 根据CPU利用率或自定义指标自动调整Pod副本数。\nVPA (Vertical Pod Autoscaler) 自动调整Pod的资源请求。\nCluster Autoscaler 在节点级别进行扩缩容。"
+  },
+  {
+    "id": "qa_005",
+    "taskType": "qa",
+    "inputTokens": 887,
+    "outputTokens": 349,
+    "content": "## 数据库索引原理与优化\n\n### B+树索引结构\nB+树是一种自平衡的多路搜索树，所有记录都存储在叶子节点，叶子节点之间用链表连接。\n\n**优势：**\n1. 高度平衡，查询效率稳定 O(log n)\n2. 叶子节点链表便于范围查询\n3. 磁盘IO次数少（高度通常为3-4层）\n\n### 索引优化策略\n1. 选择性高的列优先建立索引\n2. 联合索引遵循最左前缀原则\n3. 避免在索引列上使用函数\n4. 覆盖索引减少回表查询\n5. 考虑使用部分索引"
+  },
+  {
+    "id": "qa_006",
+    "taskType": "qa",
+    "inputTokens": 879,
+    "outputTokens": 231,
+    "content": "## Transformer架构详解\n\nTransformer是一种基于自注意力机制的神经网络架构，由Google在2017年提出。它彻底改变了自然语言处理领域的研究范式。\n\n### 核心组件\n\n**1. Self-Attention机制**\n自注意力机制的核心公式：\nAttention(Q, K, V) = softmax(QK^T / √d_k) × V\n\n其中：\n- Q (Query): 查询向量，表示当前位置想要关注的内容\n- K (Key): 键向量，用于匹配查询\n- V (Value): 值向量，包含实际的信息内容\n- d_k: 键向量的维度，用于缩放\n\n**2. 多头注意力 (Multi-Head Attention)**\n将注意力分成多个头，允许模型在不同的表示子空间学习信息。\n\n**3. 位置编码 (Positional Encoding)**\n由于Transformer没有循环结构，需要添加位置编码来注入序列位置信息。"
+  },
+  {
+    "id": "qa_007",
+    "taskType": "qa",
+    "inputTokens": 808,
+    "outputTokens": 204,
+    "content": "## Kubernetes容器编排系统\n\nKubernetes（简称K8s）是一个开源的容器编排平台，用于自动化容器化应用的部署、扩缩容和管理。\n\n### 核心概念\n\n**Pod**: Kubernetes的基本调度单元，一个Pod可以包含一个或多个容器。\n\n**Service**: 抽象的服务发现机制，为一组Pod提供稳定的访问入口。\n\n**Deployment**: 声明式的Pod管理，用于定义应用的部署状态。\n\n**ConfigMap和Secret**: 管理配置数据和敏感信息。\n\n### 自动扩缩容机制\nHPA (Horizontal Pod Autoscaler) 根据CPU利用率或自定义指标自动调整Pod副本数。\nVPA (Vertical Pod Autoscaler) 自动调整Pod的资源请求。\nCluster Autoscaler 在节点级别进行扩缩容。"
+  },
+  {
+    "id": "qa_008",
+    "taskType": "qa",
+    "inputTokens": 754,
+    "outputTokens": 352,
+    "content": "## 数据库索引原理与优化\n\n### B+树索引结构\nB+树是一种自平衡的多路搜索树，所有记录都存储在叶子节点，叶子节点之间用链表连接。\n\n**优势：**\n1. 高度平衡，查询效率稳定 O(log n)\n2. 叶子节点链表便于范围查询\n3. 磁盘IO次数少（高度通常为3-4层）\n\n### 索引优化策略\n1. 选择性高的列优先建立索引\n2. 联合索引遵循最左前缀原则\n3. 避免在索引列上使用函数\n4. 覆盖索引减少回表查询\n5. 考虑使用部分索引"
+  },
+  {
+    "id": "qa_009",
+    "taskType": "qa",
+    "inputTokens": 882,
+    "outputTokens": 334,
+    "content": "## Transformer架构详解\n\nTransformer是一种基于自注意力机制的神经网络架构，由Google在2017年提出。它彻底改变了自然语言处理领域的研究范式。\n\n### 核心组件\n\n**1. Self-Attention机制**\n自注意力机制的核心公式：\nAttention(Q, K, V) = softmax(QK^T / √d_k) × V\n\n其中：\n- Q (Query): 查询向量，表示当前位置想要关注的内容\n- K (Key): 键向量，用于匹配查询\n- V (Value): 值向量，包含实际的信息内容\n- d_k: 键向量的维度，用于缩放\n\n**2. 多头注意力 (Multi-Head Attention)**\n将注意力分成多个头，允许模型在不同的表示子空间学习信息。\n\n**3. 位置编码 (Positional Encoding)**\n由于Transformer没有循环结构，需要添加位置编码来注入序列位置信息。"
+  },
+  {
+    "id": "qa_010",
+    "taskType": "qa",
+    "inputTokens": 742,
+    "outputTokens": 255,
+    "content": "## Kubernetes容器编排系统\n\nKubernetes（简称K8s）是一个开源的容器编排平台，用于自动化容器化应用的部署、扩缩容和管理。\n\n### 核心概念\n\n**Pod**: Kubernetes的基本调度单元，一个Pod可以包含一个或多个容器。\n\n**Service**: 抽象的服务发现机制，为一组Pod提供稳定的访问入口。\n\n**Deployment**: 声明式的Pod管理，用于定义应用的部署状态。\n\n**ConfigMap和Secret**: 管理配置数据和敏感信息。\n\n### 自动扩缩容机制\nHPA (Horizontal Pod Autoscaler) 根据CPU利用率或自定义指标自动调整Pod副本数。\nVPA (Vertical Pod Autoscaler) 自动调整Pod的资源请求。\nCluster Autoscaler 在节点级别进行扩缩容。"
+  },
+  {
+    "id": "qa_011",
+    "taskType": "qa",
+    "inputTokens": 739,
+    "outputTokens": 330,
+    "content": "## 数据库索引原理与优化\n\n### B+树索引结构\nB+树是一种自平衡的多路搜索树，所有记录都存储在叶子节点，叶子节点之间用链表连接。\n\n**优势：**\n1. 高度平衡，查询效率稳定 O(log n)\n2. 叶子节点链表便于范围查询\n3. 磁盘IO次数少（高度通常为3-4层）\n\n### 索引优化策略\n1. 选择性高的列优先建立索引\n2. 联合索引遵循最左前缀原则\n3. 避免在索引列上使用函数\n4. 覆盖索引减少回表查询\n5. 考虑使用部分索引"
+  },
+  {
+    "id": "qa_012",
+    "taskType": "qa",
+    "inputTokens": 771,
+    "outputTokens": 239,
+    "content": "## Transformer架构详解\n\nTransformer是一种基于自注意力机制的神经网络架构，由Google在2017年提出。它彻底改变了自然语言处理领域的研究范式。\n\n### 核心组件\n\n**1. Self-Attention机制**\n自注意力机制的核心公式：\nAttention(Q, K, V) = softmax(QK^T / √d_k) × V\n\n其中：\n- Q (Query): 查询向量，表示当前位置想要关注的内容\n- K (Key): 键向量，用于匹配查询\n- V (Value): 值向量，包含实际的信息内容\n- d_k: 键向量的维度，用于缩放\n\n**2. 多头注意力 (Multi-Head Attention)**\n将注意力分成多个头，允许模型在不同的表示子空间学习信息。\n\n**3. 位置编码 (Positional Encoding)**\n由于Transformer没有循环结构，需要添加位置编码来注入序列位置信息。"
+  },
+  {
+    "id": "qa_013",
+    "taskType": "qa",
+    "inputTokens": 798,
+    "outputTokens": 363,
+    "content": "## Kubernetes容器编排系统\n\nKubernetes（简称K8s）是一个开源的容器编排平台，用于自动化容器化应用的部署、扩缩容和管理。\n\n### 核心概念\n\n**Pod**: Kubernetes的基本调度单元，一个Pod可以包含一个或多个容器。\n\n**Service**: 抽象的服务发现机制，为一组Pod提供稳定的访问入口。\n\n**Deployment**: 声明式的Pod管理，用于定义应用的部署状态。\n\n**ConfigMap和Secret**: 管理配置数据和敏感信息。\n\n### 自动扩缩容机制\nHPA (Horizontal Pod Autoscaler) 根据CPU利用率或自定义指标自动调整Pod副本数。\nVPA (Vertical Pod Autoscaler) 自动调整Pod的资源请求。\nCluster Autoscaler 在节点级别进行扩缩容。"
+  },
+  {
+    "id": "qa_014",
+    "taskType": "qa",
+    "inputTokens": 914,
+    "outputTokens": 298,
+    "content": "## 数据库索引原理与优化\n\n### B+树索引结构\nB+树是一种自平衡的多路搜索树，所有记录都存储在叶子节点，叶子节点之间用链表连接。\n\n**优势：**\n1. 高度平衡，查询效率稳定 O(log n)\n2. 叶子节点链表便于范围查询\n3. 磁盘IO次数少（高度通常为3-4层）\n\n### 索引优化策略\n1. 选择性高的列优先建立索引\n2. 联合索引遵循最左前缀原则\n3. 避免在索引列上使用函数\n4. 覆盖索引减少回表查询\n5. 考虑使用部分索引"
+  },
+  {
+    "id": "qa_015",
+    "taskType": "qa",
+    "inputTokens": 951,
+    "outputTokens": 383,
+    "content": "## Transformer架构详解\n\nTransformer是一种基于自注意力机制的神经网络架构，由Google在2017年提出。它彻底改变了自然语言处理领域的研究范式。\n\n### 核心组件\n\n**1. Self-Attention机制**\n自注意力机制的核心公式：\nAttention(Q, K, V) = softmax(QK^T / √d_k) × V\n\n其中：\n- Q (Query): 查询向量，表示当前位置想要关注的内容\n- K (Key): 键向量，用于匹配查询\n- V (Value): 值向量，包含实际的信息内容\n- d_k: 键向量的维度，用于缩放\n\n**2. 多头注意力 (Multi-Head Attention)**\n将注意力分成多个头，允许模型在不同的表示子空间学习信息。\n\n**3. 位置编码 (Positional Encoding)**\n由于Transformer没有循环结构，需要添加位置编码来注入序列位置信息。"
+  },
+  {
+    "id": "qa_016",
+    "taskType": "qa",
+    "inputTokens": 792,
+    "outputTokens": 306,
+    "content": "## Kubernetes容器编排系统\n\nKubernetes（简称K8s）是一个开源的容器编排平台，用于自动化容器化应用的部署、扩缩容和管理。\n\n### 核心概念\n\n**Pod**: Kubernetes的基本调度单元，一个Pod可以包含一个或多个容器。\n\n**Service**: 抽象的服务发现机制，为一组Pod提供稳定的访问入口。\n\n**Deployment**: 声明式的Pod管理，用于定义应用的部署状态。\n\n**ConfigMap和Secret**: 管理配置数据和敏感信息。\n\n### 自动扩缩容机制\nHPA (Horizontal Pod Autoscaler) 根据CPU利用率或自定义指标自动调整Pod副本数。\nVPA (Vertical Pod Autoscaler) 自动调整Pod的资源请求。\nCluster Autoscaler 在节点级别进行扩缩容。"
+  },
+  {
+    "id": "qa_017",
+    "taskType": "qa",
+    "inputTokens": 884,
+    "outputTokens": 388,
+    "content": "## 数据库索引原理与优化\n\n### B+树索引结构\nB+树是一种自平衡的多路搜索树，所有记录都存储在叶子节点，叶子节点之间用链表连接。\n\n**优势：**\n1. 高度平衡，查询效率稳定 O(log n)\n2. 叶子节点链表便于范围查询\n3. 磁盘IO次数少（高度通常为3-4层）\n\n### 索引优化策略\n1. 选择性高的列优先建立索引\n2. 联合索引遵循最左前缀原则\n3. 避免在索引列上使用函数\n4. 覆盖索引减少回表查询\n5. 考虑使用部分索引"
+  },
+  {
+    "id": "qa_018",
+    "taskType": "qa",
+    "inputTokens": 769,
+    "outputTokens": 299,
+    "content": "## Transformer架构详解\n\nTransformer是一种基于自注意力机制的神经网络架构，由Google在2017年提出。它彻底改变了自然语言处理领域的研究范式。\n\n### 核心组件\n\n**1. Self-Attention机制**\n自注意力机制的核心公式：\nAttention(Q, K, V) = softmax(QK^T / √d_k) × V\n\n其中：\n- Q (Query): 查询向量，表示当前位置想要关注的内容\n- K (Key): 键向量，用于匹配查询\n- V (Value): 值向量，包含实际的信息内容\n- d_k: 键向量的维度，用于缩放\n\n**2. 多头注意力 (Multi-Head Attention)**\n将注意力分成多个头，允许模型在不同的表示子空间学习信息。\n\n**3. 位置编码 (Positional Encoding)**\n由于Transformer没有循环结构，需要添加位置编码来注入序列位置信息。"
+  },
+  {
+    "id": "qa_019",
+    "taskType": "qa",
+    "inputTokens": 999,
+    "outputTokens": 322,
+    "content": "## Kubernetes容器编排系统\n\nKubernetes（简称K8s）是一个开源的容器编排平台，用于自动化容器化应用的部署、扩缩容和管理。\n\n### 核心概念\n\n**Pod**: Kubernetes的基本调度单元，一个Pod可以包含一个或多个容器。\n\n**Service**: 抽象的服务发现机制，为一组Pod提供稳定的访问入口。\n\n**Deployment**: 声明式的Pod管理，用于定义应用的部署状态。\n\n**ConfigMap和Secret**: 管理配置数据和敏感信息。\n\n### 自动扩缩容机制\nHPA (Horizontal Pod Autoscaler) 根据CPU利用率或自定义指标自动调整Pod副本数。\nVPA (Vertical Pod Autoscaler) 自动调整Pod的资源请求。\nCluster Autoscaler 在节点级别进行扩缩容。"
+  },
+  {
+    "id": "qa_020",
+    "taskType": "qa",
+    "inputTokens": 898,
+    "outputTokens": 317,
+    "content": "## 数据库索引原理与优化\n\n### B+树索引结构\nB+树是一种自平衡的多路搜索树，所有记录都存储在叶子节点，叶子节点之间用链表连接。\n\n**优势：**\n1. 高度平衡，查询效率稳定 O(log n)\n2. 叶子节点链表便于范围查询\n3. 磁盘IO次数少（高度通常为3-4层）\n\n### 索引优化策略\n1. 选择性高的列优先建立索引\n2. 联合索引遵循最左前缀原则\n3. 避免在索引列上使用函数\n4. 覆盖索引减少回表查询\n5. 考虑使用部分索引"
+  },
+  {
+    "id": "qa_021",
+    "taskType": "qa",
+    "inputTokens": 700,
+    "outputTokens": 181,
+    "content": "## Transformer架构详解\n\nTransformer是一种基于自注意力机制的神经网络架构，由Google在2017年提出。它彻底改变了自然语言处理领域的研究范式。\n\n### 核心组件\n\n**1. Self-Attention机制**\n自注意力机制的核心公式：\nAttention(Q, K, V) = softmax(QK^T / √d_k) × V\n\n其中：\n- Q (Query): 查询向量，表示当前位置想要关注的内容\n- K (Key): 键向量，用于匹配查询\n- V (Value): 值向量，包含实际的信息内容\n- d_k: 键向量的维度，用于缩放\n\n**2. 多头注意力 (Multi-Head Attention)**\n将注意力分成多个头，允许模型在不同的表示子空间学习信息。\n\n**3. 位置编码 (Positional Encoding)**\n由于Transformer没有循环结构，需要添加位置编码来注入序列位置信息。"
+  },
+  {
+    "id": "qa_022",
+    "taskType": "qa",
+    "inputTokens": 944,
+    "outputTokens": 252,
+    "content": "## Kubernetes容器编排系统\n\nKubernetes（简称K8s）是一个开源的容器编排平台，用于自动化容器化应用的部署、扩缩容和管理。\n\n### 核心概念\n\n**Pod**: Kubernetes的基本调度单元，一个Pod可以包含一个或多个容器。\n\n**Service**: 抽象的服务发现机制，为一组Pod提供稳定的访问入口。\n\n**Deployment**: 声明式的Pod管理，用于定义应用的部署状态。\n\n**ConfigMap和Secret**: 管理配置数据和敏感信息。\n\n### 自动扩缩容机制\nHPA (Horizontal Pod Autoscaler) 根据CPU利用率或自定义指标自动调整Pod副本数。\nVPA (Vertical Pod Autoscaler) 自动调整Pod的资源请求。\nCluster Autoscaler 在节点级别进行扩缩容。"
+  },
+  {
+    "id": "qa_023",
+    "taskType": "qa",
+    "inputTokens": 785,
+    "outputTokens": 189,
+    "content": "## 数据库索引原理与优化\n\n### B+树索引结构\nB+树是一种自平衡的多路搜索树，所有记录都存储在叶子节点，叶子节点之间用链表连接。\n\n**优势：**\n1. 高度平衡，查询效率稳定 O(log n)\n2. 叶子节点链表便于范围查询\n3. 磁盘IO次数少（高度通常为3-4层）\n\n### 索引优化策略\n1. 选择性高的列优先建立索引\n2. 联合索引遵循最左前缀原则\n3. 避免在索引列上使用函数\n4. 覆盖索引减少回表查询\n5. 考虑使用部分索引"
+  },
+  {
+    "id": "qa_024",
+    "taskType": "qa",
+    "inputTokens": 804,
+    "outputTokens": 270,
+    "content": "## Transformer架构详解\n\nTransformer是一种基于自注意力机制的神经网络架构，由Google在2017年提出。它彻底改变了自然语言处理领域的研究范式。\n\n### 核心组件\n\n**1. Self-Attention机制**\n自注意力机制的核心公式：\nAttention(Q, K, V) = softmax(QK^T / √d_k) × V\n\n其中：\n- Q (Query): 查询向量，表示当前位置想要关注的内容\n- K (Key): 键向量，用于匹配查询\n- V (Value): 值向量，包含实际的信息内容\n- d_k: 键向量的维度，用于缩放\n\n**2. 多头注意力 (Multi-Head Attention)**\n将注意力分成多个头，允许模型在不同的表示子空间学习信息。\n\n**3. 位置编码 (Positional Encoding)**\n由于Transformer没有循环结构，需要添加位置编码来注入序列位置信息。"
+  },
+  {
+    "id": "qa_025",
+    "taskType": "qa",
+    "inputTokens": 733,
+    "outputTokens": 317,
+    "content": "## Kubernetes容器编排系统\n\nKubernetes（简称K8s）是一个开源的容器编排平台，用于自动化容器化应用的部署、扩缩容和管理。\n\n### 核心概念\n\n**Pod**: Kubernetes的基本调度单元，一个Pod可以包含一个或多个容器。\n\n**Service**: 抽象的服务发现机制，为一组Pod提供稳定的访问入口。\n\n**Deployment**: 声明式的Pod管理，用于定义应用的部署状态。\n\n**ConfigMap和Secret**: 管理配置数据和敏感信息。\n\n### 自动扩缩容机制\nHPA (Horizontal Pod Autoscaler) 根据CPU利用率或自定义指标自动调整Pod副本数。\nVPA (Vertical Pod Autoscaler) 自动调整Pod的资源请求。\nCluster Autoscaler 在节点级别进行扩缩容。"
+  },
+  {
+    "id": "qa_026",
+    "taskType": "qa",
+    "inputTokens": 876,
+    "outputTokens": 181,
+    "content": "## 数据库索引原理与优化\n\n### B+树索引结构\nB+树是一种自平衡的多路搜索树，所有记录都存储在叶子节点，叶子节点之间用链表连接。\n\n**优势：**\n1. 高度平衡，查询效率稳定 O(log n)\n2. 叶子节点链表便于范围查询\n3. 磁盘IO次数少（高度通常为3-4层）\n\n### 索引优化策略\n1. 选择性高的列优先建立索引\n2. 联合索引遵循最左前缀原则\n3. 避免在索引列上使用函数\n4. 覆盖索引减少回表查询\n5. 考虑使用部分索引"
+  },
+  {
+    "id": "qa_027",
+    "taskType": "qa",
+    "inputTokens": 885,
+    "outputTokens": 393,
+    "content": "## Transformer架构详解\n\nTransformer是一种基于自注意力机制的神经网络架构，由Google在2017年提出。它彻底改变了自然语言处理领域的研究范式。\n\n### 核心组件\n\n**1. Self-Attention机制**\n自注意力机制的核心公式：\nAttention(Q, K, V) = softmax(QK^T / √d_k) × V\n\n其中：\n- Q (Query): 查询向量，表示当前位置想要关注的内容\n- K (Key): 键向量，用于匹配查询\n- V (Value): 值向量，包含实际的信息内容\n- d_k: 键向量的维度，用于缩放\n\n**2. 多头注意力 (Multi-Head Attention)**\n将注意力分成多个头，允许模型在不同的表示子空间学习信息。\n\n**3. 位置编码 (Positional Encoding)**\n由于Transformer没有循环结构，需要添加位置编码来注入序列位置信息。"
+  },
+  {
+    "id": "qa_028",
+    "taskType": "qa",
+    "inputTokens": 977,
+    "outputTokens": 373,
+    "content": "## Kubernetes容器编排系统\n\nKubernetes（简称K8s）是一个开源的容器编排平台，用于自动化容器化应用的部署、扩缩容和管理。\n\n### 核心概念\n\n**Pod**: Kubernetes的基本调度单元，一个Pod可以包含一个或多个容器。\n\n**Service**: 抽象的服务发现机制，为一组Pod提供稳定的访问入口。\n\n**Deployment**: 声明式的Pod管理，用于定义应用的部署状态。\n\n**ConfigMap和Secret**: 管理配置数据和敏感信息。\n\n### 自动扩缩容机制\nHPA (Horizontal Pod Autoscaler) 根据CPU利用率或自定义指标自动调整Pod副本数。\nVPA (Vertical Pod Autoscaler) 自动调整Pod的资源请求。\nCluster Autoscaler 在节点级别进行扩缩容。"
+  },
+  {
+    "id": "qa_029",
+    "taskType": "qa",
+    "inputTokens": 824,
+    "outputTokens": 287,
+    "content": "## 数据库索引原理与优化\n\n### B+树索引结构\nB+树是一种自平衡的多路搜索树，所有记录都存储在叶子节点，叶子节点之间用链表连接。\n\n**优势：**\n1. 高度平衡，查询效率稳定 O(log n)\n2. 叶子节点链表便于范围查询\n3. 磁盘IO次数少（高度通常为3-4层）\n\n### 索引优化策略\n1. 选择性高的列优先建立索引\n2. 联合索引遵循最左前缀原则\n3. 避免在索引列上使用函数\n4. 覆盖索引减少回表查询\n5. 考虑使用部分索引"
+  },
+  {
+    "id": "qa_030",
+    "taskType": "qa",
+    "inputTokens": 746,
+    "outputTokens": 227,
+    "content": "## Transformer架构详解\n\nTransformer是一种基于自注意力机制的神经网络架构，由Google在2017年提出。它彻底改变了自然语言处理领域的研究范式。\n\n### 核心组件\n\n**1. Self-Attention机制**\n自注意力机制的核心公式：\nAttention(Q, K, V) = softmax(QK^T / √d_k) × V\n\n其中：\n- Q (Query): 查询向量，表示当前位置想要关注的内容\n- K (Key): 键向量，用于匹配查询\n- V (Value): 值向量，包含实际的信息内容\n- d_k: 键向量的维度，用于缩放\n\n**2. 多头注意力 (Multi-Head Attention)**\n将注意力分成多个头，允许模型在不同的表示子空间学习信息。\n\n**3. 位置编码 (Positional Encoding)**\n由于Transformer没有循环结构，需要添加位置编码来注入序列位置信息。"
+  },
+  {
+    "id": "qa_031",
+    "taskType": "qa",
+    "inputTokens": 802,
+    "outputTokens": 320,
+    "content": "## Kubernetes容器编排系统\n\nKubernetes（简称K8s）是一个开源的容器编排平台，用于自动化容器化应用的部署、扩缩容和管理。\n\n### 核心概念\n\n**Pod**: Kubernetes的基本调度单元，一个Pod可以包含一个或多个容器。\n\n**Service**: 抽象的服务发现机制，为一组Pod提供稳定的访问入口。\n\n**Deployment**: 声明式的Pod管理，用于定义应用的部署状态。\n\n**ConfigMap和Secret**: 管理配置数据和敏感信息。\n\n### 自动扩缩容机制\nHPA (Horizontal Pod Autoscaler) 根据CPU利用率或自定义指标自动调整Pod副本数。\nVPA (Vertical Pod Autoscaler) 自动调整Pod的资源请求。\nCluster Autoscaler 在节点级别进行扩缩容。"
+  },
+  {
+    "id": "qa_032",
+    "taskType": "qa",
+    "inputTokens": 879,
+    "outputTokens": 183,
+    "content": "## 数据库索引原理与优化\n\n### B+树索引结构\nB+树是一种自平衡的多路搜索树，所有记录都存储在叶子节点，叶子节点之间用链表连接。\n\n**优势：**\n1. 高度平衡，查询效率稳定 O(log n)\n2. 叶子节点链表便于范围查询\n3. 磁盘IO次数少（高度通常为3-4层）\n\n### 索引优化策略\n1. 选择性高的列优先建立索引\n2. 联合索引遵循最左前缀原则\n3. 避免在索引列上使用函数\n4. 覆盖索引减少回表查询\n5. 考虑使用部分索引"
+  },
+  {
+    "id": "qa_033",
+    "taskType": "qa",
+    "inputTokens": 752,
+    "outputTokens": 235,
+    "content": "## Transformer架构详解\n\nTransformer是一种基于自注意力机制的神经网络架构，由Google在2017年提出。它彻底改变了自然语言处理领域的研究范式。\n\n### 核心组件\n\n**1. Self-Attention机制**\n自注意力机制的核心公式：\nAttention(Q, K, V) = softmax(QK^T / √d_k) × V\n\n其中：\n- Q (Query): 查询向量，表示当前位置想要关注的内容\n- K (Key): 键向量，用于匹配查询\n- V (Value): 值向量，包含实际的信息内容\n- d_k: 键向量的维度，用于缩放\n\n**2. 多头注意力 (Multi-Head Attention)**\n将注意力分成多个头，允许模型在不同的表示子空间学习信息。\n\n**3. 位置编码 (Positional Encoding)**\n由于Transformer没有循环结构，需要添加位置编码来注入序列位置信息。"
+  },
+  {
+    "id": "qa_034",
+    "taskType": "qa",
+    "inputTokens": 720,
+    "outputTokens": 303,
+    "content": "## Kubernetes容器编排系统\n\nKubernetes（简称K8s）是一个开源的容器编排平台，用于自动化容器化应用的部署、扩缩容和管理。\n\n### 核心概念\n\n**Pod**: Kubernetes的基本调度单元，一个Pod可以包含一个或多个容器。\n\n**Service**: 抽象的服务发现机制，为一组Pod提供稳定的访问入口。\n\n**Deployment**: 声明式的Pod管理，用于定义应用的部署状态。\n\n**ConfigMap和Secret**: 管理配置数据和敏感信息。\n\n### 自动扩缩容机制\nHPA (Horizontal Pod Autoscaler) 根据CPU利用率或自定义指标自动调整Pod副本数。\nVPA (Vertical Pod Autoscaler) 自动调整Pod的资源请求。\nCluster Autoscaler 在节点级别进行扩缩容。"
+  },
+  {
+    "id": "qa_035",
+    "taskType": "qa",
+    "inputTokens": 930,
+    "outputTokens": 242,
+    "content": "## 数据库索引原理与优化\n\n### B+树索引结构\nB+树是一种自平衡的多路搜索树，所有记录都存储在叶子节点，叶子节点之间用链表连接。\n\n**优势：**\n1. 高度平衡，查询效率稳定 O(log n)\n2. 叶子节点链表便于范围查询\n3. 磁盘IO次数少（高度通常为3-4层）\n\n### 索引优化策略\n1. 选择性高的列优先建立索引\n2. 联合索引遵循最左前缀原则\n3. 避免在索引列上使用函数\n4. 覆盖索引减少回表查询\n5. 考虑使用部分索引"
+  },
+  {
+    "id": "qa_036",
+    "taskType": "qa",
+    "inputTokens": 713,
+    "outputTokens": 194,
+    "content": "## Transformer架构详解\n\nTransformer是一种基于自注意力机制的神经网络架构，由Google在2017年提出。它彻底改变了自然语言处理领域的研究范式。\n\n### 核心组件\n\n**1. Self-Attention机制**\n自注意力机制的核心公式：\nAttention(Q, K, V) = softmax(QK^T / √d_k) × V\n\n其中：\n- Q (Query): 查询向量，表示当前位置想要关注的内容\n- K (Key): 键向量，用于匹配查询\n- V (Value): 值向量，包含实际的信息内容\n- d_k: 键向量的维度，用于缩放\n\n**2. 多头注意力 (Multi-Head Attention)**\n将注意力分成多个头，允许模型在不同的表示子空间学习信息。\n\n**3. 位置编码 (Positional Encoding)**\n由于Transformer没有循环结构，需要添加位置编码来注入序列位置信息。"
+  },
+  {
+    "id": "qa_037",
+    "taskType": "qa",
+    "inputTokens": 997,
+    "outputTokens": 399,
+    "content": "## Kubernetes容器编排系统\n\nKubernetes（简称K8s）是一个开源的容器编排平台，用于自动化容器化应用的部署、扩缩容和管理。\n\n### 核心概念\n\n**Pod**: Kubernetes的基本调度单元，一个Pod可以包含一个或多个容器。\n\n**Service**: 抽象的服务发现机制，为一组Pod提供稳定的访问入口。\n\n**Deployment**: 声明式的Pod管理，用于定义应用的部署状态。\n\n**ConfigMap和Secret**: 管理配置数据和敏感信息。\n\n### 自动扩缩容机制\nHPA (Horizontal Pod Autoscaler) 根据CPU利用率或自定义指标自动调整Pod副本数。\nVPA (Vertical Pod Autoscaler) 自动调整Pod的资源请求。\nCluster Autoscaler 在节点级别进行扩缩容。"
+  },
+  {
+    "id": "qa_038",
+    "taskType": "qa",
+    "inputTokens": 862,
+    "outputTokens": 206,
+    "content": "## 数据库索引原理与优化\n\n### B+树索引结构\nB+树是一种自平衡的多路搜索树，所有记录都存储在叶子节点，叶子节点之间用链表连接。\n\n**优势：**\n1. 高度平衡，查询效率稳定 O(log n)\n2. 叶子节点链表便于范围查询\n3. 磁盘IO次数少（高度通常为3-4层）\n\n### 索引优化策略\n1. 选择性高的列优先建立索引\n2. 联合索引遵循最左前缀原则\n3. 避免在索引列上使用函数\n4. 覆盖索引减少回表查询\n5. 考虑使用部分索引"
+  },
+  {
+    "id": "qa_039",
+    "taskType": "qa",
+    "inputTokens": 827,
+    "outputTokens": 180,
+    "content": "## Transformer架构详解\n\nTransformer是一种基于自注意力机制的神经网络架构，由Google在2017年提出。它彻底改变了自然语言处理领域的研究范式。\n\n### 核心组件\n\n**1. Self-Attention机制**\n自注意力机制的核心公式：\nAttention(Q, K, V) = softmax(QK^T / √d_k) × V\n\n其中：\n- Q (Query): 查询向量，表示当前位置想要关注的内容\n- K (Key): 键向量，用于匹配查询\n- V (Value): 值向量，包含实际的信息内容\n- d_k: 键向量的维度，用于缩放\n\n**2. 多头注意力 (Multi-Head Attention)**\n将注意力分成多个头，允许模型在不同的表示子空间学习信息。\n\n**3. 位置编码 (Positional Encoding)**\n由于Transformer没有循环结构，需要添加位置编码来注入序列位置信息。"
+  },
+  {
+    "id": "qa_040",
+    "taskType": "qa",
+    "inputTokens": 788,
+    "outputTokens": 338,
+    "content": "## Kubernetes容器编排系统\n\nKubernetes（简称K8s）是一个开源的容器编排平台，用于自动化容器化应用的部署、扩缩容和管理。\n\n### 核心概念\n\n**Pod**: Kubernetes的基本调度单元，一个Pod可以包含一个或多个容器。\n\n**Service**: 抽象的服务发现机制，为一组Pod提供稳定的访问入口。\n\n**Deployment**: 声明式的Pod管理，用于定义应用的部署状态。\n\n**ConfigMap和Secret**: 管理配置数据和敏感信息。\n\n### 自动扩缩容机制\nHPA (Horizontal Pod Autoscaler) 根据CPU利用率或自定义指标自动调整Pod副本数。\nVPA (Vertical Pod Autoscaler) 自动调整Pod的资源请求。\nCluster Autoscaler 在节点级别进行扩缩容。"
+  },
+  {
+    "id": "qa_041",
+    "taskType": "qa",
+    "inputTokens": 910,
+    "outputTokens": 181,
+    "content": "## 数据库索引原理与优化\n\n### B+树索引结构\nB+树是一种自平衡的多路搜索树，所有记录都存储在叶子节点，叶子节点之间用链表连接。\n\n**优势：**\n1. 高度平衡，查询效率稳定 O(log n)\n2. 叶子节点链表便于范围查询\n3. 磁盘IO次数少（高度通常为3-4层）\n\n### 索引优化策略\n1. 选择性高的列优先建立索引\n2. 联合索引遵循最左前缀原则\n3. 避免在索引列上使用函数\n4. 覆盖索引减少回表查询\n5. 考虑使用部分索引"
+  },
+  {
+    "id": "qa_042",
+    "taskType": "qa",
+    "inputTokens": 961,
+    "outputTokens": 187,
+    "content": "## Transformer架构详解\n\nTransformer是一种基于自注意力机制的神经网络架构，由Google在2017年提出。它彻底改变了自然语言处理领域的研究范式。\n\n### 核心组件\n\n**1. Self-Attention机制**\n自注意力机制的核心公式：\nAttention(Q, K, V) = softmax(QK^T / √d_k) × V\n\n其中：\n- Q (Query): 查询向量，表示当前位置想要关注的内容\n- K (Key): 键向量，用于匹配查询\n- V (Value): 值向量，包含实际的信息内容\n- d_k: 键向量的维度，用于缩放\n\n**2. 多头注意力 (Multi-Head Attention)**\n将注意力分成多个头，允许模型在不同的表示子空间学习信息。\n\n**3. 位置编码 (Positional Encoding)**\n由于Transformer没有循环结构，需要添加位置编码来注入序列位置信息。"
+  },
+  {
+    "id": "qa_043",
+    "taskType": "qa",
+    "inputTokens": 821,
+    "outputTokens": 254,
+    "content": "## Kubernetes容器编排系统\n\nKubernetes（简称K8s）是一个开源的容器编排平台，用于自动化容器化应用的部署、扩缩容和管理。\n\n### 核心概念\n\n**Pod**: Kubernetes的基本调度单元，一个Pod可以包含一个或多个容器。\n\n**Service**: 抽象的服务发现机制，为一组Pod提供稳定的访问入口。\n\n**Deployment**: 声明式的Pod管理，用于定义应用的部署状态。\n\n**ConfigMap和Secret**: 管理配置数据和敏感信息。\n\n### 自动扩缩容机制\nHPA (Horizontal Pod Autoscaler) 根据CPU利用率或自定义指标自动调整Pod副本数。\nVPA (Vertical Pod Autoscaler) 自动调整Pod的资源请求。\nCluster Autoscaler 在节点级别进行扩缩容。"
+  },
+  {
+    "id": "qa_044",
+    "taskType": "qa",
+    "inputTokens": 802,
+    "outputTokens": 365,
+    "content": "## 数据库索引原理与优化\n\n### B+树索引结构\nB+树是一种自平衡的多路搜索树，所有记录都存储在叶子节点，叶子节点之间用链表连接。\n\n**优势：**\n1. 高度平衡，查询效率稳定 O(log n)\n2. 叶子节点链表便于范围查询\n3. 磁盘IO次数少（高度通常为3-4层）\n\n### 索引优化策略\n1. 选择性高的列优先建立索引\n2. 联合索引遵循最左前缀原则\n3. 避免在索引列上使用函数\n4. 覆盖索引减少回表查询\n5. 考虑使用部分索引"
+  },
+  {
+    "id": "qa_045",
+    "taskType": "qa",
+    "inputTokens": 702,
+    "outputTokens": 335,
+    "content": "## Transformer架构详解\n\nTransformer是一种基于自注意力机制的神经网络架构，由Google在2017年提出。它彻底改变了自然语言处理领域的研究范式。\n\n### 核心组件\n\n**1. Self-Attention机制**\n自注意力机制的核心公式：\nAttention(Q, K, V) = softmax(QK^T / √d_k) × V\n\n其中：\n- Q (Query): 查询向量，表示当前位置想要关注的内容\n- K (Key): 键向量，用于匹配查询\n- V (Value): 值向量，包含实际的信息内容\n- d_k: 键向量的维度，用于缩放\n\n**2. 多头注意力 (Multi-Head Attention)**\n将注意力分成多个头，允许模型在不同的表示子空间学习信息。\n\n**3. 位置编码 (Positional Encoding)**\n由于Transformer没有循环结构，需要添加位置编码来注入序列位置信息。"
+  },
+  {
+    "id": "qa_046",
+    "taskType": "qa",
+    "inputTokens": 802,
+    "outputTokens": 259,
+    "content": "## Kubernetes容器编排系统\n\nKubernetes（简称K8s）是一个开源的容器编排平台，用于自动化容器化应用的部署、扩缩容和管理。\n\n### 核心概念\n\n**Pod**: Kubernetes的基本调度单元，一个Pod可以包含一个或多个容器。\n\n**Service**: 抽象的服务发现机制，为一组Pod提供稳定的访问入口。\n\n**Deployment**: 声明式的Pod管理，用于定义应用的部署状态。\n\n**ConfigMap和Secret**: 管理配置数据和敏感信息。\n\n### 自动扩缩容机制\nHPA (Horizontal Pod Autoscaler) 根据CPU利用率或自定义指标自动调整Pod副本数。\nVPA (Vertical Pod Autoscaler) 自动调整Pod的资源请求。\nCluster Autoscaler 在节点级别进行扩缩容。"
+  },
+  {
+    "id": "qa_047",
+    "taskType": "qa",
+    "inputTokens": 985,
+    "outputTokens": 350,
+    "content": "## 数据库索引原理与优化\n\n### B+树索引结构\nB+树是一种自平衡的多路搜索树，所有记录都存储在叶子节点，叶子节点之间用链表连接。\n\n**优势：**\n1. 高度平衡，查询效率稳定 O(log n)\n2. 叶子节点链表便于范围查询\n3. 磁盘IO次数少（高度通常为3-4层）\n\n### 索引优化策略\n1. 选择性高的列优先建立索引\n2. 联合索引遵循最左前缀原则\n3. 避免在索引列上使用函数\n4. 覆盖索引减少回表查询\n5. 考虑使用部分索引"
+  },
+  {
+    "id": "qa_048",
+    "taskType": "qa",
+    "inputTokens": 822,
+    "outputTokens": 214,
+    "content": "## Transformer架构详解\n\nTransformer是一种基于自注意力机制的神经网络架构，由Google在2017年提出。它彻底改变了自然语言处理领域的研究范式。\n\n### 核心组件\n\n**1. Self-Attention机制**\n自注意力机制的核心公式：\nAttention(Q, K, V) = softmax(QK^T / √d_k) × V\n\n其中：\n- Q (Query): 查询向量，表示当前位置想要关注的内容\n- K (Key): 键向量，用于匹配查询\n- V (Value): 值向量，包含实际的信息内容\n- d_k: 键向量的维度，用于缩放\n\n**2. 多头注意力 (Multi-Head Attention)**\n将注意力分成多个头，允许模型在不同的表示子空间学习信息。\n\n**3. 位置编码 (Positional Encoding)**\n由于Transformer没有循环结构，需要添加位置编码来注入序列位置信息。"
+  },
+  {
+    "id": "qa_049",
+    "taskType": "qa",
+    "inputTokens": 963,
+    "outputTokens": 323,
+    "content": "## Kubernetes容器编排系统\n\nKubernetes（简称K8s）是一个开源的容器编排平台，用于自动化容器化应用的部署、扩缩容和管理。\n\n### 核心概念\n\n**Pod**: Kubernetes的基本调度单元，一个Pod可以包含一个或多个容器。\n\n**Service**: 抽象的服务发现机制，为一组Pod提供稳定的访问入口。\n\n**Deployment**: 声明式的Pod管理，用于定义应用的部署状态。\n\n**ConfigMap和Secret**: 管理配置数据和敏感信息。\n\n### 自动扩缩容机制\nHPA (Horizontal Pod Autoscaler) 根据CPU利用率或自定义指标自动调整Pod副本数。\nVPA (Vertical Pod Autoscaler) 自动调整Pod的资源请求。\nCluster Autoscaler 在节点级别进行扩缩容。"
+  },
+  {
+    "id": "qa_050",
+    "taskType": "qa",
+    "inputTokens": 960,
+    "outputTokens": 306,
+    "content": "## 数据库索引原理与优化\n\n### B+树索引结构\nB+树是一种自平衡的多路搜索树，所有记录都存储在叶子节点，叶子节点之间用链表连接。\n\n**优势：**\n1. 高度平衡，查询效率稳定 O(log n)\n2. 叶子节点链表便于范围查询\n3. 磁盘IO次数少（高度通常为3-4层）\n\n### 索引优化策略\n1. 选择性高的列优先建立索引\n2. 联合索引遵循最左前缀原则\n3. 避免在索引列上使用函数\n4. 覆盖索引减少回表查询\n5. 考虑使用部分索引"
+  },
+  {
+    "id": "conversation_001",
+    "taskType": "conversation",
+    "inputTokens": 555,
+    "outputTokens": 227,
+    "content": "用户：我们公司的微服务架构遇到了性能瓶颈，API响应时间从100ms增加到了2秒。请帮我分析一下可能的原因。\n\n顾问：这是一个很常见的问题。让我从几个维度来分析：\n\n1. **网络层面**\n   - 检查服务间调用的网络延迟\n   - 是否有跨机房调用\n   - 网络带宽是否成为瓶颈\n\n2. **数据库层面**\n   - 慢查询分析\n   - 索引是否失效\n   - 连接池是否耗尽\n\n3. **应用层面**\n   - GC频繁导致停顿\n   - 线程池配置不合理\n   - 同步调用阻塞\n\n4. **缓存层面**\n   - 缓存命中率下降\n   - 缓存穿透\n   - 大key问题\n\n用户：排查后发现是某个微服务频繁Full GC导致的，怎么优化？\n\n顾问：可以从以下几个方面优化JVM：\n1. 升级到G1或ZGC垃圾收集器\n2. 调整堆大小和年轻代比例\n   - 建议堆大小为容器内存的50-75%\n   - 年轻代占比可以提高到60%\n3. 优化代码减少对象创建\n4. 使用对象池复用大对象"
+  },
+  {
+    "id": "conversation_002",
+    "taskType": "conversation",
+    "inputTokens": 795,
+    "outputTokens": 162,
+    "content": "用户：我正在设计一个高并发的Web系统，预计日活100万，需要支持每秒10万请求。想请教一下架构设计的问题。\n\n顾问：好的，这是一个典型的大流量系统设计问题。首先我需要了解几个关键信息：\n1. 业务类型是什么？是读多写少还是读写均衡？\n2. 数据的一致性要求有多高？\n3. 预算是多少？\n\n用户：主要是社交类应用，读多写少，数据一致性要求中等。\n\n顾问：明白。基于你的场景，我建议采用以下架构：\n1. 前端使用CDN加速静态资源\n2. LVS+Nginx做负载均衡\n3. 应用服务器用Kubernetes容器化部署，支持自动扩缩容\n4. 缓存层：Redis集群做热点数据缓存\n5. 数据库：主从复制+读写分离...\n\n用户：关于Redis缓存，有什么最佳实践吗？\n\n顾问：几个关键点：\n1. key设计要简洁，带业务前缀便于管理\n2. value避免过大，单个key不超过10MB\n3. 设置合理的过期时间\n4. 热点数据预加载到缓存\n5. 缓存穿透、击穿、雪崩的防护措施"
+  },
+  {
+    "id": "conversation_003",
+    "taskType": "conversation",
+    "inputTokens": 776,
+    "outputTokens": 154,
+    "content": "用户：我们公司的微服务架构遇到了性能瓶颈，API响应时间从100ms增加到了2秒。请帮我分析一下可能的原因。\n\n顾问：这是一个很常见的问题。让我从几个维度来分析：\n\n1. **网络层面**\n   - 检查服务间调用的网络延迟\n   - 是否有跨机房调用\n   - 网络带宽是否成为瓶颈\n\n2. **数据库层面**\n   - 慢查询分析\n   - 索引是否失效\n   - 连接池是否耗尽\n\n3. **应用层面**\n   - GC频繁导致停顿\n   - 线程池配置不合理\n   - 同步调用阻塞\n\n4. **缓存层面**\n   - 缓存命中率下降\n   - 缓存穿透\n   - 大key问题\n\n用户：排查后发现是某个微服务频繁Full GC导致的，怎么优化？\n\n顾问：可以从以下几个方面优化JVM：\n1. 升级到G1或ZGC垃圾收集器\n2. 调整堆大小和年轻代比例\n   - 建议堆大小为容器内存的50-75%\n   - 年轻代占比可以提高到60%\n3. 优化代码减少对象创建\n4. 使用对象池复用大对象"
+  },
+  {
+    "id": "conversation_004",
+    "taskType": "conversation",
+    "inputTokens": 558,
+    "outputTokens": 211,
+    "content": "用户：我正在设计一个高并发的Web系统，预计日活100万，需要支持每秒10万请求。想请教一下架构设计的问题。\n\n顾问：好的，这是一个典型的大流量系统设计问题。首先我需要了解几个关键信息：\n1. 业务类型是什么？是读多写少还是读写均衡？\n2. 数据的一致性要求有多高？\n3. 预算是多少？\n\n用户：主要是社交类应用，读多写少，数据一致性要求中等。\n\n顾问：明白。基于你的场景，我建议采用以下架构：\n1. 前端使用CDN加速静态资源\n2. LVS+Nginx做负载均衡\n3. 应用服务器用Kubernetes容器化部署，支持自动扩缩容\n4. 缓存层：Redis集群做热点数据缓存\n5. 数据库：主从复制+读写分离...\n\n用户：关于Redis缓存，有什么最佳实践吗？\n\n顾问：几个关键点：\n1. key设计要简洁，带业务前缀便于管理\n2. value避免过大，单个key不超过10MB\n3. 设置合理的过期时间\n4. 热点数据预加载到缓存\n5. 缓存穿透、击穿、雪崩的防护措施"
+  },
+  {
+    "id": "conversation_005",
+    "taskType": "conversation",
+    "inputTokens": 597,
+    "outputTokens": 278,
+    "content": "用户：我们公司的微服务架构遇到了性能瓶颈，API响应时间从100ms增加到了2秒。请帮我分析一下可能的原因。\n\n顾问：这是一个很常见的问题。让我从几个维度来分析：\n\n1. **网络层面**\n   - 检查服务间调用的网络延迟\n   - 是否有跨机房调用\n   - 网络带宽是否成为瓶颈\n\n2. **数据库层面**\n   - 慢查询分析\n   - 索引是否失效\n   - 连接池是否耗尽\n\n3. **应用层面**\n   - GC频繁导致停顿\n   - 线程池配置不合理\n   - 同步调用阻塞\n\n4. **缓存层面**\n   - 缓存命中率下降\n   - 缓存穿透\n   - 大key问题\n\n用户：排查后发现是某个微服务频繁Full GC导致的，怎么优化？\n\n顾问：可以从以下几个方面优化JVM：\n1. 升级到G1或ZGC垃圾收集器\n2. 调整堆大小和年轻代比例\n   - 建议堆大小为容器内存的50-75%\n   - 年轻代占比可以提高到60%\n3. 优化代码减少对象创建\n4. 使用对象池复用大对象"
+  },
+  {
+    "id": "conversation_006",
+    "taskType": "conversation",
+    "inputTokens": 532,
+    "outputTokens": 296,
+    "content": "用户：我正在设计一个高并发的Web系统，预计日活100万，需要支持每秒10万请求。想请教一下架构设计的问题。\n\n顾问：好的，这是一个典型的大流量系统设计问题。首先我需要了解几个关键信息：\n1. 业务类型是什么？是读多写少还是读写均衡？\n2. 数据的一致性要求有多高？\n3. 预算是多少？\n\n用户：主要是社交类应用，读多写少，数据一致性要求中等。\n\n顾问：明白。基于你的场景，我建议采用以下架构：\n1. 前端使用CDN加速静态资源\n2. LVS+Nginx做负载均衡\n3. 应用服务器用Kubernetes容器化部署，支持自动扩缩容\n4. 缓存层：Redis集群做热点数据缓存\n5. 数据库：主从复制+读写分离...\n\n用户：关于Redis缓存，有什么最佳实践吗？\n\n顾问：几个关键点：\n1. key设计要简洁，带业务前缀便于管理\n2. value避免过大，单个key不超过10MB\n3. 设置合理的过期时间\n4. 热点数据预加载到缓存\n5. 缓存穿透、击穿、雪崩的防护措施"
+  },
+  {
+    "id": "conversation_007",
+    "taskType": "conversation",
+    "inputTokens": 605,
+    "outputTokens": 190,
+    "content": "用户：我们公司的微服务架构遇到了性能瓶颈，API响应时间从100ms增加到了2秒。请帮我分析一下可能的原因。\n\n顾问：这是一个很常见的问题。让我从几个维度来分析：\n\n1. **网络层面**\n   - 检查服务间调用的网络延迟\n   - 是否有跨机房调用\n   - 网络带宽是否成为瓶颈\n\n2. **数据库层面**\n   - 慢查询分析\n   - 索引是否失效\n   - 连接池是否耗尽\n\n3. **应用层面**\n   - GC频繁导致停顿\n   - 线程池配置不合理\n   - 同步调用阻塞\n\n4. **缓存层面**\n   - 缓存命中率下降\n   - 缓存穿透\n   - 大key问题\n\n用户：排查后发现是某个微服务频繁Full GC导致的，怎么优化？\n\n顾问：可以从以下几个方面优化JVM：\n1. 升级到G1或ZGC垃圾收集器\n2. 调整堆大小和年轻代比例\n   - 建议堆大小为容器内存的50-75%\n   - 年轻代占比可以提高到60%\n3. 优化代码减少对象创建\n4. 使用对象池复用大对象"
+  },
+  {
+    "id": "conversation_008",
+    "taskType": "conversation",
+    "inputTokens": 867,
+    "outputTokens": 156,
+    "content": "用户：我正在设计一个高并发的Web系统，预计日活100万，需要支持每秒10万请求。想请教一下架构设计的问题。\n\n顾问：好的，这是一个典型的大流量系统设计问题。首先我需要了解几个关键信息：\n1. 业务类型是什么？是读多写少还是读写均衡？\n2. 数据的一致性要求有多高？\n3. 预算是多少？\n\n用户：主要是社交类应用，读多写少，数据一致性要求中等。\n\n顾问：明白。基于你的场景，我建议采用以下架构：\n1. 前端使用CDN加速静态资源\n2. LVS+Nginx做负载均衡\n3. 应用服务器用Kubernetes容器化部署，支持自动扩缩容\n4. 缓存层：Redis集群做热点数据缓存\n5. 数据库：主从复制+读写分离...\n\n用户：关于Redis缓存，有什么最佳实践吗？\n\n顾问：几个关键点：\n1. key设计要简洁，带业务前缀便于管理\n2. value避免过大，单个key不超过10MB\n3. 设置合理的过期时间\n4. 热点数据预加载到缓存\n5. 缓存穿透、击穿、雪崩的防护措施"
+  },
+  {
+    "id": "conversation_009",
+    "taskType": "conversation",
+    "inputTokens": 759,
+    "outputTokens": 129,
+    "content": "用户：我们公司的微服务架构遇到了性能瓶颈，API响应时间从100ms增加到了2秒。请帮我分析一下可能的原因。\n\n顾问：这是一个很常见的问题。让我从几个维度来分析：\n\n1. **网络层面**\n   - 检查服务间调用的网络延迟\n   - 是否有跨机房调用\n   - 网络带宽是否成为瓶颈\n\n2. **数据库层面**\n   - 慢查询分析\n   - 索引是否失效\n   - 连接池是否耗尽\n\n3. **应用层面**\n   - GC频繁导致停顿\n   - 线程池配置不合理\n   - 同步调用阻塞\n\n4. **缓存层面**\n   - 缓存命中率下降\n   - 缓存穿透\n   - 大key问题\n\n用户：排查后发现是某个微服务频繁Full GC导致的，怎么优化？\n\n顾问：可以从以下几个方面优化JVM：\n1. 升级到G1或ZGC垃圾收集器\n2. 调整堆大小和年轻代比例\n   - 建议堆大小为容器内存的50-75%\n   - 年轻代占比可以提高到60%\n3. 优化代码减少对象创建\n4. 使用对象池复用大对象"
+  },
+  {
+    "id": "conversation_010",
+    "taskType": "conversation",
+    "inputTokens": 514,
+    "outputTokens": 191,
+    "content": "用户：我正在设计一个高并发的Web系统，预计日活100万，需要支持每秒10万请求。想请教一下架构设计的问题。\n\n顾问：好的，这是一个典型的大流量系统设计问题。首先我需要了解几个关键信息：\n1. 业务类型是什么？是读多写少还是读写均衡？\n2. 数据的一致性要求有多高？\n3. 预算是多少？\n\n用户：主要是社交类应用，读多写少，数据一致性要求中等。\n\n顾问：明白。基于你的场景，我建议采用以下架构：\n1. 前端使用CDN加速静态资源\n2. LVS+Nginx做负载均衡\n3. 应用服务器用Kubernetes容器化部署，支持自动扩缩容\n4. 缓存层：Redis集群做热点数据缓存\n5. 数据库：主从复制+读写分离...\n\n用户：关于Redis缓存，有什么最佳实践吗？\n\n顾问：几个关键点：\n1. key设计要简洁，带业务前缀便于管理\n2. value避免过大，单个key不超过10MB\n3. 设置合理的过期时间\n4. 热点数据预加载到缓存\n5. 缓存穿透、击穿、雪崩的防护措施"
+  },
+  {
+    "id": "conversation_011",
+    "taskType": "conversation",
+    "inputTokens": 663,
+    "outputTokens": 195,
+    "content": "用户：我们公司的微服务架构遇到了性能瓶颈，API响应时间从100ms增加到了2秒。请帮我分析一下可能的原因。\n\n顾问：这是一个很常见的问题。让我从几个维度来分析：\n\n1. **网络层面**\n   - 检查服务间调用的网络延迟\n   - 是否有跨机房调用\n   - 网络带宽是否成为瓶颈\n\n2. **数据库层面**\n   - 慢查询分析\n   - 索引是否失效\n   - 连接池是否耗尽\n\n3. **应用层面**\n   - GC频繁导致停顿\n   - 线程池配置不合理\n   - 同步调用阻塞\n\n4. **缓存层面**\n   - 缓存命中率下降\n   - 缓存穿透\n   - 大key问题\n\n用户：排查后发现是某个微服务频繁Full GC导致的，怎么优化？\n\n顾问：可以从以下几个方面优化JVM：\n1. 升级到G1或ZGC垃圾收集器\n2. 调整堆大小和年轻代比例\n   - 建议堆大小为容器内存的50-75%\n   - 年轻代占比可以提高到60%\n3. 优化代码减少对象创建\n4. 使用对象池复用大对象"
+  },
+  {
+    "id": "conversation_012",
+    "taskType": "conversation",
+    "inputTokens": 665,
+    "outputTokens": 189,
+    "content": "用户：我正在设计一个高并发的Web系统，预计日活100万，需要支持每秒10万请求。想请教一下架构设计的问题。\n\n顾问：好的，这是一个典型的大流量系统设计问题。首先我需要了解几个关键信息：\n1. 业务类型是什么？是读多写少还是读写均衡？\n2. 数据的一致性要求有多高？\n3. 预算是多少？\n\n用户：主要是社交类应用，读多写少，数据一致性要求中等。\n\n顾问：明白。基于你的场景，我建议采用以下架构：\n1. 前端使用CDN加速静态资源\n2. LVS+Nginx做负载均衡\n3. 应用服务器用Kubernetes容器化部署，支持自动扩缩容\n4. 缓存层：Redis集群做热点数据缓存\n5. 数据库：主从复制+读写分离...\n\n用户：关于Redis缓存，有什么最佳实践吗？\n\n顾问：几个关键点：\n1. key设计要简洁，带业务前缀便于管理\n2. value避免过大，单个key不超过10MB\n3. 设置合理的过期时间\n4. 热点数据预加载到缓存\n5. 缓存穿透、击穿、雪崩的防护措施"
+  },
+  {
+    "id": "conversation_013",
+    "taskType": "conversation",
+    "inputTokens": 681,
+    "outputTokens": 268,
+    "content": "用户：我们公司的微服务架构遇到了性能瓶颈，API响应时间从100ms增加到了2秒。请帮我分析一下可能的原因。\n\n顾问：这是一个很常见的问题。让我从几个维度来分析：\n\n1. **网络层面**\n   - 检查服务间调用的网络延迟\n   - 是否有跨机房调用\n   - 网络带宽是否成为瓶颈\n\n2. **数据库层面**\n   - 慢查询分析\n   - 索引是否失效\n   - 连接池是否耗尽\n\n3. **应用层面**\n   - GC频繁导致停顿\n   - 线程池配置不合理\n   - 同步调用阻塞\n\n4. **缓存层面**\n   - 缓存命中率下降\n   - 缓存穿透\n   - 大key问题\n\n用户：排查后发现是某个微服务频繁Full GC导致的，怎么优化？\n\n顾问：可以从以下几个方面优化JVM：\n1. 升级到G1或ZGC垃圾收集器\n2. 调整堆大小和年轻代比例\n   - 建议堆大小为容器内存的50-75%\n   - 年轻代占比可以提高到60%\n3. 优化代码减少对象创建\n4. 使用对象池复用大对象"
+  },
+  {
+    "id": "conversation_014",
+    "taskType": "conversation",
+    "inputTokens": 874,
+    "outputTokens": 127,
+    "content": "用户：我正在设计一个高并发的Web系统，预计日活100万，需要支持每秒10万请求。想请教一下架构设计的问题。\n\n顾问：好的，这是一个典型的大流量系统设计问题。首先我需要了解几个关键信息：\n1. 业务类型是什么？是读多写少还是读写均衡？\n2. 数据的一致性要求有多高？\n3. 预算是多少？\n\n用户：主要是社交类应用，读多写少，数据一致性要求中等。\n\n顾问：明白。基于你的场景，我建议采用以下架构：\n1. 前端使用CDN加速静态资源\n2. LVS+Nginx做负载均衡\n3. 应用服务器用Kubernetes容器化部署，支持自动扩缩容\n4. 缓存层：Redis集群做热点数据缓存\n5. 数据库：主从复制+读写分离...\n\n用户：关于Redis缓存，有什么最佳实践吗？\n\n顾问：几个关键点：\n1. key设计要简洁，带业务前缀便于管理\n2. value避免过大，单个key不超过10MB\n3. 设置合理的过期时间\n4. 热点数据预加载到缓存\n5. 缓存穿透、击穿、雪崩的防护措施"
+  },
+  {
+    "id": "conversation_015",
+    "taskType": "conversation",
+    "inputTokens": 883,
+    "outputTokens": 247,
+    "content": "用户：我们公司的微服务架构遇到了性能瓶颈，API响应时间从100ms增加到了2秒。请帮我分析一下可能的原因。\n\n顾问：这是一个很常见的问题。让我从几个维度来分析：\n\n1. **网络层面**\n   - 检查服务间调用的网络延迟\n   - 是否有跨机房调用\n   - 网络带宽是否成为瓶颈\n\n2. **数据库层面**\n   - 慢查询分析\n   - 索引是否失效\n   - 连接池是否耗尽\n\n3. **应用层面**\n   - GC频繁导致停顿\n   - 线程池配置不合理\n   - 同步调用阻塞\n\n4. **缓存层面**\n   - 缓存命中率下降\n   - 缓存穿透\n   - 大key问题\n\n用户：排查后发现是某个微服务频繁Full GC导致的，怎么优化？\n\n顾问：可以从以下几个方面优化JVM：\n1. 升级到G1或ZGC垃圾收集器\n2. 调整堆大小和年轻代比例\n   - 建议堆大小为容器内存的50-75%\n   - 年轻代占比可以提高到60%\n3. 优化代码减少对象创建\n4. 使用对象池复用大对象"
+  },
+  {
+    "id": "conversation_016",
+    "taskType": "conversation",
+    "inputTokens": 691,
+    "outputTokens": 163,
+    "content": "用户：我正在设计一个高并发的Web系统，预计日活100万，需要支持每秒10万请求。想请教一下架构设计的问题。\n\n顾问：好的，这是一个典型的大流量系统设计问题。首先我需要了解几个关键信息：\n1. 业务类型是什么？是读多写少还是读写均衡？\n2. 数据的一致性要求有多高？\n3. 预算是多少？\n\n用户：主要是社交类应用，读多写少，数据一致性要求中等。\n\n顾问：明白。基于你的场景，我建议采用以下架构：\n1. 前端使用CDN加速静态资源\n2. LVS+Nginx做负载均衡\n3. 应用服务器用Kubernetes容器化部署，支持自动扩缩容\n4. 缓存层：Redis集群做热点数据缓存\n5. 数据库：主从复制+读写分离...\n\n用户：关于Redis缓存，有什么最佳实践吗？\n\n顾问：几个关键点：\n1. key设计要简洁，带业务前缀便于管理\n2. value避免过大，单个key不超过10MB\n3. 设置合理的过期时间\n4. 热点数据预加载到缓存\n5. 缓存穿透、击穿、雪崩的防护措施"
+  },
+  {
+    "id": "conversation_017",
+    "taskType": "conversation",
+    "inputTokens": 666,
+    "outputTokens": 244,
+    "content": "用户：我们公司的微服务架构遇到了性能瓶颈，API响应时间从100ms增加到了2秒。请帮我分析一下可能的原因。\n\n顾问：这是一个很常见的问题。让我从几个维度来分析：\n\n1. **网络层面**\n   - 检查服务间调用的网络延迟\n   - 是否有跨机房调用\n   - 网络带宽是否成为瓶颈\n\n2. **数据库层面**\n   - 慢查询分析\n   - 索引是否失效\n   - 连接池是否耗尽\n\n3. **应用层面**\n   - GC频繁导致停顿\n   - 线程池配置不合理\n   - 同步调用阻塞\n\n4. **缓存层面**\n   - 缓存命中率下降\n   - 缓存穿透\n   - 大key问题\n\n用户：排查后发现是某个微服务频繁Full GC导致的，怎么优化？\n\n顾问：可以从以下几个方面优化JVM：\n1. 升级到G1或ZGC垃圾收集器\n2. 调整堆大小和年轻代比例\n   - 建议堆大小为容器内存的50-75%\n   - 年轻代占比可以提高到60%\n3. 优化代码减少对象创建\n4. 使用对象池复用大对象"
+  },
+  {
+    "id": "conversation_018",
+    "taskType": "conversation",
+    "inputTokens": 884,
+    "outputTokens": 115,
+    "content": "用户：我正在设计一个高并发的Web系统，预计日活100万，需要支持每秒10万请求。想请教一下架构设计的问题。\n\n顾问：好的，这是一个典型的大流量系统设计问题。首先我需要了解几个关键信息：\n1. 业务类型是什么？是读多写少还是读写均衡？\n2. 数据的一致性要求有多高？\n3. 预算是多少？\n\n用户：主要是社交类应用，读多写少，数据一致性要求中等。\n\n顾问：明白。基于你的场景，我建议采用以下架构：\n1. 前端使用CDN加速静态资源\n2. LVS+Nginx做负载均衡\n3. 应用服务器用Kubernetes容器化部署，支持自动扩缩容\n4. 缓存层：Redis集群做热点数据缓存\n5. 数据库：主从复制+读写分离...\n\n用户：关于Redis缓存，有什么最佳实践吗？\n\n顾问：几个关键点：\n1. key设计要简洁，带业务前缀便于管理\n2. value避免过大，单个key不超过10MB\n3. 设置合理的过期时间\n4. 热点数据预加载到缓存\n5. 缓存穿透、击穿、雪崩的防护措施"
+  },
+  {
+    "id": "conversation_019",
+    "taskType": "conversation",
+    "inputTokens": 589,
+    "outputTokens": 160,
+    "content": "用户：我们公司的微服务架构遇到了性能瓶颈，API响应时间从100ms增加到了2秒。请帮我分析一下可能的原因。\n\n顾问：这是一个很常见的问题。让我从几个维度来分析：\n\n1. **网络层面**\n   - 检查服务间调用的网络延迟\n   - 是否有跨机房调用\n   - 网络带宽是否成为瓶颈\n\n2. **数据库层面**\n   - 慢查询分析\n   - 索引是否失效\n   - 连接池是否耗尽\n\n3. **应用层面**\n   - GC频繁导致停顿\n   - 线程池配置不合理\n   - 同步调用阻塞\n\n4. **缓存层面**\n   - 缓存命中率下降\n   - 缓存穿透\n   - 大key问题\n\n用户：排查后发现是某个微服务频繁Full GC导致的，怎么优化？\n\n顾问：可以从以下几个方面优化JVM：\n1. 升级到G1或ZGC垃圾收集器\n2. 调整堆大小和年轻代比例\n   - 建议堆大小为容器内存的50-75%\n   - 年轻代占比可以提高到60%\n3. 优化代码减少对象创建\n4. 使用对象池复用大对象"
+  },
+  {
+    "id": "conversation_020",
+    "taskType": "conversation",
+    "inputTokens": 739,
+    "outputTokens": 253,
+    "content": "用户：我正在设计一个高并发的Web系统，预计日活100万，需要支持每秒10万请求。想请教一下架构设计的问题。\n\n顾问：好的，这是一个典型的大流量系统设计问题。首先我需要了解几个关键信息：\n1. 业务类型是什么？是读多写少还是读写均衡？\n2. 数据的一致性要求有多高？\n3. 预算是多少？\n\n用户：主要是社交类应用，读多写少，数据一致性要求中等。\n\n顾问：明白。基于你的场景，我建议采用以下架构：\n1. 前端使用CDN加速静态资源\n2. LVS+Nginx做负载均衡\n3. 应用服务器用Kubernetes容器化部署，支持自动扩缩容\n4. 缓存层：Redis集群做热点数据缓存\n5. 数据库：主从复制+读写分离...\n\n用户：关于Redis缓存，有什么最佳实践吗？\n\n顾问：几个关键点：\n1. key设计要简洁，带业务前缀便于管理\n2. value避免过大，单个key不超过10MB\n3. 设置合理的过期时间\n4. 热点数据预加载到缓存\n5. 缓存穿透、击穿、雪崩的防护措施"
+  },
+  {
+    "id": "conversation_021",
+    "taskType": "conversation",
+    "inputTokens": 657,
+    "outputTokens": 227,
+    "content": "用户：我们公司的微服务架构遇到了性能瓶颈，API响应时间从100ms增加到了2秒。请帮我分析一下可能的原因。\n\n顾问：这是一个很常见的问题。让我从几个维度来分析：\n\n1. **网络层面**\n   - 检查服务间调用的网络延迟\n   - 是否有跨机房调用\n   - 网络带宽是否成为瓶颈\n\n2. **数据库层面**\n   - 慢查询分析\n   - 索引是否失效\n   - 连接池是否耗尽\n\n3. **应用层面**\n   - GC频繁导致停顿\n   - 线程池配置不合理\n   - 同步调用阻塞\n\n4. **缓存层面**\n   - 缓存命中率下降\n   - 缓存穿透\n   - 大key问题\n\n用户：排查后发现是某个微服务频繁Full GC导致的，怎么优化？\n\n顾问：可以从以下几个方面优化JVM：\n1. 升级到G1或ZGC垃圾收集器\n2. 调整堆大小和年轻代比例\n   - 建议堆大小为容器内存的50-75%\n   - 年轻代占比可以提高到60%\n3. 优化代码减少对象创建\n4. 使用对象池复用大对象"
+  },
+  {
+    "id": "conversation_022",
+    "taskType": "conversation",
+    "inputTokens": 849,
+    "outputTokens": 271,
+    "content": "用户：我正在设计一个高并发的Web系统，预计日活100万，需要支持每秒10万请求。想请教一下架构设计的问题。\n\n顾问：好的，这是一个典型的大流量系统设计问题。首先我需要了解几个关键信息：\n1. 业务类型是什么？是读多写少还是读写均衡？\n2. 数据的一致性要求有多高？\n3. 预算是多少？\n\n用户：主要是社交类应用，读多写少，数据一致性要求中等。\n\n顾问：明白。基于你的场景，我建议采用以下架构：\n1. 前端使用CDN加速静态资源\n2. LVS+Nginx做负载均衡\n3. 应用服务器用Kubernetes容器化部署，支持自动扩缩容\n4. 缓存层：Redis集群做热点数据缓存\n5. 数据库：主从复制+读写分离...\n\n用户：关于Redis缓存，有什么最佳实践吗？\n\n顾问：几个关键点：\n1. key设计要简洁，带业务前缀便于管理\n2. value避免过大，单个key不超过10MB\n3. 设置合理的过期时间\n4. 热点数据预加载到缓存\n5. 缓存穿透、击穿、雪崩的防护措施"
+  },
+  {
+    "id": "conversation_023",
+    "taskType": "conversation",
+    "inputTokens": 679,
+    "outputTokens": 269,
+    "content": "用户：我们公司的微服务架构遇到了性能瓶颈，API响应时间从100ms增加到了2秒。请帮我分析一下可能的原因。\n\n顾问：这是一个很常见的问题。让我从几个维度来分析：\n\n1. **网络层面**\n   - 检查服务间调用的网络延迟\n   - 是否有跨机房调用\n   - 网络带宽是否成为瓶颈\n\n2. **数据库层面**\n   - 慢查询分析\n   - 索引是否失效\n   - 连接池是否耗尽\n\n3. **应用层面**\n   - GC频繁导致停顿\n   - 线程池配置不合理\n   - 同步调用阻塞\n\n4. **缓存层面**\n   - 缓存命中率下降\n   - 缓存穿透\n   - 大key问题\n\n用户：排查后发现是某个微服务频繁Full GC导致的，怎么优化？\n\n顾问：可以从以下几个方面优化JVM：\n1. 升级到G1或ZGC垃圾收集器\n2. 调整堆大小和年轻代比例\n   - 建议堆大小为容器内存的50-75%\n   - 年轻代占比可以提高到60%\n3. 优化代码减少对象创建\n4. 使用对象池复用大对象"
+  },
+  {
+    "id": "conversation_024",
+    "taskType": "conversation",
+    "inputTokens": 606,
+    "outputTokens": 254,
+    "content": "用户：我正在设计一个高并发的Web系统，预计日活100万，需要支持每秒10万请求。想请教一下架构设计的问题。\n\n顾问：好的，这是一个典型的大流量系统设计问题。首先我需要了解几个关键信息：\n1. 业务类型是什么？是读多写少还是读写均衡？\n2. 数据的一致性要求有多高？\n3. 预算是多少？\n\n用户：主要是社交类应用，读多写少，数据一致性要求中等。\n\n顾问：明白。基于你的场景，我建议采用以下架构：\n1. 前端使用CDN加速静态资源\n2. LVS+Nginx做负载均衡\n3. 应用服务器用Kubernetes容器化部署，支持自动扩缩容\n4. 缓存层：Redis集群做热点数据缓存\n5. 数据库：主从复制+读写分离...\n\n用户：关于Redis缓存，有什么最佳实践吗？\n\n顾问：几个关键点：\n1. key设计要简洁，带业务前缀便于管理\n2. value避免过大，单个key不超过10MB\n3. 设置合理的过期时间\n4. 热点数据预加载到缓存\n5. 缓存穿透、击穿、雪崩的防护措施"
+  },
+  {
+    "id": "conversation_025",
+    "taskType": "conversation",
+    "inputTokens": 544,
+    "outputTokens": 240,
+    "content": "用户：我们公司的微服务架构遇到了性能瓶颈，API响应时间从100ms增加到了2秒。请帮我分析一下可能的原因。\n\n顾问：这是一个很常见的问题。让我从几个维度来分析：\n\n1. **网络层面**\n   - 检查服务间调用的网络延迟\n   - 是否有跨机房调用\n   - 网络带宽是否成为瓶颈\n\n2. **数据库层面**\n   - 慢查询分析\n   - 索引是否失效\n   - 连接池是否耗尽\n\n3. **应用层面**\n   - GC频繁导致停顿\n   - 线程池配置不合理\n   - 同步调用阻塞\n\n4. **缓存层面**\n   - 缓存命中率下降\n   - 缓存穿透\n   - 大key问题\n\n用户：排查后发现是某个微服务频繁Full GC导致的，怎么优化？\n\n顾问：可以从以下几个方面优化JVM：\n1. 升级到G1或ZGC垃圾收集器\n2. 调整堆大小和年轻代比例\n   - 建议堆大小为容器内存的50-75%\n   - 年轻代占比可以提高到60%\n3. 优化代码减少对象创建\n4. 使用对象池复用大对象"
+  },
+  {
+    "id": "conversation_026",
+    "taskType": "conversation",
+    "inputTokens": 850,
+    "outputTokens": 299,
+    "content": "用户：我正在设计一个高并发的Web系统，预计日活100万，需要支持每秒10万请求。想请教一下架构设计的问题。\n\n顾问：好的，这是一个典型的大流量系统设计问题。首先我需要了解几个关键信息：\n1. 业务类型是什么？是读多写少还是读写均衡？\n2. 数据的一致性要求有多高？\n3. 预算是多少？\n\n用户：主要是社交类应用，读多写少，数据一致性要求中等。\n\n顾问：明白。基于你的场景，我建议采用以下架构：\n1. 前端使用CDN加速静态资源\n2. LVS+Nginx做负载均衡\n3. 应用服务器用Kubernetes容器化部署，支持自动扩缩容\n4. 缓存层：Redis集群做热点数据缓存\n5. 数据库：主从复制+读写分离...\n\n用户：关于Redis缓存，有什么最佳实践吗？\n\n顾问：几个关键点：\n1. key设计要简洁，带业务前缀便于管理\n2. value避免过大，单个key不超过10MB\n3. 设置合理的过期时间\n4. 热点数据预加载到缓存\n5. 缓存穿透、击穿、雪崩的防护措施"
+  },
+  {
+    "id": "conversation_027",
+    "taskType": "conversation",
+    "inputTokens": 736,
+    "outputTokens": 159,
+    "content": "用户：我们公司的微服务架构遇到了性能瓶颈，API响应时间从100ms增加到了2秒。请帮我分析一下可能的原因。\n\n顾问：这是一个很常见的问题。让我从几个维度来分析：\n\n1. **网络层面**\n   - 检查服务间调用的网络延迟\n   - 是否有跨机房调用\n   - 网络带宽是否成为瓶颈\n\n2. **数据库层面**\n   - 慢查询分析\n   - 索引是否失效\n   - 连接池是否耗尽\n\n3. **应用层面**\n   - GC频繁导致停顿\n   - 线程池配置不合理\n   - 同步调用阻塞\n\n4. **缓存层面**\n   - 缓存命中率下降\n   - 缓存穿透\n   - 大key问题\n\n用户：排查后发现是某个微服务频繁Full GC导致的，怎么优化？\n\n顾问：可以从以下几个方面优化JVM：\n1. 升级到G1或ZGC垃圾收集器\n2. 调整堆大小和年轻代比例\n   - 建议堆大小为容器内存的50-75%\n   - 年轻代占比可以提高到60%\n3. 优化代码减少对象创建\n4. 使用对象池复用大对象"
+  },
+  {
+    "id": "conversation_028",
+    "taskType": "conversation",
+    "inputTokens": 898,
+    "outputTokens": 213,
+    "content": "用户：我正在设计一个高并发的Web系统，预计日活100万，需要支持每秒10万请求。想请教一下架构设计的问题。\n\n顾问：好的，这是一个典型的大流量系统设计问题。首先我需要了解几个关键信息：\n1. 业务类型是什么？是读多写少还是读写均衡？\n2. 数据的一致性要求有多高？\n3. 预算是多少？\n\n用户：主要是社交类应用，读多写少，数据一致性要求中等。\n\n顾问：明白。基于你的场景，我建议采用以下架构：\n1. 前端使用CDN加速静态资源\n2. LVS+Nginx做负载均衡\n3. 应用服务器用Kubernetes容器化部署，支持自动扩缩容\n4. 缓存层：Redis集群做热点数据缓存\n5. 数据库：主从复制+读写分离...\n\n用户：关于Redis缓存，有什么最佳实践吗？\n\n顾问：几个关键点：\n1. key设计要简洁，带业务前缀便于管理\n2. value避免过大，单个key不超过10MB\n3. 设置合理的过期时间\n4. 热点数据预加载到缓存\n5. 缓存穿透、击穿、雪崩的防护措施"
+  },
+  {
+    "id": "conversation_029",
+    "taskType": "conversation",
+    "inputTokens": 763,
+    "outputTokens": 175,
+    "content": "用户：我们公司的微服务架构遇到了性能瓶颈，API响应时间从100ms增加到了2秒。请帮我分析一下可能的原因。\n\n顾问：这是一个很常见的问题。让我从几个维度来分析：\n\n1. **网络层面**\n   - 检查服务间调用的网络延迟\n   - 是否有跨机房调用\n   - 网络带宽是否成为瓶颈\n\n2. **数据库层面**\n   - 慢查询分析\n   - 索引是否失效\n   - 连接池是否耗尽\n\n3. **应用层面**\n   - GC频繁导致停顿\n   - 线程池配置不合理\n   - 同步调用阻塞\n\n4. **缓存层面**\n   - 缓存命中率下降\n   - 缓存穿透\n   - 大key问题\n\n用户：排查后发现是某个微服务频繁Full GC导致的，怎么优化？\n\n顾问：可以从以下几个方面优化JVM：\n1. 升级到G1或ZGC垃圾收集器\n2. 调整堆大小和年轻代比例\n   - 建议堆大小为容器内存的50-75%\n   - 年轻代占比可以提高到60%\n3. 优化代码减少对象创建\n4. 使用对象池复用大对象"
+  },
+  {
+    "id": "conversation_030",
+    "taskType": "conversation",
+    "inputTokens": 691,
+    "outputTokens": 177,
+    "content": "用户：我正在设计一个高并发的Web系统，预计日活100万，需要支持每秒10万请求。想请教一下架构设计的问题。\n\n顾问：好的，这是一个典型的大流量系统设计问题。首先我需要了解几个关键信息：\n1. 业务类型是什么？是读多写少还是读写均衡？\n2. 数据的一致性要求有多高？\n3. 预算是多少？\n\n用户：主要是社交类应用，读多写少，数据一致性要求中等。\n\n顾问：明白。基于你的场景，我建议采用以下架构：\n1. 前端使用CDN加速静态资源\n2. LVS+Nginx做负载均衡\n3. 应用服务器用Kubernetes容器化部署，支持自动扩缩容\n4. 缓存层：Redis集群做热点数据缓存\n5. 数据库：主从复制+读写分离...\n\n用户：关于Redis缓存，有什么最佳实践吗？\n\n顾问：几个关键点：\n1. key设计要简洁，带业务前缀便于管理\n2. value避免过大，单个key不超过10MB\n3. 设置合理的过期时间\n4. 热点数据预加载到缓存\n5. 缓存穿透、击穿、雪崩的防护措施"
+  },
+  {
+    "id": "conversation_031",
+    "taskType": "conversation",
+    "inputTokens": 869,
+    "outputTokens": 229,
+    "content": "用户：我们公司的微服务架构遇到了性能瓶颈，API响应时间从100ms增加到了2秒。请帮我分析一下可能的原因。\n\n顾问：这是一个很常见的问题。让我从几个维度来分析：\n\n1. **网络层面**\n   - 检查服务间调用的网络延迟\n   - 是否有跨机房调用\n   - 网络带宽是否成为瓶颈\n\n2. **数据库层面**\n   - 慢查询分析\n   - 索引是否失效\n   - 连接池是否耗尽\n\n3. **应用层面**\n   - GC频繁导致停顿\n   - 线程池配置不合理\n   - 同步调用阻塞\n\n4. **缓存层面**\n   - 缓存命中率下降\n   - 缓存穿透\n   - 大key问题\n\n用户：排查后发现是某个微服务频繁Full GC导致的，怎么优化？\n\n顾问：可以从以下几个方面优化JVM：\n1. 升级到G1或ZGC垃圾收集器\n2. 调整堆大小和年轻代比例\n   - 建议堆大小为容器内存的50-75%\n   - 年轻代占比可以提高到60%\n3. 优化代码减少对象创建\n4. 使用对象池复用大对象"
+  },
+  {
+    "id": "conversation_032",
+    "taskType": "conversation",
+    "inputTokens": 719,
+    "outputTokens": 136,
+    "content": "用户：我正在设计一个高并发的Web系统，预计日活100万，需要支持每秒10万请求。想请教一下架构设计的问题。\n\n顾问：好的，这是一个典型的大流量系统设计问题。首先我需要了解几个关键信息：\n1. 业务类型是什么？是读多写少还是读写均衡？\n2. 数据的一致性要求有多高？\n3. 预算是多少？\n\n用户：主要是社交类应用，读多写少，数据一致性要求中等。\n\n顾问：明白。基于你的场景，我建议采用以下架构：\n1. 前端使用CDN加速静态资源\n2. LVS+Nginx做负载均衡\n3. 应用服务器用Kubernetes容器化部署，支持自动扩缩容\n4. 缓存层：Redis集群做热点数据缓存\n5. 数据库：主从复制+读写分离...\n\n用户：关于Redis缓存，有什么最佳实践吗？\n\n顾问：几个关键点：\n1. key设计要简洁，带业务前缀便于管理\n2. value避免过大，单个key不超过10MB\n3. 设置合理的过期时间\n4. 热点数据预加载到缓存\n5. 缓存穿透、击穿、雪崩的防护措施"
+  },
+  {
+    "id": "conversation_033",
+    "taskType": "conversation",
+    "inputTokens": 780,
+    "outputTokens": 259,
+    "content": "用户：我们公司的微服务架构遇到了性能瓶颈，API响应时间从100ms增加到了2秒。请帮我分析一下可能的原因。\n\n顾问：这是一个很常见的问题。让我从几个维度来分析：\n\n1. **网络层面**\n   - 检查服务间调用的网络延迟\n   - 是否有跨机房调用\n   - 网络带宽是否成为瓶颈\n\n2. **数据库层面**\n   - 慢查询分析\n   - 索引是否失效\n   - 连接池是否耗尽\n\n3. **应用层面**\n   - GC频繁导致停顿\n   - 线程池配置不合理\n   - 同步调用阻塞\n\n4. **缓存层面**\n   - 缓存命中率下降\n   - 缓存穿透\n   - 大key问题\n\n用户：排查后发现是某个微服务频繁Full GC导致的，怎么优化？\n\n顾问：可以从以下几个方面优化JVM：\n1. 升级到G1或ZGC垃圾收集器\n2. 调整堆大小和年轻代比例\n   - 建议堆大小为容器内存的50-75%\n   - 年轻代占比可以提高到60%\n3. 优化代码减少对象创建\n4. 使用对象池复用大对象"
+  },
+  {
+    "id": "conversation_034",
+    "taskType": "conversation",
+    "inputTokens": 858,
+    "outputTokens": 127,
+    "content": "用户：我正在设计一个高并发的Web系统，预计日活100万，需要支持每秒10万请求。想请教一下架构设计的问题。\n\n顾问：好的，这是一个典型的大流量系统设计问题。首先我需要了解几个关键信息：\n1. 业务类型是什么？是读多写少还是读写均衡？\n2. 数据的一致性要求有多高？\n3. 预算是多少？\n\n用户：主要是社交类应用，读多写少，数据一致性要求中等。\n\n顾问：明白。基于你的场景，我建议采用以下架构：\n1. 前端使用CDN加速静态资源\n2. LVS+Nginx做负载均衡\n3. 应用服务器用Kubernetes容器化部署，支持自动扩缩容\n4. 缓存层：Redis集群做热点数据缓存\n5. 数据库：主从复制+读写分离...\n\n用户：关于Redis缓存，有什么最佳实践吗？\n\n顾问：几个关键点：\n1. key设计要简洁，带业务前缀便于管理\n2. value避免过大，单个key不超过10MB\n3. 设置合理的过期时间\n4. 热点数据预加载到缓存\n5. 缓存穿透、击穿、雪崩的防护措施"
+  },
+  {
+    "id": "conversation_035",
+    "taskType": "conversation",
+    "inputTokens": 882,
+    "outputTokens": 243,
+    "content": "用户：我们公司的微服务架构遇到了性能瓶颈，API响应时间从100ms增加到了2秒。请帮我分析一下可能的原因。\n\n顾问：这是一个很常见的问题。让我从几个维度来分析：\n\n1. **网络层面**\n   - 检查服务间调用的网络延迟\n   - 是否有跨机房调用\n   - 网络带宽是否成为瓶颈\n\n2. **数据库层面**\n   - 慢查询分析\n   - 索引是否失效\n   - 连接池是否耗尽\n\n3. **应用层面**\n   - GC频繁导致停顿\n   - 线程池配置不合理\n   - 同步调用阻塞\n\n4. **缓存层面**\n   - 缓存命中率下降\n   - 缓存穿透\n   - 大key问题\n\n用户：排查后发现是某个微服务频繁Full GC导致的，怎么优化？\n\n顾问：可以从以下几个方面优化JVM：\n1. 升级到G1或ZGC垃圾收集器\n2. 调整堆大小和年轻代比例\n   - 建议堆大小为容器内存的50-75%\n   - 年轻代占比可以提高到60%\n3. 优化代码减少对象创建\n4. 使用对象池复用大对象"
+  },
+  {
+    "id": "conversation_036",
+    "taskType": "conversation",
+    "inputTokens": 588,
+    "outputTokens": 228,
+    "content": "用户：我正在设计一个高并发的Web系统，预计日活100万，需要支持每秒10万请求。想请教一下架构设计的问题。\n\n顾问：好的，这是一个典型的大流量系统设计问题。首先我需要了解几个关键信息：\n1. 业务类型是什么？是读多写少还是读写均衡？\n2. 数据的一致性要求有多高？\n3. 预算是多少？\n\n用户：主要是社交类应用，读多写少，数据一致性要求中等。\n\n顾问：明白。基于你的场景，我建议采用以下架构：\n1. 前端使用CDN加速静态资源\n2. LVS+Nginx做负载均衡\n3. 应用服务器用Kubernetes容器化部署，支持自动扩缩容\n4. 缓存层：Redis集群做热点数据缓存\n5. 数据库：主从复制+读写分离...\n\n用户：关于Redis缓存，有什么最佳实践吗？\n\n顾问：几个关键点：\n1. key设计要简洁，带业务前缀便于管理\n2. value避免过大，单个key不超过10MB\n3. 设置合理的过期时间\n4. 热点数据预加载到缓存\n5. 缓存穿透、击穿、雪崩的防护措施"
+  },
+  {
+    "id": "conversation_037",
+    "taskType": "conversation",
+    "inputTokens": 839,
+    "outputTokens": 276,
+    "content": "用户：我们公司的微服务架构遇到了性能瓶颈，API响应时间从100ms增加到了2秒。请帮我分析一下可能的原因。\n\n顾问：这是一个很常见的问题。让我从几个维度来分析：\n\n1. **网络层面**\n   - 检查服务间调用的网络延迟\n   - 是否有跨机房调用\n   - 网络带宽是否成为瓶颈\n\n2. **数据库层面**\n   - 慢查询分析\n   - 索引是否失效\n   - 连接池是否耗尽\n\n3. **应用层面**\n   - GC频繁导致停顿\n   - 线程池配置不合理\n   - 同步调用阻塞\n\n4. **缓存层面**\n   - 缓存命中率下降\n   - 缓存穿透\n   - 大key问题\n\n用户：排查后发现是某个微服务频繁Full GC导致的，怎么优化？\n\n顾问：可以从以下几个方面优化JVM：\n1. 升级到G1或ZGC垃圾收集器\n2. 调整堆大小和年轻代比例\n   - 建议堆大小为容器内存的50-75%\n   - 年轻代占比可以提高到60%\n3. 优化代码减少对象创建\n4. 使用对象池复用大对象"
+  },
+  {
+    "id": "conversation_038",
+    "taskType": "conversation",
+    "inputTokens": 636,
+    "outputTokens": 221,
+    "content": "用户：我正在设计一个高并发的Web系统，预计日活100万，需要支持每秒10万请求。想请教一下架构设计的问题。\n\n顾问：好的，这是一个典型的大流量系统设计问题。首先我需要了解几个关键信息：\n1. 业务类型是什么？是读多写少还是读写均衡？\n2. 数据的一致性要求有多高？\n3. 预算是多少？\n\n用户：主要是社交类应用，读多写少，数据一致性要求中等。\n\n顾问：明白。基于你的场景，我建议采用以下架构：\n1. 前端使用CDN加速静态资源\n2. LVS+Nginx做负载均衡\n3. 应用服务器用Kubernetes容器化部署，支持自动扩缩容\n4. 缓存层：Redis集群做热点数据缓存\n5. 数据库：主从复制+读写分离...\n\n用户：关于Redis缓存，有什么最佳实践吗？\n\n顾问：几个关键点：\n1. key设计要简洁，带业务前缀便于管理\n2. value避免过大，单个key不超过10MB\n3. 设置合理的过期时间\n4. 热点数据预加载到缓存\n5. 缓存穿透、击穿、雪崩的防护措施"
+  },
+  {
+    "id": "conversation_039",
+    "taskType": "conversation",
+    "inputTokens": 586,
+    "outputTokens": 188,
+    "content": "用户：我们公司的微服务架构遇到了性能瓶颈，API响应时间从100ms增加到了2秒。请帮我分析一下可能的原因。\n\n顾问：这是一个很常见的问题。让我从几个维度来分析：\n\n1. **网络层面**\n   - 检查服务间调用的网络延迟\n   - 是否有跨机房调用\n   - 网络带宽是否成为瓶颈\n\n2. **数据库层面**\n   - 慢查询分析\n   - 索引是否失效\n   - 连接池是否耗尽\n\n3. **应用层面**\n   - GC频繁导致停顿\n   - 线程池配置不合理\n   - 同步调用阻塞\n\n4. **缓存层面**\n   - 缓存命中率下降\n   - 缓存穿透\n   - 大key问题\n\n用户：排查后发现是某个微服务频繁Full GC导致的，怎么优化？\n\n顾问：可以从以下几个方面优化JVM：\n1. 升级到G1或ZGC垃圾收集器\n2. 调整堆大小和年轻代比例\n   - 建议堆大小为容器内存的50-75%\n   - 年轻代占比可以提高到60%\n3. 优化代码减少对象创建\n4. 使用对象池复用大对象"
+  },
+  {
+    "id": "conversation_040",
+    "taskType": "conversation",
+    "inputTokens": 583,
+    "outputTokens": 201,
+    "content": "用户：我正在设计一个高并发的Web系统，预计日活100万，需要支持每秒10万请求。想请教一下架构设计的问题。\n\n顾问：好的，这是一个典型的大流量系统设计问题。首先我需要了解几个关键信息：\n1. 业务类型是什么？是读多写少还是读写均衡？\n2. 数据的一致性要求有多高？\n3. 预算是多少？\n\n用户：主要是社交类应用，读多写少，数据一致性要求中等。\n\n顾问：明白。基于你的场景，我建议采用以下架构：\n1. 前端使用CDN加速静态资源\n2. LVS+Nginx做负载均衡\n3. 应用服务器用Kubernetes容器化部署，支持自动扩缩容\n4. 缓存层：Redis集群做热点数据缓存\n5. 数据库：主从复制+读写分离...\n\n用户：关于Redis缓存，有什么最佳实践吗？\n\n顾问：几个关键点：\n1. key设计要简洁，带业务前缀便于管理\n2. value避免过大，单个key不超过10MB\n3. 设置合理的过期时间\n4. 热点数据预加载到缓存\n5. 缓存穿透、击穿、雪崩的防护措施"
+  },
+  {
+    "id": "conversation_041",
+    "taskType": "conversation",
+    "inputTokens": 826,
+    "outputTokens": 221,
+    "content": "用户：我们公司的微服务架构遇到了性能瓶颈，API响应时间从100ms增加到了2秒。请帮我分析一下可能的原因。\n\n顾问：这是一个很常见的问题。让我从几个维度来分析：\n\n1. **网络层面**\n   - 检查服务间调用的网络延迟\n   - 是否有跨机房调用\n   - 网络带宽是否成为瓶颈\n\n2. **数据库层面**\n   - 慢查询分析\n   - 索引是否失效\n   - 连接池是否耗尽\n\n3. **应用层面**\n   - GC频繁导致停顿\n   - 线程池配置不合理\n   - 同步调用阻塞\n\n4. **缓存层面**\n   - 缓存命中率下降\n   - 缓存穿透\n   - 大key问题\n\n用户：排查后发现是某个微服务频繁Full GC导致的，怎么优化？\n\n顾问：可以从以下几个方面优化JVM：\n1. 升级到G1或ZGC垃圾收集器\n2. 调整堆大小和年轻代比例\n   - 建议堆大小为容器内存的50-75%\n   - 年轻代占比可以提高到60%\n3. 优化代码减少对象创建\n4. 使用对象池复用大对象"
+  },
+  {
+    "id": "conversation_042",
+    "taskType": "conversation",
+    "inputTokens": 864,
+    "outputTokens": 201,
+    "content": "用户：我正在设计一个高并发的Web系统，预计日活100万，需要支持每秒10万请求。想请教一下架构设计的问题。\n\n顾问：好的，这是一个典型的大流量系统设计问题。首先我需要了解几个关键信息：\n1. 业务类型是什么？是读多写少还是读写均衡？\n2. 数据的一致性要求有多高？\n3. 预算是多少？\n\n用户：主要是社交类应用，读多写少，数据一致性要求中等。\n\n顾问：明白。基于你的场景，我建议采用以下架构：\n1. 前端使用CDN加速静态资源\n2. LVS+Nginx做负载均衡\n3. 应用服务器用Kubernetes容器化部署，支持自动扩缩容\n4. 缓存层：Redis集群做热点数据缓存\n5. 数据库：主从复制+读写分离...\n\n用户：关于Redis缓存，有什么最佳实践吗？\n\n顾问：几个关键点：\n1. key设计要简洁，带业务前缀便于管理\n2. value避免过大，单个key不超过10MB\n3. 设置合理的过期时间\n4. 热点数据预加载到缓存\n5. 缓存穿透、击穿、雪崩的防护措施"
+  },
+  {
+    "id": "conversation_043",
+    "taskType": "conversation",
+    "inputTokens": 881,
+    "outputTokens": 207,
+    "content": "用户：我们公司的微服务架构遇到了性能瓶颈，API响应时间从100ms增加到了2秒。请帮我分析一下可能的原因。\n\n顾问：这是一个很常见的问题。让我从几个维度来分析：\n\n1. **网络层面**\n   - 检查服务间调用的网络延迟\n   - 是否有跨机房调用\n   - 网络带宽是否成为瓶颈\n\n2. **数据库层面**\n   - 慢查询分析\n   - 索引是否失效\n   - 连接池是否耗尽\n\n3. **应用层面**\n   - GC频繁导致停顿\n   - 线程池配置不合理\n   - 同步调用阻塞\n\n4. **缓存层面**\n   - 缓存命中率下降\n   - 缓存穿透\n   - 大key问题\n\n用户：排查后发现是某个微服务频繁Full GC导致的，怎么优化？\n\n顾问：可以从以下几个方面优化JVM：\n1. 升级到G1或ZGC垃圾收集器\n2. 调整堆大小和年轻代比例\n   - 建议堆大小为容器内存的50-75%\n   - 年轻代占比可以提高到60%\n3. 优化代码减少对象创建\n4. 使用对象池复用大对象"
+  },
+  {
+    "id": "conversation_044",
+    "taskType": "conversation",
+    "inputTokens": 837,
+    "outputTokens": 213,
+    "content": "用户：我正在设计一个高并发的Web系统，预计日活100万，需要支持每秒10万请求。想请教一下架构设计的问题。\n\n顾问：好的，这是一个典型的大流量系统设计问题。首先我需要了解几个关键信息：\n1. 业务类型是什么？是读多写少还是读写均衡？\n2. 数据的一致性要求有多高？\n3. 预算是多少？\n\n用户：主要是社交类应用，读多写少，数据一致性要求中等。\n\n顾问：明白。基于你的场景，我建议采用以下架构：\n1. 前端使用CDN加速静态资源\n2. LVS+Nginx做负载均衡\n3. 应用服务器用Kubernetes容器化部署，支持自动扩缩容\n4. 缓存层：Redis集群做热点数据缓存\n5. 数据库：主从复制+读写分离...\n\n用户：关于Redis缓存，有什么最佳实践吗？\n\n顾问：几个关键点：\n1. key设计要简洁，带业务前缀便于管理\n2. value避免过大，单个key不超过10MB\n3. 设置合理的过期时间\n4. 热点数据预加载到缓存\n5. 缓存穿透、击穿、雪崩的防护措施"
+  },
+  {
+    "id": "conversation_045",
+    "taskType": "conversation",
+    "inputTokens": 701,
+    "outputTokens": 245,
+    "content": "用户：我们公司的微服务架构遇到了性能瓶颈，API响应时间从100ms增加到了2秒。请帮我分析一下可能的原因。\n\n顾问：这是一个很常见的问题。让我从几个维度来分析：\n\n1. **网络层面**\n   - 检查服务间调用的网络延迟\n   - 是否有跨机房调用\n   - 网络带宽是否成为瓶颈\n\n2. **数据库层面**\n   - 慢查询分析\n   - 索引是否失效\n   - 连接池是否耗尽\n\n3. **应用层面**\n   - GC频繁导致停顿\n   - 线程池配置不合理\n   - 同步调用阻塞\n\n4. **缓存层面**\n   - 缓存命中率下降\n   - 缓存穿透\n   - 大key问题\n\n用户：排查后发现是某个微服务频繁Full GC导致的，怎么优化？\n\n顾问：可以从以下几个方面优化JVM：\n1. 升级到G1或ZGC垃圾收集器\n2. 调整堆大小和年轻代比例\n   - 建议堆大小为容器内存的50-75%\n   - 年轻代占比可以提高到60%\n3. 优化代码减少对象创建\n4. 使用对象池复用大对象"
+  },
+  {
+    "id": "conversation_046",
+    "taskType": "conversation",
+    "inputTokens": 865,
+    "outputTokens": 269,
+    "content": "用户：我正在设计一个高并发的Web系统，预计日活100万，需要支持每秒10万请求。想请教一下架构设计的问题。\n\n顾问：好的，这是一个典型的大流量系统设计问题。首先我需要了解几个关键信息：\n1. 业务类型是什么？是读多写少还是读写均衡？\n2. 数据的一致性要求有多高？\n3. 预算是多少？\n\n用户：主要是社交类应用，读多写少，数据一致性要求中等。\n\n顾问：明白。基于你的场景，我建议采用以下架构：\n1. 前端使用CDN加速静态资源\n2. LVS+Nginx做负载均衡\n3. 应用服务器用Kubernetes容器化部署，支持自动扩缩容\n4. 缓存层：Redis集群做热点数据缓存\n5. 数据库：主从复制+读写分离...\n\n用户：关于Redis缓存，有什么最佳实践吗？\n\n顾问：几个关键点：\n1. key设计要简洁，带业务前缀便于管理\n2. value避免过大，单个key不超过10MB\n3. 设置合理的过期时间\n4. 热点数据预加载到缓存\n5. 缓存穿透、击穿、雪崩的防护措施"
+  },
+  {
+    "id": "conversation_047",
+    "taskType": "conversation",
+    "inputTokens": 791,
+    "outputTokens": 280,
+    "content": "用户：我们公司的微服务架构遇到了性能瓶颈，API响应时间从100ms增加到了2秒。请帮我分析一下可能的原因。\n\n顾问：这是一个很常见的问题。让我从几个维度来分析：\n\n1. **网络层面**\n   - 检查服务间调用的网络延迟\n   - 是否有跨机房调用\n   - 网络带宽是否成为瓶颈\n\n2. **数据库层面**\n   - 慢查询分析\n   - 索引是否失效\n   - 连接池是否耗尽\n\n3. **应用层面**\n   - GC频繁导致停顿\n   - 线程池配置不合理\n   - 同步调用阻塞\n\n4. **缓存层面**\n   - 缓存命中率下降\n   - 缓存穿透\n   - 大key问题\n\n用户：排查后发现是某个微服务频繁Full GC导致的，怎么优化？\n\n顾问：可以从以下几个方面优化JVM：\n1. 升级到G1或ZGC垃圾收集器\n2. 调整堆大小和年轻代比例\n   - 建议堆大小为容器内存的50-75%\n   - 年轻代占比可以提高到60%\n3. 优化代码减少对象创建\n4. 使用对象池复用大对象"
+  },
+  {
+    "id": "conversation_048",
+    "taskType": "conversation",
+    "inputTokens": 884,
+    "outputTokens": 222,
+    "content": "用户：我正在设计一个高并发的Web系统，预计日活100万，需要支持每秒10万请求。想请教一下架构设计的问题。\n\n顾问：好的，这是一个典型的大流量系统设计问题。首先我需要了解几个关键信息：\n1. 业务类型是什么？是读多写少还是读写均衡？\n2. 数据的一致性要求有多高？\n3. 预算是多少？\n\n用户：主要是社交类应用，读多写少，数据一致性要求中等。\n\n顾问：明白。基于你的场景，我建议采用以下架构：\n1. 前端使用CDN加速静态资源\n2. LVS+Nginx做负载均衡\n3. 应用服务器用Kubernetes容器化部署，支持自动扩缩容\n4. 缓存层：Redis集群做热点数据缓存\n5. 数据库：主从复制+读写分离...\n\n用户：关于Redis缓存，有什么最佳实践吗？\n\n顾问：几个关键点：\n1. key设计要简洁，带业务前缀便于管理\n2. value避免过大，单个key不超过10MB\n3. 设置合理的过期时间\n4. 热点数据预加载到缓存\n5. 缓存穿透、击穿、雪崩的防护措施"
+  },
+  {
+    "id": "conversation_049",
+    "taskType": "conversation",
+    "inputTokens": 725,
+    "outputTokens": 181,
+    "content": "用户：我们公司的微服务架构遇到了性能瓶颈，API响应时间从100ms增加到了2秒。请帮我分析一下可能的原因。\n\n顾问：这是一个很常见的问题。让我从几个维度来分析：\n\n1. **网络层面**\n   - 检查服务间调用的网络延迟\n   - 是否有跨机房调用\n   - 网络带宽是否成为瓶颈\n\n2. **数据库层面**\n   - 慢查询分析\n   - 索引是否失效\n   - 连接池是否耗尽\n\n3. **应用层面**\n   - GC频繁导致停顿\n   - 线程池配置不合理\n   - 同步调用阻塞\n\n4. **缓存层面**\n   - 缓存命中率下降\n   - 缓存穿透\n   - 大key问题\n\n用户：排查后发现是某个微服务频繁Full GC导致的，怎么优化？\n\n顾问：可以从以下几个方面优化JVM：\n1. 升级到G1或ZGC垃圾收集器\n2. 调整堆大小和年轻代比例\n   - 建议堆大小为容器内存的50-75%\n   - 年轻代占比可以提高到60%\n3. 优化代码减少对象创建\n4. 使用对象池复用大对象"
+  },
+  {
+    "id": "conversation_050",
+    "taskType": "conversation",
+    "inputTokens": 857,
+    "outputTokens": 285,
+    "content": "用户：我正在设计一个高并发的Web系统，预计日活100万，需要支持每秒10万请求。想请教一下架构设计的问题。\n\n顾问：好的，这是一个典型的大流量系统设计问题。首先我需要了解几个关键信息：\n1. 业务类型是什么？是读多写少还是读写均衡？\n2. 数据的一致性要求有多高？\n3. 预算是多少？\n\n用户：主要是社交类应用，读多写少，数据一致性要求中等。\n\n顾问：明白。基于你的场景，我建议采用以下架构：\n1. 前端使用CDN加速静态资源\n2. LVS+Nginx做负载均衡\n3. 应用服务器用Kubernetes容器化部署，支持自动扩缩容\n4. 缓存层：Redis集群做热点数据缓存\n5. 数据库：主从复制+读写分离...\n\n用户：关于Redis缓存，有什么最佳实践吗？\n\n顾问：几个关键点：\n1. key设计要简洁，带业务前缀便于管理\n2. value避免过大，单个key不超过10MB\n3. 设置合理的过期时间\n4. 热点数据预加载到缓存\n5. 缓存穿透、击穿、雪崩的防护措施"
+  }
+]
