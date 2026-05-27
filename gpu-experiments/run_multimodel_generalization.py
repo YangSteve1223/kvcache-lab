@@ -28,16 +28,25 @@ MODEL_CONFIGS = {
         "path": "/root/autodl-tmp/Llama-3.1-8B-Instruct",
         "hf_id": "meta-llama/Llama-3.1-8B-Instruct",
         "trust_remote_code": False,
+        "gated": True,  # 需要HF申请+login
     },
     "Mistral-7B-Instruct-v0.3": {
         "path": "/root/autodl-tmp/Mistral-7B-Instruct-v0.3",
         "hf_id": "mistralai/Mistral-7B-Instruct-v0.3",
         "trust_remote_code": False,
+        "gated": False,
+    },
+    "Yi-1.5-9B-Chat": {
+        "path": "/root/autodl-tmp/Yi-1.5-9B-Chat",
+        "hf_id": "01-ai/Yi-1.5-9B-Chat",
+        "trust_remote_code": True,
+        "gated": False,  # Llama备选：ungated，不同架构
     },
     "Qwen2.5-7B-Instruct": {
         "path": "/root/autodl-tmp/Qwen2.5-7B-Instruct",
         "hf_id": "Qwen/Qwen2.5-7B-Instruct",
         "trust_remote_code": True,
+        "gated": False,
     },
 }
 
