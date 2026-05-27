@@ -221,7 +221,13 @@ def log(msg):
 def compute_ppl(logits, input_ids):
     sl = logits[:, :-1, :].contiguous()
     lab = input_ids[:, 1:].contiguous()
-    return torch.exp(F.cross_entropy(sl.view(-1, sl.size(-1)), lab.view(-1))).item()
+    if torch.isnan(logits).any():
+        log("WARNING: NaN in logits, returning inf")
+        return float('inf')
+    ce = F.cross_entropy(sl.view(-1, sl.size(-1)), lab.view(-1))
+    if torch.isnan(ce):
+        return float('inf')
+    return torch.exp(ce).item()
 
 def make_input(tokenizer, text, target_len, device):
     tokens = tokenizer.encode(text)
@@ -231,7 +237,9 @@ def make_input(tokenizer, text, target_len, device):
     inputs = tokenizer(prompt, return_tensors="pt", truncation=True, max_length=target_len).to(device)
     ids = inputs.input_ids
     if ids.shape[1] < target_len:
-        pad = torch.full((1, target_len - ids.shape[1]), tokenizer.eos_token_id or 0, dtype=ids.dtype, device=device)
+        pad = torch.full((1, target_len - ids.shape[1]),
+                        tokenizer.pad_token_id or tokenizer.eos_token_id or 0,
+                        dtype=ids.dtype, device=device)
         ids = torch.cat([ids, pad], dim=1)
     return ids
 
@@ -344,43 +352,66 @@ def is_long_tail(remote_attention_pct, threshold=0.10):
     """判断是否为long-tail attention pattern"""
     return remote_attention_pct < threshold
 
-def extract_attention_and_compute_locality(model, input_ids, last_n_layers=None):
+def extract_attention_and_compute_locality(model, tokenizer, model_path, input_ids, trust_rc, last_n_layers=None):
     """
     提取attention weights并计算locality指标
     
+    策略：临时以eager模式重新加载模型来提取attention weights，
+    因为SDPA模式下output_attentions=True不支持。
+    提取完成后释放eager模型，返回SDPA模型继续PPL实验。
+    
     Args:
-        model: 语言模型
+        model: 当前SDPA模型（不使用）
+        tokenizer: tokenizer
+        model_path: 模型路径
         input_ids: 输入token IDs
-        last_n_layers: 只取最后n层，如果为None则取所有层
+        trust_rc: trust_remote_code
+        last_n_layers: 只取最后n层
     
     Returns:
         locality_metrics: 包含所有locality指标的字典
     """
+    from transformers import AutoModelForCausalLM
+    
+    log(f"  Loading eager model for attention extraction...")
+    eager_model = AutoModelForCausalLM.from_pretrained(
+        model_path,
+        torch_dtype=torch.bfloat16,
+        device_map="auto",
+        trust_remote_code=trust_rc,
+        attn_implementation="eager",
+    )
+    eager_model.eval()
+    
     seq_len = input_ids.shape[1]
     all_attentions = []
     
-    def capture_attention(module, input, output):
-        # output[1] 是 attention weights
-        if len(output) > 1 and output[1] is not None:
-            all_attentions.append(output[1].detach())
-    
-    # 注册hook捕获attention
-    hooks = []
-    for layer in model.model.layers:
-        hooks.append(layer.self_attn.register_forward_hook(capture_attention))
-    
     try:
         with torch.no_grad():
-            _ = model(input_ids=input_ids, output_attentions=True)
+            outputs = eager_model(input_ids=input_ids, output_attentions=True)
+        
+        # 从model outputs直接获取attention weights
+        if outputs.attentions is not None:
+            all_attentions = [a.detach() for a in outputs.attentions]
+            log(f"  Captured attention from model output: {len(all_attentions)} layers")
+        else:
+            log(f"  Warning: model output.attentions is None")
     except Exception as e:
-        # fallback: 尝试不使用eager attention
-        log(f"  Warning: output_attentions=True failed ({e}), trying without...")
-        with torch.no_grad():
-            _ = model(input_ids=input_ids)
-        return None
-    finally:
-        for h in hooks:
-            h.remove()
+        log(f"  Warning: eager forward failed ({e})")
+        # 尝试NaN-safe方式：逐层推理
+        try:
+            with torch.no_grad():
+                outputs = eager_model(input_ids=input_ids, output_attentions=True)
+            if outputs.attentions is not None:
+                all_attentions = [a.detach() for a in outputs.attentions]
+        except Exception as e2:
+            log(f"  Fallback also failed: {e2}")
+    
+    # 释放eager模型
+    del eager_model
+    torch.cuda.empty_cache()
+    gc.collect()
+    log(f"  Eager model released, VRAM recovered")
     
     if not all_attentions:
         log(f"  Warning: No attention weights captured")
@@ -454,7 +485,7 @@ def run_model_experiments(model_name, model_config, output_dir):
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
 
-    log(f"Loading model from {model_path} (bfloat16, sdpa)...")
+    log(f"Loading model from {model_path} (bfloat16, sdpa for PPL)...")
     model = AutoModelForCausalLM.from_pretrained(
         model_path,
         torch_dtype=torch.bfloat16,
@@ -466,8 +497,20 @@ def run_model_experiments(model_name, model_config, output_dir):
 
     info = get_model_info(model)
     vram_gb = torch.cuda.memory_allocated() / 1e9
+
+    # 检测GPU显存，决定最大可跑序列长度
+    gpu_total_gb = torch.cuda.get_device_properties(0).total_memory / 1e9
     log(f"Model: {info['layers']}L, {info['kv_heads']} KV heads, head_dim={info['head_dim']}, "
-        f"KV={info['kv_bytes_per_token']} bytes/token, VRAM={vram_gb:.1f}GB")
+        f"KV={info['kv_bytes_per_token']} bytes/token, VRAM={vram_gb:.1f}GB, GPU={gpu_total_gb:.1f}GB")
+
+    # 根据显存动态调整最大序列长度
+    max_seq_for_gpu = 8192
+    if gpu_total_gb < 30:
+        max_seq_for_gpu = 4096
+        log(f"GPU < 30GB, capping max seq to {max_seq_for_gpu}")
+    if "9B" in model_name and gpu_total_gb < 40:
+        max_seq_for_gpu = 4096
+        log(f"9B model on < 40GB GPU, capping max seq to {max_seq_for_gpu}")
 
     mask_dtype = torch.bfloat16
 
@@ -486,13 +529,17 @@ def run_model_experiments(model_name, model_config, output_dir):
     
     locality_chars = {}
     for seq_target in [4096, 8192]:
+        if seq_target > max_seq_for_gpu:
+            log(f"  seq={seq_target}: SKIPPED (exceeds GPU limit {max_seq_for_gpu})")
+            continue
         log(f"  seq={seq_target}")
         try:
             ids = make_input(tokenizer, TEXT, seq_target, model.device)
             sl = ids.shape[1]
             log(f"  Actual seq_len={sl}, extracting attention weights...")
             
-            locality_metrics = extract_attention_and_compute_locality(model, ids, last_n_layers=4)
+            locality_metrics = extract_attention_and_compute_locality(
+                model, tokenizer, model_path, ids, trust_rc, last_n_layers=4)
             
             if locality_metrics is not None:
                 locality_chars[f"seq_{seq_target}"] = locality_metrics
@@ -534,6 +581,8 @@ def run_model_experiments(model_name, model_config, output_dir):
 
     locality_data = []
     for seq_target in SEQ_LENGTHS_LOCALITY:
+        if seq_target > max_seq_for_gpu:
+            continue
         log(f"  seq={seq_target}")
         try:
             ids = make_input(tokenizer, TEXT, seq_target, model.device)
@@ -594,6 +643,8 @@ def run_model_experiments(model_name, model_config, output_dir):
         workload_data = []
 
         for seq_target in SEQ_LENGTHS_PARETO:
+            if seq_target > max_seq_for_gpu:
+                continue
             log(f"    seq={seq_target}")
             try:
                 ids = make_input(tokenizer, wtext, seq_target, model.device)
