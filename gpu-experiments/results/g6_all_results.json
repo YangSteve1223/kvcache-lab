@@ -1,0 +1,122 @@
+{
+  "part1_ablation": {
+    "baseline_ppl": 2.791015625,
+    "results": [
+      {
+        "name": "baseline",
+        "ppl": 2.791,
+        "delta_pct": 0.0
+      },
+      {
+        "name": "TAA_only",
+        "ppl": 2.791,
+        "delta_pct": 0.0
+      },
+      {
+        "name": "SWS_only",
+        "ppl": 9.9062,
+        "delta_pct": 254.93
+      },
+      {
+        "name": "Eviction_only",
+        "ppl": 4.8086,
+        "delta_pct": 72.29
+      },
+      {
+        "name": "TAA+SWS",
+        "ppl": 9.8672,
+        "delta_pct": 253.53
+      },
+      {
+        "name": "TAA+Eviction",
+        "ppl": 2.791,
+        "delta_pct": 0.0
+      },
+      {
+        "name": "Full_OS",
+        "ppl": 13.6953,
+        "delta_pct": 390.69
+      }
+    ]
+  },
+  "part2_param_sensitivity": [
+    {
+      "param": "alpha",
+      "value": 0.0,
+      "ppl": 13.75,
+      "delta_pct": 392.65
+    },
+    {
+      "param": "alpha",
+      "value": 0.05,
+      "ppl": 13.7266,
+      "delta_pct": 391.81
+    },
+    {
+      "param": "alpha",
+      "value": 0.1,
+      "ppl": 13.6953,
+      "delta_pct": 390.69
+    },
+    {
+      "param": "alpha",
+      "value": 0.2,
+      "ppl": 13.6719,
+      "delta_pct": 389.85
+    },
+    {
+      "param": "alpha",
+      "value": 0.5,
+      "ppl": 13.4297,
+      "delta_pct": 381.18
+    },
+    {
+      "param": "window_size",
+      "value": 64,
+      "ppl": 14.8984,
+      "delta_pct": 433.8
+    },
+    {
+      "param": "window_size",
+      "value": 128,
+      "ppl": 13.6953,
+      "delta_pct": 390.69
+    },
+    {
+      "param": "window_size",
+      "value": 256,
+      "ppl": 4.8828,
+      "delta_pct": 74.95
+    },
+    {
+      "param": "window_size",
+      "value": 512,
+      "ppl": 4.8086,
+      "delta_pct": 72.29
+    },
+    {
+      "param": "evict_ratio",
+      "value": 0.1,
+      "ppl": 12.2578,
+      "delta_pct": 339.19
+    },
+    {
+      "param": "evict_ratio",
+      "value": 0.2,
+      "ppl": 12.9141,
+      "delta_pct": 362.7
+    },
+    {
+      "param": "evict_ratio",
+      "value": 0.3,
+      "ppl": 13.6953,
+      "delta_pct": 390.69
+    },
+    {
+      "param": "evict_ratio",
+      "value": 0.5,
+      "ppl": 13.3047,
+      "delta_pct": 376.7
+    }
+  ]
+}

@@ -1,0 +1,445 @@
+{
+  "part1_memory_reduction": [
+    {
+      "seq_len": 1024,
+      "full_kv_mb": 58.72,
+      "ws_64_mb": 3.67,
+      "ws_64_reduction_pct": 93.8,
+      "ws_128_mb": 7.34,
+      "ws_128_reduction_pct": 87.5,
+      "ws_256_mb": 14.68,
+      "ws_256_reduction_pct": 75.0,
+      "ws_512_mb": 29.36,
+      "ws_512_reduction_pct": 50.0
+    },
+    {
+      "seq_len": 2048,
+      "full_kv_mb": 117.44,
+      "ws_64_mb": 3.67,
+      "ws_64_reduction_pct": 96.9,
+      "ws_128_mb": 7.34,
+      "ws_128_reduction_pct": 93.8,
+      "ws_256_mb": 14.68,
+      "ws_256_reduction_pct": 87.5,
+      "ws_512_mb": 29.36,
+      "ws_512_reduction_pct": 75.0,
+      "ws_1024_mb": 58.72,
+      "ws_1024_reduction_pct": 50.0
+    },
+    {
+      "seq_len": 4096,
+      "full_kv_mb": 234.88,
+      "ws_64_mb": 3.67,
+      "ws_64_reduction_pct": 98.4,
+      "ws_128_mb": 7.34,
+      "ws_128_reduction_pct": 96.9,
+      "ws_256_mb": 14.68,
+      "ws_256_reduction_pct": 93.8,
+      "ws_512_mb": 29.36,
+      "ws_512_reduction_pct": 87.5,
+      "ws_1024_mb": 58.72,
+      "ws_1024_reduction_pct": 75.0,
+      "ws_2048_mb": 117.44,
+      "ws_2048_reduction_pct": 50.0
+    },
+    {
+      "seq_len": 8192,
+      "full_kv_mb": 469.76,
+      "ws_64_mb": 3.67,
+      "ws_64_reduction_pct": 99.2,
+      "ws_128_mb": 7.34,
+      "ws_128_reduction_pct": 98.4,
+      "ws_256_mb": 14.68,
+      "ws_256_reduction_pct": 96.9,
+      "ws_512_mb": 29.36,
+      "ws_512_reduction_pct": 93.8,
+      "ws_1024_mb": 58.72,
+      "ws_1024_reduction_pct": 87.5,
+      "ws_2048_mb": 117.44,
+      "ws_2048_reduction_pct": 75.0
+    },
+    {
+      "seq_len": 16384,
+      "full_kv_mb": 939.52,
+      "ws_64_mb": 3.67,
+      "ws_64_reduction_pct": 99.6,
+      "ws_128_mb": 7.34,
+      "ws_128_reduction_pct": 99.2,
+      "ws_256_mb": 14.68,
+      "ws_256_reduction_pct": 98.4,
+      "ws_512_mb": 29.36,
+      "ws_512_reduction_pct": 96.9,
+      "ws_1024_mb": 58.72,
+      "ws_1024_reduction_pct": 93.8,
+      "ws_2048_mb": 117.44,
+      "ws_2048_reduction_pct": 87.5
+    },
+    {
+      "seq_len": 32768,
+      "full_kv_mb": 1879.05,
+      "ws_64_mb": 3.67,
+      "ws_64_reduction_pct": 99.8,
+      "ws_128_mb": 7.34,
+      "ws_128_reduction_pct": 99.6,
+      "ws_256_mb": 14.68,
+      "ws_256_reduction_pct": 99.2,
+      "ws_512_mb": 29.36,
+      "ws_512_reduction_pct": 98.4,
+      "ws_1024_mb": 58.72,
+      "ws_1024_reduction_pct": 96.9,
+      "ws_2048_mb": 117.44,
+      "ws_2048_reduction_pct": 93.8
+    }
+  ],
+  "part2_quality_vs_window": {
+    "baseline_ppl": 6.6484375,
+    "seq_len": 511,
+    "results": [
+      {
+        "window_size": 32,
+        "sws_ppl": 16.625,
+        "sws_delta_pct": 150.06,
+        "sws_taa_ppl": 16.625,
+        "sws_taa_delta_pct": 150.06,
+        "taa_ppl_improvement": 0.0
+      },
+      {
+        "window_size": 64,
+        "sws_ppl": 12.8438,
+        "sws_delta_pct": 93.18,
+        "sws_taa_ppl": 12.8672,
+        "sws_taa_delta_pct": 93.54,
+        "taa_ppl_improvement": -0.0234
+      },
+      {
+        "window_size": 128,
+        "sws_ppl": 11.9922,
+        "sws_delta_pct": 80.38,
+        "sws_taa_ppl": 12.0625,
+        "sws_taa_delta_pct": 81.43,
+        "taa_ppl_improvement": -0.0703
+      },
+      {
+        "window_size": 256,
+        "sws_ppl": 9.7109,
+        "sws_delta_pct": 46.06,
+        "sws_taa_ppl": 9.7734,
+        "sws_taa_delta_pct": 47.0,
+        "taa_ppl_improvement": -0.0625
+      }
+    ]
+  },
+  "part3_transfer_volume": [
+    {
+      "window_size": 64,
+      "bandwidth_gbps": 25,
+      "full_transfer_mb": 1875.4,
+      "taa_selective_mb": 937.7,
+      "full_transfer_ms": 600.1,
+      "taa_transfer_ms": 300.1,
+      "transfer_reduction_pct": 50.0
+    },
+    {
+      "window_size": 64,
+      "bandwidth_gbps": 50,
+      "full_transfer_mb": 1875.4,
+      "taa_selective_mb": 937.7,
+      "full_transfer_ms": 300.1,
+      "taa_transfer_ms": 150.0,
+      "transfer_reduction_pct": 50.0
+    },
+    {
+      "window_size": 64,
+      "bandwidth_gbps": 100,
+      "full_transfer_mb": 1875.4,
+      "taa_selective_mb": 937.7,
+      "full_transfer_ms": 150.0,
+      "taa_transfer_ms": 75.0,
+      "transfer_reduction_pct": 50.0
+    },
+    {
+      "window_size": 128,
+      "bandwidth_gbps": 25,
+      "full_transfer_mb": 1871.7,
+      "taa_selective_mb": 935.9,
+      "full_transfer_ms": 598.9,
+      "taa_transfer_ms": 299.5,
+      "transfer_reduction_pct": 50.0
+    },
+    {
+      "window_size": 128,
+      "bandwidth_gbps": 50,
+      "full_transfer_mb": 1871.7,
+      "taa_selective_mb": 935.9,
+      "full_transfer_ms": 299.5,
+      "taa_transfer_ms": 149.7,
+      "transfer_reduction_pct": 50.0
+    },
+    {
+      "window_size": 128,
+      "bandwidth_gbps": 100,
+      "full_transfer_mb": 1871.7,
+      "taa_selective_mb": 935.9,
+      "full_transfer_ms": 149.7,
+      "taa_transfer_ms": 74.9,
+      "transfer_reduction_pct": 50.0
+    },
+    {
+      "window_size": 256,
+      "bandwidth_gbps": 25,
+      "full_transfer_mb": 1864.4,
+      "taa_selective_mb": 932.2,
+      "full_transfer_ms": 596.6,
+      "taa_transfer_ms": 298.3,
+      "transfer_reduction_pct": 50.0
+    },
+    {
+      "window_size": 256,
+      "bandwidth_gbps": 50,
+      "full_transfer_mb": 1864.4,
+      "taa_selective_mb": 932.2,
+      "full_transfer_ms": 298.3,
+      "taa_transfer_ms": 149.1,
+      "transfer_reduction_pct": 50.0
+    },
+    {
+      "window_size": 256,
+      "bandwidth_gbps": 100,
+      "full_transfer_mb": 1864.4,
+      "taa_selective_mb": 932.2,
+      "full_transfer_ms": 149.1,
+      "taa_transfer_ms": 74.6,
+      "transfer_reduction_pct": 50.0
+    },
+    {
+      "window_size": 512,
+      "bandwidth_gbps": 25,
+      "full_transfer_mb": 1849.7,
+      "taa_selective_mb": 924.8,
+      "full_transfer_ms": 591.9,
+      "taa_transfer_ms": 296.0,
+      "transfer_reduction_pct": 50.0
+    },
+    {
+      "window_size": 512,
+      "bandwidth_gbps": 50,
+      "full_transfer_mb": 1849.7,
+      "taa_selective_mb": 924.8,
+      "full_transfer_ms": 296.0,
+      "taa_transfer_ms": 148.0,
+      "transfer_reduction_pct": 50.0
+    },
+    {
+      "window_size": 512,
+      "bandwidth_gbps": 100,
+      "full_transfer_mb": 1849.7,
+      "taa_selective_mb": 924.8,
+      "full_transfer_ms": 148.0,
+      "taa_transfer_ms": 74.0,
+      "transfer_reduction_pct": 50.0
+    },
+    {
+      "window_size": 1024,
+      "bandwidth_gbps": 25,
+      "full_transfer_mb": 1820.3,
+      "taa_selective_mb": 910.2,
+      "full_transfer_ms": 582.5,
+      "taa_transfer_ms": 291.3,
+      "transfer_reduction_pct": 50.0
+    },
+    {
+      "window_size": 1024,
+      "bandwidth_gbps": 50,
+      "full_transfer_mb": 1820.3,
+      "taa_selective_mb": 910.2,
+      "full_transfer_ms": 291.3,
+      "taa_transfer_ms": 145.6,
+      "transfer_reduction_pct": 50.0
+    },
+    {
+      "window_size": 1024,
+      "bandwidth_gbps": 100,
+      "full_transfer_mb": 1820.3,
+      "taa_selective_mb": 910.2,
+      "full_transfer_ms": 145.6,
+      "taa_transfer_ms": 72.8,
+      "transfer_reduction_pct": 50.0
+    },
+    {
+      "window_size": 2048,
+      "bandwidth_gbps": 25,
+      "full_transfer_mb": 1761.6,
+      "taa_selective_mb": 880.8,
+      "full_transfer_ms": 563.7,
+      "taa_transfer_ms": 281.9,
+      "transfer_reduction_pct": 50.0
+    },
+    {
+      "window_size": 2048,
+      "bandwidth_gbps": 50,
+      "full_transfer_mb": 1761.6,
+      "taa_selective_mb": 880.8,
+      "full_transfer_ms": 281.9,
+      "taa_transfer_ms": 140.9,
+      "transfer_reduction_pct": 50.0
+    },
+    {
+      "window_size": 2048,
+      "bandwidth_gbps": 100,
+      "full_transfer_mb": 1761.6,
+      "taa_selective_mb": 880.8,
+      "full_transfer_ms": 140.9,
+      "taa_transfer_ms": 70.5,
+      "transfer_reduction_pct": 50.0
+    },
+    {
+      "window_size": 4096,
+      "bandwidth_gbps": 25,
+      "full_transfer_mb": 1644.2,
+      "taa_selective_mb": 822.1,
+      "full_transfer_ms": 526.1,
+      "taa_transfer_ms": 263.1,
+      "transfer_reduction_pct": 50.0
+    },
+    {
+      "window_size": 4096,
+      "bandwidth_gbps": 50,
+      "full_transfer_mb": 1644.2,
+      "taa_selective_mb": 822.1,
+      "full_transfer_ms": 263.1,
+      "taa_transfer_ms": 131.5,
+      "transfer_reduction_pct": 50.0
+    },
+    {
+      "window_size": 4096,
+      "bandwidth_gbps": 100,
+      "full_transfer_mb": 1644.2,
+      "taa_selective_mb": 822.1,
+      "full_transfer_ms": 131.5,
+      "taa_transfer_ms": 65.8,
+      "transfer_reduction_pct": 50.0
+    }
+  ],
+  "part4_e2e_simulation": [
+    {
+      "window_size": 64,
+      "bandwidth_gbps": 25,
+      "remote_kv_mb": 1875.4,
+      "local_kv_mb": 3.7,
+      "full_transfer_ms": 600.1,
+      "taa_transfer_ms": 300.1,
+      "sws_tpot_ms": 28.0,
+      "memory_saving_pct": 99.8
+    },
+    {
+      "window_size": 64,
+      "bandwidth_gbps": 100,
+      "remote_kv_mb": 1875.4,
+      "local_kv_mb": 3.7,
+      "full_transfer_ms": 150.0,
+      "taa_transfer_ms": 75.0,
+      "sws_tpot_ms": 28.0,
+      "memory_saving_pct": 99.8
+    },
+    {
+      "window_size": 128,
+      "bandwidth_gbps": 25,
+      "remote_kv_mb": 1871.7,
+      "local_kv_mb": 7.3,
+      "full_transfer_ms": 598.9,
+      "taa_transfer_ms": 299.5,
+      "sws_tpot_ms": 28.0,
+      "memory_saving_pct": 99.6
+    },
+    {
+      "window_size": 128,
+      "bandwidth_gbps": 100,
+      "remote_kv_mb": 1871.7,
+      "local_kv_mb": 7.3,
+      "full_transfer_ms": 149.7,
+      "taa_transfer_ms": 74.9,
+      "sws_tpot_ms": 28.0,
+      "memory_saving_pct": 99.6
+    },
+    {
+      "window_size": 256,
+      "bandwidth_gbps": 25,
+      "remote_kv_mb": 1864.4,
+      "local_kv_mb": 14.7,
+      "full_transfer_ms": 596.6,
+      "taa_transfer_ms": 298.3,
+      "sws_tpot_ms": 28.1,
+      "memory_saving_pct": 99.2
+    },
+    {
+      "window_size": 256,
+      "bandwidth_gbps": 100,
+      "remote_kv_mb": 1864.4,
+      "local_kv_mb": 14.7,
+      "full_transfer_ms": 149.1,
+      "taa_transfer_ms": 74.6,
+      "sws_tpot_ms": 28.1,
+      "memory_saving_pct": 99.2
+    },
+    {
+      "window_size": 512,
+      "bandwidth_gbps": 25,
+      "remote_kv_mb": 1849.7,
+      "local_kv_mb": 29.4,
+      "full_transfer_ms": 591.9,
+      "taa_transfer_ms": 296.0,
+      "sws_tpot_ms": 28.1,
+      "memory_saving_pct": 98.4
+    },
+    {
+      "window_size": 512,
+      "bandwidth_gbps": 100,
+      "remote_kv_mb": 1849.7,
+      "local_kv_mb": 29.4,
+      "full_transfer_ms": 148.0,
+      "taa_transfer_ms": 74.0,
+      "sws_tpot_ms": 28.1,
+      "memory_saving_pct": 98.4
+    },
+    {
+      "window_size": 1024,
+      "bandwidth_gbps": 25,
+      "remote_kv_mb": 1820.3,
+      "local_kv_mb": 58.7,
+      "full_transfer_ms": 582.5,
+      "taa_transfer_ms": 291.3,
+      "sws_tpot_ms": 28.2,
+      "memory_saving_pct": 96.9
+    },
+    {
+      "window_size": 1024,
+      "bandwidth_gbps": 100,
+      "remote_kv_mb": 1820.3,
+      "local_kv_mb": 58.7,
+      "full_transfer_ms": 145.6,
+      "taa_transfer_ms": 72.8,
+      "sws_tpot_ms": 28.2,
+      "memory_saving_pct": 96.9
+    },
+    {
+      "window_size": 2048,
+      "bandwidth_gbps": 25,
+      "remote_kv_mb": 1761.6,
+      "local_kv_mb": 117.4,
+      "full_transfer_ms": 563.7,
+      "taa_transfer_ms": 281.9,
+      "sws_tpot_ms": 28.4,
+      "memory_saving_pct": 93.8
+    },
+    {
+      "window_size": 2048,
+      "bandwidth_gbps": 100,
+      "remote_kv_mb": 1761.6,
+      "local_kv_mb": 117.4,
+      "full_transfer_ms": 140.9,
+      "taa_transfer_ms": 70.5,
+      "sws_tpot_ms": 28.4,
+      "memory_saving_pct": 93.8
+    }
+  ]
+}
