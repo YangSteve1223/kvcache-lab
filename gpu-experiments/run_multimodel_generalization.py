@@ -2,14 +2,20 @@
 """
 ===============================================================================
 Multi-Model Generalization Experiments for kvcache-lab
-验证decode locality在不同模型架构上的普遍性
+验证decode locality在不同模型架构和参数量级上的普遍性
 
-支持模型: Llama-3.1-8B-Instruct, Mistral-7B-Instruct-v0.3, Qwen2.5-7B-Instruct
+支持模型: Mistral-7B, Qwen2.5-14B, Qwen2.5-32B (3个量级, 全ungated)
 核心实验:
   1. Locality vs Context Length (256~8192, 50% budget ΔPPL)
   2. Memory-Quality Pareto (2K/4K/8K, narrative/code/QA)
 
-显存需求: 所有模型8K以内 < 20GB, 5090-32GB完全够用
+显存需求:
+  7B模型:  8K < 20GB (24GB卡够用)
+  14B模型: 8K < 36GB (40GB+卡)
+  32B模型: 8K需~80GB, 4K需~72GB (98GB卡可跑8K, 80GB卡限4K)
+  脚本自动检测VRAM并调整max_seq_length
+
+下载: 默认使用HF mirror (hf-mirror.com), 清华源加速
 ===============================================================================
 """
 import json, warnings, time, os, gc
@@ -24,29 +30,25 @@ os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 
 # ========================= 配置 =========================
 MODEL_CONFIGS = {
-    "Llama-3.1-8B-Instruct": {
-        "path": "/root/autodl-tmp/Llama-3.1-8B-Instruct",
-        "hf_id": "meta-llama/Llama-3.1-8B-Instruct",
-        "trust_remote_code": False,
-        "gated": True,  # 需要HF申请+login
-    },
     "Mistral-7B-Instruct-v0.3": {
         "path": "/root/autodl-tmp/Mistral-7B-Instruct-v0.3",
         "hf_id": "mistralai/Mistral-7B-Instruct-v0.3",
         "trust_remote_code": False,
         "gated": False,
     },
-    "Yi-1.5-9B-Chat": {
-        "path": "/root/autodl-tmp/Yi-1.5-9B-Chat",
-        "hf_id": "01-ai/Yi-1.5-9B-Chat",
-        "trust_remote_code": True,
-        "gated": False,  # Llama备选：ungated，不同架构
-    },
-    "Qwen2.5-7B-Instruct": {
-        "path": "/root/autodl-tmp/Qwen2.5-7B-Instruct",
-        "hf_id": "Qwen/Qwen2.5-7B-Instruct",
+    "Qwen2.5-14B-Instruct": {
+        "path": "/root/autodl-tmp/Qwen2.5-14B-Instruct",
+        "hf_id": "Qwen/Qwen2.5-14B-Instruct",
         "trust_remote_code": True,
         "gated": False,
+        "vram_weights_mb": 28000,  # ~28GB, 需要≥40GB卡跑8K
+    },
+    "Qwen2.5-32B-Instruct": {
+        "path": "/root/autodl-tmp/Qwen2.5-32B-Instruct",
+        "hf_id": "Qwen/Qwen2.5-32B-Instruct",
+        "trust_remote_code": True,
+        "gated": False,
+        "vram_weights_mb": 64000,  # ~64GB, 需要≥80GB卡跑8K, ≥70GB跑4K
     },
 }
 
@@ -477,8 +479,16 @@ def run_model_experiments(model_name, model_config, output_dir):
 
     if not os.path.exists(model_path):
         log(f"Local path not found: {model_path}")
-        log(f"Downloading from HuggingFace: {model_config['hf_id']}")
-        model_path = model_config["hf_id"]
+        log(f"Downloading from HuggingFace mirror: {model_config['hf_id']}")
+        # 预下载模型到本地路径
+        from huggingface_hub import snapshot_download
+        log(f"Downloading to {model_path} (this may take 20-40min for large models)...")
+        snapshot_download(
+            repo_id=model_config["hf_id"],
+            local_dir=model_path,
+            resume_download=True,
+        )
+        log(f"Download complete: {model_path}")
 
     log(f"Loading tokenizer from {model_path}...")
     tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=trust_rc)
@@ -503,14 +513,28 @@ def run_model_experiments(model_name, model_config, output_dir):
     log(f"Model: {info['layers']}L, {info['kv_heads']} KV heads, head_dim={info['head_dim']}, "
         f"KV={info['kv_bytes_per_token']} bytes/token, VRAM={vram_gb:.1f}GB, GPU={gpu_total_gb:.1f}GB")
 
-    # 根据显存动态调整最大序列长度
+    # 根据显存和模型大小动态调整最大序列长度
+    vram_weights_mb = model_config.get("vram_weights_mb", 0)
+    available_for_kv_mb = (gpu_total_gb * 1024) - vram_weights_mb - 2048  # 减2GB安全余量
+    # 估算KV per token: 需要从model info获取
+    kv_bytes_per_token = info.get("kv_bytes_per_token", 512)  # 默认512 bytes/token
+    # 8K KV所需MB
+    kv_8k_mb = (8192 * kv_bytes_per_token) / (1024 * 1024)
+    kv_4k_mb = (4096 * kv_bytes_per_token) / (1024 * 1024)
+
     max_seq_for_gpu = 8192
+    if available_for_kv_mb < kv_8k_mb:
+        max_seq_for_gpu = 4096
+        log(f"Available VRAM for KV ~{available_for_kv_mb:.0f}MB < 8K KV needs ~{kv_8k_mb:.0f}MB, capping to 4K")
+    if available_for_kv_mb < kv_4k_mb:
+        max_seq_for_gpu = 2048
+        log(f"Available VRAM for KV ~{available_for_kv_mb:.0f}MB < 4K KV needs ~{kv_4k_mb:.0f}MB, capping to 2K")
+    # Fallback: 按GPU总量判断
     if gpu_total_gb < 30:
-        max_seq_for_gpu = 4096
-        log(f"GPU < 30GB, capping max seq to {max_seq_for_gpu}")
-    if "9B" in model_name and gpu_total_gb < 40:
-        max_seq_for_gpu = 4096
-        log(f"9B model on < 40GB GPU, capping max seq to {max_seq_for_gpu}")
+        max_seq_for_gpu = min(max_seq_for_gpu, 4096)
+    if vram_weights_mb > 50000 and gpu_total_gb < 90000:
+        max_seq_for_gpu = min(max_seq_for_gpu, 4096)  # 32B模型在<90GB卡上限制4K
+    log(f"Max seq for this GPU+model: {max_seq_for_gpu}")
 
     mask_dtype = torch.bfloat16
 
@@ -745,10 +769,8 @@ def main():
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument("--models", nargs="+", default=None,
-                        help="Model names to run. Default: all")
+                        help="Model names to run. Default: all configured models")
     parser.add_argument("--output-dir", default=OUTPUT_DIR)
-    parser.add_argument("--skip-qwen", action="store_true",
-                        help="Skip Qwen2.5-7B (already have data)")
     args = parser.parse_args()
 
     os.makedirs(args.output_dir, exist_ok=True)
@@ -757,9 +779,6 @@ def main():
         models_to_run = {k: v for k, v in MODEL_CONFIGS.items() if k in args.models}
     else:
         models_to_run = MODEL_CONFIGS.copy()
-
-    if args.skip_qwen and "Qwen2.5-7B-Instruct" in models_to_run:
-        del models_to_run["Qwen2.5-7B-Instruct"]
 
     log(f"Models to run: {list(models_to_run.keys())}")
     log(f"Output: {args.output_dir}")
