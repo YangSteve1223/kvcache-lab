@@ -12,8 +12,26 @@
   "mask_dtype": "torch.bfloat16",
   "vram_gb": 29.5,
   "locality_characterization": {
-    "seq_4096": null,
-    "seq_8192": null
+    "seq_4096": {
+      "gini": 0.952,
+      "active_set_pct": 0.0088,
+      "remote_attention_pct": 0.1205,
+      "top_1pct_coverage": 0.8049,
+      "top_5pct_coverage": 0.8821,
+      "top_10pct_coverage": 0.9227,
+      "top_20pct_coverage": 0.9621,
+      "long_tail": false
+    },
+    "seq_8192": {
+      "gini": 0.966,
+      "active_set_pct": 0.005,
+      "remote_attention_pct": 0.1066,
+      "top_1pct_coverage": 0.8264,
+      "top_5pct_coverage": 0.9083,
+      "top_10pct_coverage": 0.9455,
+      "top_20pct_coverage": 0.9763,
+      "long_tail": false
+    }
   },
   "locality_vs_length": [
     {
