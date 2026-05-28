@@ -1,0 +1,127 @@
+{
+  "model": "qwen7b",
+  "seq_len": 2048,
+  "scan": [
+    {
+      "fr": 0.1,
+      "budget": 0.3,
+      "ppl": 9.75,
+      "delta_pct": 90.83,
+      "first_tokens": 61,
+      "last_tokens": 552
+    },
+    {
+      "fr": 0.1,
+      "budget": 0.5,
+      "ppl": 6.8398,
+      "delta_pct": 33.87,
+      "first_tokens": 102,
+      "last_tokens": 921
+    },
+    {
+      "fr": 0.1,
+      "budget": 0.7,
+      "ppl": 7.1914,
+      "delta_pct": 40.75,
+      "first_tokens": 143,
+      "last_tokens": 1290
+    },
+    {
+      "fr": 0.3,
+      "budget": 0.3,
+      "ppl": 9.3047,
+      "delta_pct": 82.11,
+      "first_tokens": 184,
+      "last_tokens": 430
+    },
+    {
+      "fr": 0.3,
+      "budget": 0.5,
+      "ppl": 6.3281,
+      "delta_pct": 23.85,
+      "first_tokens": 307,
+      "last_tokens": 716
+    },
+    {
+      "fr": 0.3,
+      "budget": 0.7,
+      "ppl": 5.9648,
+      "delta_pct": 16.74,
+      "first_tokens": 430,
+      "last_tokens": 1003
+    },
+    {
+      "fr": 0.5,
+      "budget": 0.3,
+      "ppl": 9.0156,
+      "delta_pct": 76.45,
+      "first_tokens": 307,
+      "last_tokens": 307
+    },
+    {
+      "fr": 0.5,
+      "budget": 0.5,
+      "ppl": 7.6836,
+      "delta_pct": 50.38,
+      "first_tokens": 512,
+      "last_tokens": 512
+    },
+    {
+      "fr": 0.5,
+      "budget": 0.7,
+      "ppl": 5.6367,
+      "delta_pct": 10.32,
+      "first_tokens": 716,
+      "last_tokens": 716
+    },
+    {
+      "fr": 0.7,
+      "budget": 0.3,
+      "ppl": 8.0547,
+      "delta_pct": 57.65,
+      "first_tokens": 430,
+      "last_tokens": 184
+    },
+    {
+      "fr": 0.7,
+      "budget": 0.5,
+      "ppl": 6.9336,
+      "delta_pct": 35.7,
+      "first_tokens": 716,
+      "last_tokens": 307
+    },
+    {
+      "fr": 0.7,
+      "budget": 0.7,
+      "ppl": 6.5156,
+      "delta_pct": 27.52,
+      "first_tokens": 1003,
+      "last_tokens": 430
+    },
+    {
+      "fr": 0.9,
+      "budget": 0.3,
+      "ppl": 8.3203,
+      "delta_pct": 62.84,
+      "first_tokens": 552,
+      "last_tokens": 61
+    },
+    {
+      "fr": 0.9,
+      "budget": 0.5,
+      "ppl": 6.6484,
+      "delta_pct": 30.12,
+      "first_tokens": 921,
+      "last_tokens": 102
+    },
+    {
+      "fr": 0.9,
+      "budget": 0.7,
+      "ppl": 5.6641,
+      "delta_pct": 10.86,
+      "first_tokens": 1290,
+      "last_tokens": 143
+    }
+  ],
+  "baseline_ppl": 5.109375
+}

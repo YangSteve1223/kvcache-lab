@@ -1,0 +1,97 @@
+{
+  "model": "gemma9b",
+  "seq_len": 2048,
+  "scan": [
+    {
+      "decay_rate": 0.001,
+      "budget": 0.3,
+      "ppl": 7.7422,
+      "delta_pct": 14.63
+    },
+    {
+      "decay_rate": 0.001,
+      "budget": 0.5,
+      "ppl": 5.9102,
+      "delta_pct": -12.49
+    },
+    {
+      "decay_rate": 0.001,
+      "budget": 0.7,
+      "ppl": 5.4688,
+      "delta_pct": -19.03
+    },
+    {
+      "decay_rate": 0.005,
+      "budget": 0.3,
+      "ppl": 7.7422,
+      "delta_pct": 14.63
+    },
+    {
+      "decay_rate": 0.005,
+      "budget": 0.5,
+      "ppl": 5.9102,
+      "delta_pct": -12.49
+    },
+    {
+      "decay_rate": 0.005,
+      "budget": 0.7,
+      "ppl": 5.4688,
+      "delta_pct": -19.03
+    },
+    {
+      "decay_rate": 0.01,
+      "budget": 0.3,
+      "ppl": 7.7422,
+      "delta_pct": 14.63
+    },
+    {
+      "decay_rate": 0.01,
+      "budget": 0.5,
+      "ppl": 5.9102,
+      "delta_pct": -12.49
+    },
+    {
+      "decay_rate": 0.01,
+      "budget": 0.7,
+      "ppl": 5.4688,
+      "delta_pct": -19.03
+    },
+    {
+      "decay_rate": 0.02,
+      "budget": 0.3,
+      "ppl": 7.7422,
+      "delta_pct": 14.63
+    },
+    {
+      "decay_rate": 0.02,
+      "budget": 0.5,
+      "ppl": 5.9102,
+      "delta_pct": -12.49
+    },
+    {
+      "decay_rate": 0.02,
+      "budget": 0.7,
+      "ppl": 5.4688,
+      "delta_pct": -19.03
+    },
+    {
+      "decay_rate": 0.05,
+      "budget": 0.3,
+      "ppl": 7.7422,
+      "delta_pct": 14.63
+    },
+    {
+      "decay_rate": 0.05,
+      "budget": 0.5,
+      "ppl": 5.9102,
+      "delta_pct": -12.49
+    },
+    {
+      "decay_rate": 0.05,
+      "budget": 0.7,
+      "ppl": 5.4688,
+      "delta_pct": -19.03
+    }
+  ],
+  "baseline_ppl": 6.75390625
+}

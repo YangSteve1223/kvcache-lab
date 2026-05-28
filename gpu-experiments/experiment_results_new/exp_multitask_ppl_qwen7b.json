@@ -1,0 +1,216 @@
+{
+  "model": "qwen7b",
+  "seq_len": 2048,
+  "results": [
+    {
+      "task": "wikitext2",
+      "strategy": "full",
+      "budget": 1.0,
+      "ppl": 5.1094,
+      "delta_pct": 0.0
+    },
+    {
+      "task": "wikitext2",
+      "strategy": "pdtrim_fr50",
+      "budget": 0.3,
+      "ppl": 9.0156,
+      "delta_pct": 76.45
+    },
+    {
+      "task": "wikitext2",
+      "strategy": "pdtrim_fr50",
+      "budget": 0.5,
+      "ppl": 7.6836,
+      "delta_pct": 50.38
+    },
+    {
+      "task": "wikitext2",
+      "strategy": "pdtrim_fr50",
+      "budget": 0.7,
+      "ppl": 5.6367,
+      "delta_pct": 10.32
+    },
+    {
+      "task": "wikitext2",
+      "strategy": "sws_sink16",
+      "budget": 0.3,
+      "ppl": 7.418,
+      "delta_pct": 45.18
+    },
+    {
+      "task": "wikitext2",
+      "strategy": "sws_sink16",
+      "budget": 0.5,
+      "ppl": 5.7617,
+      "delta_pct": 12.77
+    },
+    {
+      "task": "wikitext2",
+      "strategy": "sws_sink16",
+      "budget": 0.7,
+      "ppl": 5.0469,
+      "delta_pct": -1.22
+    },
+    {
+      "task": "wikitext2",
+      "strategy": "lru",
+      "budget": 0.3,
+      "ppl": 7.5625,
+      "delta_pct": 48.01
+    },
+    {
+      "task": "wikitext2",
+      "strategy": "lru",
+      "budget": 0.5,
+      "ppl": 7.4453,
+      "delta_pct": 45.72
+    },
+    {
+      "task": "wikitext2",
+      "strategy": "lru",
+      "budget": 0.7,
+      "ppl": 7.4766,
+      "delta_pct": 46.33
+    },
+    {
+      "task": "code",
+      "strategy": "full",
+      "budget": 1.0,
+      "ppl": 1.0586,
+      "delta_pct": 0.0
+    },
+    {
+      "task": "code",
+      "strategy": "pdtrim_fr50",
+      "budget": 0.3,
+      "ppl": 1.2051,
+      "delta_pct": 13.84
+    },
+    {
+      "task": "code",
+      "strategy": "pdtrim_fr50",
+      "budget": 0.5,
+      "ppl": 1.1445,
+      "delta_pct": 8.12
+    },
+    {
+      "task": "code",
+      "strategy": "pdtrim_fr50",
+      "budget": 0.7,
+      "ppl": 1.1133,
+      "delta_pct": 5.17
+    },
+    {
+      "task": "code",
+      "strategy": "sws_sink16",
+      "budget": 0.3,
+      "ppl": 1.2012,
+      "delta_pct": 13.47
+    },
+    {
+      "task": "code",
+      "strategy": "sws_sink16",
+      "budget": 0.5,
+      "ppl": 1.1172,
+      "delta_pct": 5.54
+    },
+    {
+      "task": "code",
+      "strategy": "sws_sink16",
+      "budget": 0.7,
+      "ppl": 1.084,
+      "delta_pct": 2.4
+    },
+    {
+      "task": "code",
+      "strategy": "lru",
+      "budget": 0.3,
+      "ppl": 1.1758,
+      "delta_pct": 11.07
+    },
+    {
+      "task": "code",
+      "strategy": "lru",
+      "budget": 0.5,
+      "ppl": 1.1172,
+      "delta_pct": 5.54
+    },
+    {
+      "task": "code",
+      "strategy": "lru",
+      "budget": 0.7,
+      "ppl": 1.0811,
+      "delta_pct": 2.12
+    },
+    {
+      "task": "science",
+      "strategy": "full",
+      "budget": 1.0,
+      "ppl": 1.3115,
+      "delta_pct": 0.0
+    },
+    {
+      "task": "science",
+      "strategy": "pdtrim_fr50",
+      "budget": 0.3,
+      "ppl": 2.6953,
+      "delta_pct": 105.51
+    },
+    {
+      "task": "science",
+      "strategy": "pdtrim_fr50",
+      "budget": 0.5,
+      "ppl": 1.7764,
+      "delta_pct": 35.44
+    },
+    {
+      "task": "science",
+      "strategy": "pdtrim_fr50",
+      "budget": 0.7,
+      "ppl": 1.5127,
+      "delta_pct": 15.34
+    },
+    {
+      "task": "science",
+      "strategy": "sws_sink16",
+      "budget": 0.3,
+      "ppl": 2.4121,
+      "delta_pct": 83.92
+    },
+    {
+      "task": "science",
+      "strategy": "sws_sink16",
+      "budget": 0.5,
+      "ppl": 1.7119,
+      "delta_pct": 30.53
+    },
+    {
+      "task": "science",
+      "strategy": "sws_sink16",
+      "budget": 0.7,
+      "ppl": 1.4707,
+      "delta_pct": 12.14
+    },
+    {
+      "task": "science",
+      "strategy": "lru",
+      "budget": 0.3,
+      "ppl": 2.5156,
+      "delta_pct": 91.81
+    },
+    {
+      "task": "science",
+      "strategy": "lru",
+      "budget": 0.5,
+      "ppl": 1.6953,
+      "delta_pct": 29.26
+    },
+    {
+      "task": "science",
+      "strategy": "lru",
+      "budget": 0.7,
+      "ppl": 1.4824,
+      "delta_pct": 13.03
+    }
+  ]
+}

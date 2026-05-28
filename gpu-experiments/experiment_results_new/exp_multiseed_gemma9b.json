@@ -1,0 +1,220 @@
+{
+  "model": "gemma9b",
+  "seq_len": 2048,
+  "seeds": [
+    42,
+    123,
+    456,
+    789,
+    1024,
+    1337,
+    2048
+  ],
+  "results": [
+    {
+      "strategy": "random",
+      "budget": 0.3,
+      "mean_ppl": 3004.1429,
+      "std_ppl": 2689.2401,
+      "ci95": 1992.2169,
+      "delta_pct": 44380.08,
+      "individual_ppls": [
+        4336.0,
+        1034.0,
+        912.5,
+        5744.0,
+        983.0,
+        7152.0,
+        867.5
+      ]
+    },
+    {
+      "strategy": "random",
+      "budget": 0.5,
+      "mean_ppl": 278.3929,
+      "std_ppl": 101.8138,
+      "ci95": 75.4247,
+      "delta_pct": 4021.95,
+      "individual_ppls": [
+        502.0,
+        247.625,
+        257.5,
+        266.75,
+        258.5,
+        193.625,
+        222.75
+      ]
+    },
+    {
+      "strategy": "random",
+      "budget": 0.7,
+      "mean_ppl": 56.183,
+      "std_ppl": 4.7096,
+      "ci95": 3.4889,
+      "delta_pct": 731.86,
+      "individual_ppls": [
+        53.4375,
+        53.2188,
+        56.7812,
+        64.0625,
+        59.7188,
+        49.7188,
+        56.3438
+      ]
+    },
+    {
+      "strategy": "lru",
+      "budget": 0.3,
+      "mean_ppl": 25.4844,
+      "std_ppl": 0.0,
+      "ci95": 0.0,
+      "delta_pct": 277.33,
+      "individual_ppls": [
+        25.4844,
+        25.4844,
+        25.4844,
+        25.4844,
+        25.4844,
+        25.4844,
+        25.4844
+      ]
+    },
+    {
+      "strategy": "lru",
+      "budget": 0.5,
+      "mean_ppl": 15.4609,
+      "std_ppl": 0.0,
+      "ci95": 0.0,
+      "delta_pct": 128.92,
+      "individual_ppls": [
+        15.4609,
+        15.4609,
+        15.4609,
+        15.4609,
+        15.4609,
+        15.4609,
+        15.4609
+      ]
+    },
+    {
+      "strategy": "lru",
+      "budget": 0.7,
+      "mean_ppl": 13.3281,
+      "std_ppl": 0.0,
+      "ci95": 0.0,
+      "delta_pct": 97.34,
+      "individual_ppls": [
+        13.3281,
+        13.3281,
+        13.3281,
+        13.3281,
+        13.3281,
+        13.3281,
+        13.3281
+      ]
+    },
+    {
+      "strategy": "pdtrim_fr50",
+      "budget": 0.3,
+      "mean_ppl": 10.0,
+      "std_ppl": 0.0,
+      "ci95": 0.0,
+      "delta_pct": 48.06,
+      "individual_ppls": [
+        10.0,
+        10.0,
+        10.0,
+        10.0,
+        10.0,
+        10.0,
+        10.0
+      ]
+    },
+    {
+      "strategy": "pdtrim_fr50",
+      "budget": 0.5,
+      "mean_ppl": 9.5078,
+      "std_ppl": 0.0,
+      "ci95": 0.0,
+      "delta_pct": 40.78,
+      "individual_ppls": [
+        9.5078,
+        9.5078,
+        9.5078,
+        9.5078,
+        9.5078,
+        9.5078,
+        9.5078
+      ]
+    },
+    {
+      "strategy": "pdtrim_fr50",
+      "budget": 0.7,
+      "mean_ppl": 8.1484,
+      "std_ppl": 0.0,
+      "ci95": 0.0,
+      "delta_pct": 20.65,
+      "individual_ppls": [
+        8.1484,
+        8.1484,
+        8.1484,
+        8.1484,
+        8.1484,
+        8.1484,
+        8.1484
+      ]
+    },
+    {
+      "strategy": "sws_sink16",
+      "budget": 0.3,
+      "mean_ppl": 7.7422,
+      "std_ppl": 0.0,
+      "ci95": 0.0,
+      "delta_pct": 14.63,
+      "individual_ppls": [
+        7.7422,
+        7.7422,
+        7.7422,
+        7.7422,
+        7.7422,
+        7.7422,
+        7.7422
+      ]
+    },
+    {
+      "strategy": "sws_sink16",
+      "budget": 0.5,
+      "mean_ppl": 5.9102,
+      "std_ppl": 0.0,
+      "ci95": 0.0,
+      "delta_pct": -12.49,
+      "individual_ppls": [
+        5.9102,
+        5.9102,
+        5.9102,
+        5.9102,
+        5.9102,
+        5.9102,
+        5.9102
+      ]
+    },
+    {
+      "strategy": "sws_sink16",
+      "budget": 0.7,
+      "mean_ppl": 5.4688,
+      "std_ppl": 0.0,
+      "ci95": 0.0,
+      "delta_pct": -19.03,
+      "individual_ppls": [
+        5.4688,
+        5.4688,
+        5.4688,
+        5.4688,
+        5.4688,
+        5.4688,
+        5.4688
+      ]
+    }
+  ],
+  "baseline_ppl": 6.75390625
+}
