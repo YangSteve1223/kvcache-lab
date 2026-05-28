@@ -1,0 +1,90 @@
+{
+  "model": "Mistral-7B-Instruct-v0.3",
+  "method": "sink_aware_position_ids",
+  "seq_len": 2048,
+  "actual_len": 1646,
+  "baseline_ppl": 1.0615234375,
+  "experiments": {
+    "budget50_sink0": {
+      "budget": 0.5,
+      "sink_size": 0,
+      "window_size": 823,
+      "keep_total": 823,
+      "ppl": 1.0617516843962227,
+      "ppl_change_pct": 0.021501823526406564,
+      "time_sec": 7.394928216934204
+    },
+    "budget50_sink1": {
+      "budget": 0.5,
+      "sink_size": 1,
+      "window_size": 822,
+      "keep_total": 823,
+      "ppl": 1.0613093400075906,
+      "ppl_change_pct": -0.020168889809313816,
+      "time_sec": 5.03349494934082
+    },
+    "budget50_sink4": {
+      "budget": 0.5,
+      "sink_size": 4,
+      "window_size": 819,
+      "keep_total": 823,
+      "ppl": 1.0612340640529563,
+      "ppl_change_pct": -0.027260203290962858,
+      "time_sec": 5.024893283843994
+    },
+    "budget50_sink8": {
+      "budget": 0.5,
+      "sink_size": 8,
+      "window_size": 815,
+      "keep_total": 823,
+      "ppl": 1.0611140307256273,
+      "ppl_change_pct": -0.03856785068607905,
+      "time_sec": 5.026142120361328
+    },
+    "budget50_sink16": {
+      "budget": 0.5,
+      "sink_size": 16,
+      "window_size": 807,
+      "keep_total": 823,
+      "ppl": 1.0612485917769807,
+      "ppl_change_pct": -0.02589163020899189,
+      "time_sec": 5.027336359024048
+    },
+    "budget30_sink4": {
+      "budget": 0.3,
+      "sink_size": 4,
+      "window_size": 489,
+      "keep_total": 493,
+      "ppl": 1.062421502943575,
+      "ppl_change_pct": 0.08460156524571028,
+      "time_sec": 3.468276262283325
+    },
+    "budget30_sink8": {
+      "budget": 0.3,
+      "sink_size": 8,
+      "window_size": 485,
+      "keep_total": 493,
+      "ppl": 1.0621300543996248,
+      "ppl_change_pct": 0.05714587904469357,
+      "time_sec": 3.4755733013153076
+    },
+    "budget70_sink4": {
+      "budget": 0.7,
+      "sink_size": 4,
+      "window_size": 1148,
+      "keep_total": 1152,
+      "ppl": 1.0614924650633661,
+      "ppl_change_pct": -0.0029177346010184706,
+      "time_sec": 6.639779806137085
+    },
+    "budget70_sink8": {
+      "budget": 0.7,
+      "sink_size": 8,
+      "window_size": 1144,
+      "keep_total": 1152,
+      "ppl": 1.0613106250311373,
+      "ppl_change_pct": -0.02004783515321423,
+      "time_sec": 6.6541571617126465
+    }
+  }
+}
