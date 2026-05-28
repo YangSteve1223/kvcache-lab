@@ -1,0 +1,229 @@
+{
+  "model": "qwen7b",
+  "tests": [
+    {
+      "test": "T1_needle_in_selection",
+      "strategy": "pdtrim",
+      "budget": 0.5,
+      "total_tokens": 1972,
+      "kept_tokens": 986,
+      "needle_start": 776,
+      "needle_end": 789,
+      "needle_tokens_kept": 0,
+      "needle_tokens_total": 13,
+      "needle_coverage": 0.0
+    },
+    {
+      "test": "T1_needle_in_selection",
+      "strategy": "sws",
+      "budget": 0.5,
+      "total_tokens": 1972,
+      "kept_tokens": 986,
+      "needle_start": 776,
+      "needle_end": 789,
+      "needle_tokens_kept": 13,
+      "needle_tokens_total": 13,
+      "needle_coverage": 1.0
+    },
+    {
+      "test": "T2_position_ids",
+      "strategy": "pdtrim",
+      "budget": 0.5,
+      "original_pos_found": false,
+      "original_pos_response": "There is no passcode, confirmation number, or project identifier mentioned in the text provided.",
+      "reindexed_found": false,
+      "reindexed_response": "The park is located near the river. Trees provide shade during summer. Birds sing in the morning. The sidewalk runs along the garden. Rain falls gently",
+      "no_pos_found": false,
+      "no_pos_response": "The park is located near the river. Trees provide shade during summer. Birds sing in the morning. The sidewalk runs along the garden. Rain falls gently"
+    },
+    {
+      "test": "T2_position_ids",
+      "strategy": "sws",
+      "budget": 0.5,
+      "original_pos_found": false,
+      "original_pos_response": " falls gently on the roof. Clouds drift across the sky. Leaves turn color in autumn. Snow covers the ground in winter. Flowers bloom in spring",
+      "reindexed_found": false,
+      "reindexed_response": " falls gently on the roof. Clouds drift across the sky. Leaves turn color in autumn. Snow covers the ground in winter. Flowers bloom in spring",
+      "no_pos_found": false,
+      "no_pos_response": " falls gently on the roof. Clouds drift across the sky. Leaves turn color in autumn. Snow covers the ground in winter. Flowers bloom in spring"
+    },
+    {
+      "test": "T3_passage_variation",
+      "passage_idx": 0,
+      "needle_idx": 0,
+      "needle_answer": "9274",
+      "full_found": true,
+      "full_response": "9274",
+      "pdtrim05_found": false,
+      "pdtrim05_response": "There is no passcode, confirmation number, or project identifier mentioned in the text provided."
+    },
+    {
+      "test": "T3_passage_variation",
+      "passage_idx": 0,
+      "needle_idx": 1,
+      "needle_answer": "FXD83",
+      "full_found": true,
+      "full_response": "FXD83",
+      "pdtrim05_found": false,
+      "pdtrim05_response": "There is no passcode, confirmation number, or project identifier mentioned in the text provided."
+    },
+    {
+      "test": "T3_passage_variation",
+      "passage_idx": 0,
+      "needle_idx": 2,
+      "needle_answer": "MANGO-TEAL-7",
+      "full_found": true,
+      "full_response": "MANGO-TEAL-7",
+      "pdtrim05_found": false,
+      "pdtrim05_response": "There is no passcode, confirmation number, or project identifier mentioned in the text provided."
+    },
+    {
+      "test": "T3_passage_variation",
+      "passage_idx": 1,
+      "needle_idx": 0,
+      "needle_answer": "9274",
+      "full_found": true,
+      "full_response": "9274",
+      "pdtrim05_found": false,
+      "pdtrim05_response": "There is no passcode, confirmation number, or project identifier mentioned in the text provided."
+    },
+    {
+      "test": "T3_passage_variation",
+      "passage_idx": 1,
+      "needle_idx": 1,
+      "needle_answer": "FXD83",
+      "full_found": true,
+      "full_response": "FXD83",
+      "pdtrim05_found": false,
+      "pdtrim05_response": "There is no passcode, confirmation number, or project identifier mentioned in the text provided."
+    },
+    {
+      "test": "T3_passage_variation",
+      "passage_idx": 1,
+      "needle_idx": 2,
+      "needle_answer": "MANGO-TEAL-7",
+      "full_found": true,
+      "full_response": "MANGO-TEAL-7",
+      "pdtrim05_found": false,
+      "pdtrim05_response": "There is no passcode, confirmation number, or project identifier mentioned in the text provided."
+    },
+    {
+      "test": "T3_passage_variation",
+      "passage_idx": 2,
+      "needle_idx": 0,
+      "needle_answer": "9274",
+      "full_found": true,
+      "full_response": "9274",
+      "pdtrim05_found": false,
+      "pdtrim05_response": "There is no passcode, confirmation number, or project identifier mentioned in the provided text."
+    },
+    {
+      "test": "T3_passage_variation",
+      "passage_idx": 2,
+      "needle_idx": 1,
+      "needle_answer": "FXD83",
+      "full_found": true,
+      "full_response": "FXD83",
+      "pdtrim05_found": false,
+      "pdtrim05_response": "There is no passcode, confirmation number, or project identifier mentioned in the provided text."
+    },
+    {
+      "test": "T3_passage_variation",
+      "passage_idx": 2,
+      "needle_idx": 2,
+      "needle_answer": "MANGO-TEAL-7",
+      "full_found": true,
+      "full_response": "MANGO-TEAL-7",
+      "pdtrim05_found": false,
+      "pdtrim05_response": "There is no passcode, confirmation number, or project identifier mentioned in the provided text."
+    },
+    {
+      "test": "T4_higher_budget",
+      "strategy": "pdtrim",
+      "budget": 0.6,
+      "found": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the text provided."
+    },
+    {
+      "test": "T4_higher_budget",
+      "strategy": "sws",
+      "budget": 0.6,
+      "found": false,
+      "response": " the valley. Paths wind between the hills. The park is located near the river. Trees provide shade during summer. Birds sing in the morning. The"
+    },
+    {
+      "test": "T4_higher_budget",
+      "strategy": "pdtrim",
+      "budget": 0.7,
+      "found": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the provided text."
+    },
+    {
+      "test": "T4_higher_budget",
+      "strategy": "sws",
+      "budget": 0.7,
+      "found": false,
+      "response": " roof. Clouds drift across the sky. Leaves turn color in autumn. Snow covers the ground in winter. Flowers bloom in springtime. The lake"
+    },
+    {
+      "test": "T4_higher_budget",
+      "strategy": "pdtrim",
+      "budget": 0.8,
+      "found": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the text provided."
+    },
+    {
+      "test": "T4_higher_budget",
+      "strategy": "sws",
+      "budget": 0.8,
+      "found": false,
+      "response": " wind between the hills. The park is located near the river. Trees provide shade during summer. Birds sing in the morning. The sidewalk runs along the"
+    },
+    {
+      "test": "T4_higher_budget",
+      "strategy": "pdtrim",
+      "budget": 0.9,
+      "found": true,
+      "response": "9274"
+    },
+    {
+      "test": "T4_higher_budget",
+      "strategy": "sws",
+      "budget": 0.9,
+      "found": false,
+      "response": " drift across the sky. Leaves turn color in autumn. Snow covers the ground in winter. Flowers bloom in springtime. The lake reflects the mountains."
+    },
+    {
+      "test": "T5_short_context",
+      "ctx_len": 512,
+      "full_found": true,
+      "pdtrim05_found": false,
+      "full_response": "9274",
+      "pdtrim05_response": "The park is located near the river. Trees provide shade during summer."
+    },
+    {
+      "test": "T5_short_context",
+      "ctx_len": 1024,
+      "full_found": true,
+      "pdtrim05_found": false,
+      "full_response": "9274",
+      "pdtrim05_response": "There is no passcode, confirmation number, or project identifier mentioned in the provided text."
+    },
+    {
+      "test": "T6_needle_at_position_0",
+      "strategy": "pdtrim",
+      "budget": 0.5,
+      "needle_in_selection": true,
+      "found": true,
+      "response": "9274"
+    },
+    {
+      "test": "T6_needle_at_position_0",
+      "strategy": "sws",
+      "budget": 0.5,
+      "needle_in_selection": true,
+      "found": false,
+      "response": ". The sidewalk runs along the garden. Rain falls gently on the roof. Clouds drift across the sky. Leaves turn color in autumn. Snow covers"
+    }
+  ]
+}
