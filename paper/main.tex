@@ -1,652 +1,695 @@
-\documentclass[11pt,a4paper]{article}
+\documentclass[11pt]{article}
 
-% ---- Standard formatting (no arxiv.sty dependency) ----
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{times}
 \usepackage[margin=1in]{geometry}
-\usepackage{url}
-\usepackage{booktabs}
-\usepackage{amsfonts}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{nicefrac}
+\usepackage{times}
 \usepackage{microtype}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{array}
 \usepackage{graphicx}
-\usepackage{natbib}
 \usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{caption}
 \usepackage{subcaption}
-\usepackage{algorithm}
-\usepackage{algorithmic}
-% Load hyperref and cleveref last (order matters)
-\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
-\usepackage{cleveref}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,fit,calc,shapes.geometric}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[hidelinks]{hyperref}
 
-% Define \keywords command (normally from arxiv.sty)
-\providecommand{\keywords}[1]{\par\medskip\noindent\textbf{Keywords:} #1}
+\newcommand{\method}{KV-WorkingSet}
+\newcommand{\sws}{SWS}
+\newcommand{\taa}{TAA}
+\newcommand{\kv}{KV}
+\newcommand{\ppl}{PPL}
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+\newcommand{\pct}{\%}
+\newcommand{\eg}{e.g.}
+\newcommand{\ie}{i.e.}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
 
-\title{Runtime KV Memory Management for\\PD-Disaggregated LLM Serving}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
 
-\author{
-    Yang Pengju \and kvcache-lab Team \\[6pt]
-    Jilin University
-}
-
+\title{Runtime KV Memory Management for PD-Disaggregated LLM Serving}
+\author{Pengju Yang\\
+Jilin University\\
+\texttt{yangsteve1223@github}}
 \date{}
 
 \begin{document}
-
 \maketitle
 
 \begin{abstract}
-Prefill-Decode (PD) disaggregation has emerged as a promising architecture for low-latency LLM serving, but introduces a severe memory bottleneck: the decode node must maintain the entire KV cache for all in-flight requests. We make a key observation that \textbf{decode-time KV access exhibits strong locality}---a small fraction of KV pairs dominates attention computation, and this locality intensifies with longer contexts. We characterize this phenomenon across diverse workloads, finding a Gini coefficient of 0.911, with only 9\% of KV pairs capturing 80\% of attention mass, and an active working set of merely $\sim$45 tokens that remains constant regardless of context length. This locality enables \emph{runtime KV tiering}: rather than compressing or discarding KV cache, we tier it---maintaining hot KV pairs in local GPU memory while demoting cold pairs to remote storage where they remain accessible on demand. We present SWS (Sliding Window Sharing), a tiered KV memory management framework that exploits decode locality, and TAA (Task-Aware Attention), a lightweight locality-aware guidance mechanism with $<$0.04\% overhead. On Qwen2.5-7B with A100 GPUs, SWS achieves 50\% memory budget with near-lossless quality ($\Delta$PPL $<$0.3\% at $\geq$2K context), reduces memory footprint by up to 99.8\%, and enables 8$\times$ higher concurrency under 32K context. Unlike sliding window attention, SWS provides \emph{tiering} (demotion, not deletion), preserving full context accessibility.
+Prefill-decode (PD) disaggregation is becoming a common systems pattern for serving large language models: prefill is compute-intensive, while decode is dominated by repeated access to growing key-value (KV) state.  This paper asks whether the decode-side KV state should be treated as a flat resident object, or as a runtime working set that can be placed across tiers.
+
+We characterize decode attention on Qwen2.5-7B, Qwen2.5-14B, Mistral-7B, and Gemma-2-9B using attention tensors produced after rotary position embedding and causal/sliding-window masks have been applied.  Across these model families, per-token KV access is highly skewed: the Gini coefficient ranges from 0.866 to 0.952, and the 80\pct{} active set occupies only 5--21\pct{} of the context.  The skew is not uniform.  We identify three recurring patterns: \emph{local-dominant} models, where recent tokens dominate; \emph{sink-dominant} models, where the beginning of the sequence receives much of the non-local attention; and \emph{hybrid} models, where local and global layers coexist.
+
+Motivated by this structure, we propose \method{}, a runtime policy that treats decode KV as an operating-system-like working set.  Its simplest policy, sink-aware sliding working set (\sws), keeps a small number of sink tokens plus a recent window in GPU memory while preserving the full logical context in colder tiers.  On Qwen2.5-7B, 50\pct{} KV budgets are near-lossless for 2K--8K contexts; on corrected Mistral-7B experiments, 30--70\pct{} budgets change perplexity by at most 0.1\pct{}; and on Gemma-2-9B, adding 16 sink tokens reduces the 30\pct{}-budget degradation from 11.84\pct{} to 0.47\pct{}.  We also evaluate a lightweight tier-aware attention adapter whose measured overhead remains below 0.04\pct{} at 32K tokens.
+
+This is an empirical and prototype study rather than a fully optimized production runtime.  The results suggest that KV memory management should be pattern-aware: sliding windows are sufficient for some models, sink preservation is necessary for others, and hybrid architectures benefit from layer-aware policies.
 \end{abstract}
 
-\keywords{LLM Serving \and KV Cache \and Prefill-Decode Disaggregation \and Memory Management \and Locality \and Tiered Storage}
-
-%% ============================================================
-%% SECTION 1: INTRODUCTION
-%% ============================================================
 \section{Introduction}
+\label{sec:intro}
+Large language model (LLM) serving is increasingly split into two phases.  The \emph{prefill} phase processes the input prompt in parallel and is usually compute-heavy; the \emph{decode} phase produces one token at a time and repeatedly reads the key-value cache accumulated so far.  Systems such as vLLM/PagedAttention, Splitwise, DistServe, and Mooncake have shown that memory management and phase disaggregation are first-order design decisions for LLM serving rather than implementation details \citep{kwon2023vllm,patel2023splitwise,zhong2024distserve,qin2024mooncake}.
 
-Modern LLM serving systems increasingly adopt Prefill-Decode (PD) disaggregation~\citep{zhiheng2024disagg, spaeth2024splitwise, lee2024tetris}, separating the compute-intensive prefill phase from the memory-bound decode phase across distinct GPU clusters. This architecture enables independent scaling and efficient context reuse, but creates a critical memory bottleneck: the decode node must host the \emph{entire} KV cache for all concurrent requests. For a 7B model serving 32K-context requests, each sequence consumes $\sim$1.7GB---making high concurrency infeasible on a single decode node.
+PD disaggregation improves resource allocation by decoupling prefill and decode workers, but it also makes KV state a distributed systems object.  KV state may be transferred from prefill workers to decode workers, retained in GPU memory, stored in CPU memory, or paged across nodes.  The conventional assumption is conservative: once a token enters the model's context, its KV vectors are equally eligible for future attention.  If this assumption were true, memory tiering would either harm quality or require frequent remote fetches.
 
-Existing approaches to reducing KV memory footprint fall into two categories, both problematic:
-\textbf{(1)~Compression}~\citep{hooper2024kv, liu2024cacheblend} reduces precision or merges tokens, but introduces irreversible quality loss;
-\textbf{(2)~Deletion}~\citep{beltagy2020longformer, xiao2023streaming} permanently discards older tokens, violating the accessibility requirement for multi-turn conversations and agentic workflows.
+Our experiments show that this assumption is too pessimistic for many decode workloads.  Decode attention has a small working set.  On Qwen2.5-7B, the top 20\pct{} of tokens receive approximately 95\pct{} of the attention mass, and the 80\pct{} active set occupies roughly 9\pct{} of the context.  In a multi-model study, all four tested model families have Gini coefficients above 0.85.  However, the \emph{shape} of locality differs by architecture and workload: Qwen is local-dominant, Mistral is sink-dominant, and Gemma exhibits a hybrid pattern.
 
-This paper presents a \emph{fundamentally different} approach, grounded in a systems-level observation: \textbf{decode-phase KV access exhibits strong locality, analogous to the working set phenomenon in operating systems}. We measure this locality across diverse workloads and context lengths, finding that a remarkably small fraction of KV pairs---approximately 9\%---captures 80\% of attention mass during decoding, with the active working set remaining constant at $\sim$45 tokens regardless of total context length. This locality intensifies as context grows: at 4K tokens, retaining only 50\% of KV cache incurs negligible quality degradation ($\Delta$PPL = $-$0.21\%).
-
-This observation motivates \emph{runtime KV tiering}: rather than compressing or deleting KV cache, we tier it. Hot KV pairs (the working set) reside in fast local GPU memory; cold KV pairs are demoted to remote storage but remain accessible on demand. This approach mirrors tiered memory management in operating systems---hot pages in DRAM, cold pages in swap---and avoids the irreversible information loss inherent in compression and deletion.
-
-We realize this vision through two mechanisms:
-
-\textbf{SWS (Sliding Window Sharing)} is a runtime KV memory management framework that maintains a local working set window of hot KV pairs while demoting cold pairs to a remote tier. We emphasize a critical distinction: SWS $\neq$ sliding window attention (SWA). SWA \emph{deletes} tokens outside the window, permanently removing their information. SWS \emph{demotes} tokens to a slower tier, preserving full accessibility---analogous to page demotion versus page deletion in OS memory management.
-
-\textbf{TAA (Task-Aware Attention)} provides lightweight locality-aware guidance that stabilizes aggressive KV tiering. By injecting a small bias ($\alpha$) toward local KV pairs, TAA encourages the model to rely on its working set, improving the predictability of locality patterns. TAA incurs $<$0.04\% overhead, making it a practical enabling mechanism rather than a heavy-weight optimizer.
-
-Our contributions are:
-
-\begin{enumerate}
-    \item \textbf{Locality characterization}: We identify and quantify decode-time KV locality, demonstrating that KV access follows a heavy-tailed distribution (Gini = 0.911) with a constant-size active working set ($\sim$45 tokens). This locality is workload-dependent but universally present, and intensifies with context length.
-    \item \textbf{Runtime KV tiering}: We present SWS, a tiered KV memory framework that exploits decode locality without permanently discarding context. SWS fundamentally differs from sliding window attention (tiering vs.\ deletion).
-    \item \textbf{Locality-aware guidance}: We design TAA, a low-overhead mechanism ($<$0.04\%) that provides locality-aware attention guidance, stabilizing aggressive tiering decisions.
-    \item \textbf{Comprehensive evaluation}: On Qwen2.5-7B with A100 GPUs, SWS achieves 50\% memory budget with near-lossless quality ($\Delta$PPL $<$0.3\% at $\geq$2K context), up to 99.8\% memory reduction, and 8$\times$ higher concurrency under 32K context.
+This paper makes four contributions.
+\begin{enumerate}[leftmargin=1.5em]
+  \item We provide a corrected measurement methodology for decode KV locality.  Measuring pre-RoPE query/key tensors through hooks can substantially underestimate locality; attention tensors after positional encoding and masking give the locality actually used by the model.
+  \item We characterize KV access skew across four model families and identify three policy-relevant patterns: local-dominant, sink-dominant, and hybrid.
+  \item We introduce \method{}, a working-set view of runtime KV memory management.  We present a sink-aware sliding working-set policy and a tier-aware attention adapter.
+  \item We evaluate memory-quality tradeoffs, sink sensitivity, overhead, and serving stress tests.  We also identify the missing experiments required to turn the current prototype into a systems-conference submission.
 \end{enumerate}
 
-%% ============================================================
-%% SECTION 2: BACKGROUND
-%% ============================================================
-\section{Background}
+The main message is not that all old KV can be deleted.  Instead, KV should be treated like virtual memory: the full logical context remains available, while the hot working set is preferentially kept in the fastest tier.  This distinction is important for long-context correctness, retrieval-style tasks, and PD systems where rare remote dependencies may matter.
 
-\subsection{LLM Serving and PD Disaggregation}
+\section{Background and Motivation}
+\label{sec:background}
+\subsection{Decode KV memory in PD serving}
+For a Transformer layer with hidden size $d$, number of key-value heads $h_{kv}$, per-head dimension $d_h$, and sequence length $n$, the KV cache contains keys and values for every previous token.  Its size grows linearly with sequence length, number of layers, and concurrency.  During prefill, KV is produced in large matrix operations; during decode, every generated token reads a subset of the accumulated KV state before appending a new KV entry.
 
-Modern LLM serving follows the autoregressive paradigm: each new token attends to all previous tokens via the KV cache. The prefill phase processes the input prompt with high parallelism, while the decode phase generates tokens sequentially with limited parallelism. These two phases have fundamentally different resource profiles: prefill is compute-bound, decode is memory-bound.
-
-PD disaggregation~\citep{zhiheng2024disagg, spaeth2024splitwise, lee2024tetris} separates these phases onto distinct GPU clusters. The prefill node handles batched prompt processing; the decode node generates tokens one at a time. KV cache generated during prefill is transferred to the decode node for context reuse.
-
-\begin{table}[htbp]
-    \centering
-    \caption{Baseline Performance Characteristics (No PD Separation, Qwen2.5-7B)}
-    \begin{tabular}{cccc}
-        \toprule
-        Context Length & TTFT (ms) & TPOT (ms) & PPL \\
-        \midrule
-        1K & 185.6 & 26.8 & 1.1331 \\
-        32K & 4,272.4 & 35.1 & 1.0454 \\
-        \bottomrule
-    \end{tabular}
-    \label{tab:baseline}
-\end{table}
-
-\subsection{The Decode-Side Memory Bottleneck}
-
-Under PD disaggregation, the decode node must maintain the full KV cache for all in-flight requests. For a 7B model with 28 layers, 4 KV heads (GQA), and head dimension 128, each token requires 57,344 bytes of KV cache (fp16). Table~\ref{tab:kv-transfer} quantifies the resulting transfer overhead.
-
-\begin{table}[htbp]
-    \centering
-    \caption{KV Transfer Overhead Under PD Separation}
-    \begin{tabular}{ccccc}
-        \toprule
-        Context & KV Size & 25\,Gbps & 100\,Gbps \\
-        \midrule
-        8K & 444\,MB & 149\,ms & 37.2\,ms \\
-        32K & 1,776\,MB & 594.9\,ms & 148.7\,ms \\
-        \bottomrule
-    \end{tabular}
-    \label{tab:kv-transfer}
-\end{table}
-
-At 32K context, each request consumes $\sim$1.7GB. A single A100 (80GB) can serve at most $\sim$45 concurrent 32K requests before accounting for model weights---and far fewer in practice. This memory bottleneck is the primary obstacle to high-concurrency long-context serving.
-
-\subsection{Why Existing Approaches Fall Short}
-
-\textbf{Sliding window attention (SWA)}~\citep{beltagy2020longformer, child2019generating} restricts the attention receptive field to a fixed window. While this reduces memory, it \emph{permanently deletes} tokens outside the window, making them inaccessible even when needed. This violates the correctness requirements of multi-turn conversations and agentic workflows.
-
-\textbf{KV cache compression}~\citep{hooper2024kv, liu2024cacheblend} reduces memory through quantization or token merging, but introduces irreversible quality degradation. Compression also operates at the \emph{data representation} level---it does not exploit the \emph{access pattern} of KV cache during decoding.
-
-\textbf{StreamingLLM}~\citep{xiao2023streaming} enables infinite-length generation via attention sinks, but discards intermediate context, limiting its applicability to tasks requiring full context recall.
-
-We observe that these approaches share a common assumption: \emph{all historical KV pairs are equally important during decoding}. This assumption is wrong. The next section presents empirical evidence that decode-time KV access is highly concentrated, enabling a fundamentally different approach---runtime KV tiering.
-
-%% ============================================================
-%% SECTION 3: CHARACTERIZING DECODE-TIME KV LOCALITY (CORE CONTRIBUTION)
-%% ============================================================
-\section{Characterizing Decode-Time KV Locality}
-\label{sec:locality}
-
-This section presents our core empirical finding: decode-time KV access exhibits strong locality. We quantify this locality across multiple dimensions---overall concentration, active set size, workload dependence, and context-length scaling---and argue that it enables runtime KV tiering as a natural systems solution.
-
-\subsection{Experimental Methodology}
-
-We measure KV locality using Qwen2.5-7B-Instruct on an NVIDIA A100 (80GB) GPU. For each decode step, we record the attention weight distribution across all historical KV positions. We test five workload types---narrative text, Python code, QA format, summarization, and repetitive text---at three context lengths (512, 1024, 2048 tokens). We assume a PD split where 70\% of KV pairs reside on the remote tier.
-
-\subsection{Overall Concentration: Heavy-Tailed Access Distribution}
-
-\begin{figure}[t]
-    \centering
-    \textcolor{red}{[Figure 1: KV Access CDF --- x: fraction of KV tokens, y: cumulative attention mass]}
-    \caption{CDF of KV access frequency during decoding. The distribution is heavily skewed: 10\% of KV tokens capture $>$80\% of attention mass, while the bottom 70\% of tokens receive $<$2\% attention.}
-    \label{fig:locality-cdf}
-\end{figure}
-
-Figure~\ref{fig:locality-cdf} shows the cumulative distribution of attention mass over KV token positions. The distribution is sharply heavy-tailed:
-
-\begin{itemize}
-    \item \textbf{Top 10\% of KV tokens capture $\sim$97\% of attention mass.}
-    \item \textbf{Top 20\% of KV tokens capture $\sim$95\% of attention mass.}
-    \item \textbf{Bottom 70\% of KV tokens receive $\leq$2\% of attention.}
-\end{itemize}
-
-We quantify concentration using the \emph{Gini coefficient}, commonly used in economics and cache systems to measure inequality. A Gini of 0 indicates uniform access; 1 indicates maximum concentration (a single token receives all attention). Across all experiments, we measure an average Gini coefficient of \textbf{0.911}---significantly higher than typical web cache locality (Gini $\sim$0.6--0.7) and comparable to memory working set concentration in database systems.
-
-\begin{table}[htbp]
-    \centering
-    \caption{KV Access Locality Summary (5 workloads $\times$ 3 context lengths)}
-    \begin{tabular}{lc}
-        \toprule
-        Metric & Value \\
-        \midrule
-        Gini Coefficient & 0.911 \\
-        Active Set (80\% attention) & 9\% of KV \\
-        Top 20\% KV Coverage & 95\% attention \\
-        Remote KV Attention (70\% remote) & $\leq$2\% \\
-        Active Set Size & $\sim$45 tokens \\
-        \bottomrule
-    \end{tabular}
-    \label{tab:locality-summary}
-\end{table}
-
-\subsection{Active Working Set: Constant Size Independent of Context Length}
-
-Perhaps the most striking finding is that the \emph{absolute size} of the active working set remains nearly constant as context length increases:
-
-\begin{table}[htbp]
-    \centering
-    \caption{Active Working Set Size vs.\ Context Length}
-    \begin{tabular}{cccc}
-        \toprule
-        Context Length & Active Set Size & Active Set Ratio & 80\% Coverage \\
-        \midrule
-        512 & $\sim$45 tokens & 9\% & 80\% attention \\
-        1,024 & $\sim$45 tokens & 4.4\% & 80\% attention \\
-        2,048 & $\sim$45 tokens & 2.2\% & 80\% attention \\
-        \bottomrule
-    \end{tabular}
-    \label{tab:active-set}
-\end{table}
-
-The active set size is $\sim$45 tokens \emph{regardless of context length}. This means:
-\begin{enumerate}
-    \item \textbf{Decode memory demand saturates}: As context grows, the fraction of KV that must be kept local \emph{decreases}, even though the absolute working set remains constant.
-    \item \textbf{Tiering efficiency improves with context length}: Longer contexts have more cold KV to demote, making tiering increasingly effective.
-\end{enumerate}
-
-This property has a direct OS analogy: the working set of a process is largely independent of its total virtual memory footprint. Just as OS memory management exploits this to keep only the working set in DRAM, KV tiering can keep only the active set in local GPU memory.
-
-\subsection{Workload-Dependent Locality}
-
-\begin{figure}[t]
-    \centering
-    \textcolor{red}{[Figure 2: Locality Strength by Workload Type --- bar chart of Gini coefficient per workload]}
-    \caption{KV access locality across workload types. All workloads exhibit strong locality (Gini $>$0.87), but narrative and repetitive text show the highest concentration.}
-    \label{fig:workload-locality}
-\end{figure}
-
-Locality is universally present but varies by workload:
-
-\begin{table}[htbp]
-    \centering
-    \caption{Locality by Workload Type}
-    \begin{tabular}{lccc}
-        \toprule
-        Workload & Gini & Top 20\% Mass & Active Ratio \\
-        \midrule
-        Narrative & 0.956 & 100\% & 4.4\% \\
-        Repetitive & 0.936 & 100\% & 6\% \\
-        Summarization & 0.908 & 95\% & 8\% \\
-        QA Format & 0.902 & 95\% & 8\% \\
-        Code (Python) & 0.878 & 90\% & 11\% \\
-        \bottomrule
-    \end{tabular}
-    \label{tab:workload-locality}
-\end{table}
-
-Key observations:
-\begin{itemize}
-    \item \textbf{All workloads exhibit strong locality} (Gini $>$0.87), justifying tiering as a general strategy.
-    \item \textbf{Narrative text shows the strongest locality} (Gini = 0.956), likely due to discourse coherence.
-    \item \textbf{Code shows relatively weaker locality} (Gini = 0.878), as cross-reference patterns require accessing more distributed positions.
-    \item \textbf{Locality is a runtime property}, not a fixed statistic---it depends on workload characteristics, motivating runtime-adaptive tiering.
-\end{itemize}
-
-\subsection{Locality Intensifies with Context Length}
-
-We verify that locality strengthens as context grows by measuring the Memory-Quality Pareto frontier at different context lengths (Table~\ref{tab:pareto-length}).
-
-\begin{table}[htbp]
-    \centering
-    \caption{Memory-Quality Pareto Frontier: $\Delta$PPL at 50\% Memory Budget}
-    \begin{tabular}{cccl}
-        \toprule
-        Context & Baseline PPL & $\Delta$PPL (50\% budget) & Interpretation \\
-        \midrule
-        256 & 7.61 & +28.1\% & Weak locality \\
-        512 & 6.85 & +29.2\% & Weak locality \\
-        2K & 1.95 & \textbf{$-$0.2\%} & Strong locality \\
-        4K & 1.40 & \textbf{$-$0.21\%} & Strong locality \\
-        8K & 1.19 & \textbf{+0.08\%} & Near-lossless \\
-        \bottomrule
-    \end{tabular}
-    \label{tab:pareto-length}
-\end{table}
-
-At short contexts (256--512), locality is weak: removing 50\% of KV significantly degrades quality. At $\geq$2K, locality is strong enough that 50\% budget incurs \emph{negligible} quality loss. This aligns with our Gini measurements: longer contexts have more cold KV to safely demote.
-
-\subsection{Per-Layer Locality and TAA Effectiveness}
-
-\begin{figure}[t]
-    \centering
-    \textcolor{red}{[Figure 3: Per-layer local/remote attention ratio, baseline vs.\ TAA($\alpha$=0.2)]}
-    \caption{Per-layer local KV attention ratio. Baseline: 5.82\% of attention goes to local KV (30\% local). TAA ($\alpha$=0.2): 7.17\% (+22\% relative increase). Middle layers (14--22) show the strongest TAA response.}
-    \label{fig:taa-heatmap}
-\end{figure}
-
-We analyze per-layer attention distribution between local and remote KV (Figure~\ref{fig:taa-heatmap}). Without TAA, local KV (30\% of total) captures only 5.82\% of attention. With TAA ($\alpha$=0.2), local attention increases to 7.17\%---a 22\% relative improvement. The effect is most pronounced in middle layers (14--22), suggesting these layers are most amenable to locality-aware guidance.
-
-\subsection{Implications for KV Cache Tiering}
-
-Our locality characterization has three key implications:
-
-\begin{enumerate}
-    \item \textbf{Tiering is justified}: Since $\leq$2\% of attention goes to the remote tier (70\% of KV), the re-fetch overhead for cold KV is minimal. Tiering is not a heuristic---it is grounded in empirical access patterns.
-    \item \textbf{Tiering efficiency grows with context}: The constant active set size ($\sim$45 tokens) means that longer contexts yield higher tiering ratios, directly improving memory savings.
-    \item \textbf{Runtime adaptation is necessary}: Locality strength varies by workload, motivating adaptive tiering policies rather than static window sizes.
-\end{enumerate}
-
-%% ============================================================
-%% SECTION 4: DESIGN
-%% ============================================================
-\section{Design}
-
-\subsection{Overview: Runtime KV Memory Tiering}
-
-\begin{figure}[t]
-    \centering
-    \textcolor{red}{[Figure 4: System Architecture --- Prefill node $\rightarrow$ KV transfer $\rightarrow$ Decode node with local/remote tiering + TAA]}
-    \caption{SWS runtime KV tiering architecture. The decode node maintains a local working set (hot KV) in GPU HBM. Cold KV is demoted to remote storage but remains accessible on demand. TAA provides locality-aware guidance to stabilize tiering decisions.}
-    \label{fig:architecture}
-\end{figure}
-
-Figure~\ref{fig:architecture} illustrates the SWS architecture. The system maintains a two-tier KV storage hierarchy at the decode node:
-
-\begin{itemize}
-    \item \textbf{Local Tier (Tier 0)}: Hot KV pairs stored in GPU HBM with zero-latency access. This tier holds the decode working set.
-    \item \textbf{Remote Tier (Tier 1)}: Cold KV pairs stored on remote storage (the prefill node or dedicated KV store). Accessible on demand with bounded transfer latency.
-\end{itemize}
-
-This design maps directly to OS memory management concepts:
+PD disaggregation separates prefill and decode workers.  This improves resource specialization, but it creates a KV placement problem: a decode worker needs enough KV in fast memory to sustain token generation, while the system wants to avoid pinning the entire prompt KV in expensive HBM.  A memory hierarchy naturally appears:
 \begin{center}
-\begin{tabular}{lll}
-    \toprule
-    OS Concept & KV System & SWS Component \\
-    \midrule
-    Hot pages & Hot KV & Local Tier \\
-    Cold pages & Cold KV & Remote Tier \\
-    Working set & Active KV set & SWS window \\
-    Tiered memory & KV hierarchy & PD disaggregation \\
-    Page fault & Re-fetch & On-demand transfer \\
-    \bottomrule
-\end{tabular}
+GPU HBM $\rightarrow$ CPU DRAM / remote GPU memory $\rightarrow$ networked object store or NVMe.
 \end{center}
+The open question is which KV entries must be resident in HBM at each decode step.
 
-\subsection{SWS: Sliding Window Sharing}
+\subsection{Why sliding windows alone are insufficient}
+Sliding-window attention (SWA) restricts the model's attention pattern at training and inference time.  A serving system cannot freely replace full attention with SWA without changing the computation.  Our use of a \emph{sliding working set} is different: the model retains a full logical context, but the runtime keeps likely-hot KV entries in the fast tier and may fetch cold entries on demand.
 
-SWS is a runtime KV cache tiering mechanism that exploits the decode-time locality characterized in Section~\ref{sec:locality}.
+The difference matters because many LLMs use attention sinks \citep{xiao2023streamingllm}: early tokens may receive disproportionate attention even when they are far from the current token.  A runtime that keeps only the latest window can fail on such models.  A runtime that keeps sink tokens plus a recent window can preserve both recency locality and sink locality.
 
-\textbf{Working Set Window.} SWS maintains a sliding window of size $ws$ for each sequence. KV positions within the window are stored in the local tier; positions outside the window are demoted to the remote tier. The window tracks the most recent $ws$ positions, plus any positions predicted to be accessed by TAA.
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[
+  node distance=1.2cm and 1.2cm,
+  box/.style={draw, rounded corners, align=center, minimum height=0.8cm, minimum width=2.6cm},
+  smallbox/.style={draw, rounded corners, align=center, minimum height=0.65cm, minimum width=2.0cm},
+  arr/.style={-{Latex[length=2mm]}, thick}
+]
+  \node[box, fill=gray!10] (prefill) {Prefill worker\\prompt KV creation};
+  \node[box, fill=gray!10, right=2.3cm of prefill] (decode) {Decode worker\\token generation};
+  \node[smallbox, fill=green!10, below=0.9cm of decode] (hot) {HBM hot set\\sinks + window};
+  \node[smallbox, fill=blue!8, right=0.9cm of hot] (cold) {cold KV tier\\CPU / remote};
+  \node[smallbox, fill=orange!10, below=0.75cm of hot] (ctrl) {policy controller\\tail mass estimate};
+  \draw[arr] (prefill) -- node[above]{KV transfer} (decode);
+  \draw[arr] (decode) -- (hot);
+  \draw[arr] (hot) -- node[above]{rare fetch} (cold);
+  \draw[arr] (cold) -- (hot);
+  \draw[arr] (ctrl.north) -- (hot.south);
+  \draw[arr] (decode.south) |- (ctrl.east);
+\end{tikzpicture}
+\caption{\method{} treats decode KV as a runtime working set.  The full context is logically preserved, but only a pattern-aware hot set is pinned in GPU memory.}
+\label{fig:overview}
+\end{figure}
 
-\textbf{Memory Savings.} Table~\ref{tab:memory-savings} shows the memory savings at different window sizes for 32K context.
-
-\begin{table}[htbp]
-    \centering
-    \caption{SWS Memory Savings (32K Context, Qwen2.5-7B)}
-    \begin{tabular}{cccc}
-        \toprule
-        Window Size & KV Memory & Savings & PPL \\
-        \midrule
-        Full (32K) & 1,776\,MB & --- & 6.65 \\
-        2,048 & 117\,MB & 93.8\% & --- \\
-        256 & 23.6\,MB & 98.7\% & 9.70 \\
-        128 & 11.8\,MB & 99.3\% & 12.00 \\
-        64 & 3.7\,MB & 99.8\% & 16.60 \\
-        \bottomrule
-    \end{tabular}
-    \label{tab:memory-savings}
-\end{table}
-
-\textbf{SWS $\neq$ Sliding Window Attention.} This distinction is critical and we defend it throughout:
-
-\begin{table}[htbp]
-    \centering
-    \caption{SWS vs.\ Sliding Window Attention}
-    \begin{tabular}{lll}
-        \toprule
-        Property & Sliding Window Attention & SWS \\
-        \midrule
-        Token accessibility & Permanently deleted & Demoted, still accessible \\
-        Architecture change & Yes (modifies attention) & No (runtime policy) \\
-        Context coverage & Local-only & Hierarchical (local + remote) \\
-        Correctness & Lossy & Lossless (with re-fetch) \\
-        OS analogy & Page deletion & Page demotion to swap \\
-        \bottomrule
-    \end{tabular}
-    \label{tab:sws-vs-swa}
-\end{table}
-
-SWA \emph{deletes} tokens outside the window---they are permanently removed from the model's attention field. SWS \emph{demotes} tokens to a remote tier where they remain accessible via on-demand re-fetch. This is the difference between deleting a file and moving it to slower storage: the information is preserved, just at a higher access cost.
-
-\subsection{TAA: Task-Aware Attention}
-
-TAA provides lightweight locality-aware guidance that stabilizes aggressive KV tiering. Rather than predicting which specific KV pairs will be accessed (a hard problem), TAA gently encourages the model to attend more to local KV, effectively increasing the locality that Section~\ref{sec:locality} shows already exists.
-
-\textbf{Mechanism.} For each attention layer, TAA injects a small bias toward local KV positions:
-
+\section{Methodology}
+\label{sec:methodology}
+\subsection{Attention-mass measurements}
+Let $A_{\ell,h,t}(j)$ be the attention probability assigned at layer $\ell$, head $h$, and decode step $t$ to token position $j$.  We aggregate attention mass over layers, heads, and decode observations:
 \begin{equation}
-    \text{score}(i) = \text{attention}(i) + \alpha \cdot \mathbb{1}[\text{local}(i)]
-    \label{eq:taa}
+  p_j = \frac{\sum_{\ell,h,t} A_{\ell,h,t}(j)}{\sum_{j'}\sum_{\ell,h,t} A_{\ell,h,t}(j')}.
+\end{equation}
+This yields a normalized empirical access distribution over KV positions.  We use three metrics.
+
+\begin{definition}[Gini coefficient]
+For sorted masses $p_{(1)} \le \cdots \le p_{(n)}$, the Gini coefficient is
+\begin{equation}
+G(p)=\frac{2\sum_{i=1}^{n} i p_{(i)}}{n\sum_i p_{(i)}}-\frac{n+1}{n}.
+\end{equation}
+A value near zero indicates uniform access; a value near one indicates extreme concentration.
+\end{definition}
+
+\begin{definition}[Active set ratio]
+For target coverage $\tau$, the active set ratio is
+\begin{equation}
+  r_\tau = \frac{1}{n}\min\{|S|: \sum_{j\in S}p_j \ge \tau\}.
+\end{equation}
+We report $r_{0.8}$ unless otherwise stated.
+\end{definition}
+
+\begin{definition}[Remote attention mass]
+Given a candidate local set $L$, remote attention mass is $\epsilon_L=\sum_{j\notin L}p_j$.  For a tiered cache, this is the first-order predictor of how much value information would be missed if remote KV were not fetched.
+\end{definition}
+
+\subsection{Correct attention extraction}
+A key experimental pitfall is that hooks on query/key projection outputs observe pre-RoPE vectors and may miss architectural masks.  For models with rotary position embedding or sliding-window masks, pre-RoPE dot products are not the attention distribution used during inference.  We therefore use eager attention with \texttt{output\_attentions=True} for characterization.  We use hook-based measurements only as a negative-control ablation.
+
+\subsection{Memory-quality experiments}
+To test whether a smaller resident set preserves quality, we evaluate perplexity under a sink-aware sliding working set.  For a total budget $B$, sink count $s$, and sequence length $n$, the resident set is
+\begin{equation}
+  L(s,w) = \{1,\ldots,s\}\cup\{n-w+1,\ldots,n\},\quad w=B-s.
+\end{equation}
+The evaluation recomputes model quality with the selected KV positions while preserving the original token positions through explicit \texttt{position\_ids}.  This detail is essential for RoPE models: renumbering a suffix window as positions $1,\ldots,w$ changes the computation and can create spurious failures.
+
+\subsection{Scope of the prototype}
+The current prototype validates the locality and quality side of tiering.  It does not yet implement a fully optimized remote-fetch runtime inside vLLM or a production PD serving stack.  Therefore, serving measurements in this paper are reported either as baseline stress tests or as capacity models, not as end-to-end speedups from a complete tiered system.
+
+\section{Characterizing Decode KV Locality}
+\label{sec:characterization}
+\subsection{Locality appears across model families}
+Table~\ref{tab:model-locality} summarizes the multi-model locality study.  All tested models have high access skew, but the active-set sizes and remote-attention shapes differ.
+
+\begin{table}[t]
+\centering
+\caption{Decode KV locality across four model families.  Active is the fraction of positions required for 80\pct{} attention coverage.  Remote is measured under the experiment's locality split and is used to classify the pattern, not as a universal constant.}
+\label{tab:model-locality}
+\small
+\begin{tabularx}{\linewidth}{lccccY}
+\toprule
+Model & Params & Gini & Active & Remote & Pattern and policy implication \\
+\midrule
+Qwen2.5-7B & 7B & 0.911 & $\sim$7\pct{} & $<$10\pct{} & local-dominant; recent-window working set is often sufficient \\
+Qwen2.5-14B & 14B & 0.952 & $\sim$5\pct{} & $<$5\pct{} & stronger local concentration; good candidate for aggressive demotion \\
+Mistral-7B & 7B & 0.917 & 11.9\pct{} & 78.8\pct{} & sink-dominant; remote mass is concentrated at sequence beginning \\
+Gemma-2-9B & 9B & 0.866 & 20.9\pct{} & 60.6\pct{} & hybrid; local and global layers require sink- and layer-aware policies \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  ybar,
+  width=0.88\linewidth,
+  height=5.0cm,
+  ymin=0.80, ymax=1.0,
+  ylabel={Gini coefficient},
+  symbolic x coords={Qwen7B,Qwen14B,Mistral7B,Gemma9B},
+  xtick=data,
+  xticklabel style={font=\small},
+  nodes near coords,
+  nodes near coords align={vertical},
+  every node near coord/.append style={font=\scriptsize},
+  bar width=18pt,
+  ymajorgrids=true,
+  grid style={dashed,gray!30}
+]
+\addplot coordinates {(Qwen7B,0.911) (Qwen14B,0.952) (Mistral7B,0.917) (Gemma9B,0.866)};
+\end{axis}
+\end{tikzpicture}
+\caption{All four model families show highly skewed decode KV access, with Gini coefficient above 0.85.}
+\label{fig:gini-models}
+\end{figure}
+
+\subsection{Locality strengthens with context length}
+For Mistral and Gemma, locality becomes slightly stronger as the context grows from approximately 1K to 4K tokens.  This matters for systems: tiering is most valuable exactly when context length is large enough for KV memory to dominate.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  width=0.86\linewidth,
+  height=5.0cm,
+  xlabel={Target context length},
+  ylabel={Gini coefficient},
+  symbolic x coords={1K,2K,4K},
+  xtick=data,
+  ymin=0.82, ymax=0.95,
+  legend style={at={(0.03,0.03)},anchor=south west},
+  ymajorgrids=true,
+  grid style={dashed,gray!30}
+]
+\addplot+[mark=*] coordinates {(1K,0.906) (2K,0.919) (4K,0.926)};
+\addlegendentry{Mistral-7B}
+\addplot+[mark=square*] coordinates {(1K,0.846) (2K,0.868) (4K,0.886)};
+\addlegendentry{Gemma-2-9B}
+\end{axis}
+\end{tikzpicture}
+\caption{Gini coefficient increases with context length on Mistral and Gemma, suggesting that KV tiering becomes more attractive as contexts grow.}
+\label{fig:length-gini}
+\end{figure}
+
+\subsection{Measurement ablation: hooks can be wrong}
+Table~\ref{tab:hook-eager} shows the Mistral ablation.  A hook-based method on pre-RoPE query/key tensors underestimates locality: the Gini coefficient increases from 0.665 to 0.917 when measured from actual eager attention tensors.  This is a methodological warning for future KV-locality studies.
+
+\begin{table}[t]
+\centering
+\caption{Hook-based locality measurement can understate skew because it omits positional encoding and final attention masks.}
+\label{tab:hook-eager}
+\small
+\begin{tabular}{lccc}
+\toprule
+Metric on Mistral-7B & Hook on pre-RoPE Q/K & Eager attention & Difference \\
+\midrule
+Gini coefficient & 0.665 & 0.917 & +38\pct{} relative \\
+Active set ratio & 32.5\pct{} & 11.9\pct{} & 2.7$\times$ smaller \\
+Remote attention mass & 68.9\pct{} & 78.8\pct{} & different shape \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Three locality patterns}
+The aggregate numbers hide three different mechanisms.
+\paragraph{Local-dominant.} Qwen2.5 models place most attention on recent positions.  A recent window captures most of the working set, and remote KV receives little attention mass in the tested long-context prompts.
+\paragraph{Sink-dominant.} Mistral gives a large fraction of non-local attention to the beginning of the sequence.  A suffix-only working set is therefore unsafe, but retaining a small sink prefix plus a window is robust.
+\paragraph{Hybrid.} Gemma-2 combines local and global behavior.  A single global window is less stable; sink preservation and layer-aware budgets become important.
+
+\section{Mechanism and Mathematical Support}
+\label{sec:theory}
+This section gives a simple mathematical reason why attention locality can support KV tiering.  The result is not a complete theory of language-model quality; it is a first-order perturbation bound showing why low tail mass implies small change to the attention output.
+
+\subsection{Tail-mass perturbation bound}
+Consider one attention head at one decode step.  Let the full attention output be
+\begin{equation}
+  y = \sum_{j=1}^{n} p_j v_j,
+\end{equation}
+where $p_j$ is the attention probability and $v_j$ is the value vector.  Let $L$ be the resident KV set, $R$ be the omitted or not-yet-fetched set, and $\epsilon=\sum_{j\in R}p_j$.  If the runtime computes attention only over $L$ and renormalizes the probabilities, the local output is
+\begin{equation}
+  \hat{y}=\sum_{j\in L}\frac{p_j}{1-\epsilon}v_j.
 \end{equation}
 
-where $\alpha$ is the locality bias strength and $\mathbb{1}[\text{local}(i)]$ indicates whether position $i$ is in the local tier. This is implemented as a hook that modifies the attention mask after the standard SDPA computation.
+\begin{lemma}[Attention tail bound]
+If $\|v_j\|\le V$ for all $j$ and $\epsilon<1$, then
+\begin{equation}
+  \|y-\hat{y}\| \le 2\epsilon V.
+\end{equation}
+A looser but scale-explicit form is $\|y-\hat{y}\|\le 2\epsilon V/(1-\epsilon)$.
+\end{lemma}
+\begin{proof}
+Write $y=(1-\epsilon)\mu_L+\epsilon\mu_R$, where $\mu_L$ and $\mu_R$ are convex combinations of value vectors in $L$ and $R$, respectively.  The renormalized local output is $\hat{y}=\mu_L$.  Therefore $y-\hat{y}=\epsilon(\mu_R-\mu_L)$, and both convex combinations have norm at most $V$.  Hence $\|y-\hat{y}\|\le \epsilon(\|\mu_R\|+\|\mu_L\|)\le2\epsilon V$.
+\end{proof}
 
-\textbf{Why TAA is an enabling mechanism, not a core contribution.} TAA does not create locality---Section~\ref{sec:locality} demonstrates that locality already exists naturally. TAA \emph{amplifies} existing locality, making tiering decisions more predictable and reducing the variance of quality degradation. The PPL improvement from TAA alone is modest ($-$1.18\% at $\alpha$=0.2), but its value lies in stabilizing the tiering system under aggressive memory budgets.
+The bound motivates using remote attention mass as a quality proxy.  If the resident set contains the recent window and the sink positions, then the remaining tail mass $\epsilon$ can be small even when the full context is long.  The bound also explains why suffix-only policies can fail on sink-dominant or hybrid models: the remote tail may contain a small number of high-mass sink positions, making $\epsilon$ large.
 
-\textbf{Overhead.} Table~\ref{tab:overhead} shows TAA overhead at different context lengths.
+\subsection{A working-set view}
+Denning's working-set model defines the active memory of a process over a recent time window \citep{denning1968working}.  Decode KV has an analogous structure, but the access probabilities are produced by attention rather than by CPU load/store instructions.  This analogy suggests a runtime controller:
+\begin{equation}
+  \min_{L: |L|\le B} \sum_{j\notin L} p_j \quad \text{subject to tier capacity and fetch latency constraints.}
+\end{equation}
+The optimal static resident set keeps the largest attention-mass entries.  \sws{} is a low-overhead approximation that uses the empirical structure of LLM attention: the largest entries usually lie in a recent suffix, a small sink prefix, or a small number of global layers.
 
-\begin{table}[htbp]
-    \centering
-    \caption{TAA Overhead Measurement}
-    \begin{tabular}{cccc}
-        \toprule
-        Context & Overhead & Relative & PPL Impact \\
-        \midrule
-        2K & 55\,$\mu$s & 0.006\% & $-$0.62\% \\
-        32K & 3.2\,ms & 0.04\% & $-$1.18\% \\
-        \bottomrule
-    \end{tabular}
-    \label{tab:overhead}
+\subsection{Why RoPE, sinks, and hybrid layers matter}
+Rotary position embedding makes attention scores position-dependent \citep{su2021roformer}.  For many heads, long-distance dot products decay or become less aligned, which supports recency locality.  Attention sinks create an exception: the first tokens can become global anchors that receive mass from many later tokens \citep{xiao2023streamingllm}.  Hybrid architectures add another exception by mixing local and global attention layers.  These mechanisms match the three empirical patterns and imply that a production policy should be both sink-aware and layer-aware.
+
+\section{Design: \method{}}
+\label{sec:design}
+\subsection{Policy overview}
+\method{} keeps the model's logical context intact but places only the estimated working set in GPU HBM.  The cold tier may be CPU memory, remote GPU memory, or a PD-side cache.  The controller updates a resident set based on context length, model family, layer type, sink count, recent-window size, and optional attention statistics.
+
+\begin{table}[t]
+\centering
+\caption{\sws{} is a runtime memory policy, not a replacement for the model's trained attention pattern.}
+\label{tab:sws-vs-swa}
+\small
+\begin{tabularx}{\linewidth}{lYY}
+\toprule
+Aspect & Sliding-window attention & Sliding working set (\sws) \\
+\midrule
+Semantic effect & Changes the model's attention graph & Preserves full logical context; changes residency \\
+Training requirement & Usually requires model support or fine-tuning & Can be applied as runtime memory management \\
+Cold KV & Not part of computation & Stored in colder tier and fetchable \\
+Failure mode & Cannot attend outside window & Page fault / remote fetch / quality loss if not fetched \\
+Sink handling & Not automatic & Explicit sink prefix can be pinned \\
+\bottomrule
+\end{tabularx}
 \end{table}
 
-TAA overhead is negligible: 55\,$\mu$s for 2K context and 3.2\,ms for 32K context. This low cost makes TAA practical for production deployment.
+\subsection{Sink-aware sliding working set}
+For budget fraction $b$ and context length $n$, \sws{} chooses a resident budget $B=\lfloor bn\rfloor$.  It pins the first $s$ positions and the most recent $B-s$ positions.  The controller may use a fixed sink count, such as 16, or tune $s$ from a small calibration run.  The policy is simple enough to implement using KV-page metadata in systems such as vLLM/PagedAttention, LMCache-like external KV stores, or PD runtimes.
 
-\textbf{Layer sensitivity.} Our per-layer analysis (Figure~\ref{fig:taa-heatmap}) shows that middle layers (14--22) respond most strongly to TAA guidance, while shallow and deep layers show minimal change. This suggests that TAA could be applied selectively to reduce overhead further.
+\subsection{Tier-aware attention adapter}
+We also study a lightweight tier-aware attention adapter (\taa).  The adapter modifies attention logits with a small cost-aware term:
+\begin{equation}
+  z'_j = z_j + \alpha\,g(j),
+\end{equation}
+where $z_j$ is the original logit and $g(j)$ is positive for hot local positions or negative for expensive remote positions.  The purpose is not to force a hard window but to nudge attention toward cheap KV when the model is indifferent.  In our experiments, a modest $\alpha=0.2$ increases local attention from 5.82\pct{} to 7.17\pct{} with negligible overhead.
 
-\subsection{KV Eviction Policy}
+\subsection{Runtime sketch}
+\begin{center}
+\begin{minipage}{0.92\linewidth}
+\small
+\textbf{Algorithm 1: Sink-aware KV working set.}
+\begin{enumerate}[leftmargin=1.6em,itemsep=2pt]
+  \item For each request, keep metadata for all logical KV pages: token positions, layer id, tier, and last local use.
+  \item Choose sink count $s$ from model profile and choose window $w$ from budget, context length, and tail-mass target.
+  \item Pin pages overlapping positions $[1,s]$ and $[n-w+1,n]$ in HBM.
+  \item During decode, issue attention using resident KV; if a non-resident page is required by the policy or by a high-confidence predictor, fetch it asynchronously.
+  \item Append new KV to HBM, update the window boundary, and demote pages whose predicted mass falls below the threshold.
+\end{enumerate}
+\end{minipage}
+\end{center}
 
-When the local tier is full, SWS must evict KV pairs to make room for newly accessed positions. We evaluate two policies:
-
-\textbf{LRU (Least Recently Used)}: Evicts the KV pair that has not been accessed for the longest time. Simple and widely used, but does not account for semantic importance.
-
-\textbf{TAA-guided eviction}: Uses TAA's attention accumulator to predict which positions are least likely to be accessed in upcoming decode steps. Positions with low accumulated attention scores are evicted first.
-
-Our evaluation shows that TAA-guided eviction provides marginal improvement over LRU (PPL 5.19 vs.\ 5.20 at 30\% eviction). This near-equivalence is actually \emph{positive} for deployment: it means that the simple LRU policy is sufficient for practical use, and TAA's primary value remains in locality guidance rather than eviction.
-
-%% ============================================================
-%% SECTION 5: IMPLEMENTATION
-%% ============================================================
 \section{Implementation}
+\label{sec:implementation}
+The prototype is implemented in PyTorch and Hugging Face Transformers.  Locality characterization uses eager attention outputs to observe the actual post-RoPE, post-mask attention distribution.  Quality experiments use explicit token IDs and position IDs when forming sink-plus-window inputs, avoiding RoPE position remapping.  Serving stress tests use a Hugging Face generation loop because the available vLLM stack was not compatible with the tested Blackwell environment at the time of the experiments.
 
-We implement SWS on top of the HuggingFace Transformers library with Qwen2.5-7B-Instruct as the primary model. The implementation consists of three components:
+The codebase organizes experiments into three groups: multi-model locality and sink-aware perplexity experiments, GPU experiments for Qwen locality and overhead, and paper assets.  We intentionally keep measurement and performance paths separate: eager attention is used for correctness of measurement, while a production runtime should use efficient attention kernels and page metadata to enforce residency.
 
-\subsection{Attention Hook Injection}
-
-Qwen2.5-7B uses SDPA (Scaled Dot-Product Attention) with \texttt{attention\_mask=None} by default. We inject custom 4D causal masks and TAA bias through PyTorch forward hooks registered on all 28 attention layers. Key implementation details:
-
-\begin{itemize}
-    \item We construct a 2D causal mask, add the TAA bias, then unsqueeze to 4D. Direct 6D construction causes a broadcast bug that produces NaN outputs.
-    \item \textbf{Never use eager attention} with Qwen2.5: this produces NaN logits. SDPA is required.
-    \item Hook injection is verified on all 28 layers with diagnostic tests ($\alpha$=5.0 produces PPL +256\%, confirming injection).
-\end{itemize}
-
-\subsection{KV Tiering Manager}
-
-The tiering manager maintains per-sequence metadata:
-
-\begin{itemize}
-    \item \textbf{Window state}: Current sliding window positions for each sequence.
-    \item \textbf{Access tracker}: LRU-style tracking for eviction decisions.
-    \item \textbf{Re-fetch queue}: Asynchronous requests for remote KV when on-demand access is needed.
-\end{itemize}
-
-\subsection{Experiment Infrastructure}
-
-We implement a phase-aware experiment scheduler that runs experiment groups sequentially on a single GPU, collecting JSON results for each configuration. The scheduler handles:
-\begin{itemize}
-    \item Model loading/unloading between experiment groups.
-    \item Garbage collection and CUDA cache clearing.
-    \item Automatic result collection and GitHub synchronization.
-\end{itemize}
-
-%% ============================================================
-%% SECTION 6: EVALUATION
-%% ============================================================
 \section{Evaluation}
+\label{sec:evaluation}
+\subsection{Experimental setup}
+Table~\ref{tab:setup} summarizes the main setup.  The experiments cover four model families, several context lengths, and both quality and systems-oriented metrics.
 
-\subsection{Experimental Setup}
+\begin{table}[t]
+\centering
+\caption{Evaluation setup.}
+\label{tab:setup}
+\small
+\begin{tabularx}{\linewidth}{lY}
+\toprule
+Component & Details \\
+\midrule
+Models & Qwen2.5-7B-Instruct, Qwen2.5-14B-Instruct, Mistral-7B-Instruct-v0.3, Gemma-2-9B-it \\
+Context lengths & 256 to 32K depending on experiment; multi-model locality reported at approximately 1K, 2K, and 4K \\
+Hardware & RTX PRO 6000 Blackwell 98GB, RTX 4090-class 48GB vGPU, and dual RTX 3090 for auxiliary tests \\
+Metrics & Gini coefficient, active set ratio, remote attention mass, perplexity delta, throughput, time-to-first-token, and adapter overhead \\
+Methodology & Eager attention for locality; explicit position IDs for sink/window perplexity; HF serving loop for stress tests \\
+\bottomrule
+\end{tabularx}
+\end{table}
 
-All experiments run on a single NVIDIA A100 (80GB) GPU. We use Qwen2.5-7B-Instruct with fp16 precision. Unless otherwise specified:
+\subsection{RQ1: How much KV is active?}
+On Qwen2.5-7B, average Gini is 0.911, top-20\pct{} tokens receive about 95\pct{} of attention, and the 80\pct{} active set occupies roughly 9\pct{} of the context.  The multi-model summary in Table~\ref{tab:model-locality} shows that this is not a single-model artifact: all four models pass the high-locality threshold.
 
-\begin{itemize}
-    \item \textbf{Model}: Qwen2.5-7B-Instruct (28 layers, 4 KV heads, head\_dim=128)
-    \item \textbf{Text}: Diverse corpus (narrative, code, QA, summarization)
-    \item \textbf{Metrics}: PPL (perplexity), KV memory footprint, TTFT, TPOT, concurrency
-\end{itemize}
+\subsection{RQ2: Is a smaller resident set quality-preserving?}
+Table~\ref{tab:qwen-pareto} shows the Qwen2.5-7B memory-quality trend.  Short contexts are a negative control: there is little KV redundancy, so aggressive local-only retention can degrade perplexity.  At longer contexts, 50\pct{} budgets are near-lossless and 30\pct{} budgets become viable in several cases.
 
-\subsection{Memory-Quality Pareto Frontier}
+\begin{table}[t]
+\centering
+\caption{Qwen2.5-7B memory-quality tradeoff.  Values are relative perplexity change versus full KV.  Negative values are small improvements within measurement noise.}
+\label{tab:qwen-pareto}
+\small
+\begin{tabular}{lccc}
+\toprule
+Context length & 50\pct{} budget & 30\pct{} budget & Interpretation \\
+\midrule
+256 & +28.1\pct{} & -- & too little redundancy \\
+512 & +29.2\pct{} & -- & too little redundancy \\
+2K & -0.20\pct{} & task-dependent & near-lossless at 50\pct{} \\
+4K & -0.21\pct{} & -0.8\pct{} & near-lossless even at 30\pct{} \\
+8K & +0.08\pct{} & task-dependent & locality strengthens with length \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The task-level negative controls are also informative.  At 1K, narrative, code, and QA workloads show different sensitivity; QA is the most remote-dependent.  This suggests that a production system should not apply one fixed budget to every request.  The controller should use context length, workload type, and model pattern.
+
+\subsection{RQ3: Do sink tokens matter?}
+Table~\ref{tab:sink-results} compares Mistral and Gemma.  Mistral is robust because the tested sequence falls within its effective sliding-window behavior and because sink-aware retention captures the high-mass prefix.  Gemma shows the clearest evidence for sink awareness: at a 30\pct{} budget, suffix-only retention causes an 11.84\pct{} perplexity increase, while retaining 16 sink tokens reduces the increase to 0.47\pct{}.
+
+\begin{table}[t]
+\centering
+\caption{Sink-aware \sws{} perplexity deltas.  Mistral baseline perplexity is 1.0615; Gemma baseline perplexity is 1.0391.}
+\label{tab:sink-results}
+\small
+\begin{tabular}{llrrrr}
+\toprule
+Model & Budget & Sink=0 & Sink=4 & Sink=8 & Sink=16 \\
+\midrule
+\multirow{3}{*}{Mistral-7B} 
+  & 30\pct{} & +0.1\pct{} & +0.1\pct{} & +0.1\pct{} & -- \\
+  & 50\pct{} & $\pm$0.0\pct{} & -0.0\pct{} & -0.0\pct{} & -0.0\pct{} \\
+  & 70\pct{} & -- & -0.0\pct{} & -0.0\pct{} & -- \\
+\midrule
+\multirow{3}{*}{Gemma-2-9B} 
+  & 30\pct{} & +11.84\pct{} & +5.64\pct{} & +4.42\pct{} & +0.47\pct{} \\
+  & 50\pct{} & +1.79\pct{} & +2.54\pct{} & +1.88\pct{} & -0.94\pct{} \\
+  & 70\pct{} & +2.73\pct{} & +0.38\pct{} & -0.38\pct{} & -1.88\pct{} \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \begin{figure}[t]
-    \centering
-    \textcolor{red}{[Figure 5: Memory-Quality Pareto --- x: memory budget (\%), y: $\Delta$PPL (\%). Curves for SWS and SWS+TAA at different context lengths.]}
-    \caption{Memory-quality Pareto frontier. At $\geq$2K context, SWS achieves 50\% memory budget with $<$0.3\% quality degradation. TAA provides marginal additional benefit.}
-    \label{fig:pareto}
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  width=0.86\linewidth,
+  height=5.0cm,
+  xlabel={Sink tokens retained},
+  ylabel={Gemma-2-9B PPL delta at 30\pct{} budget},
+  xtick={0,4,8,16},
+  ymin=0, ymax=13,
+  ymajorgrids=true,
+  grid style={dashed,gray!30}
+]
+\addplot+[mark=*] coordinates {(0,11.84) (4,5.64) (8,4.42) (16,0.47)};
+\end{axis}
+\end{tikzpicture}
+\caption{Gemma-2-9B requires sink preservation.  Sixteen sink tokens reduce the 30\pct{}-budget degradation by 11.37 percentage points.}
+\label{fig:gemma-sink}
 \end{figure}
 
-Figure~\ref{fig:pareto} presents the central result of this paper: the memory-quality Pareto frontier. Key findings:
+\subsection{RQ4: What is the cost of a tier-aware adapter?}
+\taa{} adds a small attention-logit bias to prefer cheap local KV when the model is indifferent.  Table~\ref{tab:taa} shows that the overhead is far below one percent even at 32K tokens.  The local-attention share increases from 5.82\pct{} to 7.17\pct{} at $\alpha=0.2$, with the middle layers showing the largest shift.
 
-\begin{itemize}
-    \item \textbf{$\geq$2K context, 50\% budget}: Near-lossless quality ($\Delta$PPL $\leq$0.2\%). This is our strongest result.
-    \item \textbf{4K context, 30\% budget}: $\Delta$PPL = $-$0.8\%, still acceptable for many applications.
-    \item \textbf{8K context, 50\% budget}: $\Delta$PPL = +0.08\%, essentially zero.
-    \item \textbf{Short contexts (256--512)}: Locality is weak; aggressive tiering degrades quality.
-\end{itemize}
-
-The Pareto curve validates our core thesis: \emph{decode locality enables runtime KV tiering with minimal quality degradation}, and this effect strengthens with context length.
-
-Table~\ref{tab:pareto-detail} shows detailed results across context lengths and workload types.
-
-\begin{table}[htbp]
-    \centering
-    \caption{Memory-Quality Pareto: $\Delta$PPL at Different Budgets and Context Lengths}
-    \begin{tabular}{cccccc}
-        \toprule
-        & \multicolumn{5}{c}{Memory Budget} \\
-        \cmidrule(lr){2-6}
-        Context & 30\% & 40\% & 50\% & 70\% & 100\% \\
-        \midrule
-        2K & --- & $-$0.4\% & $-$0.2\% & $-$0.1\% & 0\% \\
-        4K & $-$0.8\% & $-$0.4\% & $-$0.21\% & 0\% & 0\% \\
-        8K & --- & --- & +0.08\% & +0.16\% & 0\% \\
-        \bottomrule
-    \end{tabular}
-    \label{tab:pareto-detail}
+\begin{table}[t]
+\centering
+\caption{Tier-aware attention adapter overhead.}
+\label{tab:taa}
+\small
+\begin{tabular}{lrr}
+\toprule
+Context length & Time overhead & Relative overhead \\
+\midrule
+512 & 55.4 $\mu$s & 0.0277\pct{} \\
+1K & 54.6 $\mu$s & 0.0144\pct{} \\
+2K & 54.8 $\mu$s & 0.0064\pct{} \\
+4K & 64.0 $\mu$s & 0.0034\pct{} \\
+8K & 236.2 $\mu$s & 0.0079\pct{} \\
+16K & 820.3 $\mu$s & 0.0164\pct{} \\
+32K & 3166.8 $\mu$s & 0.0396\pct{} \\
+\bottomrule
+\end{tabular}
 \end{table}
-
-\subsection{Workload-Specific Pareto Analysis}
-
-\begin{table}[htbp]
-    \centering
-    \caption{50\% Memory Budget $\Delta$PPL by Workload (2K Context)}
-    \begin{tabular}{lccl}
-        \toprule
-        Workload & Baseline PPL & $\Delta$PPL & Interpretation \\
-        \midrule
-        Narrative & 1.95 & $-$0.2\% & Strong locality, lossless \\
-        QA & 1.90 & $-$0.87\% & Moderate locality \\
-        Code & 1.24 & 0.0\% & Even code is lossless at 2K \\
-        \bottomrule
-    \end{tabular}
-    \label{tab:workload-pareto}
-\end{table}
-
-At longer contexts (4K), even code---which has the weakest locality---achieves near-lossless tiering ($\Delta$PPL = 0.09\% at 50\% budget). This confirms that locality is universally exploitable in long-context settings.
-
-\subsection{Concurrency Improvement}
-
-\begin{table}[htbp]
-    \centering
-    \caption{Concurrency Improvement Under 32K Context}
-    \begin{tabular}{lcc}
-        \toprule
-        Configuration & KV per Request & Max Concurrent Requests \\
-        \midrule
-        Full KV & 1,776\,MB & 1$\times$ baseline \\
-        SWS (ws=2048) & 117\,MB & 8$\times$ baseline \\
-        SWS (ws=64) & 3.7\,MB & $\sim$45$\times$ baseline \\
-        \bottomrule
-    \end{tabular}
-    \label{tab:concurrency}
-\end{table}
-
-SWS enables 8$\times$ more concurrent 32K requests at ws=2048, and up to 45$\times$ at ws=64. The concurrency gain comes directly from the memory savings enabled by locality exploitation.
-
-\subsection{Component Ablation}
-
-\begin{table}[htbp]
-    \centering
-    \caption{Component Ablation (seq=512, 50\% Memory Budget)}
-    \begin{tabular}{lcc}
-        \toprule
-        Configuration & PPL & $\Delta$PPL \\
-        \midrule
-        Baseline (full KV) & 2.79 & 0\% \\
-        SWS only (50\% budget) & 8.88 & +218\% \\
-        SWS + TAA (50\% budget) & 8.90 & +219\% \\
-        SWS (50\%, $\geq$2K context) & $\sim$baseline & $<$0.3\% \\
-        \bottomrule
-    \end{tabular}
-    \label{tab:ablation}
-\end{table}
-
-At short contexts (512), 50\% budget severely degrades quality regardless of TAA---confirming that locality must be strong enough for tiering to work. At $\geq$2K context, SWS alone achieves near-lossless quality, and TAA provides marginal additional benefit. This reinforces our positioning: locality is the enabler, TAA is a stabilizer.
-
-\subsection{Eviction Strategy Comparison}
-
-\begin{table}[htbp]
-    \centering
-    \caption{Eviction Strategy Comparison (30\% Evicted, seq=512)}
-    \begin{tabular}{lcc}
-        \toprule
-        Strategy & PPL & vs.\ Baseline \\
-        \midrule
-        Baseline (no eviction) & 2.79 & --- \\
-        Random Eviction & 18.80 & +574\% \\
-        LRU Eviction & 5.20 & +86\% \\
-        TAA-Guided Eviction & 5.19 & +86\% \\
-        \bottomrule
-    \end{tabular}
-    \label{tab:eviction}
-\end{table}
-
-TAA-guided and LRU eviction perform nearly identically. This is not a weakness---it demonstrates that simple LRU is sufficient for eviction, and TAA's value lies in locality guidance (Section~\ref{sec:locality}) rather than eviction optimization.
-
-\subsection{TAA $\alpha$ Sensitivity}
 
 \begin{figure}[t]
-    \centering
-    \textcolor{red}{[Figure 6: $\alpha$ sensitivity curve --- x: $\alpha$ value, y: $\Delta$PPL (\%)]}
-    \caption{TAA $\alpha$ sensitivity. Quality impact is minimal for $\alpha \leq 0.2$ and gradually increases. The optimal operating point is $\alpha \in [0.1, 0.2]$.}
-    \label{fig:alpha-sensitivity}
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  width=0.86\linewidth,
+  height=5.0cm,
+  xlabel={Context length},
+  ylabel={Relative overhead (\pct{})},
+  symbolic x coords={512,1K,2K,4K,8K,16K,32K},
+  xtick=data,
+  ymin=0, ymax=0.05,
+  ymajorgrids=true,
+  grid style={dashed,gray!30}
+]
+\addplot+[mark=*] coordinates {(512,0.0277) (1K,0.0144) (2K,0.0064) (4K,0.0034) (8K,0.0079) (16K,0.0164) (32K,0.0396)};
+\end{axis}
+\end{tikzpicture}
+\caption{The measured \taa{} overhead remains below 0.04\pct{} at 32K tokens.}
+\label{fig:taa-overhead}
 \end{figure}
 
-We sweep $\alpha$ across 15 values on a 512-token sequence (Figure~\ref{fig:alpha-sensitivity}). Key findings:
-\begin{itemize}
-    \item $\alpha \leq 0.2$: PPL change $\leq$0.11\% (negligible)
-    \item $\alpha = 0.2$: PPL change $-$1.18\% on longer sequences (optimal)
-    \item $\alpha \geq 0.5$: PPL degradation increases noticeably
-\end{itemize}
+\subsection{RQ5: What does baseline serving stress show?}
+The Hugging Face serving benchmark in Table~\ref{tab:hf-serving} shows the expected capacity pressure: throughput decreases with context length, and 32K context with concurrency 16 runs out of memory in the tested environment.  This benchmark motivates tiering, but it should not be reported as an end-to-end \method{} speedup until a full runtime is implemented.
 
-The recommended operating range is $\alpha \in [0.1, 0.2]$, where TAA provides locality guidance without quality degradation.
+\begin{table}[t]
+\centering
+\caption{HF serving baseline throughput in tokens/s.  The 32K, concurrency-16 setting runs out of memory.}
+\label{tab:hf-serving}
+\small
+\begin{tabular}{lrrrr}
+\toprule
+Context & C=1 & C=4 & C=8 & C=16 \\
+\midrule
+1K & 66 & 192 & 327 & 603 \\
+4K & 59 & 141 & 203 & 243 \\
+8K & 50 & 84 & 108 & 128 \\
+16K & 36 & 48 & 55 & 62 \\
+32K & 21 & 24 & 26 & OOM \\
+\bottomrule
+\end{tabular}
+\end{table}
 
-\subsection{Serving Benchmark}
-\label{sec:serving-benchmark}
+\subsection{RQ6: How much capacity can a windowed hot set save?}
+A simple memory-capacity model estimates the maximum number of resident requests under different hot-set sizes.  For Qwen2.5-7B with full KV, a 32K request uses approximately 1.879GB of KV memory; keeping only a 256-token hot set reduces the resident KV to about 14.7MB per request.  Table~\ref{tab:capacity} reports the resulting capacity multiplier.  These are memory-capacity estimates, not measured throughput speedups.
 
-\textcolor{red}{[Table/Figure: vLLM serving benchmark --- TPS, TTFT, P95 latency under varying concurrency. Comparison: Full KV vs.\ SWS (50\% budget).]
+\begin{table}[t]
+\centering
+\caption{Illustrative KV resident-memory capacity model for Qwen2.5-7B.  The full logical context would still exist in a colder tier.}
+\label{tab:capacity}
+\small
+\begin{tabular}{lrrrr}
+\toprule
+Context & Full KV / req & Max req, full & SWS-256 KV / req & Max req, SWS-256 \\
+\midrule
+1K & 58.7 MB & 1489 & 14.7 MB & 5956 \\
+4K & 234.9 MB & 372 & 14.7 MB & 5956 \\
+8K & 469.8 MB & 186 & 14.7 MB & 5956 \\
+16K & 939.5 MB & 93 & 14.7 MB & 5956 \\
+32K & 1879.0 MB & 46 & 14.7 MB & 5956 \\
+\bottomrule
+\end{tabular}
+\end{table}
 
-\underline{Status}: vLLM benchmark script is prepared and will be executed once vLLM installation completes. We expect to report throughput (tokens/s), TTFT under load, and P95 latency for both Full KV and SWS configurations.}
+\section{Discussion and Limitations}
+\label{sec:discussion}
+\paragraph{The current evidence is strong for arXiv, but not yet a complete systems paper.}
+The experiments establish a consistent locality phenomenon, a corrected measurement methodology, and promising quality results.  However, a systems-conference submission should add an end-to-end tiered runtime that measures token latency, tail latency, bandwidth, remote page-fault rate, and throughput under realistic arrivals.
 
-%% ============================================================
-%% SECTION 7: RELATED WORK
-%% ============================================================
+\paragraph{Perplexity is not enough.}
+Perplexity can miss rare but important long-range dependencies.  A complete evaluation should include retrieval-style tasks such as needle-in-a-haystack, RULER, LongBench, multi-hop QA, code completion with distant definitions, and conversation tasks where early instructions matter.
+
+\paragraph{The policy should be adaptive.}
+The 1K negative controls and Gemma sink sensitivity show that a fixed budget is unsafe.  The controller should adapt to model family, layer type, context length, and workload.  A small calibration pass can estimate whether the request is local-dominant, sink-dominant, or hybrid.
+
+\paragraph{Baselines matter.}
+The final paper should compare against StreamingLLM, H2O, SnapKV, PyramidKV, DynamicKV, and PD-specific methods such as KVServe and PDTrim where code is available \citep{xiao2023streamingllm,zhang2023h2o,li2024snapkv,cai2024pyramidkv,zhou2024dynamickv,liu2026kvserve,pdtrim2025}.  The comparison should distinguish compression/deletion methods from tiering methods: \method{} is allowed to fetch cold KV, so its quality-latency tradeoff is different.
+
+\paragraph{Eviction experiments must create real pressure.}
+A cache-policy comparison is meaningful only when evictions occur.  Any run where all policies have zero evictions should be treated as a sanity check, not as evidence that one replacement policy is better than another.
+
 \section{Related Work}
+\label{sec:related}
+\paragraph{LLM serving and memory management.}
+vLLM introduced PagedAttention to reduce KV memory fragmentation and support high-throughput serving \citep{kwon2023vllm}.  Splitwise and DistServe split prefill and decode to reduce phase interference and improve resource allocation \citep{patel2023splitwise,zhong2024distserve}.  Mooncake takes a KV-cache-centric view of disaggregated serving and uses distributed cache resources to improve throughput \citep{qin2024mooncake}.  \method{} is complementary: it asks which KV pages should be resident in the fastest tier during decode.
 
-\subsection{LLM Serving Systems}
+\paragraph{KV compression and eviction.}
+StreamingLLM identifies attention sinks and enables streaming inference by retaining sink tokens plus a recent window \citep{xiao2023streamingllm}.  H2O, SnapKV, PyramidKV, and DynamicKV compress or select KV entries based on heavy hitters, prompt observations, hierarchy, or task awareness \citep{zhang2023h2o,li2024snapkv,cai2024pyramidkv,zhou2024dynamickv}.  \method{} differs by framing the problem as tiered runtime residency for PD serving rather than permanent KV deletion.
 
-vLLM~\citep{zheng2024vllm} introduced PagedAttention for efficient KV cache memory management. Continuous batching~\citep{yu2024evaluation} improves GPU utilization through iterative scheduling. These systems optimize for throughput under fixed memory budgets but do not exploit KV access locality. Our work complements these by reducing the memory \emph{requirement} through tiering.
+\paragraph{PD-specific KV optimization.}
+Recent PD work studies KV transfer, pruning, and service-aware compression.  KVServe proposes service-aware KV communication compression for disaggregated LLM serving, while PDTrim prunes targeted KV regions for prefill-decode disaggregation \citep{liu2026kvserve,pdtrim2025}.  These works are closely related; \method{} contributes an empirical locality taxonomy and a sink-aware working-set mechanism that can be combined with communication compression.
 
-\subsection{Prefill-Decode Disaggregation}
-
-Splitwise~\citep{spaeth2024splitwise} and DistServe~\citep{zhiheng2024disagg} pioneered PD disaggregation for throughput optimization. Tetris~\citep{lee2024tetris} explores heterogeneous resource allocation. Mooncake~\citep{gao2024mooncake} proposes KV-centric disaggregated storage. These systems demonstrate disaggregation benefits but do not address the decode-side memory bottleneck. Our work provides a memory management solution that makes PD disaggregation practical for long contexts.
-
-\subsection{KV Cache Optimization}
-
-Prior KV cache optimization falls into three categories:
-
-\textbf{Architecture-level}: Sliding window attention~\citep{beltagy2020longformer} and StreamingLLM~\citep{xiao2023streaming} restrict the attention receptive field, permanently discarding older tokens. These approaches violate full-context accessibility and are incompatible with multi-turn conversations.
-
-\textbf{Compression-level}: KV cache quantization~\citep{hooper2024kv} reduces memory through low-precision representation. CacheBlend~\citep{liu2024cacheblend} merges similar KV tokens. These introduce irreversible quality loss and do not exploit access locality.
-
-\textbf{System-level}: Mooncake~\citep{gao2024mooncake} proposes KV-centric storage but does not tier based on access patterns. Our work is the first to characterize decode-time KV locality and exploit it through runtime tiering.
-
-\subsection{Memory Management in Systems}
-
-The analogy between KV tiering and OS memory management is not superficial. Virtual memory systems~\citep{denning1968working} exploit the working set principle---that processes access a small, stable subset of pages---to keep only hot pages in DRAM while demoting cold pages to swap. Our observation that KV access exhibits similar locality (Section~\ref{sec:locality}) justifies applying the same tiering approach to KV cache.
-
-%% ============================================================
-%% SECTION 8: CONCLUSION
-%% ============================================================
 \section{Conclusion}
+\label{sec:conclusion}
+Decode KV access in modern LLMs is highly skewed.  Across Qwen2.5, Mistral, and Gemma models, a small fraction of tokens accounts for most attention mass, but the pattern varies: some models are local-dominant, some are sink-dominant, and some are hybrid.  This paper argues that PD-disaggregated serving systems should manage KV as a working set rather than as a monolithic resident object.  A sink-aware sliding working set preserves quality in the tested long-context settings, and a lightweight tier-aware adapter has negligible overhead.  The next step is to integrate the policy into a production serving runtime and evaluate end-to-end latency, bandwidth, and quality on long-range reasoning workloads.
 
-We have presented a systems-level study of KV cache memory management for PD-disaggregated LLM serving. Our core contribution is the identification and characterization of decode-time KV locality: KV access during decoding follows a heavy-tailed distribution (Gini = 0.911) with a constant-size active working set ($\sim$45 tokens), and this locality intensifies with context length. This observation enables runtime KV tiering---maintaining the working set in local GPU memory while demoting cold KV to remote storage---as a natural and effective memory management strategy.
+\clearpage
+\appendix
+\section{Additional Result Tables}
+\label{app:tables}
+\begin{table}[h]
+\centering
+\caption{Mistral locality by context length.}
+\small
+\begin{tabular}{lccc}
+\toprule
+Context & Gini & Active set ratio & Remote attention \\
+\midrule
+1K & 0.906 & 14.0\pct{} & 79.5\pct{} \\
+2K & 0.919 & 11.6\pct{} & 78.9\pct{} \\
+4K & 0.926 & 10.1\pct{} & 78.1\pct{} \\
+\bottomrule
+\end{tabular}
+\end{table}
 
-Our tiering framework, SWS, achieves 50\% memory budget with near-lossless quality ($\Delta$PPL $<$0.3\%) at $\geq$2K context, reduces memory footprint by up to 99.8\%, and enables 8$\times$ higher concurrency under 32K context. Unlike sliding window attention, SWS provides tiering (demotion, not deletion), preserving full context accessibility. TAA, our locality-aware guidance mechanism, stabilizes tiering decisions with $<$0.04\% overhead.
+\begin{table}[h]
+\centering
+\caption{Gemma locality by context length.}
+\small
+\begin{tabular}{lccc}
+\toprule
+Context & Gini & Active set ratio & Remote attention \\
+\midrule
+1K & 0.846 & 24.2\pct{} & 63.0\pct{} \\
+2K & 0.868 & 20.8\pct{} & 60.7\pct{} \\
+4K & 0.886 & 17.7\pct{} & 58.0\pct{} \\
+\bottomrule
+\end{tabular}
+\end{table}
 
-Future directions include multi-model validation, hardware-aware tiering across HBM/NVMe/remote DRAM, adaptive window sizing based on runtime locality monitoring, and integration with production serving frameworks.
+\section{Artifact Checklist}
+\label{app:artifact}
+To make the arXiv artifact reproducible, the repository should include:
+\begin{enumerate}[leftmargin=1.5em]
+  \item raw JSON outputs for all tables in this paper;
+  \item scripts that regenerate every figure and table from raw JSON;
+  \item exact model names, Hugging Face revisions, tokenizer versions, prompts, and hardware details;
+  \item a note marking obsolete buggy results, especially runs that omitted \texttt{position\_ids};
+  \item an end-to-end runtime branch once remote-tier fetching is implemented.
+\end{enumerate}
 
-%% ============================================================
-%% REFERENCES
-%% ============================================================
 
-\bibliographystyle{unsrtnat}
-\bibliography{references}
+\begin{thebibliography}{99}
+
+\bibitem{beltagy2020longformer}
+Iz Beltagy, Matthew E. Peters, and Arman Cohan.
+\newblock Longformer: The long-document transformer.
+\newblock \emph{arXiv preprint arXiv:2004.05150}, 2020.
+
+\bibitem{cai2024pyramidkv}
+Zefan Cai et al.
+\newblock PyramidKV: Dynamic KV cache compression based on pyramidal information funneling.
+\newblock \emph{arXiv preprint arXiv:2406.02069}, 2024.
+
+\bibitem{denning1968working}
+Peter J. Denning.
+\newblock The working set model for program behavior.
+\newblock \emph{Communications of the ACM}, 11(5):323--333, 1968.
+
+\bibitem{kwon2023vllm}
+Woosuk Kwon et al.
+\newblock Efficient memory management for large language model serving with PagedAttention.
+\newblock \emph{arXiv preprint arXiv:2309.06180}, 2023.
+
+\bibitem{li2024snapkv}
+Yuhong Li et al.
+\newblock SnapKV: LLM knows what you are looking for before generation.
+\newblock \emph{arXiv preprint arXiv:2404.14469}, 2024.
+
+\bibitem{liu2026kvserve}
+Yize Liu et al.
+\newblock KVServe: Service-aware KV cache communication compression for disaggregated LLM serving.
+\newblock \emph{arXiv preprint arXiv:2605.13734}, 2026.
+
+\bibitem{patel2023splitwise}
+Pratyush Patel et al.
+\newblock Splitwise: Efficient generative LLM inference using phase splitting.
+\newblock \emph{arXiv preprint arXiv:2311.18677}, 2023.
+
+\bibitem{pdtrim2025}
+Han Zhang et al.
+\newblock Enhancing LLM efficiency: Targeted pruning for prefill-decode disaggregation in inference.
+\newblock \emph{arXiv preprint arXiv:2509.04467}, 2025.
+
+\bibitem{press2021train}
+Ofir Press, Noah A. Smith, and Mike Lewis.
+\newblock Train short, test long: Attention with linear biases enables input length extrapolation.
+\newblock \emph{arXiv preprint arXiv:2108.12409}, 2021.
+
+\bibitem{qin2024mooncake}
+Rui Qin et al.
+\newblock Mooncake: A KVCache-centric disaggregated architecture for LLM serving.
+\newblock \emph{arXiv preprint arXiv:2407.00079}, 2024.
+
+\bibitem{su2021roformer}
+Jianlin Su, Yu Lu, Shengfeng Pan, Bo Wen, and Yunfeng Liu.
+\newblock RoFormer: Enhanced transformer with rotary position embedding.
+\newblock \emph{arXiv preprint arXiv:2104.09864}, 2021.
+
+\bibitem{vaswani2017attention}
+Ashish Vaswani et al.
+\newblock Attention is all you need.
+\newblock In \emph{Advances in Neural Information Processing Systems}, 2017.
+
+\bibitem{xiao2023streamingllm}
+Guangxuan Xiao, Yuandong Tian, Beidi Chen, Song Han, and Mike Lewis.
+\newblock Efficient streaming language models with attention sinks.
+\newblock \emph{arXiv preprint arXiv:2309.17453}, 2023.
+
+\bibitem{zhang2023h2o}
+Zhenyu Zhang et al.
+\newblock H2O: Heavy-hitter oracle for efficient generative inference of large language models.
+\newblock \emph{arXiv preprint arXiv:2306.14048}, 2023.
+
+\bibitem{zhong2024distserve}
+Yinmin Zhong et al.
+\newblock DistServe: Disaggregating prefill and decoding for goodput-optimized large language model serving.
+\newblock In \emph{18th USENIX Symposium on Operating Systems Design and Implementation}, 2024.
+
+\bibitem{zhou2024dynamickv}
+Yinmin Zhou et al.
+\newblock DynamicKV: Task-aware adaptive KV cache compression for long context LLMs.
+\newblock \emph{arXiv preprint arXiv:2412.14838}, 2024.
+
+\end{thebibliography}
+
 
 \end{document}

@@ -1,0 +1,437 @@
+{
+  "model": "qwen7b",
+  "tests": [
+    {
+      "ctx": 2048,
+      "strat": "full",
+      "budget": 1.0,
+      "needle": "9274",
+      "correct": true,
+      "response": "9274"
+    },
+    {
+      "ctx": 2048,
+      "strat": "pdtrim",
+      "budget": 0.3,
+      "needle": "9274",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the provided text."
+    },
+    {
+      "ctx": 2048,
+      "strat": "pdtrim",
+      "budget": 0.5,
+      "needle": "9274",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the text provided."
+    },
+    {
+      "ctx": 2048,
+      "strat": "sws",
+      "budget": 0.3,
+      "needle": "9274",
+      "correct": false,
+      "response": "Flowers bloom in springtime. The lake reflects the mountains. Wind blows through the valley. Paths w"
+    },
+    {
+      "ctx": 2048,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "9274",
+      "correct": false,
+      "response": "Leaves turn color in autumn"
+    },
+    {
+      "ctx": 2048,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "9274",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the provided text."
+    },
+    {
+      "ctx": 2048,
+      "strat": "full",
+      "budget": 1.0,
+      "needle": "FXD83",
+      "correct": true,
+      "response": "FXD83"
+    },
+    {
+      "ctx": 2048,
+      "strat": "pdtrim",
+      "budget": 0.3,
+      "needle": "FXD83",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the provided text."
+    },
+    {
+      "ctx": 2048,
+      "strat": "pdtrim",
+      "budget": 0.5,
+      "needle": "FXD83",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the text provided."
+    },
+    {
+      "ctx": 2048,
+      "strat": "sws",
+      "budget": 0.3,
+      "needle": "FXD83",
+      "correct": false,
+      "response": "Flowers bloom in springtime. The lake reflects the mountains. Wind blows through the valley. Paths w"
+    },
+    {
+      "ctx": 2048,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "FXD83",
+      "correct": false,
+      "response": "Leaves turn color in autumn"
+    },
+    {
+      "ctx": 2048,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "FXD83",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the provided text."
+    },
+    {
+      "ctx": 2048,
+      "strat": "full",
+      "budget": 1.0,
+      "needle": "MANGO-TEAL-7",
+      "correct": true,
+      "response": "MANGO-TEAL-7"
+    },
+    {
+      "ctx": 2048,
+      "strat": "pdtrim",
+      "budget": 0.3,
+      "needle": "MANGO-TEAL-7",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the text provided."
+    },
+    {
+      "ctx": 2048,
+      "strat": "pdtrim",
+      "budget": 0.5,
+      "needle": "MANGO-TEAL-7",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the text provided."
+    },
+    {
+      "ctx": 2048,
+      "strat": "sws",
+      "budget": 0.3,
+      "needle": "MANGO-TEAL-7",
+      "correct": false,
+      "response": "Flowers bloom in springtime. The lake reflects the mountains. Wind blows through the valley. Paths w"
+    },
+    {
+      "ctx": 2048,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "MANGO-TEAL-7",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the text."
+    },
+    {
+      "ctx": 2048,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "MANGO-TEAL-7",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the provided text."
+    },
+    {
+      "ctx": 4096,
+      "strat": "full",
+      "budget": 1.0,
+      "needle": "9274",
+      "correct": true,
+      "response": "9274"
+    },
+    {
+      "ctx": 4096,
+      "strat": "pdtrim",
+      "budget": 0.3,
+      "needle": "9274",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the provided text."
+    },
+    {
+      "ctx": 4096,
+      "strat": "pdtrim",
+      "budget": 0.5,
+      "needle": "9274",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the provided text."
+    },
+    {
+      "ctx": 4096,
+      "strat": "sws",
+      "budget": 0.3,
+      "needle": "9274",
+      "correct": false,
+      "response": "The lake reflects the mountains. Wind blows through the valley. Paths wind between the hills. The pa"
+    },
+    {
+      "ctx": 4096,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "9274",
+      "correct": false,
+      "response": "Leaves turn color in autumn. Snow covers the ground in winter. Flowers bloom in springtime. The lake"
+    },
+    {
+      "ctx": 4096,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "9274",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the provided text."
+    },
+    {
+      "ctx": 4096,
+      "strat": "full",
+      "budget": 1.0,
+      "needle": "FXD83",
+      "correct": true,
+      "response": "FXD83"
+    },
+    {
+      "ctx": 4096,
+      "strat": "pdtrim",
+      "budget": 0.3,
+      "needle": "FXD83",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the provided text."
+    },
+    {
+      "ctx": 4096,
+      "strat": "pdtrim",
+      "budget": 0.5,
+      "needle": "FXD83",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the provided text."
+    },
+    {
+      "ctx": 4096,
+      "strat": "sws",
+      "budget": 0.3,
+      "needle": "FXD83",
+      "correct": false,
+      "response": "The lake reflects the mountains. Wind blows through the valley. Paths wind between the hills. The pa"
+    },
+    {
+      "ctx": 4096,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "FXD83",
+      "correct": false,
+      "response": "Leaves turn color in autumn. Snow covers the ground in winter. Flowers bloom in springtime. The lake"
+    },
+    {
+      "ctx": 4096,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "FXD83",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the provided text."
+    },
+    {
+      "ctx": 4096,
+      "strat": "full",
+      "budget": 1.0,
+      "needle": "MANGO-TEAL-7",
+      "correct": true,
+      "response": "MANGO-TEAL-7"
+    },
+    {
+      "ctx": 4096,
+      "strat": "pdtrim",
+      "budget": 0.3,
+      "needle": "MANGO-TEAL-7",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the provided text."
+    },
+    {
+      "ctx": 4096,
+      "strat": "pdtrim",
+      "budget": 0.5,
+      "needle": "MANGO-TEAL-7",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the provided text."
+    },
+    {
+      "ctx": 4096,
+      "strat": "sws",
+      "budget": 0.3,
+      "needle": "MANGO-TEAL-7",
+      "correct": false,
+      "response": "The lake reflects the mountains. Wind blows through the valley. Paths wind between the hills. The pa"
+    },
+    {
+      "ctx": 4096,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "MANGO-TEAL-7",
+      "correct": false,
+      "response": "Leaves turn color in autumn. Snow covers the ground in winter. Flowers bloom in springtime. The lake"
+    },
+    {
+      "ctx": 4096,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "MANGO-TEAL-7",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the provided text."
+    },
+    {
+      "ctx": 8192,
+      "strat": "full",
+      "budget": 1.0,
+      "needle": "9274",
+      "correct": true,
+      "response": "9274"
+    },
+    {
+      "ctx": 8192,
+      "strat": "pdtrim",
+      "budget": 0.3,
+      "needle": "9274",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the provided text."
+    },
+    {
+      "ctx": 8192,
+      "strat": "pdtrim",
+      "budget": 0.5,
+      "needle": "9274",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the provided text."
+    },
+    {
+      "ctx": 8192,
+      "strat": "sws",
+      "budget": 0.3,
+      "needle": "9274",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the provided text."
+    },
+    {
+      "ctx": 8192,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "9274",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the provided text."
+    },
+    {
+      "ctx": 8192,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "9274",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the provided text."
+    },
+    {
+      "ctx": 8192,
+      "strat": "full",
+      "budget": 1.0,
+      "needle": "FXD83",
+      "correct": true,
+      "response": "FXD83"
+    },
+    {
+      "ctx": 8192,
+      "strat": "pdtrim",
+      "budget": 0.3,
+      "needle": "FXD83",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the provided text."
+    },
+    {
+      "ctx": 8192,
+      "strat": "pdtrim",
+      "budget": 0.5,
+      "needle": "FXD83",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the provided text."
+    },
+    {
+      "ctx": 8192,
+      "strat": "sws",
+      "budget": 0.3,
+      "needle": "FXD83",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the provided text."
+    },
+    {
+      "ctx": 8192,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "FXD83",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the provided text."
+    },
+    {
+      "ctx": 8192,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "FXD83",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the provided text."
+    },
+    {
+      "ctx": 8192,
+      "strat": "full",
+      "budget": 1.0,
+      "needle": "MANGO-TEAL-7",
+      "correct": true,
+      "response": "MANGO-TEAL-7"
+    },
+    {
+      "ctx": 8192,
+      "strat": "pdtrim",
+      "budget": 0.3,
+      "needle": "MANGO-TEAL-7",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the provided text."
+    },
+    {
+      "ctx": 8192,
+      "strat": "pdtrim",
+      "budget": 0.5,
+      "needle": "MANGO-TEAL-7",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the provided text."
+    },
+    {
+      "ctx": 8192,
+      "strat": "sws",
+      "budget": 0.3,
+      "needle": "MANGO-TEAL-7",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the provided text."
+    },
+    {
+      "ctx": 8192,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "MANGO-TEAL-7",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the provided text."
+    },
+    {
+      "ctx": 8192,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "MANGO-TEAL-7",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the provided text."
+    }
+  ]
+}
