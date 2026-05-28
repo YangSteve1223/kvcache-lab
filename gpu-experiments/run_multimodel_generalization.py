@@ -43,6 +43,13 @@ MODEL_CONFIGS = {
         "gated": False,
         "vram_weights_mb": 28000,  # ~28GB, 需要≥40GB卡跑8K
     },
+    "gemma-2-9b-it": {
+        "path": "/root/autodl-tmp/gemma-2-9b-it",
+        "hf_id": "google/gemma-2-9b-it",
+        "trust_remote_code": False,
+        "gated": False,
+        "vram_weights_mb": 18000,
+    },
     "Qwen2.5-32B-Instruct": {
         "path": "/root/autodl-tmp/Qwen2.5-32B-Instruct",
         "hf_id": "Qwen/Qwen2.5-32B-Instruct",
@@ -356,117 +363,128 @@ def is_long_tail(remote_attention_pct, threshold=0.10):
 
 def extract_attention_and_compute_locality(model, tokenizer, model_path, input_ids, trust_rc, last_n_layers=None):
     """
-    提取attention weights并计算locality指标
+    Extract attention weights using forward hooks (no eager model needed).
     
-    策略：临时以eager模式重新加载模型来提取attention weights，
-    因为SDPA模式下output_attentions=True不支持。
-    提取完成后释放eager模型，返回SDPA模型继续PPL实验。
+    Strategy: Register pre_hooks on self_attn to capture Q, K tensors,
+    then compute attention weights manually: softmax(Q @ K^T / sqrt(d)).
+    This avoids loading a second model (OOM on 48GB GPU).
     
     Args:
-        model: 当前SDPA模型（不使用）
+        model: Current SDPA model
         tokenizer: tokenizer
-        model_path: 模型路径
-        input_ids: 输入token IDs
+        model_path: model path
+        input_ids: input token IDs
         trust_rc: trust_remote_code
-        last_n_layers: 只取最后n层
+        last_n_layers: only analyze last n layers
     
     Returns:
-        locality_metrics: 包含所有locality指标的字典
+        locality_metrics: dict with Gini, active_set_ratio, etc.
     """
-    from transformers import AutoModelForCausalLM
+    import torch.nn.functional as F
     
-    log(f"  Loading eager model for attention extraction...")
-    eager_model = AutoModelForCausalLM.from_pretrained(
-        model_path,
-        torch_dtype=torch.bfloat16,
-        device_map="auto",
-        trust_remote_code=trust_rc,
-        attn_implementation="eager",
-    )
-    eager_model.eval()
+    log(f"  Extracting attention via hooks (no eager model needed)...")
     
-    seq_len = input_ids.shape[1]
-    all_attentions = []
+    captured_qk = {}
     
+    # Get attention dimensions from model config (cross-model compatible)
+    cfg = model.config
+    num_heads_cfg = getattr(cfg, 'num_attention_heads', getattr(cfg, 'num_heads', 32))
+    num_kv_heads_cfg = getattr(cfg, 'num_key_value_heads', getattr(cfg, 'num_kv_heads', num_heads_cfg))
+    head_dim_cfg = getattr(cfg, 'head_dim', cfg.hidden_size // num_heads_cfg)
+    log(f"  Config: num_heads={num_heads_cfg}, num_kv_heads={num_kv_heads_cfg}, head_dim={head_dim_cfg}")
+    
+    def make_hook(layer_idx):
+        def pre_hook(module, args, kwargs):
+            # Capture hidden_states (input to attention)
+            if 'hidden_states' in kwargs:
+                hs = kwargs['hidden_states']
+            elif len(args) > 0:
+                hs = args[0]
+            else:
+                return
+            
+            # Get Q, K using the layer's own projection
+            with torch.no_grad():
+                try:
+                    q = module.q_proj(hs)  # [batch, seq, num_heads*head_dim]
+                    k = module.k_proj(hs)  # [batch, seq, num_kv_heads*head_dim]
+                    
+                    # Reshape for multi-head attention
+                    num_heads = num_heads_cfg  # from model config
+                    num_kv_heads = num_kv_heads_cfg  # from model config
+                    head_dim = head_dim_cfg  # from model config
+                    
+                    batch = q.shape[0]
+                    seq_len = q.shape[1]
+                    
+                    q = q.view(batch, seq_len, num_heads, head_dim).transpose(1, 2)  # [B, H_q, S, D]
+                    k = k.view(batch, seq_len, num_kv_heads, head_dim).transpose(1, 2)  # [B, H_kv, S, D]
+                    
+                    # GQA: repeat K to match Q heads
+                    if num_kv_heads < num_heads:
+                        n_rep = num_heads // num_kv_heads
+                        k = k.unsqueeze(2).expand(-1, -1, n_rep, -1, -1).reshape(batch, num_heads, seq_len, head_dim)
+                    
+                    captured_qk[layer_idx] = (q.detach(), k.detach())
+                except Exception as e:
+                    log(f"  Hook layer {layer_idx} failed: {e}")
+        return pre_hook
+    
+    # Register hooks on all layers
+    hooks = []
+    for idx, layer in enumerate(model.model.layers):
+        h = layer.self_attn.register_forward_pre_hook(make_hook(idx), with_kwargs=True)
+        hooks.append(h)
+    
+    # Run forward pass
     try:
         with torch.no_grad():
-            outputs = eager_model(input_ids=input_ids, output_attentions=True)
-        
-        # 从model outputs直接获取attention weights
-        if outputs.attentions is not None:
-            all_attentions = [a.detach() for a in outputs.attentions]
-            log(f"  Captured attention from model output: {len(all_attentions)} layers")
-        else:
-            log(f"  Warning: model output.attentions is None")
+            _ = model(input_ids=input_ids)
     except Exception as e:
-        log(f"  Warning: eager forward failed ({e})")
-        # 尝试NaN-safe方式：逐层推理
-        try:
-            with torch.no_grad():
-                outputs = eager_model(input_ids=input_ids, output_attentions=True)
-            if outputs.attentions is not None:
-                all_attentions = [a.detach() for a in outputs.attentions]
-        except Exception as e2:
-            log(f"  Fallback also failed: {e2}")
-    
-    # 释放eager模型
-    del eager_model
-    torch.cuda.empty_cache()
-    gc.collect()
-    log(f"  Eager model released, VRAM recovered")
-    
-    if not all_attentions:
-        log(f"  Warning: No attention weights captured")
+        log(f"  Forward pass failed: {e}")
+        for h in hooks:
+            h.remove()
         return None
     
-    # 选择层（默认取后4层）
-    if last_n_layers is None:
-        last_n_layers = min(4, len(all_attentions))
+    # Remove hooks
+    for h in hooks:
+        h.remove()
     
-    selected_attentions = all_attentions[-last_n_layers:]
+    if not captured_qk:
+        log(f"  Warning: No Q/K captured via hooks")
+        return None
     
-    # 平均所有层和所有head的attention
-    # attention shape: [batch, heads, seq_len, seq_len]
-    avg_attention = torch.stack(selected_attentions).mean(dim=0).mean(dim=0)  # [seq_len, seq_len]
+    log(f"  Captured Q/K from {len(captured_qk)} layers via hooks")
     
-    # 归一化
-    row_sums = avg_attention.sum(dim=-1, keepdim=True)
-    row_sums = torch.where(row_sums > 0, row_sums, torch.ones_like(row_sums))
-    avg_attention = avg_attention / row_sums
+    # Compute attention weights from Q, K
+    all_attentions = []
+    for idx in sorted(captured_qk.keys()):
+        q, k = captured_qk[idx]
+        head_dim = q.shape[-1]
+        # Attention weights: softmax(Q @ K^T / sqrt(d))
+        attn_weights = torch.matmul(q, k.transpose(-2, -1)) / (head_dim ** 0.5)
+        # Apply causal mask
+        seq_len = attn_weights.shape[-1]
+        causal_mask = torch.triu(torch.ones(seq_len, seq_len, device=attn_weights.device), diagonal=1).bool()
+        attn_weights = attn_weights.masked_fill(causal_mask, float('-inf'))
+        attn_weights = F.softmax(attn_weights, dim=-1)
+        # Average across heads and batch
+        attn_avg = attn_weights.mean(dim=(0, 1))  # [seq, seq]
+        # Take the last row (decode step attention distribution)
+        last_token_attn = attn_avg[-1, :]  # [seq]
+        all_attentions.append(last_token_attn)
     
-    # 计算各项指标
-    # 1. 每个key position的平均attention
-    key_attention = avg_attention.mean(dim=0).cpu().numpy()  # [seq_len]
+    del captured_qk
+    torch.cuda.empty_cache()
+    gc.collect()
     
-    # 2. Gini系数
-    gini = compute_gini(key_attention)
+    if not all_attentions:
+        log(f"  Warning: No attention weights computed")
+        return None
     
-    # 3. Active set (覆盖80% attention)
-    active_set_pct = compute_active_set(key_attention, threshold=0.8)
+    log(f"  Computed attention for {len(all_attentions)} layers")
     
-    # 4. Remote attention (前70% tokens)
-    remote_attention_pct = float(compute_remote_attention(avg_attention.cpu().numpy(), remote_ratio=0.7))
-    
-    # 5. Top-k coverage
-    top_k_coverage = compute_top_k_coverage(avg_attention, k_percentiles=[1, 5, 10, 20])
-    
-    # 6. Long-tail判断
-    long_tail = is_long_tail(remote_attention_pct, threshold=0.10)
-    
-    locality_metrics = {
-        "gini": round(gini, 3),
-        "active_set_pct": round(active_set_pct, 4),
-        "remote_attention_pct": round(remote_attention_pct, 4),
-        "top_1pct_coverage": round(top_k_coverage["top_1pct_coverage"], 4),
-        "top_5pct_coverage": round(top_k_coverage["top_5pct_coverage"], 4),
-        "top_10pct_coverage": round(top_k_coverage["top_10pct_coverage"], 4),
-        "top_20pct_coverage": round(top_k_coverage["top_20pct_coverage"], 4),
-        "long_tail": long_tail,
-    }
-    
-    return locality_metrics
 
-# ========================= 主实验 =========================
 def run_model_experiments(model_name, model_config, output_dir):
     from transformers import AutoModelForCausalLM, AutoTokenizer
 
