@@ -1,97 +1,160 @@
 {
   "model": "gemma9b",
   "seq_len": 2048,
+  "baseline_ppl": 6.7461,
+  "sink": 16,
+  "method": "attention_scores_x_exponential_decay",
+  "note": "Fixed: uses real attention scores weighted by positional decay. Different decay rates now produce different KV selections.",
   "scan": [
     {
       "decay_rate": 0.001,
       "budget": 0.3,
-      "ppl": 7.7422,
-      "delta_pct": 14.63
+      "ppl": 7.6992,
+      "delta_pct": 14.13,
+      "keep_tokens": 614,
+      "sink": 16,
+      "method": "attn_x_decay",
+      "overlap_with_pure_decay_pct": 86.6
     },
     {
       "decay_rate": 0.001,
       "budget": 0.5,
-      "ppl": 5.9102,
-      "delta_pct": -12.49
+      "ppl": 6.7344,
+      "delta_pct": -0.17,
+      "keep_tokens": 1024,
+      "sink": 16,
+      "method": "attn_x_decay",
+      "overlap_with_pure_decay_pct": 86.5
     },
     {
       "decay_rate": 0.001,
       "budget": 0.7,
-      "ppl": 5.4688,
-      "delta_pct": -19.03
+      "ppl": 6.3867,
+      "delta_pct": -5.33,
+      "keep_tokens": 1433,
+      "sink": 16,
+      "method": "attn_x_decay",
+      "overlap_with_pure_decay_pct": 89.9
     },
     {
       "decay_rate": 0.005,
       "budget": 0.3,
-      "ppl": 7.7422,
-      "delta_pct": 14.63
+      "ppl": 7.6836,
+      "delta_pct": 13.9,
+      "keep_tokens": 614,
+      "sink": 16,
+      "method": "attn_x_decay",
+      "overlap_with_pure_decay_pct": 97.2
     },
     {
       "decay_rate": 0.005,
       "budget": 0.5,
-      "ppl": 5.9102,
-      "delta_pct": -12.49
+      "ppl": 5.8906,
+      "delta_pct": -12.68,
+      "keep_tokens": 1024,
+      "sink": 16,
+      "method": "attn_x_decay",
+      "overlap_with_pure_decay_pct": 97.5
     },
     {
       "decay_rate": 0.005,
       "budget": 0.7,
-      "ppl": 5.4688,
-      "delta_pct": -19.03
+      "ppl": 5.7227,
+      "delta_pct": -15.17,
+      "keep_tokens": 1433,
+      "sink": 16,
+      "method": "attn_x_decay",
+      "overlap_with_pure_decay_pct": 97.7
     },
     {
       "decay_rate": 0.01,
       "budget": 0.3,
-      "ppl": 7.7422,
-      "delta_pct": 14.63
+      "ppl": 7.6523,
+      "delta_pct": 13.43,
+      "keep_tokens": 614,
+      "sink": 16,
+      "method": "attn_x_decay",
+      "overlap_with_pure_decay_pct": 98.7
     },
     {
       "decay_rate": 0.01,
       "budget": 0.5,
-      "ppl": 5.9102,
-      "delta_pct": -12.49
+      "ppl": 5.8555,
+      "delta_pct": -13.2,
+      "keep_tokens": 1024,
+      "sink": 16,
+      "method": "attn_x_decay",
+      "overlap_with_pure_decay_pct": 98.8
     },
     {
       "decay_rate": 0.01,
       "budget": 0.7,
-      "ppl": 5.4688,
-      "delta_pct": -19.03
+      "ppl": 5.5234,
+      "delta_pct": -18.12,
+      "keep_tokens": 1433,
+      "sink": 16,
+      "method": "attn_x_decay",
+      "overlap_with_pure_decay_pct": 99.0
     },
     {
       "decay_rate": 0.02,
       "budget": 0.3,
-      "ppl": 7.7422,
-      "delta_pct": 14.63
+      "ppl": 7.6367,
+      "delta_pct": 13.2,
+      "keep_tokens": 614,
+      "sink": 16,
+      "method": "attn_x_decay",
+      "overlap_with_pure_decay_pct": 99.2
     },
     {
       "decay_rate": 0.02,
       "budget": 0.5,
-      "ppl": 5.9102,
-      "delta_pct": -12.49
+      "ppl": 5.8672,
+      "delta_pct": -13.03,
+      "keep_tokens": 1024,
+      "sink": 16,
+      "method": "attn_x_decay",
+      "overlap_with_pure_decay_pct": 99.4
     },
     {
       "decay_rate": 0.02,
       "budget": 0.7,
-      "ppl": 5.4688,
-      "delta_pct": -19.03
+      "ppl": 5.4844,
+      "delta_pct": -18.7,
+      "keep_tokens": 1433,
+      "sink": 16,
+      "method": "attn_x_decay",
+      "overlap_with_pure_decay_pct": 99.4
     },
     {
       "decay_rate": 0.05,
       "budget": 0.3,
-      "ppl": 7.7422,
-      "delta_pct": 14.63
+      "ppl": 7.6992,
+      "delta_pct": 14.13,
+      "keep_tokens": 614,
+      "sink": 16,
+      "method": "attn_x_decay",
+      "overlap_with_pure_decay_pct": 99.5
     },
     {
       "decay_rate": 0.05,
       "budget": 0.5,
-      "ppl": 5.9102,
-      "delta_pct": -12.49
+      "ppl": 5.8438,
+      "delta_pct": -13.38,
+      "keep_tokens": 1024,
+      "sink": 16,
+      "method": "attn_x_decay",
+      "overlap_with_pure_decay_pct": 99.6
     },
     {
       "decay_rate": 0.05,
       "budget": 0.7,
-      "ppl": 5.4688,
-      "delta_pct": -19.03
+      "ppl": 5.5,
+      "delta_pct": -18.47,
+      "keep_tokens": 1433,
+      "sink": 16,
+      "method": "attn_x_decay",
+      "overlap_with_pure_decay_pct": 99.8
     }
-  ],
-  "baseline_ppl": 6.75390625
+  ]
 }
