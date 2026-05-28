@@ -1,0 +1,10 @@
+[
+  {
+    "context_length": 1024,
+    "concurrency": 1,
+    "tps": 66.26,
+    "ttft_ms": 909.02,
+    "total_time_ms": 965.84,
+    "output_tokens": 64
+  }
+]

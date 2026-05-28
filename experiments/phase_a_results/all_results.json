@@ -1,0 +1,147 @@
+{
+  "G2": {
+    "4096_100gbit": {
+      "ttft_mean": 271.96,
+      "transfer_mean": 18.66
+    },
+    "4096_25gbit": {
+      "ttft_mean": 286.99,
+      "transfer_mean": 74.65
+    },
+    "4096_unlimited": {
+      "ttft_mean": 209.73,
+      "transfer_mean": 0.01
+    },
+    "8192_100gbit": {
+      "ttft_mean": 468.45,
+      "transfer_mean": 37.24
+    },
+    "8192_25gbit": {
+      "ttft_mean": 580.38,
+      "transfer_mean": 148.97
+    },
+    "8192_unlimited": {
+      "ttft_mean": 432.21,
+      "transfer_mean": 0.01
+    },
+    "16384_100gbit": {
+      "ttft_mean": 1020.2,
+      "transfer_mean": 74.4
+    },
+    "16384_25gbit": {
+      "ttft_mean": 1245.12,
+      "transfer_mean": 297.6
+    },
+    "16384_unlimited": {
+      "ttft_mean": 951.19,
+      "transfer_mean": 0.01
+    },
+    "32768_100gbit": {
+      "ttft_mean": 2352.78,
+      "transfer_mean": 148.72
+    },
+    "32768_25gbit": {
+      "ttft_mean": 2799.02,
+      "transfer_mean": 594.87
+    },
+    "32768_unlimited": {
+      "ttft_mean": 2205.63,
+      "transfer_mean": 0.01
+    }
+  },
+  "G3": {
+    "G3a": {},
+    "G3c_ppl_vs_alpha": {
+      "0.0": 1.0454,
+      "0.01": 1.0454,
+      "0.03": 1.0454,
+      "0.05": 1.0454,
+      "0.1": 1.0454,
+      "0.15": 1.0454,
+      "0.2": 1.0454
+    }
+  },
+  "G3d": [
+    {
+      "config": "all_layers",
+      "alpha": 0.1,
+      "context_length": 32768,
+      "perplexity_before": 1.0454,
+      "start_layer": 0,
+      "total_layers": 0,
+      "run_index": 0
+    },
+    {
+      "config": "all_layers",
+      "alpha": 0.1,
+      "context_length": 32768,
+      "perplexity_before": 1.0454,
+      "start_layer": 0,
+      "total_layers": 0,
+      "run_index": 1
+    },
+    {
+      "config": "all_layers",
+      "alpha": 0.1,
+      "context_length": 32768,
+      "perplexity_before": 1.0454,
+      "start_layer": 0,
+      "total_layers": 0,
+      "run_index": 2
+    },
+    {
+      "config": "last_1_3",
+      "alpha": 0.1,
+      "context_length": 32768,
+      "perplexity_before": 1.0454,
+      "start_layer": 0,
+      "total_layers": 0,
+      "run_index": 0
+    },
+    {
+      "config": "last_1_3",
+      "alpha": 0.1,
+      "context_length": 32768,
+      "perplexity_before": 1.0454,
+      "start_layer": 0,
+      "total_layers": 0,
+      "run_index": 1
+    },
+    {
+      "config": "last_1_3",
+      "alpha": 0.1,
+      "context_length": 32768,
+      "perplexity_before": 1.0454,
+      "start_layer": 0,
+      "total_layers": 0,
+      "run_index": 2
+    },
+    {
+      "config": "last_1_2",
+      "alpha": 0.1,
+      "context_length": 32768,
+      "perplexity_before": 1.0454,
+      "start_layer": 0,
+      "total_layers": 0,
+      "run_index": 0
+    },
+    {
+      "config": "last_1_2",
+      "alpha": 0.1,
+      "context_length": 32768,
+      "perplexity_before": 1.0454,
+      "start_layer": 0,
+      "total_layers": 0,
+      "run_index": 1
+    },
+    {
+      "config": "last_1_2",
+      "alpha": 0.1,
+      "context_length": 32768,
+      "perplexity_before": 1.0454,
+      "start_layer": 0,
+      "total_layers": 0,
+      "run_index": 2
+    }
+  ]
+}
