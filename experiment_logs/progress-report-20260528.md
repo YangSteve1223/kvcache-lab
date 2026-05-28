@@ -79,11 +79,12 @@
    - 原因: Task-Aware为重要层增加保留率, 总压缩比下降
    - 方向: 需要更精细的budget allocation, 不是简单叠加权重
    - 论文叙事: "Quality-aware bandwidth allocation" → 不是所有场景都需要90%减少
+   - ⏳ 下一步: 实现quality-constrained bandwidth minimization
 
-2. **Gemma校准曲线不够准确**
-   - 真实数据: budget=0.3, sink=0 → PPL+11.84%
-   - 校准模型: budget=0.3, sink=0 → PPL-1.56% ❌
-   - 需要: 更多数据点拟合, 或使用分段线性插值
+2. ~~**Gemma校准曲线不够准确**~~ ✅ 已修复
+   - 使用分段线性插值替代二次拟合
+   - 真实数据: budget=0.3, sink=0 → PPL+11.84% ✅ 完全匹配
+   - 真实数据: budget=0.3, sink=16 → PPL+0.47% ✅ 完全匹配
 
 ### 🟡 改进方向
 3. **策略参数需数据驱动优化**
