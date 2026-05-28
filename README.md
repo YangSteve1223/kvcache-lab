@@ -104,10 +104,26 @@ This severely underestimates locality (e.g., Mistral Gini: hook=0.665 vs eager=0
 
 When concatenating sink + window tokens, omitting `position_ids` causes RoPE to assign wrong relative positions → attention completely breaks. The earlier Mistral PPL=179 was entirely a bug from missing position_ids, NOT a fundamental limitation.
 
-## Target Venue
+## Preprint
 
-MLSys / ATC / EuroSys (systems conference, characterization + proof-of-concept)
+**Title**: Semantic Working Sets for KV Transfer in Prefill--Decode Disaggregated LLM Serving
+
+**Status**: Empirical characterization + prototype preprint. Does not claim a production-quality end-to-end PD serving runtime.
+
+**arXiv category**: cs.DC (primary), cs.LG (secondary)
+
+**Latest commit**: `85c288e`
+
+## Reproducibility
+
+See [REPRODUCIBILITY.md](REPRODUCIBILITY.md) for exact model identifiers, revisions, package versions, and hardware details.
+
+See [TABLE_MAPPING.md](TABLE_MAPPING.md) for the mapping from each paper table/figure to the corresponding JSON result files and scripts.
+
+See [CHANGELOG.md](CHANGELOG.md) for known issues, bugged runs, and obsolete data marked per experiment.
 
 ## License
 
-Private repository. Will be made public upon arXiv publication.
+- **Code**: MIT License (see [LICENSE](LICENSE))
+- **Experiment Data (JSON)**: CC BY 4.0
+- **Paper (LaTeX/PDF)**: CC BY 4.0

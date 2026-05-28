@@ -1,0 +1,106 @@
+\begin{thebibliography}{14}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Beltagy et~al.(2020)Beltagy, Peters, and Cohan]{longformer}
+Iz~Beltagy, Matthew~E. Peters, and Arman Cohan.
+\newblock Longformer: The long-document transformer.
+\newblock \emph{arXiv:2004.05150}, 2020.
+
+\bibitem[Cai et~al.(2024)Cai, Zhang, Gao, Liu, Liu, Lu, Xiong, Dong, Chang, Hu,
+  Xiao, Li, Liu, and Sun]{pyramidkv}
+Zefan Cai, Yichi Zhang, Bofei Gao, Yuliang Liu, Tianyu Liu, Keming Lu, Wayne
+  Xiong, Yue Dong, Baobao Chang, Junjie Hu, Wen Xiao, Yancheng Li, Zhiyuan Liu,
+  and Maosong Sun.
+\newblock Pyramidkv: Dynamic kv cache compression based on pyramidal
+  information funneling.
+\newblock \emph{arXiv:2406.02069}, 2024.
+
+\bibitem[Denning(1968)]{denning1968working}
+Peter~J. Denning.
+\newblock The working set model for program behavior.
+\newblock \emph{Communications of the ACM}, 11\penalty0 (5):\penalty0 323--333,
+  1968.
+
+\bibitem[Kwon et~al.(2023)Kwon, Li, Zhuang, Sheng, Zheng, Yu, Gonzalez, Zhang,
+  and Stoica]{vllm}
+Woosuk Kwon, Zhuohan Li, Siyuan Zhuang, Ying Sheng, Lianmin Zheng, Cody~Hao Yu,
+  Joseph~E. Gonzalez, Hao Zhang, and Ion Stoica.
+\newblock Efficient memory management for large language model serving with
+  {PagedAttention}.
+\newblock \emph{arXiv:2309.06180}, 2023.
+
+\bibitem[Li et~al.(2024)Li, Huang, Yang, Venkitesh, Locatelli, Ye, Cai, Lewis,
+  and Chen]{snapkv}
+Yuhong Li, Yingbing Huang, Bowen Yang, Bharat Venkitesh, Acyr Locatelli,
+  Hanchen Ye, Tianle Cai, Patrick Lewis, and Deming Chen.
+\newblock {SnapKV}: {LLM} knows what you are looking for before generation.
+\newblock \emph{arXiv:2404.14469}, 2024.
+
+\bibitem[Liu et~al.(2026)Liu, Ma, Luo, Zhao, Lu, Huang, Gu, Liu, Wei, Liu, Tao,
+  and Tan]{kvserve}
+Zedong Liu, Xinyang Ma, Dejun Luo, Hairui Zhao, Bing Lu, Wenjing Huang, Yida
+  Gu, Xingchen Liu, Zheng Wei, Jinyang Liu, Dingwen Tao, and Guangming Tan.
+\newblock {KVServe}: Service-aware kv cache compression for
+  communication-efficient disaggregated llm serving.
+\newblock \emph{arXiv:2605.13734}, 2026.
+
+\bibitem[Patel et~al.(2023)Patel, Choukse, Zhang, Shah, Goiri, Maleki, and
+  Bianchini]{splitwise}
+Pratyush Patel, Esha Choukse, Chaojie Zhang, Aashaka Shah, Inigo Goiri, Saeed
+  Maleki, and Ricardo Bianchini.
+\newblock Splitwise: Efficient generative {LLM} inference using phase
+  splitting.
+\newblock \emph{arXiv:2311.18677}, 2023.
+
+\bibitem[Qin et~al.(2024)Qin, Li, He, Zhang, Wu, Zheng, and Xu]{mooncake}
+Rui Qin, Ziming Li, Weiran He, Mingxing Zhang, Yongwei Wu, Weimin Zheng, and
+  Xinran Xu.
+\newblock Mooncake: A {KVCache}-centric disaggregated architecture for {LLM}
+  serving.
+\newblock \emph{arXiv:2407.00079}, 2024.
+
+\bibitem[Su et~al.(2021)Su, Lu, Pan, Wen, and Liu]{su2021roformer}
+Jianlin Su, Yu~Lu, Shengfeng Pan, Bo~Wen, and Yunfeng Liu.
+\newblock {RoFormer}: Enhanced transformer with rotary position embedding.
+\newblock \emph{arXiv:2104.09864}, 2021.
+
+\bibitem[Xiao et~al.(2023)Xiao, Tian, Chen, Han, and Lewis]{streamingllm}
+Guangxuan Xiao, Yuandong Tian, Beidi Chen, Song Han, and Mike Lewis.
+\newblock Efficient streaming language models with attention sinks.
+\newblock \emph{arXiv:2309.17453}, 2023.
+
+\bibitem[Zhang et~al.(2025)Zhang, Lyu, Ao, and Lin]{pdtrim}
+Hao Zhang, Mengsi Lyu, Yulong Ao, and Yonghua Lin.
+\newblock Enhancing {LLM} efficiency: Targeted pruning for prefill-decode
+  disaggregation in inference.
+\newblock \emph{arXiv:2509.04467}, 2025.
+
+\bibitem[Zhang et~al.(2023)Zhang, Sheng, Zhou, Chen, Zheng, Cai, Song, Tian,
+  R{\'e}, Barrett, Wang, and Chen]{h2o}
+Zhenyu Zhang, Ying Sheng, Tianyi Zhou, Tianlong Chen, Lianmin Zheng, Ruisi Cai,
+  Zhao Song, Yuandong Tian, Christopher R{\'e}, Clark Barrett, Zhangyang Wang,
+  and Beidi Chen.
+\newblock {H2O}: Heavy-hitter oracle for efficient generative inference of
+  large language models.
+\newblock In \emph{Advances in Neural Information Processing Systems}, 2023.
+
+\bibitem[Zhong et~al.(2024)Zhong, Liu, Chen, Hu, Zhu, Liu, Jin, and
+  Zhang]{distserve}
+Yinmin Zhong, Shengyu Liu, Junda Chen, Jianbo Hu, Yibo Zhu, Xuanzhe Liu, Xin
+  Jin, and Hao Zhang.
+\newblock {DistServe}: Disaggregating prefill and decoding for
+  goodput-optimized large language model serving.
+\newblock In \emph{18th USENIX Symposium on Operating Systems Design and
+  Implementation}, 2024.
+
+\bibitem[Zhou et~al.(2024)]{dynamickv}
+Yinmin Zhou et~al.
+\newblock Dynamickv: Task-aware adaptive kv cache compression for long context
+  llms.
+\newblock \emph{arXiv:2412.14838}, 2024.
+
+\end{thebibliography}
