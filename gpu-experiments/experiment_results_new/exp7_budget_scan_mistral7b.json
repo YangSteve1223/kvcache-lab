@@ -1,0 +1,217 @@
+{
+  "model": "mistral7b",
+  "seq_len": 2048,
+  "scan": [
+    {
+      "strategy": "pdtrim",
+      "budget": 0.1,
+      "kwargs": "{'fr': 0.5}",
+      "ppl": 20.8438,
+      "delta_pct": 274.46
+    },
+    {
+      "strategy": "pdtrim",
+      "budget": 0.2,
+      "kwargs": "{'fr': 0.5}",
+      "ppl": 13.9141,
+      "delta_pct": 149.96
+    },
+    {
+      "strategy": "pdtrim",
+      "budget": 0.3,
+      "kwargs": "{'fr': 0.5}",
+      "ppl": 12.4219,
+      "delta_pct": 123.16
+    },
+    {
+      "strategy": "pdtrim",
+      "budget": 0.4,
+      "kwargs": "{'fr': 0.5}",
+      "ppl": 11.2422,
+      "delta_pct": 101.96
+    },
+    {
+      "strategy": "pdtrim",
+      "budget": 0.5,
+      "kwargs": "{'fr': 0.5}",
+      "ppl": 8.6562,
+      "delta_pct": 55.51
+    },
+    {
+      "strategy": "pdtrim",
+      "budget": 0.6,
+      "kwargs": "{'fr': 0.5}",
+      "ppl": 8.6719,
+      "delta_pct": 55.79
+    },
+    {
+      "strategy": "pdtrim",
+      "budget": 0.7,
+      "kwargs": "{'fr': 0.5}",
+      "ppl": 8.3203,
+      "delta_pct": 49.47
+    },
+    {
+      "strategy": "pdtrim",
+      "budget": 0.8,
+      "kwargs": "{'fr': 0.5}",
+      "ppl": 7.5625,
+      "delta_pct": 35.86
+    },
+    {
+      "strategy": "pdtrim",
+      "budget": 0.9,
+      "kwargs": "{'fr': 0.5}",
+      "ppl": 7.3164,
+      "delta_pct": 31.44
+    },
+    {
+      "strategy": "pdtrim",
+      "budget": 1.0,
+      "kwargs": "{'fr': 0.5}",
+      "ppl": 5.5664,
+      "delta_pct": 0.0
+    },
+    {
+      "strategy": "sws",
+      "budget": 0.1,
+      "kwargs": "{'sink': 16}",
+      "ppl": 8.875,
+      "delta_pct": 59.44
+    },
+    {
+      "strategy": "sws",
+      "budget": 0.2,
+      "kwargs": "{'sink': 16}",
+      "ppl": 8.2266,
+      "delta_pct": 47.79
+    },
+    {
+      "strategy": "sws",
+      "budget": 0.3,
+      "kwargs": "{'sink': 16}",
+      "ppl": 6.6836,
+      "delta_pct": 20.07
+    },
+    {
+      "strategy": "sws",
+      "budget": 0.4,
+      "kwargs": "{'sink': 16}",
+      "ppl": 5.7031,
+      "delta_pct": 2.46
+    },
+    {
+      "strategy": "sws",
+      "budget": 0.5,
+      "kwargs": "{'sink': 16}",
+      "ppl": 5.2969,
+      "delta_pct": -4.84
+    },
+    {
+      "strategy": "sws",
+      "budget": 0.6,
+      "kwargs": "{'sink': 16}",
+      "ppl": 4.9414,
+      "delta_pct": -11.23
+    },
+    {
+      "strategy": "sws",
+      "budget": 0.7,
+      "kwargs": "{'sink': 16}",
+      "ppl": 4.8477,
+      "delta_pct": -12.91
+    },
+    {
+      "strategy": "sws",
+      "budget": 0.8,
+      "kwargs": "{'sink': 16}",
+      "ppl": 4.6836,
+      "delta_pct": -15.86
+    },
+    {
+      "strategy": "sws",
+      "budget": 0.9,
+      "kwargs": "{'sink': 16}",
+      "ppl": 5.0156,
+      "delta_pct": -9.89
+    },
+    {
+      "strategy": "sws",
+      "budget": 1.0,
+      "kwargs": "{'sink': 16}",
+      "ppl": 5.5664,
+      "delta_pct": 0.0
+    },
+    {
+      "strategy": "sws",
+      "budget": 0.1,
+      "kwargs": "{'sink': 0}",
+      "ppl": 8.875,
+      "delta_pct": 59.44
+    },
+    {
+      "strategy": "sws",
+      "budget": 0.2,
+      "kwargs": "{'sink': 0}",
+      "ppl": 8.2266,
+      "delta_pct": 47.79
+    },
+    {
+      "strategy": "sws",
+      "budget": 0.3,
+      "kwargs": "{'sink': 0}",
+      "ppl": 6.6836,
+      "delta_pct": 20.07
+    },
+    {
+      "strategy": "sws",
+      "budget": 0.4,
+      "kwargs": "{'sink': 0}",
+      "ppl": 5.7031,
+      "delta_pct": 2.46
+    },
+    {
+      "strategy": "sws",
+      "budget": 0.5,
+      "kwargs": "{'sink': 0}",
+      "ppl": 5.2969,
+      "delta_pct": -4.84
+    },
+    {
+      "strategy": "sws",
+      "budget": 0.6,
+      "kwargs": "{'sink': 0}",
+      "ppl": 4.9414,
+      "delta_pct": -11.23
+    },
+    {
+      "strategy": "sws",
+      "budget": 0.7,
+      "kwargs": "{'sink': 0}",
+      "ppl": 4.8477,
+      "delta_pct": -12.91
+    },
+    {
+      "strategy": "sws",
+      "budget": 0.8,
+      "kwargs": "{'sink': 0}",
+      "ppl": 4.6836,
+      "delta_pct": -15.86
+    },
+    {
+      "strategy": "sws",
+      "budget": 0.9,
+      "kwargs": "{'sink': 0}",
+      "ppl": 5.0156,
+      "delta_pct": -9.89
+    },
+    {
+      "strategy": "sws",
+      "budget": 1.0,
+      "kwargs": "{'sink': 0}",
+      "ppl": 5.5664,
+      "delta_pct": 0.0
+    }
+  ],
+  "baseline_ppl": 5.56640625
+}

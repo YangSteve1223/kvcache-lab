@@ -1,0 +1,132 @@
+{
+  "model": "qwen7b",
+  "vram_gb": 33.8,
+  "results": [
+    {
+      "seq_len": 2048,
+      "strategy": "full",
+      "budget": 1.0,
+      "ttft_ms": 391.0,
+      "total_ms": 1040.9,
+      "tps": 49.2,
+      "tokens_generated": 32
+    },
+    {
+      "seq_len": 2048,
+      "strategy": "pdtrim",
+      "budget": 0.3,
+      "ttft_ms": 98.7,
+      "total_ms": 829.2,
+      "tps": 43.8,
+      "tokens_generated": 32
+    },
+    {
+      "seq_len": 2048,
+      "strategy": "pdtrim",
+      "budget": 0.5,
+      "ttft_ms": 153.6,
+      "total_ms": 888.9,
+      "tps": 43.5,
+      "tokens_generated": 32
+    },
+    {
+      "seq_len": 2048,
+      "strategy": "pdtrim",
+      "budget": 0.7,
+      "ttft_ms": 230.6,
+      "total_ms": 967.6,
+      "tps": 43.4,
+      "tokens_generated": 32
+    },
+    {
+      "seq_len": 2048,
+      "strategy": "sws",
+      "budget": 0.3,
+      "ttft_ms": 98.5,
+      "total_ms": 828.6,
+      "tps": 43.8,
+      "tokens_generated": 32
+    },
+    {
+      "seq_len": 2048,
+      "strategy": "sws",
+      "budget": 0.5,
+      "ttft_ms": 153.6,
+      "total_ms": 889.4,
+      "tps": 43.5,
+      "tokens_generated": 32
+    },
+    {
+      "seq_len": 2048,
+      "strategy": "sws",
+      "budget": 0.7,
+      "ttft_ms": 230.8,
+      "total_ms": 968.8,
+      "tps": 43.4,
+      "tokens_generated": 32
+    },
+    {
+      "seq_len": 4096,
+      "strategy": "full",
+      "budget": 1.0,
+      "ttft_ms": 630.2,
+      "total_ms": 1384.8,
+      "tps": 42.4,
+      "tokens_generated": 32
+    },
+    {
+      "seq_len": 4096,
+      "strategy": "pdtrim",
+      "budget": 0.3,
+      "ttft_ms": 195.7,
+      "total_ms": 929.3,
+      "tps": 43.6,
+      "tokens_generated": 32
+    },
+    {
+      "seq_len": 4096,
+      "strategy": "pdtrim",
+      "budget": 0.5,
+      "ttft_ms": 295.4,
+      "total_ms": 1035.9,
+      "tps": 43.2,
+      "tokens_generated": 32
+    },
+    {
+      "seq_len": 4096,
+      "strategy": "pdtrim",
+      "budget": 0.7,
+      "ttft_ms": 441.3,
+      "total_ms": 1190.4,
+      "tps": 42.7,
+      "tokens_generated": 32
+    },
+    {
+      "seq_len": 4096,
+      "strategy": "sws",
+      "budget": 0.3,
+      "ttft_ms": 193.6,
+      "total_ms": 930.5,
+      "tps": 43.4,
+      "tokens_generated": 32
+    },
+    {
+      "seq_len": 4096,
+      "strategy": "sws",
+      "budget": 0.5,
+      "ttft_ms": 295.9,
+      "total_ms": 1036.7,
+      "tps": 43.2,
+      "tokens_generated": 32
+    },
+    {
+      "seq_len": 4096,
+      "strategy": "sws",
+      "budget": 0.7,
+      "ttft_ms": 441.6,
+      "total_ms": 1191.1,
+      "tps": 42.7,
+      "tokens_generated": 32
+    }
+  ]
+}
