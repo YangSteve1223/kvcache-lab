@@ -1,0 +1,86 @@
+{
+  "model": "mistral7b",
+  "seq_len": 2048,
+  "conditions": [
+    {
+      "name": "baseline",
+      "budget": 1.0,
+      "n_runs": 5,
+      "n_expected": 5,
+      "mean_ppl": 1.0275,
+      "std": 0.0004,
+      "ci95": 0.0003,
+      "ppls": [
+        1.0283,
+        1.0274,
+        1.0274,
+        1.0274,
+        1.0274
+      ]
+    },
+    {
+      "name": "sws_30pct_sink16",
+      "budget": 0.3,
+      "n_runs": 5,
+      "n_expected": 5,
+      "mean_ppl": 1.185,
+      "std": 0.0003,
+      "ci95": 0.0003,
+      "ppls": [
+        1.1856,
+        1.1848,
+        1.1848,
+        1.1848,
+        1.1848
+      ]
+    },
+    {
+      "name": "sws_50pct_sink16",
+      "budget": 0.5,
+      "n_runs": 5,
+      "n_expected": 5,
+      "mean_ppl": 1.1025,
+      "std": 0.0001,
+      "ci95": 0.0001,
+      "ppls": [
+        1.1028,
+        1.1025,
+        1.1025,
+        1.1025,
+        1.1025
+      ]
+    },
+    {
+      "name": "sws_50pct_sink0",
+      "budget": 0.5,
+      "n_runs": 5,
+      "n_expected": 5,
+      "mean_ppl": 1.0543,
+      "std": 0.0,
+      "ci95": 0.0,
+      "ppls": [
+        1.0543,
+        1.0543,
+        1.0543,
+        1.0543,
+        1.0543
+      ]
+    },
+    {
+      "name": "pdtrim_50pct_f50",
+      "budget": 0.5,
+      "n_runs": 5,
+      "n_expected": 5,
+      "mean_ppl": 1.1098,
+      "std": 0.0009,
+      "ci95": 0.0008,
+      "ppls": [
+        1.1115,
+        1.1093,
+        1.1093,
+        1.1093,
+        1.1093
+      ]
+    }
+  ]
+}
