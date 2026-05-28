@@ -1,97 +1,161 @@
 {
   "model": "qwen7b",
   "seq_len": 2048,
+  "baseline_ppl": 5.1094,
+  "sink": 16,
+  "importance_method": "kv_norm",
+  "method": "kv_norm_x_exponential_decay",
+  "note": "Uses KV-cache L2 norm as importance proxy weighted by positional decay. Different decay rates produce different KV selections.",
   "scan": [
     {
       "decay_rate": 0.001,
       "budget": 0.3,
-      "ppl": 7.418,
-      "delta_pct": 45.18
+      "ppl": 7.0703,
+      "delta_pct": 38.38,
+      "keep_tokens": 614,
+      "sink": 16,
+      "method": "kv_norm_x_decay",
+      "overlap_with_pure_decay_pct": 97.9
     },
     {
       "decay_rate": 0.001,
       "budget": 0.5,
-      "ppl": 5.7617,
-      "delta_pct": 12.77
+      "ppl": 5.5977,
+      "delta_pct": 9.56,
+      "keep_tokens": 1024,
+      "sink": 16,
+      "method": "kv_norm_x_decay",
+      "overlap_with_pure_decay_pct": 98.7
     },
     {
       "decay_rate": 0.001,
       "budget": 0.7,
-      "ppl": 5.0469,
-      "delta_pct": -1.22
+      "ppl": 5.0078,
+      "delta_pct": -1.99,
+      "keep_tokens": 1433,
+      "sink": 16,
+      "method": "kv_norm_x_decay",
+      "overlap_with_pure_decay_pct": 99.3
     },
     {
       "decay_rate": 0.005,
       "budget": 0.3,
-      "ppl": 7.418,
-      "delta_pct": 45.18
+      "ppl": 7.3828,
+      "delta_pct": 44.5,
+      "keep_tokens": 614,
+      "sink": 16,
+      "method": "kv_norm_x_decay",
+      "overlap_with_pure_decay_pct": 99.8
     },
     {
       "decay_rate": 0.005,
       "budget": 0.5,
-      "ppl": 5.7617,
-      "delta_pct": 12.77
+      "ppl": 5.75,
+      "delta_pct": 12.54,
+      "keep_tokens": 1024,
+      "sink": 16,
+      "method": "kv_norm_x_decay",
+      "overlap_with_pure_decay_pct": 99.6
     },
     {
       "decay_rate": 0.005,
       "budget": 0.7,
-      "ppl": 5.0469,
-      "delta_pct": -1.22
+      "ppl": 5.043,
+      "delta_pct": -1.3,
+      "keep_tokens": 1433,
+      "sink": 16,
+      "method": "kv_norm_x_decay",
+      "overlap_with_pure_decay_pct": 99.9
     },
     {
       "decay_rate": 0.01,
       "budget": 0.3,
-      "ppl": 7.418,
-      "delta_pct": 45.18
+      "ppl": 7.4453,
+      "delta_pct": 45.72,
+      "keep_tokens": 614,
+      "sink": 16,
+      "method": "kv_norm_x_decay",
+      "overlap_with_pure_decay_pct": 99.8
     },
     {
       "decay_rate": 0.01,
       "budget": 0.5,
-      "ppl": 5.7617,
-      "delta_pct": 12.77
+      "ppl": 5.75,
+      "delta_pct": 12.54,
+      "keep_tokens": 1024,
+      "sink": 16,
+      "method": "kv_norm_x_decay",
+      "overlap_with_pure_decay_pct": 99.9
     },
     {
       "decay_rate": 0.01,
       "budget": 0.7,
-      "ppl": 5.0469,
-      "delta_pct": -1.22
+      "ppl": 5.043,
+      "delta_pct": -1.3,
+      "keep_tokens": 1433,
+      "sink": 16,
+      "method": "kv_norm_x_decay",
+      "overlap_with_pure_decay_pct": 100.0
     },
     {
       "decay_rate": 0.02,
       "budget": 0.3,
-      "ppl": 7.418,
-      "delta_pct": 45.18
+      "ppl": 7.4453,
+      "delta_pct": 45.72,
+      "keep_tokens": 614,
+      "sink": 16,
+      "method": "kv_norm_x_decay",
+      "overlap_with_pure_decay_pct": 99.8
     },
     {
       "decay_rate": 0.02,
       "budget": 0.5,
-      "ppl": 5.7617,
-      "delta_pct": 12.77
+      "ppl": 5.75,
+      "delta_pct": 12.54,
+      "keep_tokens": 1024,
+      "sink": 16,
+      "method": "kv_norm_x_decay",
+      "overlap_with_pure_decay_pct": 99.9
     },
     {
       "decay_rate": 0.02,
       "budget": 0.7,
-      "ppl": 5.0469,
-      "delta_pct": -1.22
+      "ppl": 5.043,
+      "delta_pct": -1.3,
+      "keep_tokens": 1433,
+      "sink": 16,
+      "method": "kv_norm_x_decay",
+      "overlap_with_pure_decay_pct": 100.0
     },
     {
       "decay_rate": 0.05,
       "budget": 0.3,
-      "ppl": 7.418,
-      "delta_pct": 45.18
+      "ppl": 7.4453,
+      "delta_pct": 45.72,
+      "keep_tokens": 614,
+      "sink": 16,
+      "method": "kv_norm_x_decay",
+      "overlap_with_pure_decay_pct": 100.0
     },
     {
       "decay_rate": 0.05,
       "budget": 0.5,
-      "ppl": 5.7617,
-      "delta_pct": 12.77
+      "ppl": 5.75,
+      "delta_pct": 12.54,
+      "keep_tokens": 1024,
+      "sink": 16,
+      "method": "kv_norm_x_decay",
+      "overlap_with_pure_decay_pct": 99.9
     },
     {
       "decay_rate": 0.05,
       "budget": 0.7,
-      "ppl": 5.0469,
-      "delta_pct": -1.22
+      "ppl": 5.043,
+      "delta_pct": -1.3,
+      "keep_tokens": 1433,
+      "sink": 16,
+      "method": "kv_norm_x_decay",
+      "overlap_with_pure_decay_pct": 100.0
     }
-  ],
-  "baseline_ppl": 5.109375
+  ]
 }
