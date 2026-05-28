@@ -1,0 +1,437 @@
+{
+  "model": "gemma9b",
+  "tests": [
+    {
+      "ctx": 2048,
+      "strat": "full",
+      "budget": 1.0,
+      "needle": "9274",
+      "correct": true,
+      "response": "9274 \n"
+    },
+    {
+      "ctx": 2048,
+      "strat": "pdtrim",
+      "budget": 0.3,
+      "needle": "9274",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the text. \n"
+    },
+    {
+      "ctx": 2048,
+      "strat": "pdtrim",
+      "budget": 0.5,
+      "needle": "9274",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the text. \n\n\n"
+    },
+    {
+      "ctx": 2048,
+      "strat": "sws",
+      "budget": 0.3,
+      "needle": "9274",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the text. \n"
+    },
+    {
+      "ctx": 2048,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "9274",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the text. \n"
+    },
+    {
+      "ctx": 2048,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "9274",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned. \n"
+    },
+    {
+      "ctx": 2048,
+      "strat": "full",
+      "budget": 1.0,
+      "needle": "FXD83",
+      "correct": true,
+      "response": "FXD83 \n"
+    },
+    {
+      "ctx": 2048,
+      "strat": "pdtrim",
+      "budget": 0.3,
+      "needle": "FXD83",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the text. \n"
+    },
+    {
+      "ctx": 2048,
+      "strat": "pdtrim",
+      "budget": 0.5,
+      "needle": "FXD83",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the text. \n\n\n"
+    },
+    {
+      "ctx": 2048,
+      "strat": "sws",
+      "budget": 0.3,
+      "needle": "FXD83",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the text. \n"
+    },
+    {
+      "ctx": 2048,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "FXD83",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the text. \n"
+    },
+    {
+      "ctx": 2048,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "FXD83",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned. \n"
+    },
+    {
+      "ctx": 2048,
+      "strat": "full",
+      "budget": 1.0,
+      "needle": "MANGO-TEAL-7",
+      "correct": true,
+      "response": "MANGO-TEAL-7 \n"
+    },
+    {
+      "ctx": 2048,
+      "strat": "pdtrim",
+      "budget": 0.3,
+      "needle": "MANGO-TEAL-7",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the text. \n"
+    },
+    {
+      "ctx": 2048,
+      "strat": "pdtrim",
+      "budget": 0.5,
+      "needle": "MANGO-TEAL-7",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the text. \n\n\n"
+    },
+    {
+      "ctx": 2048,
+      "strat": "sws",
+      "budget": 0.3,
+      "needle": "MANGO-TEAL-7",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the text. \n"
+    },
+    {
+      "ctx": 2048,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "MANGO-TEAL-7",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the text. \n"
+    },
+    {
+      "ctx": 2048,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "MANGO-TEAL-7",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned. \n"
+    },
+    {
+      "ctx": 4096,
+      "strat": "full",
+      "budget": 1.0,
+      "needle": "9274",
+      "correct": true,
+      "response": "9274 \n"
+    },
+    {
+      "ctx": 4096,
+      "strat": "pdtrim",
+      "budget": 0.3,
+      "needle": "9274",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the text. \n\n\n"
+    },
+    {
+      "ctx": 4096,
+      "strat": "pdtrim",
+      "budget": 0.5,
+      "needle": "9274",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the text. \n\n\n"
+    },
+    {
+      "ctx": 4096,
+      "strat": "sws",
+      "budget": 0.3,
+      "needle": "9274",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the text. \n\n\n"
+    },
+    {
+      "ctx": 4096,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "9274",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the text. \n\n\n"
+    },
+    {
+      "ctx": 4096,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "9274",
+      "correct": false,
+      "response": "There isn't a passcode, confirmation number, or project identifier mentioned in the text. \n\n\n"
+    },
+    {
+      "ctx": 4096,
+      "strat": "full",
+      "budget": 1.0,
+      "needle": "FXD83",
+      "correct": true,
+      "response": "FXD83 \n"
+    },
+    {
+      "ctx": 4096,
+      "strat": "pdtrim",
+      "budget": 0.3,
+      "needle": "FXD83",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the text. \n\n\n"
+    },
+    {
+      "ctx": 4096,
+      "strat": "pdtrim",
+      "budget": 0.5,
+      "needle": "FXD83",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the text. \n\n\n"
+    },
+    {
+      "ctx": 4096,
+      "strat": "sws",
+      "budget": 0.3,
+      "needle": "FXD83",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the text. \n\n\n"
+    },
+    {
+      "ctx": 4096,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "FXD83",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the text. \n\n\n"
+    },
+    {
+      "ctx": 4096,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "FXD83",
+      "correct": false,
+      "response": "There isn't a passcode, confirmation number, or project identifier mentioned in the text. \n\n\n"
+    },
+    {
+      "ctx": 4096,
+      "strat": "full",
+      "budget": 1.0,
+      "needle": "MANGO-TEAL-7",
+      "correct": true,
+      "response": "MANGO-TEAL-7 \n"
+    },
+    {
+      "ctx": 4096,
+      "strat": "pdtrim",
+      "budget": 0.3,
+      "needle": "MANGO-TEAL-7",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the text. \n\n\n"
+    },
+    {
+      "ctx": 4096,
+      "strat": "pdtrim",
+      "budget": 0.5,
+      "needle": "MANGO-TEAL-7",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the text. \n\n\n"
+    },
+    {
+      "ctx": 4096,
+      "strat": "sws",
+      "budget": 0.3,
+      "needle": "MANGO-TEAL-7",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the text. \n\n\n"
+    },
+    {
+      "ctx": 4096,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "MANGO-TEAL-7",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned in the text. \n\n\n"
+    },
+    {
+      "ctx": 4096,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "MANGO-TEAL-7",
+      "correct": false,
+      "response": "There isn't a passcode, confirmation number, or project identifier mentioned in the text. \n\n\n"
+    },
+    {
+      "ctx": 8192,
+      "strat": "full",
+      "budget": 1.0,
+      "needle": "9274",
+      "correct": true,
+      "response": "9274 \n"
+    },
+    {
+      "ctx": 8192,
+      "strat": "pdtrim",
+      "budget": 0.3,
+      "needle": "9274",
+      "correct": false,
+      "response": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+    },
+    {
+      "ctx": 8192,
+      "strat": "pdtrim",
+      "budget": 0.5,
+      "needle": "9274",
+      "correct": false,
+      "response": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+    },
+    {
+      "ctx": 8192,
+      "strat": "sws",
+      "budget": 0.3,
+      "needle": "9274",
+      "correct": false,
+      "response": "Please provide me with the text and I will provide the value. \n\nPlease provide me with the text and "
+    },
+    {
+      "ctx": 8192,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "9274",
+      "correct": false,
+      "response": "The provided text is a placeholder. \n\nPlease provide me with the text so I can determine the passcod"
+    },
+    {
+      "ctx": 8192,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "9274",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned. \n\n\n"
+    },
+    {
+      "ctx": 8192,
+      "strat": "full",
+      "budget": 1.0,
+      "needle": "FXD83",
+      "correct": true,
+      "response": "FXD83 \n"
+    },
+    {
+      "ctx": 8192,
+      "strat": "pdtrim",
+      "budget": 0.3,
+      "needle": "FXD83",
+      "correct": false,
+      "response": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+    },
+    {
+      "ctx": 8192,
+      "strat": "pdtrim",
+      "budget": 0.5,
+      "needle": "FXD83",
+      "correct": false,
+      "response": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+    },
+    {
+      "ctx": 8192,
+      "strat": "sws",
+      "budget": 0.3,
+      "needle": "FXD83",
+      "correct": false,
+      "response": "Please provide me with the text and I will be happy to help.\nPlease provide me with the text and I w"
+    },
+    {
+      "ctx": 8192,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "FXD83",
+      "correct": false,
+      "response": "The provided text does not contain a passcode or project identifier. \n\n"
+    },
+    {
+      "ctx": 8192,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "FXD83",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned. \n\n\n"
+    },
+    {
+      "ctx": 8192,
+      "strat": "full",
+      "budget": 1.0,
+      "needle": "MANGO-TEAL-7",
+      "correct": true,
+      "response": "MANGO-TEAL-7 \n"
+    },
+    {
+      "ctx": 8192,
+      "strat": "pdtrim",
+      "budget": 0.3,
+      "needle": "MANGO-TEAL-7",
+      "correct": false,
+      "response": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+    },
+    {
+      "ctx": 8192,
+      "strat": "pdtrim",
+      "budget": 0.5,
+      "needle": "MANGO-TEAL-7",
+      "correct": false,
+      "response": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+    },
+    {
+      "ctx": 8192,
+      "strat": "sws",
+      "budget": 0.3,
+      "needle": "MANGO-TEAL-7",
+      "correct": false,
+      "response": "Please provide me with the text and I will be happy to help.\nPlease provide me with the text and I w"
+    },
+    {
+      "ctx": 8192,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "MANGO-TEAL-7",
+      "correct": false,
+      "response": "The provided text does not contain a passcode or project identifier. \n\n"
+    },
+    {
+      "ctx": 8192,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "MANGO-TEAL-7",
+      "correct": false,
+      "response": "There is no passcode, confirmation number, or project identifier mentioned. \n\n\n"
+    }
+  ]
+}

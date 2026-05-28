@@ -1,0 +1,149 @@
+{
+  "model": "mistral7b",
+  "tests": [
+    {
+      "ctx": 2048,
+      "strat": "full",
+      "budget": 1.0,
+      "needle": "9274",
+      "correct": true,
+      "response": "9274"
+    },
+    {
+      "ctx": 2048,
+      "strat": "pdtrim",
+      "budget": 0.3,
+      "needle": "9274",
+      "correct": false,
+      "response": "The text provided does not mention a passcode, confirmation number, or project identifier."
+    },
+    {
+      "ctx": 2048,
+      "strat": "pdtrim",
+      "budget": 0.5,
+      "needle": "9274",
+      "correct": false,
+      "response": "The text provided does not mention a passcode, confirmation number, or project identifier. It descri"
+    },
+    {
+      "ctx": 2048,
+      "strat": "sws",
+      "budget": 0.3,
+      "needle": "9274",
+      "correct": false,
+      "response": "The text provided does not contain a passcode, confirmation number, or project identifier."
+    },
+    {
+      "ctx": 2048,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "9274",
+      "correct": false,
+      "response": "The text provided does not mention a passcode, confirmation number, or project identifier."
+    },
+    {
+      "ctx": 2048,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "9274",
+      "correct": false,
+      "response": "The text provided does not contain a specific passcode, confirmation number, or project identifier. "
+    },
+    {
+      "ctx": 2048,
+      "strat": "full",
+      "budget": 1.0,
+      "needle": "FXD83",
+      "correct": true,
+      "response": "FXD83"
+    },
+    {
+      "ctx": 2048,
+      "strat": "pdtrim",
+      "budget": 0.3,
+      "needle": "FXD83",
+      "correct": false,
+      "response": "The text provided does not mention a passcode, confirmation number, or project identifier."
+    },
+    {
+      "ctx": 2048,
+      "strat": "pdtrim",
+      "budget": 0.5,
+      "needle": "FXD83",
+      "correct": false,
+      "response": "The text provided does not mention a passcode, confirmation number, or project identifier. It descri"
+    },
+    {
+      "ctx": 2048,
+      "strat": "sws",
+      "budget": 0.3,
+      "needle": "FXD83",
+      "correct": false,
+      "response": "The text provided does not contain a passcode, confirmation number, or project identifier."
+    },
+    {
+      "ctx": 2048,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "FXD83",
+      "correct": false,
+      "response": "The text provided does not mention a passcode, confirmation number, or project identifier."
+    },
+    {
+      "ctx": 2048,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "FXD83",
+      "correct": false,
+      "response": "The text provided does not contain a specific passcode, confirmation number, or project identifier. "
+    },
+    {
+      "ctx": 2048,
+      "strat": "full",
+      "budget": 1.0,
+      "needle": "MANGO-TEAL-7",
+      "correct": true,
+      "response": "MANGO-TEAL-7"
+    },
+    {
+      "ctx": 2048,
+      "strat": "pdtrim",
+      "budget": 0.3,
+      "needle": "MANGO-TEAL-7",
+      "correct": false,
+      "response": "The text provided does not mention a passcode, confirmation number, or project identifier."
+    },
+    {
+      "ctx": 2048,
+      "strat": "pdtrim",
+      "budget": 0.5,
+      "needle": "MANGO-TEAL-7",
+      "correct": false,
+      "response": "The text provided does not mention a passcode, confirmation number, or project identifier. It descri"
+    },
+    {
+      "ctx": 2048,
+      "strat": "sws",
+      "budget": 0.3,
+      "needle": "MANGO-TEAL-7",
+      "correct": false,
+      "response": "The text provided does not contain a passcode, confirmation number, or project identifier."
+    },
+    {
+      "ctx": 2048,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "MANGO-TEAL-7",
+      "correct": false,
+      "response": "The text provided does not mention a passcode, confirmation number, or project identifier."
+    },
+    {
+      "ctx": 2048,
+      "strat": "sws",
+      "budget": 0.5,
+      "needle": "MANGO-TEAL-7",
+      "correct": false,
+      "response": "The text provided does not contain a specific passcode, confirmation number, or project identifier. "
+    }
+  ]
+}
