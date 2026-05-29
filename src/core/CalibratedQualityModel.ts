@@ -188,22 +188,43 @@ const REAL_PPL_DATA: Record<string, {
 };
 
 /**
- * 分段线性插值
+ * 分段线性插值 + 低保留率外推
+ * 
  * 在两个相邻数据点之间线性插值
- * 超出范围时使用最近的边界点
+ * 高端(budget > max)使用最近边界点
+ * 低端(budget < min)使用指数外推：
+ *   PPL(b) = PPL(b_min) × (b_min / b)^2
+ *   这反映了KV急剧减少时PPL的指数级恶化
  */
 function piecewiseLinearInterp(
   x: number,
   dataPoints: PPLDataPoint[],
 ): number {
-  // 按budget降序排列
+  // 按budget升序排列
   const sorted = [...dataPoints].sort((a, b) => a.budget - b.budget);
   
-  // 边界外: 使用最近点
-  if (x <= sorted[0].budget) return sorted[0].pplChange;
+  // 高端边界外: 使用最近点
   if (x >= sorted[sorted.length - 1].budget) return sorted[sorted.length - 1].pplChange;
   
-  // 找到区间
+  // 低端边界外: 指数外推
+  if (x < sorted[0].budget) {
+    const bMin = sorted[0].budget;
+    const pplMin = sorted[0].pplChange;
+    if (x <= 0) return pplMin * 100; // 极端情况：保留率趋近0
+    // 指数外推：PPL(b) ≈ PPL(b_min) × (b_min/b)^α
+    // α=2 给出合理的恶化曲线
+    const alpha = 2.0;
+    // 只对PPL>0（质量退化）的情况做外推
+    if (pplMin > 0) {
+      return pplMin * Math.pow(bMin / x, alpha);
+    } else {
+      // PPL为负（质量改善=虚低），保守外推
+      // 保留率极低时PPL必然大幅退化
+      return Math.abs(pplMin) * Math.pow(bMin / x, alpha) + pplMin;
+    }
+  }
+  
+  // 正常区间：线性插值
   for (let i = 0; i < sorted.length - 1; i++) {
     if (x >= sorted[i].budget && x <= sorted[i + 1].budget) {
       const t = (x - sorted[i].budget) / (sorted[i + 1].budget - sorted[i].budget);
@@ -274,12 +295,22 @@ export function pplChangeToQuality(pplChangePct: number): number {
 /**
  * 完整的质量评估: 从压缩配置计算质量分数
  * 考虑P端/D端差异化 + 模型locality + 任务敏感度
+ * 
+ * 物理模型修正 (2026-05-29):
+ * 在PD分离架构中，D端只能使用P端传输过来的KV。
+ * 因此effective retention = P端传输比例（D端保留所有收到的KV）。
+ * 旧模型用pAvg*0.4 + dAvg*0.6加权平均，会高估D端独立保留率的效果。
+ * 
+ * 两种模式：
+ * - 'transmission': effectiveRetention = pAvg (D端保留所有收到的KV)
+ * - 'legacy': effectiveRetention = pAvg*0.4 + dAvg*0.6 (旧模型，向后兼容)
  */
 export function computeCalibratedQuality(
   config: CompressionOutput,
   modelName: string = 'qwen-7b',
   taskType: TaskType = 'conversation',
   sinkPreserved: boolean = true,
+  mode: 'transmission' | 'legacy' = 'transmission',
 ): {
   quality: number;
   pplChangePct: number;
@@ -294,21 +325,28 @@ export function computeCalibratedQuality(
   const pAvg = config.pLayerRetention.reduce((a, b) => a + b, 0) / config.totalLayers;
   const dAvg = config.dLayerRetention.reduce((a, b) => a + b, 0) / config.totalLayers;
   
-  // 使用加权平均保留率 (P端权重0.4, D端权重0.6)
-  // D端更重要因为它是decode阶段直接使用的
-  const effectiveRetention = pAvg * 0.4 + dAvg * 0.6;
-  
-  // 精度因子: P端精度影响传输效率，D端精度影响生成质量
-  const pAvgPrecision = config.pKeyPrecision.reduce((a, b) => a + b, 0) / config.totalLayers;
-  const dAvgPrecision = config.dKeyPrecision.reduce((a, b) => a + b, 0) / config.totalLayers;
-  // 精度对质量的影响: D端精度从16bit降到8bit约2-3% PPL, 降到4bit约5-10% PPL
-  const precisionFactor = dAvgPrecision / 16; // 归一化到0-1
-  
-  // 综合有效保留率
-  const adjustedRetention = effectiveRetention * (0.7 + 0.3 * precisionFactor);
+  // 计算有效保留率
+  let effectiveRetention: number;
+  if (mode === 'transmission') {
+    // 修正模型：D端只能使用P端传输的KV
+    // effectiveRetention = P端传输比例（D端保留所有收到的KV）
+    // 精度因子：P端精度降低会引入量化噪声，影响D端生成质量
+    const pAvgKeyPrecision = config.pKeyPrecision.reduce((a, b) => a + b, 0) / config.totalLayers;
+    const pAvgValuePrecision = config.pValuePrecision.reduce((a, b) => a + b, 0) / config.totalLayers;
+    // P端精度影响：FP8→2-3% PPL退化，INT4→5-10% PPL退化
+    // 精度因子：1.0 = FP16无损，0.85 = FP8轻微退化，0.7 = INT4显著退化
+    const precisionQualityFactor = 0.7 + 0.3 * ((pAvgKeyPrecision / 16 + pAvgValuePrecision / 16) / 2);
+    effectiveRetention = pAvg * precisionQualityFactor;
+  } else {
+    // 旧模型（向后兼容）
+    effectiveRetention = pAvg * 0.4 + dAvg * 0.6;
+    const dAvgPrecision = config.dKeyPrecision.reduce((a, b) => a + b, 0) / config.totalLayers;
+    const precisionFactor = dAvgPrecision / 16;
+    effectiveRetention = effectiveRetention * (0.7 + 0.3 * precisionFactor);
+  }
   
   // 估算PPL变化
-  const pplChange = estimatePPLChange(adjustedRetention, locality, task, sinkPreserved);
+  const pplChange = estimatePPLChange(effectiveRetention, locality, task, sinkPreserved);
   
   // 转换为质量分数
   const quality = pplChangeToQuality(pplChange);

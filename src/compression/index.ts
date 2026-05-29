@@ -27,6 +27,7 @@ export { UniformCompression } from './strategies/UniformCompression.js';
 export { PDAwareCompression } from './strategies/PDAwareCompression.js';
 export { TaskAwareCompression, TASK_PROFILES } from './strategies/TaskAwareCompression.js';
 export { PDTaskAwareCompression } from './strategies/PDTaskAwareCompression.js';
+export { QualityConstrainedCompression } from './strategies/QualityConstrainedCompression.js';
 
 // ============================================
 // 真实压缩算法模块
