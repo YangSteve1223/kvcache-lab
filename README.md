@@ -2,7 +2,7 @@
 
 Runtime KV Memory Management for PD-Disaggregated LLM Serving
 
-##概述
+## Overview
 
 This project investigates **decode-time KV cache locality** in Large Language Models and exploits it for efficient memory management in PD-disaggregated serving systems.
 
@@ -112,7 +112,7 @@ When concatenating sink + window tokens, omitting `position_ids` causes RoPE to 
 
 **Title**: Runtime KV Memory Management for PD-Disaggregated LLM Serving
 
-**状态**: Empirical characterization + prototype preprint. Does not claim a production-quality end-to-end PD serving runtime.
+**Status**: Empirical characterization + prototype preprint. Does not claim a production-quality end-to-end PD serving runtime.
 
 **Core framing**: PD-disaggregated serving 的 KV 管理本质上不是单机 eviction，而是**带宽约束下的 hot-set placement**。SWS 是 sink-aware、attention-weighted 的选择性传输策略（placement policy），而非不可逆压缩。
 
@@ -130,6 +130,6 @@ See [CHANGELOG.md](CHANGELOG.md) for known issues, bugged runs, and obsolete dat
 
 ## License
 
-- **代码**: MIT License (see [LICENSE](LICENSE))
+- **Code**: MIT License (see [LICENSE](LICENSE))
 - **Experiment Data (JSON)**: CC BY 4.0
 - **Paper (LaTeX/PDF)**: CC BY 4.0
