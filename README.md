@@ -2,7 +2,7 @@
 
 Runtime KV Memory Management for PD-Disaggregated LLM Serving
 
-## Overview
+##概述
 
 This project investigates **decode-time KV cache locality** in Large Language Models and exploits it for efficient memory management in PD-disaggregated serving systems.
 
@@ -47,41 +47,10 @@ This project investigates **decode-time KV cache locality** in Large Language Mo
 
 ## Project Structure
 
-```
-kvcache-lab/
-├── src/                          # Core simulation engine (TypeScript)
-│   ├── core/                     # Runtime KV Memory OS modules
-│   │   ├── GlobalStateStore.ts
-│   │   ├── RuntimeScheduler.ts
-│   │   ├── SemanticAgent.ts
-│   │   ├── ReuseAgent.ts
-│   │   ├── CommunicationAgent.ts
-│   │   └── PlacementAgent.ts
-│   ├── serving/                  # PD serving simulator
-│   │   ├── EnhancedPDServingSimulator.ts
-│   │   ├── ContinuousBatchingScheduler.ts
-│   │   └── constants.ts
-│   └── algorithms/               # KV cache management algorithms
-├── gpu-experiments/              # GPU experiment scripts
-│   ├── run_g1_baseline.py
-│   ├── run_g2_pd_bench.py
-│   ├── run_g3_taa.py
-│   ├── run_g4_sws.py
-│   ├── run_g5_eviction.py
-│   └── run_g6_full_os.py
-├── experiments/                  # Experiment results & scripts
-│   ├── multimodel_locality/      # Multi-model locality characterization data
-│   └── scripts/                  # Experiment scripts
-├── tests/                        # Test suite
-├── paper/                        # LaTeX paper source
-│   ├── main.tex
-│   └── references.bib
-└── README.md
-```
-
 ## Experiment Logs
 
 - [Multi-Model Locality & Sink-Aware Eviction (2026-05-28)](experiment_logs/multimodel_locality_sink_aware_2026-05-28.md)
+- [V2 Calibrated Experiments — M2 Milestone (2026-05-28)](experiment_logs/new-paper-experiments-v2.json)
 
 ## Technical Stack
 
@@ -106,13 +75,15 @@ When concatenating sink + window tokens, omitting `position_ids` causes RoPE to 
 
 ## Preprint
 
-**Title**: Semantic Working Sets for KV Transfer in Prefill--Decode Disaggregated LLM Serving
+**Title**: Runtime KV Memory Management for PD-Disaggregated LLM Serving
 
-**Status**: Empirical characterization + prototype preprint. Does not claim a production-quality end-to-end PD serving runtime.
+**状态**: Empirical characterization + prototype preprint. Does not claim a production-quality end-to-end PD serving runtime.
 
-**arXiv category**: cs.DC (primary), cs.LG (secondary)
+**Core framing**: PD-disaggregated serving 的 KV 管理本质上不是单机 eviction，而是**带宽约束下的 hot-set placement**。SWS 是 sink-aware、attention-weighted 的选择性传输策略（placement policy），而非不可逆压缩。
 
-**Latest commit**: `85c288e`
+**Publishing**: OSF Project (时间戳 + DOI via Registration) → 后续视情况提交 arXiv / 顶会
+
+**Latest commit**: `19bae92`
 
 ## Reproducibility
 
@@ -124,6 +95,6 @@ See [CHANGELOG.md](CHANGELOG.md) for known issues, bugged runs, and obsolete dat
 
 ## License
 
-- **Code**: MIT License (see [LICENSE](LICENSE))
+- **代码**: MIT License (see [LICENSE](LICENSE))
 - **Experiment Data (JSON)**: CC BY 4.0
 - **Paper (LaTeX/PDF)**: CC BY 4.0
