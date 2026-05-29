@@ -47,6 +47,41 @@ This project investigates **decode-time KV cache locality** in Large Language Mo
 
 ## Project Structure
 
+```
+kvcache-lab/
+├── src/                          # Core simulation engine (TypeScript)
+│   ├── core/                     # Runtime KV Memory OS modules
+│   │   ├── GlobalStateStore.ts
+│   │   ├── RuntimeScheduler.ts
+│   │   ├── SemanticAgent.ts
+│   │   ├── ReuseAgent.ts
+│   │   ├── CommunicationAgent.ts
+│   │   └── PlacementAgent.ts
+│   ├── serving/                  # PD serving simulator
+│   │   ├── EnhancedPDServingSimulator.ts
+│   │   ├── ContinuousBatchingScheduler.ts
+│   │   └── constants.ts
+│   └── algorithms/               # KV cache management algorithms
+├── gpu-experiments/              # GPU experiment scripts
+│   ├── run_g1_baseline.py
+│   ├── run_g2_pd_bench.py
+│   ├── run_g3_taa.py
+│   ├── run_g4_sws.py
+│   ├── run_g5_eviction.py
+│   └── run_g6_full_os.py
+├── experiments/                  # Experiment results & scripts
+│   ├── multimodel_locality/      # Multi-model locality characterization data
+│   └── scripts/                  # Experiment scripts
+├── tests/                        # Test suite
+├── osf-preprint/                 # OSF upload package
+│   ├── README.md                 # OSF project description
+│   └── source/                   # LaTeX source + compile.sh
+├── paper/                        # LaTeX paper source
+│   ├── main.tex                  # Merged preprint (1313 lines)
+│   └── references.bib
+└── README.md
+```
+
 ## Experiment Logs
 
 - [Multi-Model Locality & Sink-Aware Eviction (2026-05-28)](experiment_logs/multimodel_locality_sink_aware_2026-05-28.md)
