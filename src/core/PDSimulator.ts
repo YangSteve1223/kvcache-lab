@@ -84,8 +84,12 @@ export class PDSimulator {
 
   /**
    * 计算KV传输时间
-   * @param kvSize KV大小
+   * @param kvSize KV大小（原始FP16大小）
    * @param compression 压缩配置
+   * 
+   * 传输大小 = 原始大小 × avgRetention × avgPrecisionRatio
+   * - avgRetention: 保留的token比例
+   * - avgPrecisionRatio: 平均精度压缩比 (key_bits/16 * value_bits/16)
    */
   private computeKVTransferTime(
     kvSize: number,
@@ -98,7 +102,22 @@ export class PDSimulator {
     
     // 有压缩：传输压缩后的KV
     const avgRetention = computeAverageRetention(compression);
-    const compressedSize = kvSize * avgRetention;
+    
+    // 计算P端平均精度压缩比
+    const pLayers = compression.pLayers || [];
+    let avgPrecisionRatio = 1.0;
+    if (pLayers.length > 0) {
+      // 每层的精度压缩比 = (keyPrec/16) * (valuePrec/16)，对KV各占一半
+      let totalRatio = 0;
+      for (const layer of pLayers) {
+        const keyRatio = (layer.keyPrecision || 16) / 16;
+        const valRatio = (layer.valuePrecision || 16) / 16;
+        totalRatio += keyRatio * valRatio;
+      }
+      avgPrecisionRatio = totalRatio / pLayers.length;
+    }
+    
+    const compressedSize = kvSize * avgRetention * avgPrecisionRatio;
     return compressedSize / this.config.bandwidthBytesPerMs;
   }
 
@@ -177,8 +196,20 @@ export class PDSimulator {
     // 质量分数
     const qualityScore = computeQualityScore(compression, taskType);
     
-    // 压缩比
-    const compressionRatio = compression ? avgRetention : 1.0;
+    // 压缩比（含精度压缩）
+    let compressionRatio = 1.0;
+    if (compression) {
+      const pLayers = compression.pLayers || [];
+      let avgPrecisionRatio = 1.0;
+      if (pLayers.length > 0) {
+        let totalRatio = 0;
+        for (const layer of pLayers) {
+          totalRatio += ((layer.keyPrecision || 16) / 16) * ((layer.valuePrecision || 16) / 16);
+        }
+        avgPrecisionRatio = totalRatio / pLayers.length;
+      }
+      compressionRatio = avgRetention * avgPrecisionRatio;
+    }
     
     // 存储到缓存（如果需要）
     if (prefixHash && !cacheHit) {

@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-05-30T14:01:00.920Z",
+  "config": {
+    "strategies": [
+      "None",
+      "Uniform",
+      "PD-Aware",
+      "Task-Aware",
+      "PD-Task-Aware",
+      "QCBM"
+    ],
+    "taskTypes": [
+      "math",
+      "code",
+      "qa",
+      "conversation"
+    ],
+    "bandwidthScenarios": [
+      "Low-1Gbps",
+      "Mid-10Gbps",
+      "High-100Gbps"
+    ],
+    "seqLengths": [
+      2048,
+      4096,
+      8192,
+      16384,
+      32768
+    ],
+    "modelConfig": {
+      "totalLayers": 32,
+      "hiddenSize": 4096,
+      "numHeads": 32,
+      "headDim": 128,
+      "kvBytesPerToken": 512
+    }
+  },
+  "totalExperiments": 360,
+  "keyFindings": [
+    "Uniform: avg TTFT reduction=17.2%, quality=0.992, BW saving=76.0%",
+    "PD-Aware: avg TTFT reduction=4.7%, quality=0.990, BW saving=8.4%",
+    "Task-Aware: avg TTFT reduction=16.0%, quality=0.972, BW saving=69.9%",
+    "PD-Task-Aware: avg TTFT reduction=5.0%, quality=0.986, BW saving=10.3%",
+    "QCBM: avg TTFT reduction=21.7%, quality=0.865, BW saving=98.1%",
+    "Low bandwidth (1Gbps): avg TTFT reduction=33.0%",
+    "PD-Task-Aware min quality=0.820 across all scenarios"
+  ]
+}

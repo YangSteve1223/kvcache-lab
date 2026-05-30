@@ -161,10 +161,15 @@ export class PDTaskAwareCompression implements ICompressionStrategy {
     const pValuePrecision = pdBase.pValuePrecision;
     
     // 计算平均压缩比
-    // P端: 保留率 * 精度压缩比
-    const pPrecisionRatio = pKeyPrecision.reduce((sum, p) => sum + p, 0) / (totalLayers * FULL_PRECISION);
+    // P端: avgRetention × avgPrecisionRatio
+    // avgPrecisionRatio = avg(keyPrec/16 × valuePrec/16)
     const avgRetentionP = pLayerRetention.reduce((a, b) => a + b, 0) / totalLayers;
-    const avgCompressionRatio = avgRetentionP * pPrecisionRatio;
+    let totalPrecisionRatio = 0;
+    for (let l = 0; l < totalLayers; l++) {
+      totalPrecisionRatio += (pKeyPrecision[l] / FULL_PRECISION) * (pValuePrecision[l] / FULL_PRECISION);
+    }
+    const avgPrecisionRatio = totalPrecisionRatio / totalLayers;
+    const avgCompressionRatio = avgRetentionP * avgPrecisionRatio;
     
     // 带宽节省
     const estimatedBandwidthSaving = 1 - avgCompressionRatio;
