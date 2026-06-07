@@ -1,135 +1,117 @@
 # kvcache-lab
 
-Runtime KV Memory Management for PD-Disaggregated LLM Serving
+**SpectrumKV: Per-Token Mixed-Precision KV Cache Transfer for Prefill-Decode Disaggregated LLM Serving**
 
-## Overview
+This project implements SpectrumKV, a per-token mixed-precision KV cache transfer policy for PD-disaggregated LLM serving. Instead of the binary keep/drop decision used by prior work, SpectrumKV assigns a precision level (FP16, INT8, or INT4) to each token based on its importance, enabling better quality at the same transfer budget.
 
-This project investigates **decode-time KV cache locality** in Large Language Models and exploits it for efficient memory management in PD-disaggregated serving systems.
+## Core Idea
 
-**Core Finding**: During decode phase, KV cache access follows a highly concentrated, long-tail distribution (Gini > 0.85 across 4 model families). This enables tiered KV memory management — compressing cache to 30% budget with near-zero PPL degradation.
+- **SWS (Semantic Working Set)**: Importance scoring for each token's KV cache entry
+- **QCBM (Quality-Constrained Bandwidth Minimization)**: Greedy precision allocation under budget constraint
+- **Probe**: Lightweight deployment-time probe to detect INT4 tolerance (3 NIAH trials → 2-tier or 3-tier)
 
-## Key Results
+## Key Results (GPU, WikiText-2 PPL)
 
-### Locality Characterization (4/4 Models PASS)
+| Model | Budget | SpectrumKV | PDTrim | SWS Original |
+|-------|--------|-----------|--------|-------------|
+| Qwen2.5-7B | b=0.5 | +1.97% | +25.85% | +30.9% |
+| Mistral-7B | b=0.5 | -0.06% | +22.07% | +33.2% |
+| Gemma-2-9B | b=0.5 | -0.44% | +35.63% | +43.8% |
 
-| Model | Gini | Active Set | Remote Attn | Locality Pattern |
-|-------|------|-----------|-------------|-----------------|
-| Qwen2.5-7B | 0.911 | ~7% | <10% | local-dominant |
-| Qwen2.5-14B | 0.952 | ~5% | <5% | local-dominant |
-| Mistral-7B | 0.917 | 11.9% | 78.8% | sink-dominant |
-| Gemma-2-9B | 0.866 | 20.9% | 60.6% | hybrid |
+**NIAH Retrieval (b=0.3)**: SpectrumKV 52.6% vs PDTrim 26.3% on Qwen; Mistral/Gemma reach 100% under 3-tier.
 
-### Sink-Aware SWS Eviction — Cross-Model PPL Impact
-
-**Mistral-7B** (sink-dominant, Baseline PPL=1.0615):
-
-| Budget | Sink=0 | Sink=4 | Sink=8 | Sink=16 |
-|--------|--------|--------|--------|---------|
-| 30% | +0.1% | +0.1% | +0.1% | — |
-| 50% | ±0.0% | -0.0% | -0.0% | -0.0% |
-| 70% | — | -0.0% | -0.0% | — |
-
-**Gemma-2-9b-it** (hybrid, Baseline PPL=1.0391):
-
-| Budget | Sink=0 | Sink=4 | Sink=8 | Sink=16 |
-|--------|--------|--------|--------|---------|
-| 30% | +11.84% ⚠️ | +5.64% | +4.42% | **+0.47%** ✅ |
-| 50% | +1.79% | +2.54% | +1.88% | **-0.94%** ✅ |
-| 70% | +2.73% | +0.38% | -0.38% | **-1.88%** ✅ |
-
-**Key insight**: Sink tokens are essential for hybrid models (Gemma: 11.4pp improvement at 30% budget), less critical for large-SWA models at short sequences (Mistral: <0.1pp variation).
-
-### Three Locality Patterns
-
-1. **local-dominant** (Qwen): Attention concentrated on recent tokens. Simple sliding window works.
-2. **sink-dominant** (Mistral): 78.8% remote attention targets first few tokens (attention sink). Requires sink-aware eviction.
-3. **hybrid** (Gemma): Alternating local/global attention layers. Moderate remote attention, small effective window (~321).
-
-## Project Structure
+## Repository Structure
 
 ```
 kvcache-lab/
-├── src/                          # Core simulation engine (TypeScript)
-│   ├── core/                     # Runtime KV Memory OS modules
-│   │   ├── GlobalStateStore.ts
-│   │   ├── RuntimeScheduler.ts
-│   │   ├── SemanticAgent.ts
-│   │   ├── ReuseAgent.ts
-│   │   ├── CommunicationAgent.ts
-│   │   └── PlacementAgent.ts
-│   ├── serving/                  # PD serving simulator
-│   │   ├── EnhancedPDServingSimulator.ts
-│   │   ├── ContinuousBatchingScheduler.ts
-│   │   └── constants.ts
-│   └── algorithms/               # KV cache management algorithms
-├── gpu-experiments/              # GPU experiment scripts
-│   ├── run_g1_baseline.py
-│   ├── run_g2_pd_bench.py
-│   ├── run_g3_taa.py
-│   ├── run_g4_sws.py
-│   ├── run_g5_eviction.py
-│   └── run_g6_full_os.py
-├── experiments/                  # Experiment results & scripts
-│   ├── multimodel_locality/      # Multi-model locality characterization data
-│   └── scripts/                  # Experiment scripts
-├── tests/                        # Test suite
-├── osf-preprint/                 # OSF upload package
-│   ├── README.md                 # OSF project description
-│   └── source/                   # LaTeX source + compile.sh
-├── paper/                        # LaTeX paper source
-│   ├── main.tex                  # Merged preprint (1313 lines)
-│   └── references.bib
-└── README.md
+├── paper/                          # Final paper (LaTeX + BibTeX)
+│   ├── main_v2_final.tex           # ★ Latest paper source (28 pages)
+│   ├── main_v2_final.bbl           # Compiled references (for arXiv)
+│   ├── spectrumkv_v2.bib           # BibTeX source
+│   ├── REVIEW_CRITERIA.md          # Review audit criteria
+│   ├── main_v2_polish_a/b/c/d.tex  # Polishing iterations
+│   └── main_v2.tex                 # Pre-polish version
+│
+├── gpu-experiments/                 # GPU experiment scripts & results
+│   ├── exp_spectrumkv_gpu.py        # ★ Main SpectrumKV GPU experiment
+│   ├── exp_qcbm_quantization.py     # QCBM quantization experiment
+│   ├── spectrumkv_scripts/          # Helper scripts for SpectrumKV
+│   ├── run_g3_v5f2.py              # G3: SpectrumKV variants
+│   ├── run_g4_sws.py               # G4: SWS strategies
+│   ├── niah_depth_scan.py          # NIAH depth scan
+│   ├── pd_separation.py            # PD separation hook simulation
+│   ├── results/                    # Raw result JSON files
+│   └── README.md                   # Experiment documentation
+│
+├── src/                            # Core library code
+│   ├── attention_analysis.py       # Attention locality analysis
+│   ├── semantic_working_set.py     # SWS implementation
+│   └── transmission_aware_attn.py  # TAA for KV selection
+│
+├── experiments/                    # Simulation experiments
+│   ├── exp-formula-optimization.py
+│   ├── exp-qcbm-corrected-v3.py
+│   └── exp-spectrumkv-v3-fine.py
+│
+├── data/                           # Simulation data
+├── docs/                           # Documentation & plans
+├── logs/                           # Experiment logs
+└── osf-preprint/                   # OSF preprint files
 ```
 
-## Experiment Logs
+## Three Attention Locality Patterns
 
-- [Multi-Model Locality & Sink-Aware Eviction (2026-05-28)](experiment_logs/multimodel_locality_sink_aware_2026-05-28.md)
-- [V2 Calibrated Experiments — M2 Milestone (2026-05-28)](experiment_logs/new-paper-experiments-v2.json)
+| Pattern | Model | Description |
+|---------|-------|-------------|
+| Local-dominant | Qwen2.5-7B/14B | Recent tokens dominate; sink protection less critical |
+| Sink-dominant | Mistral-7B | First few tokens (attention sinks) receive most attention |
+| Hybrid | Gemma-2-9B | Both sink and recent tokens matter; sink protection essential |
 
-## Technical Stack
+## Quantization Findings
 
-- **Simulation**: TypeScript (Node.js 22, ESM)
-- **GPU Experiments**: Python (PyTorch, HuggingFace Transformers)
-- **Models Tested**: Qwen2.5-7B/14B, Mistral-7B-v0.3, Gemma-2-9b-it
-- **Paper**: LaTeX (Overleaf-compatible)
+- **INT8**: Safe across all models (cosine similarity > 0.9999)
+- **INT4**: Model-dependent tolerance
+  - Qwen2.5-7B: Catastrophic failure (PPL explodes)
+  - Mistral-7B: Stable
+  - Gemma-2-9B: Stable
+- **Per-layer variation**: INT4 cosine similarity varies ~2.5x across layers in Qwen → supports per-layer budget allocation
 
-## Methodology Notes
+## Reproducing Experiments
 
-### Why Eager Mode (Not Hooks) for Locality Characterization
+### GPU Experiments (requires NVIDIA GPU with vLLM)
 
-Forward hooks capture pre-RoPE Q/K tensors, missing:
-1. Position-dependent decay from RoPE
-2. Sliding window causal mask (SWA in Mistral/Gemma)
+```bash
+cd gpu-experiments
+# Run main SpectrumKV experiment
+python exp_spectrumkv_gpu.py --model Qwen/Qwen2.5-7B-Instruct
+python exp_spectrumkv_gpu.py --model mistralai/Mistral-7B-Instruct-v0.3
+python exp_spectrumkv_gpu.py --model google/gemma-2-9b-it
+```
 
-This severely underestimates locality (e.g., Mistral Gini: hook=0.665 vs eager=0.917).
+### Simulation Experiments
 
-### Why Position IDs Matter for SWS PPL
+```bash
+cd experiments
+python exp-spectrumkv-v3-fine.py
+```
 
-When concatenating sink + window tokens, omitting `position_ids` causes RoPE to assign wrong relative positions → attention completely breaks. The earlier Mistral PPL=179 was entirely a bug from missing position_ids, NOT a fundamental limitation.
+## Paper
 
-## Preprint
+- **arXiv**: (to be submitted)
+- **Preprint**: OSF (pending)
+- **Target venue**: MLSys 2027
 
-**Title**: Runtime KV Memory Management for PD-Disaggregated LLM Serving
+## Citation
 
-**Status**: Empirical characterization + prototype preprint. Does not claim a production-quality end-to-end PD serving runtime.
-
-**Core framing**: PD-disaggregated serving 的 KV 管理本质上不是单机 eviction，而是**带宽约束下的 hot-set placement**。SWS 是 sink-aware、attention-weighted 的选择性传输策略（placement policy），而非不可逆压缩。
-
-**Publishing**: OSF Project (时间戳 + DOI via Registration) → 后续视情况提交 arXiv / 顶会
-
-**Latest commit**: `19bae92`
-
-## Reproducibility
-
-See [REPRODUCIBILITY.md](REPRODUCIBILITY.md) for exact model identifiers, revisions, package versions, and hardware details.
-
-See [TABLE_MAPPING.md](TABLE_MAPPING.md) for the mapping from each paper table/figure to the corresponding JSON result files and scripts.
-
-See [CHANGELOG.md](CHANGELOG.md) for known issues, bugged runs, and obsolete data marked per experiment.
+```bibtex
+@article{yang2026spectrumkv,
+  title={SpectrumKV: Per-Token Mixed-Precision KV Cache Transfer for Prefill-Decode Disaggregated LLM Serving},
+  author={Yang, Pengju},
+  journal={arXiv preprint},
+  year={2026}
+}
+```
 
 ## License
 
-- **Code**: MIT License (see [LICENSE](LICENSE))
-- **Experiment Data (JSON)**: CC BY 4.0
-- **Paper (LaTeX/PDF)**: CC BY 4.0
+MIT

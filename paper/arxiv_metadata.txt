@@ -1,0 +1,11 @@
+=== TITLE ===
+SpectrumKV: Per-Token Mixed-Precision KV Cache Transfer for Prefill-Decode Disaggregated LLM Serving
+
+=== AUTHORS ===
+Pengju Yang
+
+=== ABSTRACT ===
+Prefill-decode (PD) disaggregation decouples prompt processing from token generation, but it also turns the key-value (KV) cache into a network payload. Existing PD-side KV reduction methods are mostly binary: selected tokens are transmitted at full precision and the rest are not transmitted. This paper argues that binary selection leaves a useful design space unused. SpectrumKV assigns a precision level to each token instead: attention sinks and other high-importance tokens are protected at FP16, medium-importance tokens are sent at INT8, and low-importance tokens are sent at INT4 when the model can tolerate it. The main practical complication is that INT4 tolerance is model-dependent. Qwen2.5-7B catastrophically fails under INT4 KV quantization, while Mistral-7B and Gemma-2-9B remain stable. SpectrumKV therefore runs a lightweight deployment-time probe: three aggressive NIAH trials under a 3-tier policy. Models that pass use FP16+INT8+INT4; models that fail fall back to FP16+INT8. Across Qwen2.5-7B-Instruct, Mistral-7B-Instruct-v0.3, and Gemma-2-9B-it, SpectrumKV improves quality at the same transfer budget. At a 50 percent normalized KV budget on WikiText-2, SpectrumKV changes perplexity by +1.97, -0.06, and -0.44 percent, respectively, compared with PDTrim +25.85, +22.07, and +35.63 percent. On NIAH retrieval at 4096 tokens, the adaptive policy reaches 52.6 percent on Qwen at the aggressive b=0.3 budget versus 26.3 percent for PDTrim, and reaches 100 percent by b=0.5; Mistral and Gemma preserve retrieval under the 3-tier policy. End-to-end GPU timing of the transfer path shows 50-62 percent TTFT reductions at b=0.5. These results suggest that PD KV transfer should be treated as a precision-allocation problem, not only as token pruning.
+
+=== COMMENTS ===
+28 pages, 13 figures, 8 tables
