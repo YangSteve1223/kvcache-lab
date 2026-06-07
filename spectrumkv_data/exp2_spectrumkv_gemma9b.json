@@ -1,0 +1,4758 @@
+{
+  "model": "gemma9b",
+  "int4_tolerant": true,
+  "tier_choice": "3-tier",
+  "probe_successes": 3,
+  "trials": [
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.05,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text.  \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.05,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number mentioned in the text is **42719**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.05,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.05,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit is mentioned in the first paragraph of the text. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.05,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.1,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text.  \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.1,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number mentioned in the text is **42719**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.1,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word search! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.1,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value mentioned in the text is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.1,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.15,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text.  \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.15,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.15,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.15,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit is mentioned in the text: \"the passkey value is 5831.\""
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.15,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions.\n<h1>the reference "
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.2,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text. \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.2,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.2,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.2,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit's mentioned in the middle of the repeated text. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.2,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.25,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text. \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.25,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions!\n<h1>the magic number is 4"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.25,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.25,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit's mentioned in the middle of the repeated text. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.25,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.3,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you'd like me to analyze anything else! \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.3,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.3,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.3,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is 5831. \n\n\nlet me know if you have any other questions.\n\n<h1>the importance of computational methods"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.3,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.35,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repeated text. \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.35,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.35,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.35,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit is mentioned in the text: \"the passkey value is 5831.\""
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.35,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.4,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.4,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions!\n<h1>the magic number is 4"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.4,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.4,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.4,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.45,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text.  \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.45,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions!\n<h1>the magic number is 4"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.45,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.45,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit's mentioned in the middle of the text. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.45,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.5,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.5,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.5,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.5,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit's hidden within the repetitive text. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.5,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.55,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text. \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.55,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.55,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.55,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit appears within the text towards the end. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.55,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.6,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.6,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number mentioned in the text is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.6,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.6,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit's mentioned within the repetitive text about computational methods transforming res"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.6,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.65,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text.  \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.65,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions!\n<h1>the magic number is 4"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.65,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.65,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit's mentioned in the text towards the end. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.65,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.7,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.7,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions!\n<h1>the magic number is 4"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.7,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.7,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit's mentioned in the text towards the end. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.7,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.75,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.75,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions!\n<h1>"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.75,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to play another word search! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.75,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.75,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.8,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text.  \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.8,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number mentioned in the text is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.8,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to play another word search! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.8,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.8,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.85,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text.  \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.85,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number mentioned in the text is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.85,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.85,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value mentioned in the text is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.85,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.9,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.9,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number mentioned in the text is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.9,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.9,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value mentioned in the text is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.9,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.95,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.95,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number mentioned in the text is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.95,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.95,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value mentioned in the text is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.95,
+      "budget": 0.3,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.05,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text.  \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.05,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.05,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.05,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit is mentioned in the first paragraph of the text. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.05,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.1,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you'd like me to analyze anything else from the"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.1,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number mentioned in the text is **42719**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.1,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word search! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.1,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value mentioned in the text is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.1,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.15,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text.  \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.15,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.15,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.15,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit's mentioned in the text: \"the passkey value is 5831"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.15,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.2,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text. \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.2,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.2,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.2,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit's mentioned in the middle of the repeated text. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.2,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.25,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text. \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.25,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions!\n<h1>the magic number is 4"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.25,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.25,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit's mentioned in the middle of the repeated text. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.25,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.3,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you'd like me to analyze anything else! \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.3,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.3,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.3,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is 5831. \n\n\nlet me know if you have any other questions.\n\n<h1>the text you provided is"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.3,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.35,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text.  \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.35,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.35,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.35,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit's mentioned in the middle of the text. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.35,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.4,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.4,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions!\n<h1>the magic number is 4"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.4,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.4,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.4,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.45,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text.  \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.45,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions!\n<h1>the magic number is 4"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.45,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.45,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit's mentioned in the middle of the text. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.45,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.5,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.5,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.5,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.5,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit's hidden within the repetitive text. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.5,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.55,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text.  \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.55,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.55,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.55,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit appears within the text towards the end. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.55,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.6,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.6,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number mentioned in the text is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.6,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.6,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit's mentioned within the repetitive text about computational methods transforming res"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.6,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.65,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text.  \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.65,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.65,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.65,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit's mentioned in the text towards the end. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.65,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.7,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.7,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions!\n<h1>the magic number is 4"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.7,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.7,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit's mentioned in the text towards the end. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.7,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.75,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.75,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions!\n<h1>"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.75,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to play another word search! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.75,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value mentioned in the text is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.75,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.8,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text.  \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.8,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number mentioned in the text is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.8,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to play another word search! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.8,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.8,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.85,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text.  \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.85,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number mentioned in the text is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.85,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.85,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value mentioned in the text is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.85,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.9,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.9,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number mentioned in the text is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.9,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.9,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value mentioned in the text is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.9,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.95,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.95,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number mentioned in the text is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.95,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.95,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value mentioned in the text is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.95,
+      "budget": 0.4,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.05,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text.  \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.05,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.05,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.05,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit is mentioned in the first paragraph of the text. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.05,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.1,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you'd like me to analyze anything else from the"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.1,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number mentioned in the text is **42719**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.1,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word search! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.1,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value mentioned in the text is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.1,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.15,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text.  \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.15,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.15,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.15,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit's mentioned in the text: \"the passkey value is 5831"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.15,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.2,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text. \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.2,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.2,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.2,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit's mentioned in the middle of the repeated text. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.2,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.25,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text. \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.25,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions!\n<h1>the magic number is 4"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.25,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.25,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit's mentioned in the middle of the text. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.25,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.3,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you'd like me to analyze anything else! \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.3,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.3,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.3,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is 5831. \n\n\nlet me know if you have any other questions.\n\n<h1>the text you provided is"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.3,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.35,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text. \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.35,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.35,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.35,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit is mentioned in the text: \"the passkey value is 5831.\""
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.35,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.4,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.4,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions!\n<h1>the magic number is 4"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.4,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.4,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.4,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.45,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text.  \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.45,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions!\n<h1>the magic number is 4"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.45,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.45,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit's mentioned within the text: \"the passkey value is 5831"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.45,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.5,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.5,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.5,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.5,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit's mentioned within the repetitive text. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.5,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.55,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text. \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.55,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.55,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.55,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit appears within the text towards the end. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.55,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.6,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.6,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number mentioned in the text is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.6,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.6,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value mentioned in the text is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.6,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.65,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text.  \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.65,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.65,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.65,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit's mentioned in the text towards the end. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.65,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.7,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.7,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions!\n<h1>the magic number is 4"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.7,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.7,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.7,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.75,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.75,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions!\n<h1>"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.75,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to play another word search! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.75,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.75,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.8,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text.  \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.8,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number mentioned in the text is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.8,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to play another word search! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.8,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.8,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.85,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text.  \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.85,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number mentioned in the text is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.85,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.85,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value mentioned in the text is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.85,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.9,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.9,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number mentioned in the text is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.9,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.9,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value mentioned in the text is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.9,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.95,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.95,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number mentioned in the text is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.95,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.95,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value mentioned in the text is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.95,
+      "budget": 0.5,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.05,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text.  \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.05,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number mentioned in the text is **42719**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.05,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.05,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit is mentioned in the first paragraph of the text. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.05,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.1,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you'd like me to analyze anything else from the"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.1,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number mentioned in the text is **42719**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.1,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word search! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.1,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value mentioned in the text is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.1,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.15,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text.  \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.15,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.15,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.15,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit's mentioned in the middle of the text. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.15,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.2,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text. \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.2,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.2,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.2,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit's mentioned in the middle of the repeated text. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.2,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.25,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text. \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.25,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions!\n<h1>the magic number is 4"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.25,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.25,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit's mentioned in the middle of the text. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.25,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.3,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you'd like me to analyze anything else! \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.3,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.3,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.3,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is 5831. \n\n\nlet me know if you have any other questions.\n\n<h1>the text you provided is"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.3,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.35,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text.  \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.35,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.35,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.35,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit is mentioned in the text: \"the passkey value is 5831.\""
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.35,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.4,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.4,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions!\n<h1>the magic number is 4"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.4,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.4,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.4,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.45,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text.  \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.45,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions!\n<h1>the magic number is 4"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.45,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.45,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit's mentioned within the text: \"the passkey value is 5831"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.45,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.5,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.5,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.5,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.5,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit's mentioned within the repetitive text. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.5,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.55,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text.  \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.55,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.55,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.55,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit appears within the text towards the end. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.55,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.6,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.6,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number mentioned in the text is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.6,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.6,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value mentioned in the text is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.6,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.65,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text.  \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.65,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions!\n<h1>the magic number is 4"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.65,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.65,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit's mentioned in the text towards the end. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.65,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.7,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.7,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions!\n<h1>the magic number is 4"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.7,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.7,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.7,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.75,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.75,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions!\n<h1>"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.75,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to play another word search! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.75,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value mentioned in the text is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.75,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.8,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text.  \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.8,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number mentioned in the text is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.8,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to play another word search! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.8,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.8,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.85,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text.  \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.85,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number mentioned in the text is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.85,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.85,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value mentioned in the text is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.85,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.9,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.9,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number mentioned in the text is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.9,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.9,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value mentioned in the text is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.9,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.95,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.95,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number mentioned in the text is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.95,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.95,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value mentioned in the text is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.95,
+      "budget": 0.6,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.05,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text.  \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.05,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.05,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.05,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit is mentioned in the first paragraph of the text. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.05,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.1,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you'd like me to analyze anything else from the"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.1,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number mentioned in the text is **42719**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.1,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word search! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.1,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value mentioned in the text is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.1,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.15,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text.  \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.15,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.15,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.15,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit's mentioned in the middle of the text. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.15,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.2,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text. \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.2,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.2,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.2,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit's mentioned in the middle of the repeated text. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.2,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.25,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text. \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.25,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions!\n<h1>the magic number is 4"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.25,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.25,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit's mentioned in the middle of the text. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.25,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.3,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you'd like me to analyze anything else! \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.3,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.3,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.3,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is 5831. \n\n\nlet me know if you have any other questions.\n\n<h1>the text you provided is"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.3,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.35,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text.  \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.35,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.35,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.35,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit is mentioned in the text: \"the passkey value is 5831.\""
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.35,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.4,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.4,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions!\n<h1>the magic number is 4"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.4,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.4,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.4,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.45,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text.  \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.45,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions!\n<h1>the magic number is 4"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.45,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.45,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit's mentioned within the text: \"the passkey value is 5831"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.45,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.5,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.5,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.5,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.5,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit's mentioned within the repetitive text. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.5,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.55,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text.  \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.55,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.55,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.55,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit appears within the text towards the end. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.55,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.6,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.6,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number mentioned in the text is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.6,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.6,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value mentioned in the text is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.6,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.65,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text.  \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.65,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.65,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.65,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nit is mentioned in the text towards the end. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.65,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.7,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.7,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions!\n<h1>the magic number is 4"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.7,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.7,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.7,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.75,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.75,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number is 42719. \n\n\nlet me know if you have any other questions!\n<h1>"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.75,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to play another word search! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.75,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.75,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.8,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text.  \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.8,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number mentioned in the text is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.8,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to play another word search! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.8,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.8,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.85,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n\n\nit's hidden within the repetitive text.  \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.85,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number mentioned in the text is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.85,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.85,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value mentioned in the text is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.85,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.9,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code is **unicorn7**. \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.9,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number mentioned in the text is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.9,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.9,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value mentioned in the text is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.9,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The secret code is UNICORN7.",
+      "depth": 0.95,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the secret code mentioned in the text is **unicorn7**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The magic number is 42719.",
+      "depth": 0.95,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the magic number mentioned in the text is **42719**. \n\n\nlet me know if you have any other questions! \n"
+    },
+    {
+      "needle": "The hidden word is SPECTRUM.",
+      "depth": 0.95,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the hidden word is **spectrum**. \n\n\nlet me know if you'd like to try another word puzzle! \n"
+    },
+    {
+      "needle": "The passkey value is 5831.",
+      "depth": 0.95,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the passkey value mentioned in the text is **5831**. \n\n\nlet me know if you have any other questions. \n"
+    },
+    {
+      "needle": "The reference code is 4168.",
+      "depth": 0.95,
+      "budget": 0.7,
+      "method": "SpectrumKV_Adaptive_v2",
+      "int4_tolerant": true,
+      "tier_choice": "3-tier",
+      "success": true,
+      "response": "the reference code mentioned in the text is **4168**. \n\n\nlet me know if you have any other questions. \n"
+    }
+  ]
+}
