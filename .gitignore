@@ -25,3 +25,21 @@ Thumbs.db
 # Env
 .env
 *.log
+
+# Build artifacts
+*.blg
+package-lock.json
+
+# Debug scripts
+gpu-experiments/spectrumkv_scripts/debug_*.py
+gpu-experiments/test_taa_debug.py
+
+# Paper debug images
+paper/check-*.png
+paper/chk-*.png
+
+# Node modules
+node_modules/
+
+# NIAH debug
+gpu-experiments/experiment_results_new/niah_debug_*.json
