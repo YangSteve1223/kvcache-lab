@@ -1,39 +1,27 @@
-node_modules/
-dist/
-.env
+# Python
 __pycache__/
 *.pyc
 *.pyo
-paper/check-*.png
-paper/chk-*.png
-paper/page*.png
-paper/*.aux
-paper/*.log
-paper/*.out
-paper/compile*.log
-paper/main.tex
-paper/main_v2.aux
-paper/main_v2.log
-paper/main_v2.out
-paper/main_v2.pdf
-paper/main_spectrumkv.aux
-paper/main_spectrumkv.log
-paper/main_spectrumkv.out
-paper/main_spectrumkv.pdf
-gpu-experiments/__pycache__/
-gpu-experiments/models/
-experiments/__pycache__/
-experiments/experiment_logs/
-experiments/paper/
+*.egg-info/
+dist/
+build/
+*.egg
 
-# 学习指南（用户自行管理）
-docs/learning-guide/论文精读.docx
-docs/learning-guide/论文精读.pdf
-docs/learning-guide/SpectrumKV学习指南.docx
-docs/learning-guide/SpectrumKV学习指南.pdf
-docs/learning-guide/*项目说明书与学习指南*
+# Learning guides (managed by user)
+docs/learning-guide/
+学习指南/
 
-# Research documents (local only)
-docs/architecture/
-docs/research/
-docs/blog/
+# Paper reading guide (managed by user)
+论文精读*
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+*.log
