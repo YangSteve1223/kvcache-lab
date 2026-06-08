@@ -32,3 +32,8 @@ docs/learning-guide/论文精读.pdf
 docs/learning-guide/SpectrumKV学习指南.docx
 docs/learning-guide/SpectrumKV学习指南.pdf
 docs/learning-guide/*项目说明书与学习指南*
+
+# Research documents (local only)
+docs/architecture/
+docs/research/
+docs/blog/
