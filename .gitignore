@@ -7,7 +7,7 @@ dist/
 build/
 *.egg
 
-# Learning guides (managed by user)
+# Learning guides (managed by user, not for open-source)
 docs/learning-guide/
 学习指南/
 
@@ -43,3 +43,21 @@ node_modules/
 
 # NIAH debug
 gpu-experiments/experiment_results_new/niah_debug_*.json
+
+# TypeScript simulation code (moved to private repo)
+src/
+charts/
+experiment_logs/
+logs/
+tsconfig.json
+package.json
+verify.ts
+run-tests.ts
+test/
+tests/
+
+# Dev notes (moved to private repo)
+PROJECT_CONTEXT.md
+CHANGELOG.md
+results_of_exp.md
+run_simulation.sh

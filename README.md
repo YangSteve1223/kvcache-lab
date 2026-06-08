@@ -1,105 +1,110 @@
-# kvcache-lab
+# SpectrumKV
 
 **SpectrumKV: Per-Token Mixed-Precision KV Cache Transfer for Prefill-Decode Disaggregated LLM Serving**
 
-This project implements SpectrumKV, a per-token mixed-precision KV cache transfer policy for PD-disaggregated LLM serving. Instead of the binary keep/drop decision used by prior work, SpectrumKV assigns a precision level (FP16, INT8, or INT4) to each token based on its importance, enabling better quality at the same transfer budget.
+This repository contains the official implementation and experimental data for the SpectrumKV paper.
 
-## Core Idea
+## Overview
 
-- **SWS (Semantic Working Set)**: Importance scoring for each token's KV cache entry
-- **QCBM (Quality-Constrained Bandwidth Minimization)**: Greedy precision allocation under budget constraint
-- **Probe**: Lightweight deployment-time probe to detect INT4 tolerance (3 NIAH trials → 2-tier or 3-tier)
+SpectrumKV is a per-token mixed-precision KV cache transfer policy for PD-disaggregated LLM serving. Instead of binary keep/drop decisions, SpectrumKV assigns a precision level (FP16, INT8, or INT4) to each token based on its importance, enabling better quality at the same transfer budget.
 
-## Key Results (GPU, WikiText-2 PPL)
+### Three Components
 
-| Model | Budget | SpectrumKV | PDTrim | SWS Original |
-|-------|--------|-----------|--------|-------------|
-| Qwen2.5-7B | b=0.5 | +1.97% | +25.85% | +30.9% |
-| Mistral-7B | b=0.5 | -0.06% | +22.07% | +33.2% |
-| Gemma-2-9B | b=0.5 | -0.44% | +35.63% | +43.8% |
+1. **SWS (Semantic Working Set)** — Importance scoring for each token's KV cache entry
+2. **QCBM (Quality-Constrained Bandwidth Minimization)** — Greedy precision allocation under budget constraint
+3. **Probe** — Lightweight deployment-time probe to detect INT4 tolerance (3 NIAH trials → 2-tier or 3-tier policy)
 
-**NIAH Retrieval (b=0.3)**: SpectrumKV 52.6% vs PDTrim 26.3% on Qwen; Mistral/Gemma reach 100% under 3-tier.
+## Key Results
+
+### GPU Verification — WikiText-2 PPL (b=0.5)
+
+| Model | FP16 Baseline | SpectrumKV | PDTrim | Δ vs PDTrim |
+|-------|--------------|-----------|--------|-------------|
+| Qwen2.5-7B | 7.0415 | +1.97% | +25.85% | −23.88pp |
+| Mistral-7B | 7.9568 | −0.06% | +22.07% | −22.13pp |
+| Gemma-2-9B | 11.2042 | −0.44% | +35.63% | −36.07pp |
+
+### NIAH Retrieval (b=0.3)
+
+- SpectrumKV 2-tier on Qwen: 52.6% vs PDTrim 26.3% (+26pp)
+- Mistral/Gemma 3-tier: 100% at b=0.3–0.7
+
+### Three Attention Locality Patterns
+
+| Pattern | Model | Key trait |
+|---------|-------|-----------|
+| Local-dominant | Qwen2.5-7B/14B | Recent tokens dominate |
+| Sink-dominant | Mistral-7B | First few tokens (attention sinks) dominate |
+| Hybrid | Gemma-2-9B | Both sink and recent matter; sink protection essential |
 
 ## Repository Structure
 
 ```
 kvcache-lab/
-├── paper/                          # Final paper (LaTeX + BibTeX)
-│   ├── main_v2_final.tex           # ★ Latest paper source (28 pages)
-│   ├── main_v2_final.bbl           # Compiled references (for arXiv)
-│   ├── spectrumkv_v2.bib           # BibTeX source
-│   ├── REVIEW_CRITERIA.md          # Review audit criteria
-│   ├── main_v2_polish_a/b/c/d.tex  # Polishing iterations
-│   └── main_v2.tex                 # Pre-polish version
+├── paper/                          # Paper source (LaTeX + BibTeX)
+│   ├── main_v2_final_arxiv.tex     # arXiv submission version
+│   ├── main_v2_final.tex           # Latest paper (28 pages)
+│   ├── main_v2_final.pdf           # Compiled PDF
+│   ├── spectrumkv_v2.bib           # References
+│   ├── figures/                    # Figure generation scripts + outputs
+│   └── arxiv_metadata.txt          # arXiv submission metadata
 │
-├── gpu-experiments/                 # GPU experiment scripts & results
-│   ├── exp_spectrumkv_gpu.py        # ★ Main SpectrumKV GPU experiment
-│   ├── exp_qcbm_quantization.py     # QCBM quantization experiment
-│   ├── spectrumkv_scripts/          # Helper scripts for SpectrumKV
-│   ├── run_g3_v5f2.py              # G3: SpectrumKV variants
-│   ├── run_g4_sws.py               # G4: SWS strategies
-│   ├── niah_depth_scan.py          # NIAH depth scan
-│   ├── pd_separation.py            # PD separation hook simulation
-│   ├── results/                    # Raw result JSON files
-│   └── README.md                   # Experiment documentation
+├── gpu-experiments/                # GPU experiment scripts & results
+│   ├── exp_spectrumkv_gpu.py       # Main SpectrumKV GPU experiment
+│   ├── exp_qcbm_quantization.py    # QCBM quantization experiment
+│   ├── spectrumkv_scripts/         # Helper scripts (exp1–exp4)
+│   ├── results/                    # Aggregated result JSONs
+│   └── experiment_results_new/     # Per-model experiment results (34 JSONs)
 │
-├── src/                            # Core library code
-│   ├── attention_analysis.py       # Attention locality analysis
-│   ├── semantic_working_set.py     # SWS implementation
-│   └── transmission_aware_attn.py  # TAA for KV selection
+├── spectrumkv/                     # Python package
+│   ├── core/
+│   │   ├── sws.py                  # SWS implementation
+│   │   ├── qcbm.py                 # QCBM implementation
+│   │   ├── quantizer.py            # Quantization utilities
+│   │   ├── probe.py                # Probe mechanism
+│   │   └── baselines.py            # PDTrim and other baselines
+│   ├── requirements.txt
+│   └── tests/test_core.py
 │
-├── experiments/                    # Simulation experiments
-│   ├── exp-formula-optimization.py
-│   ├── exp-qcbm-corrected-v3.py
-│   └── exp-spectrumkv-v3-fine.py
+├── spectrumkv_data/                # Processed experiment data
+│   ├── ALL_EXPERIMENT_DATA.md      # Comprehensive data document
+│   ├── exp1_ppl_*.json             # PPL results per model
+│   ├── exp2_niah_*.json            # NIAH results per model
+│   ├── exp3_quant_error_*.json     # Quantization error per model
+│   ├── exp4_layer_budget_*.json    # Layer budget allocation
+│   └── raw/                        # Unprocessed experiment logs
 │
-├── data/                           # Simulation data
-├── docs/                           # Documentation & plans
-├── logs/                           # Experiment logs
-└── osf-preprint/                   # OSF preprint files
+├── data/                           # Simulation input data
+├── docs/                           # Project documentation
+├── osf-preprint/                   # OSF preprint source
+│
+├── run_gpu_experiments.sh          # GPU experiment runner
+├── REPRODUCIBILITY.md              # Reproducibility information
+├── TABLE_MAPPING.md                # Paper table → JSON mapping
+└── LICENSE                         # MIT License
 ```
-
-## Three Attention Locality Patterns
-
-| Pattern | Model | Description |
-|---------|-------|-------------|
-| Local-dominant | Qwen2.5-7B/14B | Recent tokens dominate; sink protection less critical |
-| Sink-dominant | Mistral-7B | First few tokens (attention sinks) receive most attention |
-| Hybrid | Gemma-2-9B | Both sink and recent tokens matter; sink protection essential |
-
-## Quantization Findings
-
-- **INT8**: Safe across all models (cosine similarity > 0.9999)
-- **INT4**: Model-dependent tolerance
-  - Qwen2.5-7B: Catastrophic failure (PPL explodes)
-  - Mistral-7B: Stable
-  - Gemma-2-9B: Stable
-- **Per-layer variation**: INT4 cosine similarity varies ~2.5x across layers in Qwen → supports per-layer budget allocation
 
 ## Reproducing Experiments
 
-### GPU Experiments (requires NVIDIA GPU with vLLM)
+### GPU Experiments (requires NVIDIA GPU + vLLM)
 
 ```bash
 cd gpu-experiments
-# Run main SpectrumKV experiment
 python exp_spectrumkv_gpu.py --model Qwen/Qwen2.5-7B-Instruct
 python exp_spectrumkv_gpu.py --model mistralai/Mistral-7B-Instruct-v0.3
 python exp_spectrumkv_gpu.py --model google/gemma-2-9b-it
 ```
 
-### Simulation Experiments
+### Using the Python Package
 
 ```bash
-cd experiments
-python exp-spectrumkv-v3-fine.py
+pip install -r spectrumkv/requirements.txt
+python -c "from spectrumkv.core import sws, qcbm, probe; print('SpectrumKV loaded')"
 ```
 
-## Paper
+## Models and Environment
 
-- **arXiv**: (to be submitted)
-- **Preprint**: OSF (pending)
-- **Target venue**: MLSys 2027
+See [REPRODUCIBILITY.md](REPRODUCIBILITY.md) for full model IDs, software versions, and known environment issues.
 
 ## Citation
 
