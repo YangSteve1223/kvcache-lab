@@ -1,0 +1,15 @@
+# SpectrumKV - Python Dependencies
+
+# Core
+numpy>=1.24.0
+torch>=2.0.0
+transformers>=4.36.0
+
+# Experiment utilities
+datasets>=2.14.0
+scipy>=1.10.0
+matplotlib>=3.7.0
+
+# Optional: GPU experiments
+# vllm>=0.6.0
+# flash-attn>=2.0.0
